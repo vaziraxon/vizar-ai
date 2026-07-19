@@ -20,10 +20,7 @@ export type DataResult<T> =
  * operation — every other data-layer function should call this
  * helper rather than re-implement the check.
  */
-export async function getAuthedContext(): Promise<
-  | { ok: true; supabase: SupabaseClient<Database>; userId: string }
-  | { ok: false; error: string; reason: "not_configured" | "unauthenticated" }
-> {
+export async function getAuthedContext() {
   if (!isSupabaseConfigured()) {
     return {
       ok: false,

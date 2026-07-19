@@ -16,7 +16,7 @@ export function ClientTable({ clients }: { clients: AgencyClient[] }) {
               <th className="px-5 py-3">Viza turi</th>
               <th className="px-5 py-3">Tayyorgarlik</th>
               <th className="px-5 py-3">Holat</th>
-              <th className="px-5 py-3">Mas'ul mutaxassis</th>
+              <th className="px-5 py-3">Mas{"'"}ul mutaxassis</th>
               <th className="px-5 py-3">Yangilangan</th>
               <th className="px-5 py-3 text-right">Amallar</th>
             </tr>

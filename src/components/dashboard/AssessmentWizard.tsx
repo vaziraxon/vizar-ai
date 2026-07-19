@@ -388,7 +388,7 @@ export function AssessmentWizard({
                     <option value="">Holatni tanlang</option>
                     <option value="Tayyor">Tayyor</option>
                     <option value="Jarayonda">Jarayonda</option>
-                    <option value="Yo'q">Yo'q</option>
+                    <option value={"Yo'q"}>{"Yo'q"}</option>
                   </select>
                 </div>
               ))}
