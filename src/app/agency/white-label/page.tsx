@@ -29,7 +29,7 @@ export default function WhiteLabelPage() {
     <DashboardShell
       title="Oq etiketka (White-label) demo"
       subtitle="Brendingizni sozlang va mijoz portali ko'rinishini oldindan ko'ring."
-      navItems={AGENCY_NAV}
+      
       showOnboarding={false}
     >
       <div className="grid gap-6 lg:grid-cols-2">

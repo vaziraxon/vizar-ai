@@ -13,7 +13,6 @@ export default function AgencyPage() {
     <DashboardShell
       title="Agentlik boshqaruv paneli"
       subtitle="Barcha mijozlaringiz va arizalar bo'yicha umumiy ko'rinish."
-      navItems={AGENCY_NAV}
       showOnboarding={false}
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">

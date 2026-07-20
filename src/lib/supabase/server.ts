@@ -25,10 +25,10 @@ export function createClient() {
 
   return createServerClient<Database>(env.url, env.anonKey, {
     cookies: {
-      getAll() {
+      getAll(): ReturnType<typeof cookieStore.getAll> {
         return cookieStore.getAll();
       },
-      setAll(cookiesToSet) {
+      setAll(cookiesToSet: Array<{ name: string; value: string; options?: any }>) {
         try {
           cookiesToSet.forEach(({ name, value, options }) => {
             cookieStore.set(name, value, options);

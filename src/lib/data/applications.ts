@@ -7,12 +7,19 @@ import {
 import type { Database } from "@/types/database";
 
 export type VisaApplication = Database["public"]["Tables"]["visa_applications"]["Row"];
+export type VisaApplicationInsert = Database["public"]["Tables"]["visa_applications"]["Insert"];
 
 export async function listMyApplications(): Promise<DataResult<VisaApplication[]>> {
   const ctx = await getAuthedContext();
-  if (!ctx.ok) return ctx;
+  if (ctx.ok === false) {
+  return {
+    ok: false,
+    reason: ctx.reason,
+    error: ctx.error,
+  };
+}
 
-  const { data, error } = await ctx.supabase
+ const { data, error } = await ctx.supabase
     .from("visa_applications")
     .select("*")
     .eq("user_id", ctx.userId)
@@ -87,15 +94,17 @@ export async function createApplication(
   const ctx = await getAuthedContext();
   if (!ctx.ok) return ctx;
 
-  const { data, error } = await ctx.supabase
-    .from("visa_applications")
-    .insert({
-      user_id: ctx.userId,
-      destination_country: parsed.data.destinationCountry,
-      visa_type: parsed.data.visaType,
-      travel_purpose: parsed.data.travelPurpose ?? null,
-      travel_date: parsed.data.travelDate ?? null,
-    })
+  const insertRow: VisaApplicationInsert = {
+    user_id: ctx.userId,
+    destination_country: parsed.data.destinationCountry,
+    visa_type: parsed.data.visaType,
+    travel_purpose: parsed.data.travelPurpose ?? null,
+    travel_date: parsed.data.travelDate ?? null,
+  };
+
+  const applicationTable = ctx.supabase.from("visa_applications" as const) as any;
+  const { data, error } = await applicationTable
+    .insert([insertRow])
     .select("*")
     .single();
 

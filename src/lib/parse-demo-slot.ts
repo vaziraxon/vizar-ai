@@ -24,7 +24,8 @@ export function parseDemoSlotToIso(dateLabel: string, timeLabel: string): string
   const match = dateLabel.match(/^(\d{1,2})-([a-zA-Z']+)$/);
   if (!match) return null;
   const day = Number(match[1]);
-  const monthKey = match[2].toLowerCase();
+  const monthKey = match[2]?.toLowerCase();
+  if (!monthKey) return null;
   const month = UZ_MONTHS[monthKey];
   if (month === undefined) return null;
 

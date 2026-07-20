@@ -47,6 +47,7 @@ export interface Database {
           onboarding_completed?: boolean;
         };
         Update: Partial<Database["public"]["Tables"]["profiles"]["Insert"]>;
+        Relationships: [];
       };
       visa_applications: {
         Row: {
@@ -72,6 +73,7 @@ export interface Database {
           readiness_score?: number | null;
         };
         Update: Partial<Database["public"]["Tables"]["visa_applications"]["Insert"]>;
+        Relationships: [];
       };
       assessments: {
         Row: {
@@ -95,6 +97,7 @@ export interface Database {
           result_summary?: Json;
         };
         Update: Partial<Database["public"]["Tables"]["assessments"]["Insert"]>;
+        Relationships: [];
       };
       documents: {
         Row: {
@@ -124,6 +127,7 @@ export interface Database {
           analysis_summary?: Json;
         };
         Update: Partial<Database["public"]["Tables"]["documents"]["Insert"]>;
+        Relationships: [];
       };
       interview_sessions: {
         Row: {
@@ -150,6 +154,7 @@ export interface Database {
           feedback?: Json;
         };
         Update: Partial<Database["public"]["Tables"]["interview_sessions"]["Insert"]>;
+        Relationships: [];
       };
       recommendations: {
         Row: {
@@ -173,6 +178,7 @@ export interface Database {
           status?: string;
         };
         Update: Partial<Database["public"]["Tables"]["recommendations"]["Insert"]>;
+        Relationships: [];
       };
       consultations: {
         Row: {
@@ -195,6 +201,7 @@ export interface Database {
           notes?: string | null;
         };
         Update: Partial<Database["public"]["Tables"]["consultations"]["Insert"]>;
+        Relationships: [];
       };
       notifications: {
         Row: {
@@ -215,6 +222,7 @@ export interface Database {
           is_read?: boolean;
         };
         Update: Partial<Database["public"]["Tables"]["notifications"]["Insert"]>;
+        Relationships: [];
       };
       reports: {
         Row: {
@@ -237,6 +245,7 @@ export interface Database {
           status?: string;
         };
         Update: Partial<Database["public"]["Tables"]["reports"]["Insert"]>;
+        Relationships: [];
       };
       agency_members: {
         Row: {
@@ -253,6 +262,7 @@ export interface Database {
           role?: string;
         };
         Update: Partial<Database["public"]["Tables"]["agency_members"]["Insert"]>;
+        Relationships: [];
       };
       agency_clients: {
         Row: {
@@ -280,7 +290,10 @@ export interface Database {
           assigned_specialist?: string | null;
         };
         Update: Partial<Database["public"]["Tables"]["agency_clients"]["Insert"]>;
+        Relationships: [];
       };
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
   };
 }

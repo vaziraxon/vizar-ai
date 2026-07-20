@@ -1,9 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database } from "@/types/database";
-
-export type DataResult<T> =
+ export type DataResult<T> =
   | { ok: true; data: T }
   | {
       ok: false;
@@ -19,7 +17,7 @@ type AuthedContext =
     }
   | {
       ok: true;
-      supabase: SupabaseClient<Database>;
+      supabase: SupabaseClient<any, any, any>;
       userId: string;
     };
 

@@ -51,7 +51,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
     <DashboardShell
       title={client.name}
       subtitle={`${client.flag} ${client.country} — ${client.visaType}`}
-      navItems={AGENCY_NAV}
+      
       showOnboarding={false}
     >
       <div className="grid gap-6 lg:grid-cols-3">
