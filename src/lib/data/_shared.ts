@@ -5,35 +5,42 @@ import type { Database } from "@/types/database";
 
 export type DataResult<T> =
   | { ok: true; data: T }
-  | { ok: false; error: string; reason: "not_configured" | "unauthenticated" | "db_error" };
+  | {
+      ok: false;
+      error: string;
+      reason: "not_configured" | "unauthenticated" | "db_error";
+    };
+
+type AuthedContext =
+  | {
+      ok: false;
+      reason: "not_configured" | "unauthenticated";
+      error: string;
+    }
+  | {
+      ok: true;
+      supabase: SupabaseClient<Database>;
+      userId: string;
+    };
 
 /**
- * Every function in src/lib/data/*.ts calls this first. It:
- *  1. Confirms Supabase is configured (returns a typed "not_configured"
- *     result instead of throwing, so pages can render the fallback
- *     notice — see SupabaseSetupNotice).
- *  2. Reads the authenticated user from the current session (never
- *     from a client-supplied value).
- *
- * This is the ONLY place in the codebase that should call
- * `supabase.auth.getUser()` for the purpose of authorizing a data
- * operation — every other data-layer function should call this
- * helper rather than re-implement the check.
+ * Every function in src/lib/data/*.ts calls this first.
  */
-export async function getAuthedContext() {
+export async function getAuthedContext(): Promise<AuthedContext> {
   if (!isSupabaseConfigured()) {
     return {
-      ok: false as const,
-      reason: "not_configured"as const,
+      ok: false,
+      reason: "not_configured",
       error: "Supabase sozlanmagan.",
     };
   }
 
   const supabase = createClient();
+
   if (!supabase) {
     return {
-      ok: false as const,
-      reason: "not_configured" as const,
+      ok: false,
+      reason: "not_configured",
       error: "Supabase sozlanmagan.",
     };
   }
@@ -44,24 +51,29 @@ export async function getAuthedContext() {
 
   if (!user) {
     return {
-      ok: false as const,
-      reason: "unauthenticated" as const,
+      ok: false,
+      reason: "unauthenticated",
       error: "Tizimga kirmagansiz.",
     };
   }
 
-  return { ok: true as const, supabase, userId: user.id };
+  return {
+    ok: true,
+    supabase,
+    userId: user.id,
+  };
 }
 
 /**
- * Maps a Postgres/Supabase error to a generic, safe-to-display Uzbek
- * message. Never forward `error.message` from Supabase directly to
- * the UI — it can contain internal schema/query details.
+ * Maps a Supabase error to a safe Uzbek message.
  */
 export function genericDbError(): DataResult<never> {
   return {
-    ok: false as const,
-    reason: "db_error" as const,
-    error: "Ma'lumotlarni yuklab yoki saqlab bo'lmadi. Birozdan so'ng qayta urinib ko'ring.",
+    ok: false,
+    reason: "db_error",
+    error:
+      "Ma'lumotlarni yuklab yoki saqlab bo'lmadi. Birozdan so'ng qayta urinib ko'ring.",
   };
 }
+  
+
