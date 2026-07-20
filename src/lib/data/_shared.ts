@@ -23,8 +23,8 @@ export type DataResult<T> =
 export async function getAuthedContext() {
   if (!isSupabaseConfigured()) {
     return {
-      ok: false,
-      reason: "not_configured",
+      ok: false as const,
+      reason: "not_configured"as const,
       error: "Supabase sozlanmagan.",
     };
   }
@@ -32,8 +32,8 @@ export async function getAuthedContext() {
   const supabase = createClient();
   if (!supabase) {
     return {
-      ok: false,
-      reason: "not_configured",
+      ok: false as const,
+      reason: "not_configured" as const,
       error: "Supabase sozlanmagan.",
     };
   }
@@ -44,13 +44,13 @@ export async function getAuthedContext() {
 
   if (!user) {
     return {
-      ok: false,
-      reason: "unauthenticated",
+      ok: false as const,
+      reason: "unauthenticated" as const,
       error: "Tizimga kirmagansiz.",
     };
   }
 
-  return { ok: true, supabase, userId: user.id };
+  return { ok: true as const, supabase, userId: user.id };
 }
 
 /**
@@ -60,8 +60,8 @@ export async function getAuthedContext() {
  */
 export function genericDbError(): DataResult<never> {
   return {
-    ok: false,
-    reason: "db_error",
+    ok: false as const,
+    reason: "db_error" as const,
     error: "Ma'lumotlarni yuklab yoki saqlab bo'lmadi. Birozdan so'ng qayta urinib ko'ring.",
   };
 }
