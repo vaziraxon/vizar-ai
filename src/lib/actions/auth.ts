@@ -36,6 +36,19 @@ function friendlyAuthError(message: string): string {
   return "Amalni bajarib bo'lmadi. Birozdan so'ng qayta urinib ko'ring.";
 }
 
+function normalizePhone(rawPhone: FormDataEntryValue | null): string {
+  if (typeof rawPhone !== "string") return "";
+  return rawPhone.trim().replace(/[^\d+]/g, "");
+}
+
+function logAuthError(action: string, error: unknown) {
+  if (error instanceof Error) {
+    console.error(`[auth:${action}] ${error.message}`);
+  } else {
+    console.error(`[auth:${action}]`, error);
+  }
+}
+
 export async function loginAction(formData: FormData): Promise<AuthActionResult> {
   if (!isSupabaseConfigured()) {
     return { ok: false, error: "Supabase sozlanmagan." };
@@ -70,7 +83,7 @@ export async function registerAction(formData: FormData): Promise<AuthActionResu
     firstName: formData.get("firstName"),
     lastName: formData.get("lastName"),
     email: formData.get("email"),
-    phone: formData.get("phone"),
+    phone: normalizePhone(formData.get("phone")),
     password: formData.get("password"),
     confirmPassword: formData.get("confirmPassword"),
     termsAccepted: formData.get("termsAccepted") === "true",
@@ -97,8 +110,11 @@ export async function registerAction(formData: FormData): Promise<AuthActionResu
   // The `handle_new_user` trigger in supabase/schema.sql creates the
   // matching profiles row automatically once auth.users gets the new
   // row — no separate profile-creation call is needed here.
+  if (error) {
+    logAuthError("register", error);
+    return { ok: false, error: friendlyAuthError(error.message) };
+  }
 
-  if (error) return { ok: false, error: friendlyAuthError(error.message) };
   return { ok: true };
 }
 
