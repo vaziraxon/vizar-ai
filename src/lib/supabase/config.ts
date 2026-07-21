@@ -12,6 +12,17 @@ export interface SupabaseEnv {
   anonKey: string;
 }
 
+export function isSupabaseAnonKey(key: string | null): key is string {
+  return (
+    typeof key === "string" &&
+    (key.startsWith("sb_publishable_") || key.startsWith("sbp_") || key.startsWith("anon_"))
+  );
+}
+
+export function isSupabaseServiceRoleKey(key: string | null): key is string {
+  return typeof key === "string" && key.startsWith("sb_secret_");
+}
+
 /**
  * Returns the Supabase env vars if both are present, otherwise `null`.
  * Callers should treat `null` as "Supabase isn't configured yet" and
@@ -19,11 +30,24 @@ export interface SupabaseEnv {
  * `isSupabaseConfigured()` below and the fallback notice component at
  * `src/components/dev/SupabaseSetupNotice.tsx`.
  */
-export function getSupabaseEnv(): SupabaseEnv | null {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+export function getSupabaseUrl(): string | null {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? null;
+  if (!url) {
+    console.error("[supabase] NEXT_PUBLIC_SUPABASE_URL is missing.");
+  }
+  return url;
+}
 
-  if (!url || !anonKey) {
+export function getSupabaseEnv(): SupabaseEnv | null {
+  const url = getSupabaseUrl();
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? null;
+
+  if (!url || !isSupabaseAnonKey(anonKey)) {
+    if (anonKey && !isSupabaseAnonKey(anonKey)) {
+      console.error(
+        "[supabase] NEXT_PUBLIC_SUPABASE_ANON_KEY is set but invalid. Use a publishable key beginning with `sb_publishable_`, `sbp_`, or `anon_`."
+      );
+    }
     return null;
   }
   return { url, anonKey };
@@ -33,14 +57,17 @@ export function isSupabaseConfigured(): boolean {
   return getSupabaseEnv() !== null;
 }
 
-/**
- * Returns the service role key if set in the environment. This key
- * must never be exposed to client code — only use it in server-only
- * code paths (Route Handlers / Server Actions) after reviewing the
- * security implications.
- */
 export function getSupabaseServiceRoleKey(): string | null {
-  return process.env.SUPABASE_SERVICE_ROLE_KEY ?? null;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY ?? null;
+  if (!isSupabaseServiceRoleKey(key)) {
+    if (key) {
+      console.error(
+        "[supabase] SUPABASE_SERVICE_ROLE_KEY is set but invalid. Use a `sb_secret_...` service role key, not a legacy `service_role` JWT key."
+      );
+    }
+    return null;
+  }
+  return key;
 }
 
 /**

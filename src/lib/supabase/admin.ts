@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/types/database";
-import { getSupabaseEnv, getSupabaseServiceRoleKey } from "./config";
+import { getSupabaseUrl, getSupabaseServiceRoleKey } from "./config";
 
 /**
  * Creates a server-only Supabase client using the service role key.
@@ -8,11 +8,11 @@ import { getSupabaseEnv, getSupabaseServiceRoleKey } from "./config";
  * can fall back to non-privileged behavior.
  */
 export function createAdminClient() {
-  const env = getSupabaseEnv();
+  const url = getSupabaseUrl();
   const serviceKey = getSupabaseServiceRoleKey();
-  if (!env || !serviceKey) return null;
+  if (!url || !serviceKey) return null;
 
-  return createClient<Database>(env.url, serviceKey, {
+  return createClient<Database>(url, serviceKey, {
     auth: { persistSession: false },
   });
 }
