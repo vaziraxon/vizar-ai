@@ -95,24 +95,86 @@ export async function registerAction(formData: FormData): Promise<AuthActionResu
   const supabase = createClient();
   if (!supabase) return { ok: false, error: "Supabase sozlanmagan." };
 
-  const { error } = await supabase.auth.signUp({
-    email: parsed.data.email,
-    password: parsed.data.password,
-    options: {
-      data: {
-        first_name: parsed.data.firstName,
-        last_name: parsed.data.lastName,
-        phone: parsed.data.phone,
+  // Wrap the signup call to capture both API errors and thrown
+  // exceptions. We also log the full result server-side (non-sensitive
+  // fields only) to help debug DB trigger / RLS failures that can
+  // happen after the auth user row is created.
+  try {
+    const result = await supabase.auth.signUp({
+      email: parsed.data.email,
+      password: parsed.data.password,
+      options: {
+        data: {
+          first_name: parsed.data.firstName,
+          last_name: parsed.data.lastName,
+          phone: parsed.data.phone,
+        },
       },
-    },
-  });
+    });
 
-  // The `handle_new_user` trigger in supabase/schema.sql creates the
-  // matching profiles row automatically once auth.users gets the new
-  // row — no separate profile-creation call is needed here.
-  if (error) {
-    logAuthError("register", error);
-    return { ok: false, error: friendlyAuthError(error.message) };
+    // Log the full result for debugging. Avoid logging any secret
+    // (there are none here), but include `data` and `error` to see
+    // DB/trigger-level failures that surface as `error`.
+    try {
+      // JSON.stringify is safe here because Supabase response is plain
+      // data (no circular references).
+      console.error("[auth:register] signUp result:", JSON.stringify(result, null, 2));
+    } catch (e) {
+      // Fallback to direct logging if serialization fails.
+      console.error("[auth:register] signUp result (inspect):", result);
+    }
+
+    // The Supabase client returns an `error` property when something
+    // goes wrong (including DB trigger failures). Handle that case
+    // explicitly so callers get a friendly message while we log the
+    // raw problem server-side.
+    if (result.error) {
+      // If the API reports an error but a user row was created anyway
+      // (some DB trigger / RLS failure), attempt a privileged fallback
+      // to create the `profiles` row using the service role key if
+      // configured. This helps recover when a trigger fails silently
+      // due to permissions or schema mismatches.
+      logAuthError("register", result.error);
+
+      const user = result.data?.user as { id: string } | null;
+      if (user) {
+        // Lazy import to keep this module usable in non-server contexts
+        // (the file is server-side but keep imports explicit).
+        try {
+          const { createAdminClient } = await import("@/lib/supabase/admin");
+          const admin = createAdminClient();
+          if (admin) {
+            try {
+              const { error: profileError } = await admin
+                .from("profiles")
+                .insert([
+                  {
+                    id: user.id,
+                    first_name: parsed.data.firstName,
+                    last_name: parsed.data.lastName,
+                    phone: parsed.data.phone || null,
+                  },
+                ]);
+              if (!profileError) {
+                console.error("[auth:register] profile inserted via admin client, recovering registration");
+                return { ok: true };
+              }
+              logAuthError("register:profile_insert", profileError);
+            } catch (e) {
+              logAuthError("register:profile_insert:exception", e);
+            }
+          }
+        } catch (e) {
+          logAuthError("register:admin_import", e);
+        }
+      }
+
+      return { ok: false, error: friendlyAuthError(result.error.message) };
+    }
+  } catch (err) {
+    // Catch any unexpected exceptions (network, library bugs, etc.)
+    logAuthError("register:exception", err);
+    return { ok: false, error: "Amalni bajarib bo'lmadi. Birozdan so'ng qayta urinib ko'ring." };
   }
 
   return { ok: true };

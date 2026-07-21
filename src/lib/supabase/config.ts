@@ -34,6 +34,16 @@ export function isSupabaseConfigured(): boolean {
 }
 
 /**
+ * Returns the service role key if set in the environment. This key
+ * must never be exposed to client code — only use it in server-only
+ * code paths (Route Handlers / Server Actions) after reviewing the
+ * security implications.
+ */
+export function getSupabaseServiceRoleKey(): string | null {
+  return process.env.SUPABASE_SERVICE_ROLE_KEY ?? null;
+}
+
+/**
  * Human-readable, non-sensitive message for missing configuration.
  * Never include the actual (partial) key or URL value in logs or UI —
  * this message is safe to render directly.
