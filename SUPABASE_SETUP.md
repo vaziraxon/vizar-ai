@@ -154,7 +154,13 @@ sahifalarga kira olmasligingiz kerak.
   ko'rish faqat vaqtinchalik signed URL orqali amalga oshiriladi.
 - Bu MVP hali quyidagilarni **amalga oshirmagan** (keyingi bosqichlar
   uchun TODO sifatida qoldirilgan):
-  - Autentifikatsiya va yuklashlar uchun rate-limiting
+  - Autentifikatsiya uchun **best-effort** in-memory rate-limiting
+    qo'shildi (`src/lib/rate-limit.ts`, 2026-08-23) — login/register/
+    parolni tiklash server action'lariga ulangan. Bu faqat bitta
+    process ichida ishlaydi; ko'p-instansli serverless muhitda to'liq
+    himoya emas. Production uchun umumiy (shared) do'kon — masalan
+    Upstash Redis — hali TODO.
+  - Fayl yuklashlar uchun rate-limiting hali yo'q.
   - Haqiqiy OCR yoki AI tahlil xizmati (hozircha barcha AI natijalari
     simulyatsiya qilingan va shunday deb belgilangan)
   - Hisobni real o'chirish (admin/service-role orqali server
@@ -162,6 +168,35 @@ sahifalarga kira olmasligingiz kerak.
   - Shaxsiy hujjatlarni qayta ishlash bo'yicha rasmiy xavfsizlik va
     maxfiylik auditi — buni haqiqiy foydalanuvchi hujjatlarini qabul
     qilishdan oldin bajarish shart
+  - `/admin` va `/agency` sahifalari faqat "tizimga kirgan" bo'lishni
+    tekshiradi (middleware orqali) — rol asosida ruxsat (masalan,
+    haqiqiy admin/staff roli) hali yo'q. Hozircha ikkalasi ham 100%
+    demo/mock ma'lumot ko'rsatadi, shuning uchun xavf past, lekin
+    haqiqiy ma'lumot ulanishidan oldin bu qo'shilishi shart.
+
+## Production'ga chiqarishdan oldin tekshirish ro'yxati
+
+Quyidagilar kod orqali emas, balki Supabase/hosting sozlamalari orqali
+qilinishi kerak — shuning uchun bu loyiha ularni avtomatik hal qila
+olmaydi:
+
+1. **Supabase Auth redirect URL'lari** — hozircha faqat
+   `http://localhost:3000` sozlangan (7-bosqich yuqorida). Production
+   domeningizni **Authentication → URL Configuration** bo'limidagi
+   **Site URL** va **Redirect URLs** ro'yxatiga qo'shmaguningizcha,
+   parolni tiklash va emailni tasdiqlash havolalari haqiqiy
+   foydalanuvchilar uchun ishlamaydi.
+2. **`NEXT_PUBLIC_SITE_URL`** — hosting muhitingizda (Vercel va h.k.)
+   bu o'zgaruvchini haqiqiy domeningizga o'rnating. Agar
+   o'rnatilmasa, parolni tiklash havolalari `http://localhost:3000`ga
+   yo'naltiriladi (`src/lib/actions/auth.ts`dagi
+   `getPublicSiteUrl()` shuni konsolga ogohlantiradi, lekin
+   xatolikni to'xtatmaydi). `.env.example` faylida namuna bor.
+3. **Rate-limiting** — yuqoridagi eslatmaga qarang: joriy himoya
+   faqat boshlang'ich daraja. Ko'p trafik yoki jiddiy ishga tushirish
+   oldidan umumiy (shared) rate-limiter ko'rib chiqilsin.
+4. **`/admin` va `/agency`** — real foydalanuvchi ma'lumotlarini
+   ulashdan oldin rol asosida ruxsatni qo'shish kerak.
 
 ## Turlarni qayta generatsiya qilish (kelajakda)
 
