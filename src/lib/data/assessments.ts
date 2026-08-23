@@ -108,27 +108,26 @@ export async function completeAssessment(
 ): Promise<DataResult<{ assessment: Assessment; score: number; riskLevel: RiskLevel }>> {
   const parsed = assessmentCompleteSchema.safeParse(input);
 
-if (!parsed.success) {
-  console.log(parsed.error.flatten());
-return {
-    ok: false,
-    reason: "db_error",
-    error:
-      parsed.error.issues[0]?.message ??
-      "Kiritilgan ma'lumotlar noto'g'ri.",
-  };
-}
+  if (!parsed.success) {
+    return {
+      ok: false,
+      reason: "db_error",
+      error:
+        parsed.error.issues[0]?.message ??
+        "Kiritilgan ma'lumotlar noto'g'ri.",
+    };
+  }
 
-const ctx = await getAuthedContext();
-if (!ctx.ok) return ctx;
+  const ctx = await getAuthedContext();
+  if (!ctx.ok) return ctx;
 
-const { score, riskLevel } = computeMockScore(parsed.data.answers);
+  const { score, riskLevel } = computeMockScore(parsed.data.answers);
 
-const existing = await getAssessmentForApplication(
-  parsed.data.applicationId
-);
-if (!existing.ok) return existing;
-const resultSummary: Json = {
+  const existing = await getAssessmentForApplication(
+    parsed.data.applicationId
+  );
+  if (!existing.ok) return existing;
+  const resultSummary: Json = {
     generatedAt: new Date().toISOString(),
     note: "Demo baholash — haqiqiy AI xizmati emas.",
   };
