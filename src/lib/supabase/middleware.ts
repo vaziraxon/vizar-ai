@@ -1,7 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/types/database";
 import { getSupabaseEnv } from "./config";
+import { isAdminEmail } from "./authz";
 
 const PROTECTED_PREFIXES = [
   "/dashboard",
@@ -82,6 +84,54 @@ export async function updateSession(request: NextRequest) {
 
   if (isAuthOnlyWhenLoggedOut && user) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  // Role-gated sections. By this point an unauthenticated request has
+  // already been redirected to /login above (both /admin and /agency
+  // are in PROTECTED_PREFIXES), so `user` is guaranteed non-null here.
+  // See src/lib/supabase/authz.ts for why /admin works the way it does.
+  if (user) {
+    const isAdminRoute = pathname === "/admin" || pathname.startsWith("/admin/");
+    if (isAdminRoute && !isAdminEmail(user.email)) {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+
+    const isAgencyRoute = pathname === "/agency" || pathname.startsWith("/agency/");
+    if (isAgencyRoute) {
+      // Access if either: the profile is set to the "agency" account
+      // type (self-service via Settings), or the user is listed in
+      // agency_members (no UI populates this table today, but honor
+      // it if it's ever set directly in Supabase).
+      //
+      // Typed loosely here (matching the SupabaseClient<any, any, any>
+      // convention already used by every src/lib/data/*.ts file via
+      // getAuthedContext in _shared.ts) — the strictly Database-typed
+      // client's query builder collapses specific-column .select()
+      // results to `never` in this supabase-js version, so the rest
+      // of the codebase sidesteps it the same way rather than fighting
+      // the generics for a query this simple.
+      const authzClient = supabase as SupabaseClient<any, any, any>;
+      const { data: profile } = await authzClient
+        .from("profiles")
+        .select("account_type")
+        .eq("id", user.id)
+        .maybeSingle();
+
+      let allowed = profile?.account_type === "agency";
+      if (!allowed) {
+        const { data: membership } = await authzClient
+          .from("agency_members")
+          .select("id")
+          .eq("member_user_id", user.id)
+          .limit(1)
+          .maybeSingle();
+        allowed = !!membership;
+      }
+
+      if (!allowed) {
+        return NextResponse.redirect(new URL("/dashboard", request.url));
+      }
+    }
   }
 
   return response;
