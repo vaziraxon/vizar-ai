@@ -97,7 +97,7 @@ export async function loginAction(formData: FormData): Promise<AuthActionResult>
   // Best-effort brute-force mitigation: cap attempts per IP+email pair.
   // See src/lib/rate-limit.ts for limitations of this approach.
   const ip = getClientIp(headers());
-  const loginLimit = rateLimit(`login:${ip}:${parsed.data.email}`, 10, 5 * 60 * 1000);
+  const loginLimit = await rateLimit(`login:${ip}:${parsed.data.email}`, 10, 5 * 60 * 1000);
   if (!loginLimit.allowed) {
     return { ok: false, error: RATE_LIMIT_MESSAGE };
   }
@@ -138,7 +138,7 @@ export async function registerAction(formData: FormData): Promise<AuthActionResu
   // protects the real registration flow regardless of caller.
   // See src/lib/rate-limit.ts for limitations of this approach.
   const ip = getClientIp(headers());
-  const registerLimit = rateLimit(`register:${ip}`, 5, 60 * 60 * 1000);
+  const registerLimit = await rateLimit(`register:${ip}`, 5, 60 * 60 * 1000);
   if (!registerLimit.allowed) {
     return { ok: false, error: RATE_LIMIT_MESSAGE };
   }
@@ -254,7 +254,7 @@ export async function requestPasswordResetAction(
   // Best-effort abuse mitigation: cap reset requests per IP+email.
   // See src/lib/rate-limit.ts for limitations of this approach.
   const ip = getClientIp(headers());
-  const resetLimit = rateLimit(`password_reset:${ip}:${parsed.data.email}`, 3, 15 * 60 * 1000);
+  const resetLimit = await rateLimit(`password_reset:${ip}:${parsed.data.email}`, 3, 15 * 60 * 1000);
   if (!resetLimit.allowed) {
     // Still return ok:true shape (no `error`) would leak nothing, but
     // here we intentionally surface the rate-limit message rather than

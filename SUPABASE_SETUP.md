@@ -154,12 +154,14 @@ sahifalarga kira olmasligingiz kerak.
   ko'rish faqat vaqtinchalik signed URL orqali amalga oshiriladi.
 - Bu MVP hali quyidagilarni **amalga oshirmagan** (keyingi bosqichlar
   uchun TODO sifatida qoldirilgan):
-  - Autentifikatsiya uchun **best-effort** in-memory rate-limiting
-    qo'shildi (`src/lib/rate-limit.ts`, 2026-08-23) — login/register/
-    parolni tiklash server action'lariga ulangan. Bu faqat bitta
-    process ichida ishlaydi; ko'p-instansli serverless muhitda to'liq
-    himoya emas. Production uchun umumiy (shared) do'kon — masalan
-    Upstash Redis — hali TODO.
+  - Autentifikatsiya uchun rate-limiting qo'shildi
+    (`src/lib/rate-limit.ts`, 2026-08-23). Ikki rejimda ishlaydi:
+    `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN` o'rnatilsa,
+    Upstash Redis REST API orqali barcha instance/region'lar bo'ylab
+    umumiy (shared) hisoblagichdan foydalanadi — production uchun
+    xavfsiz. O'rnatilmasa, bitta process ichidagi in-memory
+    hisoblagichga tushadi (ko'p-instansli muhitda to'liq himoya
+    emas). Upstash'ni ishga tushirish uchun `.env.example`ga qarang.
   - Fayl yuklashlar uchun rate-limiting hali yo'q.
   - Haqiqiy OCR yoki AI tahlil xizmati (hozircha barcha AI natijalari
     simulyatsiya qilingan va shunday deb belgilangan)
@@ -168,11 +170,15 @@ sahifalarga kira olmasligingiz kerak.
   - Shaxsiy hujjatlarni qayta ishlash bo'yicha rasmiy xavfsizlik va
     maxfiylik auditi — buni haqiqiy foydalanuvchi hujjatlarini qabul
     qilishdan oldin bajarish shart
-  - `/admin` va `/agency` sahifalari faqat "tizimga kirgan" bo'lishni
-    tekshiradi (middleware orqali) — rol asosida ruxsat (masalan,
-    haqiqiy admin/staff roli) hali yo'q. Hozircha ikkalasi ham 100%
-    demo/mock ma'lumot ko'rsatadi, shuning uchun xavf past, lekin
-    haqiqiy ma'lumot ulanishidan oldin bu qo'shilishi shart.
+  - `/admin` va `/agency` endi rol asosida cheklangan
+    (`src/lib/supabase/authz.ts` va `middleware.ts`, 2026-08-23):
+    `/admin` — `ADMIN_EMAILS` ro'yxatidagi email'lar bilan; `/agency`
+    — `account_type = 'agency'` bo'lgan profil yoki `agency_members`
+    a'zoligi bilan. Haqiqiy admin roli sxemada hali yo'q (buning uchun
+    migratsiya kerak bo'ladi, bu loyiha esa service-role kalitisiz
+    uni ishga tushira olmaydi) — shuning uchun `ADMIN_EMAILS` vaqtincha
+    yechim. Ikkala sahifa ham hozircha 100% demo/mock ma'lumot
+    ko'rsatadi.
 
 ## Production'ga chiqarishdan oldin tekshirish ro'yxati
 
@@ -192,11 +198,16 @@ olmaydi:
    yo'naltiriladi (`src/lib/actions/auth.ts`dagi
    `getPublicSiteUrl()` shuni konsolga ogohlantiradi, lekin
    xatolikni to'xtatmaydi). `.env.example` faylida namuna bor.
-3. **Rate-limiting** — yuqoridagi eslatmaga qarang: joriy himoya
-   faqat boshlang'ich daraja. Ko'p trafik yoki jiddiy ishga tushirish
-   oldidan umumiy (shared) rate-limiter ko'rib chiqilsin.
-4. **`/admin` va `/agency`** — real foydalanuvchi ma'lumotlarini
-   ulashdan oldin rol asosida ruxsatni qo'shish kerak.
+3. **Rate-limiting** — `UPSTASH_REDIS_REST_URL` va
+   `UPSTASH_REDIS_REST_TOKEN`ni o'rnating (bepul: console.upstash.com'da
+   Redis bazasi yarating). O'rnatilmasa, ilova baribir ishlaydi, lekin
+   faqat bitta process ichida himoyalanadi.
+4. **`ADMIN_EMAILS`** — `/admin`ni ko'rish uchun o'z emailingizni shu
+   ro'yxatga qo'shing (vergul bilan ajratib bir nechta email
+   qo'shsa bo'ladi). O'rnatilmaguncha hech kim, hatto siz ham,
+   `/admin`ga kira olmaysiz — bu ataylab shunday (fail-closed).
+5. **`/agency`** — o'z hisobingizda ko'rish uchun Sozlamalar
+   sahifasida "Hisob turi"ni **Agentlik**ka o'zgartiring.
 
 ## Turlarni qayta generatsiya qilish (kelajakda)
 
