@@ -60,6 +60,11 @@ export default function RegisterPage() {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+
+    if (loading || !configured) {
+      return;
+    }
+
     setFormError("");
     if (!validate()) return;
 
@@ -209,13 +214,24 @@ export default function RegisterPage() {
           <p className="text-body-sm font-medium text-red-600">{formError}</p>
         )}
 
-        <Button type="submit" size="md" className="w-full" disabled={loading || !configured}>
+        <Button
+          type="submit"
+          size="md"
+          className="w-full"
+          disabled={loading || !configured}
+          aria-busy={loading}
+        >
           {loading ? (
-            <Loader2 size={18} className="animate-spin" />
+            <>
+              <Loader2 size={18} className="animate-spin" />
+              Yuborilmoqda...
+            </>
           ) : (
-            <UserPlus size={18} />
+            <>
+              <UserPlus size={18} />
+              Ro&apos;yxatdan o&apos;tish
+            </>
           )}
-          Ro&apos;yxatdan o&apos;tish
         </Button>
 
         <p className="text-center text-body-sm text-ink-600 dark:text-white/60">

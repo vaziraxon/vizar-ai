@@ -22,8 +22,14 @@ interface AuthActionResult {
  * messages. We deliberately don't forward Supabase's raw error text —
  * it can reveal internals (e.g. confirm whether an email exists).
  */
-function friendlyAuthError(message: string): string {
+function friendlyAuthError(message: string, meta?: { code?: string; status?: number }): string {
   const lower = message.toLowerCase();
+  const code = (meta?.code ?? "").toLowerCase();
+  const status = meta?.status;
+
+  if (status === 429 || code.includes("over_email_send_rate_limit") || lower.includes("rate limit exceeded")) {
+    return "Juda ko'p urinish amalga oshirildi. Iltimos, biroz kutib qayta urinib ko'ring.";
+  }
   if (lower.includes("invalid login credentials")) {
     return "Email yoki parol noto'g'ri.";
   }
@@ -32,6 +38,9 @@ function friendlyAuthError(message: string): string {
   }
   if (lower.includes("email not confirmed")) {
     return "Iltimos, avval emailingizni tasdiqlang.";
+  }
+  if (lower.includes("password") && lower.includes("weak")) {
+    return "Parol yetarlicha mustahkam emas. Kamida 6 ta belgi kiriting.";
   }
   return "Amalni bajarib bo'lmadi. Birozdan so'ng qayta urinib ko'ring.";
 }
@@ -42,11 +51,29 @@ function normalizePhone(rawPhone: FormDataEntryValue | null): string {
 }
 
 function logAuthError(action: string, error: unknown) {
-  if (error instanceof Error) {
-    console.error(`[auth:${action}] ${error.message}`);
-  } else {
-    console.error(`[auth:${action}]`, error);
+  const structured = {
+    action,
+    error:
+      error instanceof Error
+        ? {
+            name: error.name,
+            message: error.message,
+            stack: error.stack,
+          }
+        : error,
+  };
+
+  console.error(`[auth:${action}]`, JSON.stringify(structured, null, 2));
+}
+
+function getPublicSiteUrl(): string {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? "http://localhost:3000";
+
+  if (!siteUrl || siteUrl === "http://localhost:3000") {
+    console.warn("[auth] NEXT_PUBLIC_SITE_URL is not configured for production; using localhost fallback.");
   }
+
+  return siteUrl;
 }
 
 export async function loginAction(formData: FormData): Promise<AuthActionResult> {
@@ -116,11 +143,13 @@ export async function registerAction(formData: FormData): Promise<AuthActionResu
     // (there are none here), but include `data` and `error` to see
     // DB/trigger-level failures that surface as `error`.
     try {
-      // JSON.stringify is safe here because Supabase response is plain
-      // data (no circular references).
-      console.error("[auth:register] signUp result:", JSON.stringify(result, null, 2));
+      console.error("[auth:register] signUp result:", JSON.stringify({
+        code: result.error?.code ?? null,
+        status: result.error?.status ?? null,
+        message: result.error?.message ?? null,
+        user: result.data?.user ? { id: result.data.user.id } : null,
+      }, null, 2));
     } catch (e) {
-      // Fallback to direct logging if serialization fails.
       console.error("[auth:register] signUp result (inspect):", result);
     }
 
@@ -169,7 +198,13 @@ export async function registerAction(formData: FormData): Promise<AuthActionResu
         }
       }
 
-      return { ok: false, error: friendlyAuthError(result.error.message) };
+      return {
+        ok: false,
+        error: friendlyAuthError(result.error.message, {
+          code: result.error.code,
+          status: result.error.status,
+        }),
+      };
     }
   } catch (err) {
     // Catch any unexpected exceptions (network, library bugs, etc.)
@@ -198,7 +233,7 @@ export async function requestPasswordResetAction(
   // NOTE: the redirect URL below must also be added to the Supabase
   // project's Auth > URL Configuration allow-list — see
   // SUPABASE_SETUP.md, step 10.
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const siteUrl = getPublicSiteUrl();
   const { error } = await supabase.auth.resetPasswordForEmail(parsed.data.email, {
     redirectTo: `${siteUrl}/auth/callback?next=/settings`,
   });
@@ -206,7 +241,14 @@ export async function requestPasswordResetAction(
   // Always return ok:true regardless of whether the email exists, to
   // avoid leaking which emails are registered.
   if (error) {
-    return { ok: false, error: "Amalni bajarib bo'lmadi. Birozdan so'ng qayta urinib ko'ring." };
+    logAuthError("password_reset", error);
+    return {
+      ok: false,
+      error: friendlyAuthError(error.message, {
+        code: error.code,
+        status: error.status,
+      }),
+    };
   }
   return { ok: true };
 }
