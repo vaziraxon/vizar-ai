@@ -1,13 +1,18 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import {
   loginSchema,
   registerSchema,
   forgotPasswordSchema,
 } from "@/lib/validation/schemas";
+
+const RATE_LIMIT_MESSAGE =
+  "Juda ko'p urinish amalga oshirildi. Iltimos, birozdan so'ng qayta urinib ko'ring.";
 
 // NOTE: "use server" files may only export async functions — this
 // type is intentionally NOT exported; callers rely on structural
@@ -89,6 +94,14 @@ export async function loginAction(formData: FormData): Promise<AuthActionResult>
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Ma'lumotlar noto'g'ri." };
   }
 
+  // Best-effort brute-force mitigation: cap attempts per IP+email pair.
+  // See src/lib/rate-limit.ts for limitations of this approach.
+  const ip = getClientIp(headers());
+  const loginLimit = rateLimit(`login:${ip}:${parsed.data.email}`, 10, 5 * 60 * 1000);
+  if (!loginLimit.allowed) {
+    return { ok: false, error: RATE_LIMIT_MESSAGE };
+  }
+
   const supabase = createClient();
   if (!supabase) return { ok: false, error: "Supabase sozlanmagan." };
 
@@ -117,6 +130,17 @@ export async function registerAction(formData: FormData): Promise<AuthActionResu
   });
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Ma'lumotlar noto'g'ri." };
+  }
+
+  // Best-effort abuse mitigation: cap signups per IP. This is the
+  // action the old public /api/test-register debug routes used to
+  // hit unauthenticated on every request — rate limiting it here
+  // protects the real registration flow regardless of caller.
+  // See src/lib/rate-limit.ts for limitations of this approach.
+  const ip = getClientIp(headers());
+  const registerLimit = rateLimit(`register:${ip}`, 5, 60 * 60 * 1000);
+  if (!registerLimit.allowed) {
+    return { ok: false, error: RATE_LIMIT_MESSAGE };
   }
 
   const supabase = createClient();
@@ -225,6 +249,18 @@ export async function requestPasswordResetAction(
   const parsed = forgotPasswordSchema.safeParse({ email: formData.get("email") });
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Email noto'g'ri." };
+  }
+
+  // Best-effort abuse mitigation: cap reset requests per IP+email.
+  // See src/lib/rate-limit.ts for limitations of this approach.
+  const ip = getClientIp(headers());
+  const resetLimit = rateLimit(`password_reset:${ip}:${parsed.data.email}`, 3, 15 * 60 * 1000);
+  if (!resetLimit.allowed) {
+    // Still return ok:true shape (no `error`) would leak nothing, but
+    // here we intentionally surface the rate-limit message rather than
+    // silently succeeding, since that's more useful feedback and does
+    // not reveal whether the email exists either way.
+    return { ok: false, error: RATE_LIMIT_MESSAGE };
   }
 
   const supabase = createClient();
