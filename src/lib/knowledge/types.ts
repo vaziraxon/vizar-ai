@@ -65,9 +65,28 @@ export interface KbReference {
   cited: boolean;
 }
 
+/**
+ * How an answer was produced: "ai" (Claude), "retrieval" (book passages
+ * only — AI off or unavailable), "mock" (development test answer).
+ */
+export type AnswerMode = "ai" | "retrieval" | "mock";
+
 /** NDJSON events streamed by POST /api/knowledge/ask. */
 export type AskEvent =
   | { type: "references"; references: KbReference[] }
   | { type: "delta"; text: string }
-  | { type: "final"; markdown: string; references: KbReference[]; mode: "ai" | "retrieval" }
+  | { type: "final"; markdown: string; references: KbReference[]; mode: AnswerMode; notice?: string }
   | { type: "error"; message: string };
+
+/** GET /api/knowledge/status */
+export interface KbStatus {
+  ai: { mode: "live" | "mock" | "off"; model: string | null; notice: string | null };
+  knowledge: {
+    chapters: number;
+    sections: number;
+    chunks: number;
+    chunksEmbedded: number;
+    countryRules: number;
+    countries: number;
+  } | null;
+}

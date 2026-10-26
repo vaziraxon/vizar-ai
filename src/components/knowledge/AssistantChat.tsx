@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
-import { BookOpen, ExternalLink, Loader2, Send, ShieldAlert, ShieldCheck } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { BookOpen, ExternalLink, FlaskConical, Info, Loader2, Send, ShieldAlert, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Markdown } from "@/components/knowledge/Markdown";
 import { useL } from "@/components/i18n/L";
-import type { AskEvent, KbReference } from "@/lib/knowledge/types";
+import type { AnswerMode, AskEvent, KbReference, KbStatus } from "@/lib/knowledge/types";
 import { cn } from "@/lib/utils";
 
 const EXAMPLES = [
@@ -21,9 +21,28 @@ interface Turn {
   text: string;
   markdown: string | null;
   references: KbReference[];
-  mode: "ai" | "retrieval" | null;
+  mode: AnswerMode | null;
+  notice: string | null;
   error: string | null;
   pending: boolean;
+}
+
+/** How the answer was produced, when it was not written by the AI model. */
+function ModeChip({ mode }: { mode: AnswerMode | null }) {
+  const l = useL();
+  if (mode !== "retrieval" && mode !== "mock") return null;
+  const mock = mode === "mock";
+  return (
+    <p
+      className={cn(
+        "mb-3 inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1 text-caption font-semibold",
+        mock ? "bg-violet-50 text-violet-700 dark:bg-violet-400/10 dark:text-violet-300" : "bg-brand-50 text-brand-700"
+      )}
+    >
+      {mock ? <FlaskConical size={13} /> : <BookOpen size={13} />}
+      {l(mock ? "Test javobi (mock)" : "Kitobdan topilgan bo‘limlar")}
+    </p>
+  );
 }
 
 function StatusBadge({ status }: { status: KbReference["status"] }) {
@@ -93,8 +112,24 @@ export function AssistantChat() {
   const l = useL();
   const [question, setQuestion] = useState("");
   const [turns, setTurns] = useState<Turn[]>([]);
+  const [status, setStatus] = useState<KbStatus | null>(null);
   const nextId = useRef(1);
   const busy = turns.some((t) => t.pending);
+  const bannerNotice = status?.ai.notice ?? null;
+
+  // Which answer generator is active (AI, development mock, or book passages only).
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/knowledge/status", { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: KbStatus | null) => {
+        if (!cancelled && data) setStatus(data);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const update = (id: number, patch: (t: Turn) => Partial<Turn>) =>
     setTurns((all) => all.map((t) => (t.id === id ? { ...t, ...patch(t) } : t)));
@@ -103,7 +138,10 @@ export function AssistantChat() {
     const q = text.trim();
     if (q.length < 3 || busy) return;
     const id = nextId.current++;
-    setTurns((all) => [...all, { id, question: q, text: "", markdown: null, references: [], mode: null, error: null, pending: true }]);
+    setTurns((all) => [
+      ...all,
+      { id, question: q, text: "", markdown: null, references: [], mode: null, notice: null, error: null, pending: true },
+    ]);
     setQuestion("");
 
     try {
@@ -131,7 +169,9 @@ export function AssistantChat() {
           const event = JSON.parse(line) as AskEvent;
           if (event.type === "references") update(id, () => ({ references: event.references }));
           else if (event.type === "delta") update(id, (t) => ({ text: t.text + event.text }));
-          else if (event.type === "final") update(id, () => ({ markdown: event.markdown, references: event.references, mode: event.mode }));
+          else if (event.type === "final") {
+            update(id, () => ({ markdown: event.markdown, references: event.references, mode: event.mode, notice: event.notice ?? null }));
+          }
           else if (event.type === "error") update(id, () => ({ error: event.message }));
         }
       }
@@ -148,6 +188,21 @@ export function AssistantChat() {
 
   return (
     <div className="space-y-6">
+      {bannerNotice ? (
+        <p
+          role="status"
+          className={cn(
+            "flex items-start gap-2.5 rounded-2xl border px-4 py-3 text-body-sm",
+            status?.ai.mode === "mock"
+              ? "border-violet-200 bg-violet-50/70 text-violet-900 dark:border-violet-400/20 dark:bg-violet-400/10 dark:text-violet-100"
+              : "border-brand-200 bg-brand-50/70 text-ink-800 dark:border-white/10 dark:bg-white/5"
+          )}
+        >
+          {status?.ai.mode === "mock" ? <FlaskConical size={16} className="mt-0.5 shrink-0" /> : <Info size={16} className="mt-0.5 shrink-0 text-brand-700" />}
+          {l(bannerNotice)}
+        </p>
+      ) : null}
+
       {turns.length === 0 ? (
         <div className="rounded-[28px] border border-surface-border bg-surface p-6 sm:p-8">
           <p className="font-display text-display-sm text-ink-950">{l("Kitobga asoslangan viza maslahatchisi")}</p>
@@ -173,6 +228,13 @@ export function AssistantChat() {
         <article key={t.id} className="space-y-3">
           <p className="ml-auto max-w-[85%] rounded-[22px] rounded-br-md bg-brand-600 px-4 py-3 text-body text-white sm:max-w-[70%]">{t.question}</p>
           <div className="rounded-[28px] border border-surface-border bg-surface p-5 sm:p-7">
+            {!t.error ? <ModeChip mode={t.mode} /> : null}
+            {t.notice && t.notice !== bannerNotice && !t.error ? (
+              <p className="mb-3 flex items-start gap-2 text-body-sm text-ink-600">
+                <Info size={15} className="mt-0.5 shrink-0 text-brand-700" />
+                {l(t.notice)}
+              </p>
+            ) : null}
             {t.error ? (
               <p className="text-body text-red-700 dark:text-red-300">{t.error}</p>
             ) : t.markdown !== null ? (

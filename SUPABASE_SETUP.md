@@ -283,9 +283,28 @@ javob beradi. Tarkibi:
    insert into public.kb_editors (email) values ('siz@example.com');
    ```
 
-6. **AI javoblar.** Hosting muhitiga `ANTHROPIC_API_KEY` qo'shing. Kalit
-   bo'lmasa, maslahatchi kitobdan topilgan parchalarni manbalari bilan
-   ko'rsatadi, lekin javob yozmaydi.
+6. **AI javoblar.** Hosting muhitiga `ANTHROPIC_API_KEY` qo'shing va qayta
+   deploy qiling — boshqa o'zgarish kerak emas. Kalitgacha (yoki
+   `KB_AI_MODE=off` bo'lsa) maslahatchi pullik API'ni chaqirmaydi:
+   kitobdan eng mos bo'limlar va rasmiy manbalar ko'rsatiladi,
+   foydalanuvchiga "AI javoblari hozircha ulanmagan" degan xabar chiqadi.
+   `next dev`da kalit bo'lmasa, interfeysni sinash uchun mock javoblar
+   ishlatiladi (production'da hech qachon). Kalit bor-u, hisobda mablag'
+   bo'lmasa yoki API ishlamasa ham, foydalanuvchi xato emas, kitob
+   bo'limlarini oladi.
+
+7. **Tekshirish.** `node scripts/knowledge/health-check.mjs` — baza, RLS,
+   qidiruv va embedding navbatini publishable kalit bilan tekshiradi
+   (pullik chaqiruv yo'q). `node scripts/knowledge/rag-test.mjs` — qidiruv
+   sifati testi.
+
+### API endpointlar
+
+| Endpoint | Kim uchun | Nima qiladi | Pullik? |
+| --- | --- | --- | --- |
+| `GET /api/knowledge/status` | hamma | AI rejimi (`live`/`mock`/`off`) va baza hajmi | yo'q |
+| `POST /api/knowledge/search` | tizimga kirganlar, 60/10 daq | gibrid qidiruv: bo'limlar + mamlakat qoidalari | yo'q |
+| `POST /api/knowledge/ask` | tizimga kirganlar, 20/10 daq | javob (NDJSON oqim) + manbalar | faqat `live` rejimda |
 
 ### Qanday ishlaydi
 
