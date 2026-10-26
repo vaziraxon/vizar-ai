@@ -1,8 +1,8 @@
 import "server-only";
 import Anthropic from "@anthropic-ai/sdk";
+import { ANSWER_MODEL } from "@/lib/ai/mode";
+import { buildReferences } from "./offline";
 import type { KbReference, KbRuleHit, KbSearchResult } from "./types";
-
-export const ANSWER_MODEL = "claude-opus-5-5";
 
 const SYSTEM_PROMPT = `You are VIZAR AI's visa consultant. You help people — mostly citizens of Uzbekistan — prepare visa applications, the way a careful professional consultant would.
 
@@ -30,18 +30,9 @@ export function buildContext(result: KbSearchResult): {
   references: KbReference[];
   blocks: Anthropic.Beta.BetaSearchResultBlockParam[];
 } {
-  const references: KbReference[] = [];
   const blocks: Anthropic.Beta.BetaSearchResultBlockParam[] = [];
 
   for (const hit of result.chunks) {
-    const section = hit.section_number ? `${hit.section_number}. ${hit.section_title}` : hit.section_title;
-    references.push({
-      n: references.length + 1,
-      kind: "book",
-      title: section,
-      location: `${hit.chapter_title} › ${section}`,
-      cited: false,
-    });
     blocks.push({
       type: "search_result",
       source: `vizar-ai-kitob/${hit.chapter_slug}/${hit.section_slug}`,
@@ -53,15 +44,6 @@ export function buildContext(result: KbSearchResult): {
 
   for (const rule of result.rules) {
     const urls = rule.sources.map((s) => s.url);
-    references.push({
-      n: references.length + 1,
-      kind: "rule",
-      title: `${rule.country_name}: ${rule.topic}`,
-      urls,
-      status: rule.status,
-      asOf: rule.as_of,
-      cited: false,
-    });
     const meta = [
       `Holati: ${STATUS_TEXT[rule.status]}`,
       rule.as_of ? `kitobdagi ma’lumot sanasi: ${rule.as_of}` : null,
@@ -80,7 +62,7 @@ export function buildContext(result: KbSearchResult): {
       citations: { enabled: true },
     });
   }
-  return { references, blocks };
+  return { references: buildReferences(result), blocks };
 }
 
 export function createAnswerStream(client: Anthropic, question: string, blocks: Anthropic.Beta.BetaSearchResultBlockParam[]) {
@@ -122,16 +104,4 @@ export function assembleAnswer(message: Anthropic.Beta.BetaMessage, references: 
     }
   }
   return { markdown: markdown.trim(), references: references.map((r) => ({ ...r, cited: cited.has(r.n) })) };
-}
-
-/** Answer used when no ANTHROPIC_API_KEY is configured: the retrieved passages themselves. */
-export function retrievalOnlyAnswer(result: KbSearchResult): string {
-  if (!result.chunks.length && !result.rules.length) {
-    return "Kitobda bu savolga mos bo‘lim topilmadi. Savolni boshqacha ifodalab ko‘ring.";
-  }
-  const top = result.chunks.slice(0, 3).map((c, i) => `**${c.heading_path}** ⟦${i + 1}⟧\n\n${c.content}`);
-  return [
-    "*AI javob generatori hali sozlanmagan (ANTHROPIC_API_KEY). Quyida kitobdan eng mos parchalar keltirilgan.*",
-    ...top,
-  ].join("\n\n---\n\n");
 }

@@ -751,4 +751,9 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Xatolik yuz berdi.": { ru: "Произошла ошибка.", en: "Something went wrong." },
   "Tarmoq xatosi. Qayta urinib ko‘ring.": { ru: "Ошибка сети. Попробуйте ещё раз.", en: "Network error. Please try again." },
   "Javoblar ma’lumot uchun. Viza qarorini faqat konsullik qabul qiladi; o‘zgaruvchan talablarni rasmiy saytda tekshiring.": { ru: "Ответы носят информационный характер. Решение по визе принимает только консульство; меняющиеся требования проверяйте на официальном сайте.", en: "Answers are for information only. Only the consulate decides on a visa; check changing requirements on the official site." },
+  "AI javoblari hozircha ulanmagan. Savolingiz bo‘yicha kitobdan eng mos bo‘limlar va rasmiy manbalar ko‘rsatiladi.": { ru: "Ответы ИИ пока не подключены. По вашему вопросу показываются самые подходящие разделы книги и официальные источники.", en: "AI answers aren't connected yet. You'll see the most relevant book sections and official sources for your question." },
+  "Test rejimi: javoblar sun’iy (mock) va faqat development muhitida ko‘rinadi.": { ru: "Тестовый режим: ответы искусственные (mock) и видны только в среде разработки.", en: "Test mode: answers are mock responses, shown only in the development environment." },
+  "AI xizmati hozir javob bera olmadi. Kitobdan eng mos bo‘limlar ko‘rsatildi.": { ru: "Сервис ИИ сейчас не смог ответить. Показаны самые подходящие разделы книги.", en: "The AI service couldn't answer right now. Showing the most relevant book sections instead." },
+  "Kitobdan topilgan bo‘limlar": { ru: "Найденные разделы книги", en: "Matching book sections" },
+  "Test javobi (mock)": { ru: "Тестовый ответ (mock)", en: "Test answer (mock)" },
 };
