@@ -5,7 +5,7 @@ export function KpiCard({ icon: Icon, label, value, change }: KpiCardData) {
   return (
     <div className="card p-5 dark:border-white/10 dark:bg-navy-800">
       <div className="flex items-center justify-between">
-        <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-gradient text-white">
+        <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-500/15 dark:text-brand-300">
           <Icon size={17} />
         </span>
         {change && (

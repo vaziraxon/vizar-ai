@@ -1,4 +1,5 @@
 "use client";
+import { useL } from "@/components/i18n/L";
 
 import { Modal } from "@/components/modals/Modal";
 
@@ -23,10 +24,11 @@ export function ConfirmationModal({
   onConfirm,
   onClose,
 }: ConfirmationModalProps) {
+  const l = useL();
   return (
     <Modal open={open} onClose={onClose} title={title}>
       <p className="text-body-sm text-ink-600 dark:text-white/60">
-        {description}
+        {l(description)}
       </p>
       <div className="mt-5 flex justify-end gap-2">
         <button
@@ -34,7 +36,7 @@ export function ConfirmationModal({
           onClick={onClose}
           className="rounded-pill border border-surface-border px-4 py-2 text-body-sm font-semibold text-ink-700 dark:border-white/10 dark:text-white/70"
         >
-          {cancelLabel}
+          {l(cancelLabel)}
         </button>
         <button
           type="button"
@@ -45,10 +47,10 @@ export function ConfirmationModal({
           className={
             danger
               ? "rounded-pill bg-red-600 px-4 py-2 text-body-sm font-semibold text-white hover:bg-red-700"
-              : "rounded-pill bg-brand-gradient px-4 py-2 text-body-sm font-semibold text-white shadow-glow"
+              : "rounded-pill bg-brand-600 transition-colors hover:bg-brand-deep px-4 py-2 text-body-sm font-semibold text-white"
           }
         >
-          {confirmLabel}
+          {l(confirmLabel)}
         </button>
       </div>
     </Modal>

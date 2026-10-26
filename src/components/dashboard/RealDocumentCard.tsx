@@ -13,31 +13,12 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { StatusBadge } from "./StatusBadge";
-import { createClient } from "@/lib/supabase/client";
-import { buildStoragePath } from "@/lib/storage-path";
-import { validateFile } from "@/lib/document-constraints";
-import {
-  recordUploadedDocumentAction,
-  setDocumentAnalysisAction,
-  getSignedDocumentUrlAction,
-  deleteDocumentAction,
-} from "@/lib/actions/documents";
+import { getSignedDocumentUrlAction, deleteDocumentAction } from "@/lib/actions/documents";
+import { runDemoAnalysis, uploadDocumentFile } from "@/lib/documents/upload-client";
 import type { DocumentRow } from "@/lib/data/documents";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const DEMO_ANALYSIS: Record<string, { issue?: string; summary: string }> = {
-  Passport: { summary: "Passport ma'lumotlari to'liq va aniq ko'rinmoqda (demo)." },
-  "Bank statement": {
-    issue: "Hisob egasining to'liq ismi ko'rsatilmagan.",
-    summary: "Bank ma'lumotnomasida hisob egasining to'liq ismi ko'rsatilmagan (demo).",
-  },
-  "Ish joyidan ma'lumotnoma": { summary: "Hujjat talablarga mos keladi (demo)." },
-  "Sug'urta": {
-    issue: "Sug'urta muddati safar sanasidan oldin tugaydi.",
-    summary: "Sug'urta muddatini tekshirib chiqing (demo).",
-  },
-};
+import { useL } from "@/components/i18n/L";
 
 interface RealDocumentCardProps {
   applicationId: string;
@@ -53,6 +34,7 @@ export function RealDocumentCard({
   existingDoc,
 }: RealDocumentCardProps) {
   const router = useRouter();
+  const l = useL();
   const [phase, setPhase] = useState<"idle" | "uploading" | "analyzing" | "error">("idle");
   const [progress, setProgress] = useState(0);
   const [dragOver, setDragOver] = useState(false);
@@ -65,72 +47,19 @@ export function RealDocumentCard({
 
   async function handleFile(file: File) {
     setErrorMsg("");
-    const validationError = validateFile(file);
-    if (validationError) {
-      setErrorMsg(validationError);
-      setPhase("error");
-      return;
-    }
-
-    const supabase = createClient();
-    if (!supabase) {
-      setErrorMsg("Supabase sozlanmagan — fayl yuklanmadi.");
-      setPhase("error");
-      return;
-    }
-
     setPhase("uploading");
-    setProgress(15);
-
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) {
-      setErrorMsg("Tizimga kirmagansiz.");
+    setProgress(5);
+    const result = await uploadDocumentFile({ file, applicationId, documentType, onProgress: setProgress });
+    if (!result.ok) {
+      setErrorMsg(result.error);
       setPhase("error");
       return;
     }
-
-    const path = buildStoragePath(user.id, applicationId, file.name);
-
-    const { error: uploadError } = await supabase.storage
-      .from("visa-documents")
-      .upload(path, file, { contentType: file.type, upsert: false });
-
-    if (uploadError) {
-      setErrorMsg("Faylni yuklab bo'lmadi. Qayta urinib ko'ring.");
-      setPhase("error");
-      return;
-    }
-
-    setProgress(70);
-
-    const metaResult = await recordUploadedDocumentAction({
-      applicationId,
-      documentType,
-      originalFilename: file.name,
-      storagePath: path,
-      mimeType: file.type as "application/pdf" | "image/jpeg" | "image/jpg" | "image/png",
-      fileSize: file.size,
-    });
-
-    if (!metaResult.ok) {
-      setErrorMsg(metaResult.error);
-      setPhase("error");
-      return;
-    }
-
-    setProgress(100);
     setPhase("analyzing");
 
     // Simulated demo AI analysis — clearly labeled, not a real service call.
     setTimeout(async () => {
-      const demo = DEMO_ANALYSIS[documentType] ?? { summary: "Tahlil yakunlandi (demo)." };
-      await setDocumentAnalysisAction(
-        metaResult.data.id,
-        demo.issue ? "issue_found" : "verified",
-        { summary: demo.summary, issue: demo.issue ?? null }
-      );
+      await runDemoAnalysis(result.documentId, documentType);
       router.refresh();
     }, 1400);
   }
@@ -168,14 +97,14 @@ export function RealDocumentCard({
             : "Yuklanmagan";
 
   return (
-    <div className="card flex flex-col gap-3 p-5 dark:border-white/10 dark:bg-navy-800">
+    <div className="card spotlight flex flex-col gap-3 rounded-[24px] p-5">
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-3">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-gradient text-white">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-500/15 dark:text-brand-300">
             <Icon size={18} />
           </span>
           <p className="text-body-sm font-semibold text-ink-900 dark:text-white">
-            {documentType}
+            {l(documentType)}
           </p>
         </div>
         <StatusBadge status={displayStatus} />
@@ -190,7 +119,7 @@ export function RealDocumentCard({
             <button
               type="button"
               onClick={handlePreview}
-              aria-label="Faylni ko'rish"
+              aria-label={l("Faylni ko'rish")}
               className="text-brand-600 hover:text-brand-700"
             >
               <Eye size={15} />
@@ -198,7 +127,7 @@ export function RealDocumentCard({
             <button
               type="button"
               onClick={handleDelete}
-              aria-label="Faylni o'chirish"
+              aria-label={l("Faylni o'chirish")}
               className="text-red-500 hover:text-red-600"
             >
               <Trash2 size={15} />
@@ -217,7 +146,7 @@ export function RealDocumentCard({
           className={cn(
             "flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-4 py-6 text-center transition-colors",
             dragOver
-              ? "border-brand-400 bg-brand-50 dark:bg-brand-900/20"
+              ? "border-brand-400 bg-brand-50 dark:bg-brand-600/20"
               : "border-surface-border hover:border-brand-300 dark:border-white/10"
           )}
         >
@@ -236,7 +165,7 @@ export function RealDocumentCard({
             <>
               <UploadCloud size={22} className="text-brand-500" />
               <p className="text-caption text-ink-500 dark:text-white/50">
-                Faylni shu yerga tashlang yoki bosing (PDF, JPG, PNG — 6 MB gacha)
+                {l("Faylni shu yerga tashlang yoki bosing (PDF, JPG, PNG — 6 MB gacha)")}
               </p>
             </>
           )}
@@ -244,12 +173,12 @@ export function RealDocumentCard({
           {phase === "uploading" && (
             <div className="w-full space-y-2">
               <p className="text-caption text-ink-500 dark:text-white/50">
-                Yuklanmoqda... {progress}%
+                {l("Yuklanmoqda...")} {progress}%
               </p>
               <div className="h-1.5 w-full overflow-hidden rounded-pill bg-surface-muted dark:bg-white/10">
                 <motion.div
                   animate={{ width: `${progress}%` }}
-                  className="h-full rounded-pill bg-brand-gradient"
+                  className="h-full rounded-pill bg-brand-600"
                 />
               </div>
             </div>
@@ -258,13 +187,13 @@ export function RealDocumentCard({
           {phase === "analyzing" && (
             <div className="flex items-center gap-2 text-caption text-brand-600 dark:text-brand-300">
               <Loader2 size={15} className="animate-spin" />
-              AI hujjatni tahlil qilmoqda (demo)...
+              {l("AI hujjatni tahlil qilmoqda (demo)...")}
             </div>
           )}
 
           {phase === "error" && (
             <p className="flex items-center gap-1.5 text-caption font-medium text-red-600">
-              <AlertTriangle size={13} /> {errorMsg}
+              <AlertTriangle size={13} /> {l(errorMsg)}
             </p>
           )}
         </div>
@@ -278,7 +207,7 @@ export function RealDocumentCard({
             className="flex w-full items-center justify-between text-caption font-semibold text-brand-600 dark:text-brand-300"
           >
             <span className="flex items-center gap-1.5">
-              <Sparkles size={13} /> Demo OCR natijasi
+              <Sparkles size={13} /> {l("Demo OCR natijasi")}
             </span>
             <ChevronDown size={14} className={cn("transition-transform", insightOpen && "rotate-180")} />
           </button>
@@ -291,10 +220,10 @@ export function RealDocumentCard({
                 className="overflow-hidden"
               >
                 <p className="mt-3 flex items-center gap-1.5 text-caption text-ink-400 dark:text-white/40">
-                  <AlertTriangle size={12} /> Bu haqiqiy hujjat tahlili emas — demo namuna.
+                  <AlertTriangle size={12} /> {l("Bu haqiqiy hujjat tahlili emas — demo namuna.")}
                 </p>
                 <p className="mt-2 text-body-sm text-ink-700 dark:text-white/70">
-                  {analysis.summary}
+                  {l(analysis.summary)}
                 </p>
               </motion.div>
             )}

@@ -1,14 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { Bell, Globe2, MessagesSquare, UserCog, ListChecks } from "lucide-react";
+
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { RECOMMENDATION_TASKS, READINESS_MISSING_DOCS } from "@/data/mockData";
 import type { TaskStatus } from "@/types";
+import { useL } from "@/components/i18n/L";
+import { useLocalState } from "@/lib/dashboard/use-local-state";
+
+const TIP_EMOJI = ["🏦", "🏨", "🎤", "👤", "🤝"];
 
 export default function RecommendationsPage() {
-  const [tasks, setTasks] = useState(RECOMMENDATION_TASKS);
+  const [tasks, setTasks] = useLocalState("vizar-rec-tasks", RECOMMENDATION_TASKS);
+  const l = useL();
 
   function cycleStatus(id: string) {
     const order: TaskStatus[] = ["Boshlanmagan", "Jarayonda", "Bajarildi"];
@@ -27,24 +31,28 @@ export default function RecommendationsPage() {
       title="Shaxsiy tavsiyalar"
       subtitle="Sizning holatingizga mos ustuvor vazifalar va tavsiyalar."
     >
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="card p-6 dark:border-white/10 dark:bg-navy-800 lg:col-span-2">
-          <p className="mb-4 flex items-center gap-2 text-body-sm font-semibold text-ink-900 dark:text-white">
-            <ListChecks size={16} className="text-brand-600" /> Ustuvor vazifalar ro&apos;yxati
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="card rounded-[28px] p-6 sm:p-7 lg:col-span-2">
+          <p className="mb-4 flex items-center gap-2 font-display text-body-lg font-bold text-ink-950">
+            <span aria-hidden="true">📌</span> {l("Ustuvor vazifalar ro'yxati")}
           </p>
+          <p className="-mt-2 mb-4 text-caption text-ink-500">👆 {l("Holatni o'zgartirish uchun belgini bosing — saqlanadi.")}</p>
           <ul className="space-y-3">
-            {tasks.map((task) => (
+            {tasks.map((task, i) => (
               <li
                 key={task.id}
-                className="flex items-center justify-between gap-3 rounded-xl border border-surface-border px-4 py-3 dark:border-white/10"
+                className="flex items-center justify-between gap-3 rounded-2xl border border-surface-border bg-surface px-3 py-3 transition-colors hover:bg-surface-tint"
               >
-                <div>
-                  <p className="text-body-sm font-medium text-ink-900 dark:text-white">
-                    {task.title}
-                  </p>
-                  <p className="text-caption text-ink-400 dark:text-white/40">
-                    Muddat: {task.dueLabel}
-                  </p>
+                <div className="flex min-w-0 items-center gap-3">
+                  <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-50 to-violet-50 text-[18px] ring-1 ring-brand-100">
+                    {TIP_EMOJI[i] ?? "📌"}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-body-sm font-semibold text-ink-900">{l(task.title)}</p>
+                    <p className="text-caption text-ink-400">
+                      🗓️ {l("Muddat:")} {l(task.dueLabel)}
+                    </p>
+                  </div>
                 </div>
                 <button
                   type="button"
@@ -60,44 +68,41 @@ export default function RecommendationsPage() {
         </div>
 
         <div className="space-y-6">
-          <div className="card p-6 dark:border-white/10 dark:bg-navy-800">
-            <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-900 dark:text-white">
-              <Bell size={16} className="text-warning" /> Eslatmalar
+          <div className="card rounded-[24px] p-6">
+            <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-950">
+              <span aria-hidden="true">🔔</span> {l("Eslatmalar")}
             </p>
             <ul className="space-y-2.5 text-body-sm text-ink-600 dark:text-white/60">
               {READINESS_MISSING_DOCS.map((doc) => (
-                <li key={doc}>{doc} hujjatini yuklashni unutmang.</li>
+                <li key={doc}>{l("{doc} hujjatini yuklashni unutmang.", { doc: l(doc) })}</li>
               ))}
             </ul>
           </div>
 
-          <div className="card p-6 dark:border-white/10 dark:bg-navy-800">
-            <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-900 dark:text-white">
-              <Globe2 size={16} className="text-brand-600" /> Davlatga oid maslahat
+          <div className="card rounded-[24px] p-6">
+            <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-950">
+              <span aria-hidden="true">🌍</span> {l("Davlatga oid maslahat")}
             </p>
-            <p className="text-body-sm text-ink-600 dark:text-white/60">
-              Janubiy Koreya konsulligi moliyaviy barqarorlik va aniq safar
-              rejasiga alohida e&apos;tibor beradi.
-            </p>
-          </div>
-
-          <div className="card p-6 dark:border-white/10 dark:bg-navy-800">
-            <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-900 dark:text-white">
-              <MessagesSquare size={16} className="text-brand-600" /> Intervyu mashqi
-            </p>
-            <p className="text-body-sm text-ink-600 dark:text-white/60">
-              Qaytish niyatingiz haqidagi savollarga tayyorgarlik ko&apos;rish
-              tavsiya etiladi.
+            <p className="text-body-sm text-ink-600">
+              {l("Janubiy Koreya konsulligi moliyaviy barqarorlik va aniq safar rejasiga alohida e'tibor beradi.")}
             </p>
           </div>
 
-          <div className="card p-6 dark:border-white/10 dark:bg-navy-800">
-            <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-900 dark:text-white">
-              <UserCog size={16} className="text-brand-600" /> Konsultatsiya
+          <div className="card rounded-[24px] p-6">
+            <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-950">
+              <span aria-hidden="true">🎤</span> {l("Intervyu mashqi")}
             </p>
-            <p className="text-body-sm text-ink-600 dark:text-white/60">
-              Moliyaviy hujjatlaringizni mutaxassis bilan ko&apos;rib chiqish
-              tavsiya etiladi.
+            <p className="text-body-sm text-ink-600">
+              {l("Qaytish niyatingiz haqidagi savollarga tayyorgarlik ko'rish tavsiya etiladi.")}
+            </p>
+          </div>
+
+          <div className="card rounded-[24px] p-6">
+            <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-950">
+              <span aria-hidden="true">🤝</span> {l("Konsultatsiya")}
+            </p>
+            <p className="text-body-sm text-ink-600">
+              {l("Moliyaviy hujjatlaringizni mutaxassis bilan ko'rib chiqish tavsiya etiladi.")}
             </p>
           </div>
         </div>

@@ -25,7 +25,7 @@ export function ClientTable({ clients }: { clients: AgencyClient[] }) {
             {clients.map((client) => (
               <tr key={client.id} className="bg-white dark:bg-navy-800">
                 <td className="flex items-center gap-2.5 px-5 py-3.5 font-medium text-ink-900 dark:text-white">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-gradient text-caption font-semibold text-white">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-night text-caption font-semibold text-white dark:bg-white dark:text-night">
                     {client.initials}
                   </span>
                   {client.name}
@@ -64,7 +64,7 @@ export function ClientTable({ clients }: { clients: AgencyClient[] }) {
         {clients.map((client) => (
           <div key={client.id} className="card p-5 dark:border-white/10 dark:bg-navy-800">
             <div className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-gradient text-caption font-semibold text-white">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-night text-caption font-semibold text-white dark:bg-white dark:text-night">
                 {client.initials}
               </span>
               <div>

@@ -10,22 +10,24 @@ import {
 } from "@/lib/actions/notifications";
 import type { NotificationRow } from "@/lib/data/notifications";
 import { cn } from "@/lib/utils";
+import { useL } from "@/components/i18n/L";
 
 type Filter = "all" | "unread";
 
-function timeAgo(iso: string) {
+function timeAgo(iso: string, l: ReturnType<typeof useL>) {
   const diffMs = Date.now() - new Date(iso).getTime();
   const mins = Math.floor(diffMs / 60000);
-  if (mins < 1) return "hozir";
-  if (mins < 60) return `${mins} daqiqa oldin`;
+  if (mins < 1) return l("hozir");
+  if (mins < 60) return l("{n} daqiqa oldin", { n: mins });
   const hours = Math.floor(mins / 60);
-  if (hours < 24) return `${hours} soat oldin`;
+  if (hours < 24) return l("{n} soat oldin", { n: hours });
   const days = Math.floor(hours / 24);
-  return `${days} kun oldin`;
+  return l("{n} kun oldin", { n: days });
 }
 
 export function NotificationsList({ notifications }: { notifications: NotificationRow[] }) {
   const router = useRouter();
+  const l = useL();
   const [filter, setFilter] = useState<Filter>("all");
   const [isPending, startTransition] = useTransition();
 
@@ -55,11 +57,11 @@ export function NotificationsList({ notifications }: { notifications: Notificati
             className={cn(
               "rounded-pill px-4 py-2 text-body-sm font-medium transition-colors",
               filter === "all"
-                ? "bg-brand-gradient text-white shadow-glow"
+                ? "bg-night text-white dark:bg-white dark:text-night"
                 : "border border-surface-border text-ink-700 dark:border-white/10 dark:text-white/70"
             )}
           >
-            Barchasi ({notifications.length})
+            {l("Barchasi")} ({notifications.length})
           </button>
           <button
             type="button"
@@ -67,11 +69,11 @@ export function NotificationsList({ notifications }: { notifications: Notificati
             className={cn(
               "rounded-pill px-4 py-2 text-body-sm font-medium transition-colors",
               filter === "unread"
-                ? "bg-brand-gradient text-white shadow-glow"
+                ? "bg-night text-white dark:bg-white dark:text-night"
                 : "border border-surface-border text-ink-700 dark:border-white/10 dark:text-white/70"
             )}
           >
-            O&apos;qilmagan ({notifications.filter((n) => !n.is_read).length})
+            {l("O'qilmagan")} ({notifications.filter((n) => !n.is_read).length})
           </button>
         </div>
         <button
@@ -80,7 +82,7 @@ export function NotificationsList({ notifications }: { notifications: Notificati
           disabled={isPending}
           className="inline-flex items-center gap-1.5 rounded-pill border border-surface-border px-4 py-2 text-body-sm font-medium text-ink-700 hover:bg-surface-muted disabled:opacity-50 dark:border-white/10 dark:text-white/70 dark:hover:bg-white/5"
         >
-          <CheckCheck size={15} /> Barchasini o&apos;qilgan deb belgilash
+          <CheckCheck size={15} /> {l("Barchasini o'qilgan deb belgilash")}
         </button>
       </div>
 
@@ -100,27 +102,27 @@ export function NotificationsList({ notifications }: { notifications: Notificati
               className={cn(
                 "flex w-full items-start gap-3 rounded-2xl border p-4 text-left transition-colors",
                 n.is_read
-                  ? "border-surface-border bg-white dark:border-white/10 dark:bg-navy-800"
-                  : "border-brand-200 bg-brand-50/60 dark:border-brand-400/20 dark:bg-brand-900/10"
+                  ? "border-surface-border bg-surface"
+                  : "border-brand-200 bg-brand-50/60 dark:border-brand-400/20 dark:bg-brand-600/10"
               )}
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-gradient text-white">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600 dark:bg-brand-500/15 dark:text-brand-300">
                 <Bell size={17} />
               </span>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
                   <p className="truncate text-body-sm font-semibold text-ink-900 dark:text-white">
-                    {n.title}
+                    {l(n.title)}
                   </p>
                   {!n.is_read && <span className="h-2 w-2 shrink-0 rounded-full bg-brand-500" />}
                 </div>
                 {n.message && (
                   <p className="mt-0.5 text-body-sm text-ink-600 dark:text-white/60">
-                    {n.message}
+                    {l(n.message)}
                   </p>
                 )}
                 <p className="mt-1 text-caption text-ink-400 dark:text-white/40">
-                  {timeAgo(n.created_at)}
+                  {timeAgo(n.created_at, l)}
                 </p>
               </div>
             </button>

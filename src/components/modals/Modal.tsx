@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import type { ReactNode } from "react";
+import { useL } from "@/components/i18n/L";
 
 interface ModalProps {
   open: boolean;
@@ -13,6 +14,7 @@ interface ModalProps {
 }
 
 export function Modal({ open, onClose, title, children }: ModalProps) {
+  const l = useL();
   useEffect(() => {
     if (!open) return;
     function onKeyDown(e: KeyboardEvent) {
@@ -31,7 +33,7 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-[60] bg-black/50"
+            className="fixed inset-0 z-[60] bg-night/40 backdrop-blur-[2px]"
           />
           <div
             className="fixed inset-0 z-[61] flex items-center justify-center p-4"
@@ -51,12 +53,12 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
                   id="modal-title"
                   className="font-display text-display-sm text-ink-900 dark:text-white"
                 >
-                  {title}
+                  {l(title)}
                 </h3>
                 <button
                   type="button"
                   onClick={onClose}
-                  aria-label="Yopish"
+                  aria-label={l("Yopish")}
                   className="flex h-8 w-8 items-center justify-center rounded-lg text-ink-400 hover:bg-surface-muted dark:text-white/50 dark:hover:bg-white/10"
                 >
                   <X size={18} />

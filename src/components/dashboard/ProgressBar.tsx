@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useL } from "@/components/i18n/L";
 import { cn } from "@/lib/utils";
 
 interface ProgressBarProps {
@@ -16,11 +17,12 @@ function barColor(value: number) {
 }
 
 export function ProgressBar({ label, value, className }: ProgressBarProps) {
+  const l = useL();
   return (
     <div className={cn("w-full", className)}>
       <div className="mb-1.5 flex items-center justify-between text-body-sm">
         <span className="font-medium text-ink-700 dark:text-white/80">
-          {label}
+          {l(label)}
         </span>
         <span className="font-semibold text-ink-900 dark:text-white">
           {value}%

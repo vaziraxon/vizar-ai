@@ -1,4 +1,5 @@
 "use client";
+import { useL } from "@/components/i18n/L";
 
 import {
   ResponsiveContainer,
@@ -21,13 +22,14 @@ interface TrendChartCardProps {
 export function TrendChartCard({
   title,
   data,
-  color = "#2E1FD0",
+  color = "#2563EB",
   suffix = "",
 }: TrendChartCardProps) {
+  const l = useL();
   return (
-    <div className="card p-6 dark:border-white/10 dark:bg-navy-800">
+    <div className="card rounded-[24px] p-6">
       <p className="mb-4 text-body-sm font-semibold text-ink-900 dark:text-white">
-        {title}
+        {l(title)}
       </p>
       <div className="h-56 w-full">
         <ResponsiveContainer width="100%" height="100%">
@@ -51,7 +53,7 @@ export function TrendChartCard({
               formatter={(value: number) => [`${value}${suffix}`, ""]}
               contentStyle={{
                 borderRadius: 10,
-                border: "1px solid #E4E8F5",
+                border: "1px solid #E6E8EC",
                 fontSize: 12,
               }}
             />

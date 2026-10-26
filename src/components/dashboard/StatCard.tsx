@@ -8,18 +8,16 @@ interface StatCardProps {
 
 export function StatCard({ icon: Icon, label, value }: StatCardProps) {
   return (
-    <div className="card flex items-center gap-4 p-5 dark:border-white/10 dark:bg-navy-800">
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-gradient text-white">
-        <Icon size={19} strokeWidth={2} />
-      </span>
-      <div>
-        <p className="text-caption font-medium text-ink-400 dark:text-white/50">
-          {label}
-        </p>
-        <p className="font-display text-xl font-bold text-ink-900 dark:text-white">
+    <div className="card-muted flex items-center justify-between gap-4 p-5 dark:border-white/10 dark:bg-navy-800">
+      <div className="min-w-0">
+        <p className="truncate text-body-sm font-medium text-ink-500 dark:text-white/50">{label}</p>
+        <p className="mt-1.5 font-display text-[28px] font-bold leading-none tracking-[-0.03em] text-ink-900 dark:text-white">
           {value}
         </p>
       </div>
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-surface-border bg-white text-ink-900 dark:border-white/10 dark:bg-white/10 dark:text-white">
+        <Icon size={18} strokeWidth={1.8} />
+      </span>
     </div>
   );
 }

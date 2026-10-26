@@ -3,7 +3,8 @@
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import type { CategoryDatum } from "@/types";
 
-const PALETTE = ["#2E1FD0", "#22D3EE", "#16C79A", "#FAA93A", "#E24B4A", "#8F97F5"];
+// Monochrome-first: brand blue, graphite, then lighter tints of both.
+const PALETTE = ["#2563EB", "#17191F", "#93B8FD", "#989DA7", "#DBE8FE", "#585D68"];
 
 interface DonutChartCardProps {
   title: string;
@@ -34,7 +35,7 @@ export function DonutChartCard({ title, data }: DonutChartCardProps) {
             <Tooltip
               contentStyle={{
                 borderRadius: 10,
-                border: "1px solid #E4E8F5",
+                border: "1px solid #E6E8EC",
                 fontSize: 12,
               }}
             />

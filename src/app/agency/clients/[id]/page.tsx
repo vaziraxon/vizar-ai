@@ -57,7 +57,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Profile summary */}
         <div className="card flex flex-col items-center gap-3 p-6 text-center dark:border-white/10 dark:bg-navy-800">
-          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-gradient text-body font-semibold text-white">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-night text-body font-semibold text-white dark:bg-white dark:text-night">
             {client.initials}
           </span>
           <p className="font-display text-lg font-semibold text-ink-900 dark:text-white">
@@ -216,7 +216,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
               <button
                 type="button"
                 onClick={addNote}
-                className="flex items-center gap-1 rounded-lg bg-brand-gradient px-3 py-2 text-caption font-semibold text-white shadow-glow"
+                className="flex items-center gap-1 rounded-lg bg-brand-600 transition-colors hover:bg-brand-deep px-3 py-2 text-caption font-semibold text-white"
               >
                 <Plus size={14} /> Qo&apos;shish
               </button>

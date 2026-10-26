@@ -5,12 +5,14 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Sparkles, ArrowRight, ArrowLeft, X, Check } from "lucide-react";
 import { ONBOARDING_STEPS, ONBOARDING_GOALS, COUNTRY_OPTIONS, VISA_TYPE_OPTIONS } from "@/data/mockData";
+import { useL } from "@/components/i18n/L";
 
 const STORAGE_KEY = "vizar-ai-onboarding-done";
 const PROGRESS_KEY = "vizar-ai-onboarding-progress";
 
 export function OnboardingWizard() {
   const router = useRouter();
+  const l = useL();
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [country, setCountry] = useState("");
@@ -53,7 +55,7 @@ export function OnboardingWizard() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[90] bg-black/50"
+            className="fixed inset-0 z-[90] bg-night/40 backdrop-blur-[2px]"
           />
           <div className="fixed inset-0 z-[91] flex items-center justify-center p-4">
             <motion.div
@@ -68,7 +70,7 @@ export function OnboardingWizard() {
                     <span
                       key={s.id}
                       className={`h-1.5 w-8 rounded-pill ${
-                        i <= step ? "bg-brand-gradient" : "bg-surface-muted dark:bg-white/10"
+                        i <= step ? "bg-brand-600" : "bg-surface-muted dark:bg-white/10"
                       }`}
                     />
                   ))}
@@ -76,7 +78,7 @@ export function OnboardingWizard() {
                 <button
                   type="button"
                   onClick={skip}
-                  aria-label="O'tkazib yuborish"
+                  aria-label={l("O'tkazib yuborish")}
                   className="text-ink-400 hover:text-ink-700 dark:text-white/40 dark:hover:text-white"
                 >
                   <X size={18} />
@@ -91,14 +93,14 @@ export function OnboardingWizard() {
                   exit={{ opacity: 0, x: -12 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-gradient text-white">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-50 text-brand-600 dark:bg-brand-500/15 dark:text-brand-300">
                     <Sparkles size={19} />
                   </span>
                   <h2 className="mt-4 font-display text-display-sm text-ink-900 dark:text-white">
-                    {current.title}
+                    {l(current.title)}
                   </h2>
                   <p className="mt-1 text-body-sm text-ink-600 dark:text-white/60">
-                    {current.description}
+                    {l(current.description)}
                   </p>
 
                   <div className="mt-5">
@@ -111,11 +113,11 @@ export function OnboardingWizard() {
                             onClick={() => setCountry(c)}
                             className={`rounded-lg border px-3 py-2 text-caption font-medium transition-colors ${
                               country === c
-                                ? "border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300"
+                                ? "border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-600/30 dark:text-brand-300"
                                 : "border-surface-border text-ink-700 hover:bg-surface-muted dark:border-white/10 dark:text-white/70"
                             }`}
                           >
-                            {c}
+                            {l(c)}
                           </button>
                         ))}
                       </div>
@@ -130,11 +132,11 @@ export function OnboardingWizard() {
                             onClick={() => setVisaType(v)}
                             className={`rounded-lg border px-3 py-2 text-caption font-medium transition-colors ${
                               visaType === v
-                                ? "border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300"
+                                ? "border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-600/30 dark:text-brand-300"
                                 : "border-surface-border text-ink-700 hover:bg-surface-muted dark:border-white/10 dark:text-white/70"
                             }`}
                           >
-                            {v}
+                            {l(v)}
                           </button>
                         ))}
                       </div>
@@ -149,11 +151,11 @@ export function OnboardingWizard() {
                             onClick={() => setGoal(g)}
                             className={`flex w-full items-center justify-between rounded-lg border px-4 py-2.5 text-left text-body-sm font-medium transition-colors ${
                               goal === g
-                                ? "border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300"
+                                ? "border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-600/30 dark:text-brand-300"
                                 : "border-surface-border text-ink-700 hover:bg-surface-muted dark:border-white/10 dark:text-white/70"
                             }`}
                           >
-                            {g}
+                            {l(g)}
                             {goal === g && <Check size={15} />}
                           </button>
                         ))}
@@ -165,7 +167,7 @@ export function OnboardingWizard() {
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Ismingiz"
+                        placeholder={l("Ismingiz")}
                         className="w-full rounded-lg border border-surface-border bg-white px-4 py-2.5 text-body-sm text-ink-900 outline-none focus:border-brand-400 dark:border-white/10 dark:bg-navy-800 dark:text-white"
                       />
                     )}
@@ -173,8 +175,8 @@ export function OnboardingWizard() {
                     {(current.id === "welcome" || current.id === "start") && (
                       <div className="rounded-xl bg-surface-tint p-4 text-body-sm text-ink-600 dark:bg-white/5 dark:text-white/60">
                         {current.id === "welcome"
-                          ? "Bir necha bosqichda profilingizni sozlaymiz — bu atigi 1 daqiqa vaqt oladi."
-                          : "Barchasi tayyor! Endi birinchi viza tahlilingizni boshlashingiz mumkin."}
+                          ? l("Bir necha bosqichda profilingizni sozlaymiz — bu atigi 1 daqiqa vaqt oladi.")
+                          : l("Barchasi tayyor! Endi birinchi viza tahlilingizni boshlashingiz mumkin.")}
                       </div>
                     )}
                   </div>
@@ -188,7 +190,7 @@ export function OnboardingWizard() {
                   disabled={step === 0}
                   className="inline-flex items-center gap-1.5 rounded-pill px-4 py-2 text-body-sm font-semibold text-ink-700 disabled:opacity-30 dark:text-white/70"
                 >
-                  <ArrowLeft size={15} /> Orqaga
+                  <ArrowLeft size={15} /> {l("Orqaga")}
                 </button>
                 {step < total - 1 ? (
                   <button
@@ -197,17 +199,17 @@ export function OnboardingWizard() {
                       persistProgress();
                       setStep((s) => Math.min(s + 1, total - 1));
                     }}
-                    className="inline-flex items-center gap-1.5 rounded-pill bg-brand-gradient px-5 py-2 text-body-sm font-semibold text-white shadow-glow"
+                    className="inline-flex items-center gap-1.5 rounded-pill bg-brand-600 transition-colors hover:bg-brand-deep px-5 py-2 text-body-sm font-semibold text-white"
                   >
-                    Keyingi <ArrowRight size={15} />
+                    {l("Keyingi")} <ArrowRight size={15} />
                   </button>
                 ) : (
                   <button
                     type="button"
                     onClick={finish}
-                    className="inline-flex items-center gap-1.5 rounded-pill bg-brand-gradient px-5 py-2 text-body-sm font-semibold text-white shadow-glow"
+                    className="inline-flex items-center gap-1.5 rounded-pill bg-brand-600 transition-colors hover:bg-brand-deep px-5 py-2 text-body-sm font-semibold text-white"
                   >
-                    Tahlilni boshlash <Sparkles size={15} />
+                    {l("Tahlilni boshlash")} <Sparkles size={15} />
                   </button>
                 )}
               </div>

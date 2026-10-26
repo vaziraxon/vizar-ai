@@ -15,6 +15,10 @@ import {
   completeAssessmentAction,
 } from "@/lib/actions/assessments";
 import { upsertReportAction } from "@/lib/actions/reports";
+import { useL } from "@/components/i18n/L";
+
+// Same order as DOC_LABELS
+const DOC_EMOJI = ["🛂", "🏦", "💼", "🏨", "✈️", "🩺", "✉️"];
 
 const STEP_LABELS = [
   "Mamlakat va viza",
@@ -85,6 +89,7 @@ export function AssessmentWizard({
   configured,
 }: AssessmentWizardProps) {
   const router = useRouter();
+  const l = useL();
   const [applicationId, setApplicationId] = useState<string | null>(resumeApplicationId);
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<AssessmentForm>(
@@ -172,7 +177,7 @@ export function AssessmentWizard({
     setFormError("");
 
     if (!configured || !applicationId) {
-      setTimeout(() => router.push("/readiness-score"), 800);
+      setTimeout(() => router.push("/dashboard/readiness"), 800);
       return;
     }
 
@@ -198,15 +203,15 @@ export function AssessmentWizard({
       },
     });
 
-    router.push("/readiness-score");
+    router.push("/dashboard/readiness");
     router.refresh();
   }
 
   return (
-    <div className="card mx-auto max-w-2xl p-6 dark:border-white/10 dark:bg-navy-800 sm:p-8">
+    <div className="card mx-auto max-w-2xl rounded-[28px] p-6 sm:p-8">
       {resumeApplicationId && step === 0 && (
-        <div className="mb-5 flex items-center gap-2 rounded-lg bg-brand-50 px-3 py-2 text-caption font-medium text-brand-700 dark:bg-brand-900/20 dark:text-brand-300">
-          <History size={14} /> Oldingi tugallanmagan tahlilingiz davom ettirilmoqda.
+        <div className="mb-5 flex items-center gap-2 rounded-lg bg-brand-50 px-3 py-2 text-caption font-medium text-brand-700 dark:bg-brand-600/20 dark:text-brand-300">
+          <History size={14} /> {l("Oldingi tugallanmagan tahlilingiz davom ettirilmoqda.")}
         </div>
       )}
 
@@ -364,16 +369,18 @@ export function AssessmentWizard({
           {step === 4 && (
             <div className="space-y-3">
               <p className="text-body-sm text-ink-600 dark:text-white/60">
-                Har bir hujjat holatini belgilang — bu yakuniy tahlil sifatiga
-                ta&apos;sir qiladi.
+                {l("Har bir hujjat holatini belgilang — bu yakuniy tahlil sifatiga ta'sir qiladi.")}
               </p>
-              {DOC_LABELS.map((doc) => (
+              {DOC_LABELS.map((doc, i) => (
                 <div
                   key={doc}
-                  className="flex items-center justify-between gap-4 rounded-lg border border-surface-border px-4 py-3 dark:border-white/10"
+                  className="flex items-center justify-between gap-4 rounded-2xl border border-surface-border bg-surface px-3 py-2.5"
                 >
-                  <span className="text-body-sm font-medium text-ink-900 dark:text-white">
-                    {doc}
+                  <span className="flex items-center gap-3 text-body-sm font-medium text-ink-900">
+                    <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-xl bg-surface-tint text-[17px] leading-none">
+                      {DOC_EMOJI[i] ?? "📄"}
+                    </span>
+                    {l(doc)}
                   </span>
                   <select
                     value={form.docsStatus[doc]}
@@ -383,12 +390,12 @@ export function AssessmentWizard({
                         [doc]: e.target.value,
                       })
                     }
-                    className="rounded-lg border border-surface-border bg-white px-3 py-1.5 text-body-sm text-ink-900 outline-none focus:border-brand-400 dark:border-white/10 dark:bg-navy-900 dark:text-white"
+                    className="rounded-xl border border-surface-border bg-surface px-3 py-1.5 text-body-sm text-ink-900 outline-none focus:border-brand-400"
                   >
-                    <option value="">Holatni tanlang</option>
-                    <option value="Tayyor">Tayyor</option>
-                    <option value="Jarayonda">Jarayonda</option>
-                    <option value={"Yo'q"}>{"Yo'q"}</option>
+                    <option value="">{l("Holatni tanlang")}</option>
+                    <option value="Tayyor">{l("Tayyor")}</option>
+                    <option value="Jarayonda">{l("Jarayonda")}</option>
+                    <option value={"Yo'q"}>{l("Yo'q")}</option>
                   </select>
                 </div>
               ))}
@@ -398,7 +405,7 @@ export function AssessmentWizard({
       </AnimatePresence>
 
       {formError && (
-        <p className="mt-4 text-body-sm font-medium text-red-600">{formError}</p>
+        <p className="mt-4 text-body-sm font-medium text-red-600">{l(formError)}</p>
       )}
 
       <div className="mt-8 flex items-center justify-between border-t border-surface-border pt-6 dark:border-white/10">
@@ -408,13 +415,13 @@ export function AssessmentWizard({
           disabled={step === 0}
           className="inline-flex items-center gap-1.5 rounded-pill px-5 py-2.5 text-body-sm font-semibold text-ink-700 transition-colors hover:bg-surface-muted disabled:pointer-events-none disabled:opacity-40 dark:text-white/70 dark:hover:bg-white/5"
         >
-          <ArrowLeft size={16} /> Orqaga
+          <ArrowLeft size={16} /> {l("Orqaga")}
         </button>
 
         {step < STEP_LABELS.length - 1 ? (
           <Button size="md" onClick={handleNext} disabled={savingStep}>
             {savingStep ? <Loader2 size={16} className="animate-spin" /> : null}
-            Keyingi <ArrowRight size={16} />
+            {l("Keyingi")} <ArrowRight size={16} />
           </Button>
         ) : (
           <Button size="md" onClick={handleFinish} disabled={submitting}>
@@ -423,14 +430,13 @@ export function AssessmentWizard({
             ) : (
               <Sparkles size={16} />
             )}
-            Tahlilni boshlash
+            {l("Tahlilni boshlash")}
           </Button>
         )}
       </div>
 
       <p className="mt-4 text-center text-caption text-ink-400 dark:text-white/40">
-        Ushbu baho faqat tayyorgarlik ko&apos;rsatkichi — u viza tasdiqlanish
-        ehtimolini bildirmaydi va uni kafolatlamaydi.
+        {l("Ushbu baho faqat tayyorgarlik ko'rsatkichi — u viza tasdiqlanish ehtimolini bildirmaydi va uni kafolatlamaydi.")}
       </p>
     </div>
   );

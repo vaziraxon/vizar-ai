@@ -8,7 +8,7 @@ const VARIANT_STYLES: Record<
   { wrap: string; icon: string; Icon: typeof Info }
 > = {
   info: {
-    wrap: "border-brand-200 bg-brand-50 dark:border-brand-400/20 dark:bg-brand-900/20",
+    wrap: "border-brand-100 bg-brand-50/70 dark:border-brand-400/20 dark:bg-brand-600/20",
     icon: "text-brand-600 dark:text-brand-300",
     Icon: Info,
   },
@@ -38,7 +38,7 @@ export function InlineAlert({
 }) {
   const { wrap, icon, Icon } = VARIANT_STYLES[variant];
   return (
-    <div role="status" className={cn("flex items-start gap-3 rounded-2xl border p-4", wrap)}>
+    <div role="status" className={cn("flex items-start gap-3 rounded-2xl border px-4 py-3.5", wrap)}>
       <Icon size={18} className={cn("mt-0.5 shrink-0", icon)} />
       <div className="text-body-sm text-ink-800 dark:text-white/80">{children}</div>
     </div>

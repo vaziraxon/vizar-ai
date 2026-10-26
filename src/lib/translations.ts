@@ -1,10 +1,13 @@
+import { AUTH_TRANSLATIONS } from "./i18n/auth";
+import { APP_TRANSLATIONS } from "./i18n/app";
+
 export type LangCode = "uz" | "ru" | "en";
 
 // Uzbek carries the full product content everywhere in the app.
-// Russian and English cover common navigation/UI labels only, as a
-// demo of the translation structure — deeper page content stays in
-// Uzbek until full localization is scoped.
-export const TRANSLATIONS: Record<LangCode, Record<string, string>> = {
+// Auth screens and dashboard chrome are translated in ./i18n/*, the public
+// site uses typed copy in ./i18n/site; deeper page content stays in Uzbek until
+// full localization is scoped.
+const BASE_TRANSLATIONS: Record<LangCode, Record<string, string>> = {
   uz: {
     nav_home: "Bosh sahifa",
     nav_problem: "Muammo",
@@ -15,10 +18,10 @@ export const TRANSLATIONS: Record<LangCode, Record<string, string>> = {
     nav_contact: "Aloqa",
     login: "Kirish",
     logout: "Chiqish",
-    register: "Ro'yxatdan o'tish",
+    register: "Ro‘yxatdan o‘tish",
     cta_start_free: "Bepul tahlilni boshlash",
-    cta_view_demo: "Demo ko'rish",
-    dashboard_overview: "Umumiy ko'rinish",
+    cta_view_demo: "Demo ko‘rish",
+    dashboard_overview: "Umumiy ko‘rinish",
     new_assessment: "Yangi viza tahlili",
     documents: "Hujjatlar",
     readiness_score: "Visa Readiness Score",
@@ -80,4 +83,10 @@ export const TRANSLATIONS: Record<LangCode, Record<string, string>> = {
     profile: "Profile",
     settings: "Settings",
   },
+};
+
+export const TRANSLATIONS: Record<LangCode, Record<string, string>> = {
+  uz: { ...BASE_TRANSLATIONS.uz, ...AUTH_TRANSLATIONS.uz, ...APP_TRANSLATIONS.uz },
+  ru: { ...BASE_TRANSLATIONS.ru, ...AUTH_TRANSLATIONS.ru, ...APP_TRANSLATIONS.ru },
+  en: { ...BASE_TRANSLATIONS.en, ...AUTH_TRANSLATIONS.en, ...APP_TRANSLATIONS.en },
 };

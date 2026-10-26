@@ -1,4 +1,7 @@
+"use client";
+
 import { cn } from "@/lib/utils";
+import { useL } from "@/components/i18n/L";
 
 const STATUS_STYLES: Record<string, string> = {
   // Documents
@@ -6,17 +9,17 @@ const STATUS_STYLES: Record<string, string> = {
   "Kamchilik bor": "bg-red-500/10 text-red-600",
   "Yangilash kerak": "bg-warning/10 text-warning",
   Yuklanmagan: "bg-surface-muted text-ink-400 dark:bg-white/10 dark:text-white/50",
-  "AI tahlil qilmoqda": "bg-brand-50 text-brand-600 dark:bg-brand-900/40 dark:text-brand-300",
+  "AI tahlil qilmoqda": "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
   // Applications
   Draft: "bg-surface-muted text-ink-400 dark:bg-white/10 dark:text-white/50",
-  Yangi: "bg-brand-50 text-brand-600 dark:bg-brand-900/40 dark:text-brand-300",
-  "Tahlil qilinmoqda": "bg-brand-50 text-brand-600 dark:bg-brand-900/40 dark:text-brand-300",
+  Yangi: "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
+  "Tahlil qilinmoqda": "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
   Tayyor: "bg-success/10 text-success",
   "Konsultatsiya kerak": "bg-warning/10 text-warning",
   Yakunlangan: "bg-success/10 text-success",
   // Tasks
   Bajarildi: "bg-success/10 text-success",
-  Jarayonda: "bg-brand-50 text-brand-600 dark:bg-brand-900/40 dark:text-brand-300",
+  Jarayonda: "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
   Boshlanmagan: "bg-surface-muted text-ink-400 dark:bg-white/10 dark:text-white/50",
   Muhim: "bg-red-500/10 text-red-600",
   // Risk levels
@@ -28,6 +31,7 @@ const STATUS_STYLES: Record<string, string> = {
 };
 
 export function StatusBadge({ status }: { status: string }) {
+  const l = useL();
   return (
     <span
       className={cn(
@@ -36,7 +40,7 @@ export function StatusBadge({ status }: { status: string }) {
           "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/70"
       )}
     >
-      {status}
+      {l(status)}
     </span>
   );
 }

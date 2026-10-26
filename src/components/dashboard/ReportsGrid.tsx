@@ -6,6 +6,7 @@ import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { Modal } from "@/components/modals/Modal";
 import { EmptyState } from "@/components/states/EmptyState";
 import type { ReportRow } from "@/lib/data/reports";
+import { useDateLocale, useL } from "@/components/i18n/L";
 
 const TYPE_ICON: Record<string, typeof Gauge> = {
   readiness: Gauge,
@@ -25,6 +26,8 @@ const TYPE_LABEL: Record<string, string> = {
 
 export function ReportsGrid({ reports }: { reports: ReportRow[] }) {
   const [selected, setSelected] = useState<ReportRow | null>(null);
+  const l = useL();
+  const locale = useDateLocale();
 
   if (reports.length === 0) {
     return (
@@ -44,21 +47,21 @@ export function ReportsGrid({ reports }: { reports: ReportRow[] }) {
           return (
             <div
               key={report.id}
-              className="card flex flex-col gap-4 p-6 dark:border-white/10 dark:bg-navy-800"
+              className="card spotlight flex flex-col gap-4 rounded-[24px] p-6"
             >
               <div className="flex items-start justify-between">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-gradient text-white">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/15 dark:text-brand-300">
                   <Icon size={19} />
                 </span>
                 <StatusBadge status={report.status === "ready" ? "Tayyor" : "Yaratilmoqda"} />
               </div>
               <div>
                 <p className="font-display text-body font-semibold text-ink-900 dark:text-white">
-                  {report.title || TYPE_LABEL[report.report_type ?? ""] || "Hisobot"}
+                  {l(report.title || TYPE_LABEL[report.report_type ?? ""] || "Hisobot")}
                 </p>
               </div>
               <p className="text-caption text-ink-400 dark:text-white/40">
-                {new Date(report.created_at).toLocaleDateString("uz-UZ", {
+                {new Date(report.created_at).toLocaleDateString(locale, {
                   day: "2-digit",
                   month: "long",
                   year: "numeric",
@@ -70,7 +73,7 @@ export function ReportsGrid({ reports }: { reports: ReportRow[] }) {
                 onClick={() => setSelected(report)}
                 className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-pill border border-surface-border px-4 py-2 text-body-sm font-semibold text-ink-700 transition-colors hover:bg-surface-muted disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/10 dark:text-white/70 dark:hover:bg-white/5"
               >
-                <Eye size={14} /> Ko&apos;rish
+                <Eye size={14} /> {l("Ko'rish")}
               </button>
             </div>
           );
@@ -80,7 +83,7 @@ export function ReportsGrid({ reports }: { reports: ReportRow[] }) {
       <Modal
         open={selected !== null}
         onClose={() => setSelected(null)}
-        title={selected?.title || "Hisobot"}
+        title={l(selected?.title || "Hisobot")}
       >
         {selected && (
           <div>
@@ -91,32 +94,31 @@ export function ReportsGrid({ reports }: { reports: ReportRow[] }) {
               <div className="mb-3 flex items-center justify-between border-b border-surface-border pb-3">
                 <span className="font-display text-body font-bold text-brand-600">VIZAR AI</span>
                 <span className="text-caption text-ink-400">
-                  {new Date(selected.created_at).toLocaleDateString("uz-UZ")}
+                  {new Date(selected.created_at).toLocaleDateString(locale)}
                 </span>
               </div>
-              <p className="text-body-sm font-semibold">{selected.title}</p>
+              <p className="text-body-sm font-semibold">{l(selected.title ?? "")}</p>
               <pre className="mt-3 whitespace-pre-wrap break-words text-caption text-ink-600">
                 {JSON.stringify(selected.report_data, null, 2)}
               </pre>
               <p className="mt-4 text-caption italic text-ink-400">
-                Ushbu hisobot faqat axborot va tayyorgarlik maqsadida beriladi.
-                Viza tasdiqlanishini kafolatlamaydi.
+                {l("Ushbu hisobot faqat axborot va tayyorgarlik maqsadida beriladi. Viza tasdiqlanishini kafolatlamaydi.")}
               </p>
             </div>
             <div className="mt-5 flex gap-2">
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="flex flex-1 items-center justify-center gap-2 rounded-pill bg-brand-gradient px-4 py-2.5 text-body-sm font-semibold text-white shadow-glow"
+                className="flex flex-1 items-center justify-center gap-2 rounded-pill bg-brand-600 transition-colors hover:bg-brand-deep px-4 py-2.5 text-body-sm font-semibold text-white"
               >
-                <Printer size={15} /> Yuklab olish (demo)
+                <Printer size={15} /> {l("Yuklab olish (demo)")}
               </button>
               <button
                 type="button"
                 onClick={() => setSelected(null)}
                 className="flex flex-1 items-center justify-center gap-2 rounded-pill border border-surface-border px-4 py-2.5 text-body-sm font-semibold text-ink-700 dark:border-white/10 dark:text-white/70"
               >
-                <Share2 size={15} /> Ulashish (demo)
+                <Share2 size={15} /> {l("Ulashish (demo)")}
               </button>
             </div>
           </div>

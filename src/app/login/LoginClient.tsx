@@ -3,14 +3,17 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { LogIn, Loader2 } from "lucide-react";
+import { Loader2, ArrowRight } from "lucide-react";
 import { AuthCard } from "@/components/auth/AuthCard";
 import { TextField } from "@/components/forms/TextField";
 import { Button } from "@/components/ui/Button";
 import { InlineAlert } from "@/components/states/InlineAlert";
 import { loginAction } from "@/lib/actions/auth";
+import { GoogleButton } from "@/components/auth/GoogleButton";
+import { useLanguage } from "@/lib/language-context";
 
 export default function LoginClient({ configured }: { configured: boolean }) {
+  const { t } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
@@ -19,6 +22,7 @@ export default function LoginClient({ configured }: { configured: boolean }) {
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   const [formError, setFormError] = useState("");
   const [loading, setLoading] = useState(false);
+  const callbackFailed = searchParams.get("error") === "auth_callback_failed";
 
   // Only ever follow a same-origin relative path from `next` — never
   // an absolute URL, to avoid an open-redirect via query params.
@@ -27,8 +31,8 @@ export default function LoginClient({ configured }: { configured: boolean }) {
 
   function validate() {
     const next: typeof errors = {};
-    if (!/^\S+@\S+\.\S+$/.test(email)) next.email = "To'g'ri email manzil kiriting.";
-    if (password.length < 6) next.password = "Parol kamida 6 belgidan iborat bo'lishi kerak.";
+    if (!/^\S+@\S+\.\S+$/.test(email)) next.email = t("au_err_email");
+    if (password.length < 6) next.password = t("au_err_password");
     setErrors(next);
     return Object.keys(next).length === 0;
   }
@@ -46,7 +50,7 @@ export default function LoginClient({ configured }: { configured: boolean }) {
     setLoading(false);
 
     if (!result.ok) {
-      setFormError(result.error ?? "Kirishda xatolik yuz berdi.");
+      setFormError(result.error ?? t("au_login_error"));
       return;
     }
     router.push(nextPath);
@@ -54,24 +58,35 @@ export default function LoginClient({ configured }: { configured: boolean }) {
   }
 
   return (
-    <AuthCard
-      title="Hisobingizga kiring"
-      subtitle="VIZAR AI platformasiga xush kelibsiz."
-    >
+    <AuthCard title={t("au_login_title")} subtitle={t("au_login_subtitle")}>
       {!configured && (
-        <div className="mb-4">
+        <div className="mb-5">
           <InlineAlert variant="warning">
-            Supabase sozlanmagan — kirish demo rejimda ishlamaydi.
-            Batafsil: <code>SUPABASE_SETUP.md</code>.
+            {t("au_login_not_configured")} <code>SUPABASE_SETUP.md</code>
           </InlineAlert>
         </div>
       )}
+      {callbackFailed && (
+        <div className="mb-5" role="alert">
+          <InlineAlert variant="danger">{t("au_callback_error")}</InlineAlert>
+        </div>
+      )}
 
-      <form onSubmit={handleSubmit} noValidate className="space-y-4">
+      {/* Google first — the fastest way in */}
+      <div className="mb-5 space-y-5">
+        <GoogleButton next={nextPath} configured={configured} />
+        <div className="relative py-1 text-center">
+          <span className="relative z-10 bg-surface px-3 text-caption text-ink-500">{t("au_or")}</span>
+          <div className="absolute left-0 right-0 top-1/2 h-px bg-surface-border" />
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit} noValidate className="space-y-5">
         <TextField
           id="email"
-          label="Email"
+          label={t("au_email")}
           type="email"
+          autoComplete="email"
           placeholder="email@misol.uz"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -80,8 +95,9 @@ export default function LoginClient({ configured }: { configured: boolean }) {
         />
         <TextField
           id="password"
-          label="Parol"
+          label={t("au_password")}
           type="password"
+          autoComplete="current-password"
           placeholder="••••••••"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -89,60 +105,49 @@ export default function LoginClient({ configured }: { configured: boolean }) {
           disabled={!configured}
         />
 
-        {formError && (
-          <p className="text-body-sm font-medium text-red-600">{formError}</p>
-        )}
-
-        <div className="flex items-center justify-between text-body-sm">
-          <label className="flex items-center gap-2 text-ink-700 dark:text-white/70">
+        <div className="flex items-center justify-between gap-4 text-body-sm">
+          <label className="flex cursor-pointer items-center gap-2 text-ink-700 dark:text-white/70">
             <input
               type="checkbox"
               checked={remember}
               onChange={(e) => setRemember(e.target.checked)}
-              className="h-4 w-4 rounded border-surface-border text-brand-600 focus:ring-brand-400"
+              className="h-4 w-4 rounded border-surface-strong accent-brand-600"
             />
-            Meni eslab qolish
+            {t("au_remember")}
           </label>
           <Link
             href="/forgot-password"
-            className="font-medium text-brand-600 hover:text-brand-700"
+            className="rounded font-medium text-ink-900 underline decoration-surface-strong underline-offset-4 transition-colors hover:decoration-ink-900 dark:text-white"
           >
-            Parolni unutdingizmi?
+            {t("au_forgot")}
           </Link>
         </div>
 
-        <Button type="submit" size="md" className="w-full" disabled={loading || !configured}>
-          {loading ? (
-            <Loader2 size={18} className="animate-spin" />
-          ) : (
-            <LogIn size={18} />
-          )}
-          Kirish
+        {formError && (
+          <div role="alert">
+            <InlineAlert variant="danger">{formError}</InlineAlert>
+          </div>
+        )}
+
+        <Button
+          type="submit"
+          size="lg"
+          className="w-full"
+          disabled={loading || !configured}
+          aria-busy={loading}
+        >
+          {loading ? <Loader2 size={18} className="animate-spin" /> : null}
+          {t("login")}
+          {!loading && <ArrowRight size={17} />}
         </Button>
 
-        <div className="relative py-1 text-center">
-          <span className="relative z-10 bg-white px-3 text-caption text-ink-400 dark:bg-navy-900 dark:text-white/40">
-            yoki
-          </span>
-          <div className="absolute left-0 right-0 top-1/2 h-px bg-surface-border dark:bg-white/10" />
-        </div>
-
-        <button
-          type="button"
-          disabled
-          title="Google orqali kirish hozircha sozlanmagan"
-          className="flex w-full items-center justify-center gap-2 rounded-pill border border-surface-border bg-white px-6 py-3.5 text-body-sm font-semibold text-ink-400 opacity-60 dark:border-white/10 dark:bg-navy-800 dark:text-white/40"
-        >
-          Google orqali kirish — Tez orada
-        </button>
-
-        <p className="text-center text-body-sm text-ink-600 dark:text-white/60">
-          Hisobingiz yo&apos;qmi?{" "}
+        <p className="pt-2 text-center text-body-sm text-ink-600 dark:text-white/60">
+          {t("au_no_account")}{" "}
           <Link
             href="/register"
-            className="font-semibold text-brand-600 hover:text-brand-700"
+            className="rounded font-semibold text-brand-600 hover:text-brand-700"
           >
-            Ro&apos;yxatdan o&apos;ting
+            {t("au_sign_up_link")}
           </Link>
         </p>
       </form>

@@ -1,6 +1,6 @@
 export function SkeletonTable({ rows = 5 }: { rows?: number }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-surface-border dark:border-white/10">
+    <div className="overflow-hidden rounded-xl border border-surface-border dark:border-white/10">
       <div className="space-y-0 divide-y divide-surface-border dark:divide-white/10">
         {Array.from({ length: rows }).map((_, i) => (
           <div key={i} className="flex animate-pulse items-center gap-4 bg-white p-4 dark:bg-navy-800">

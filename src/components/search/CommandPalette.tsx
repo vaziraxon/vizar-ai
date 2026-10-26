@@ -14,6 +14,7 @@ import {
 } from "@/data/mockData";
 import { LANGUAGES } from "@/lib/constants";
 import { useLanguage } from "@/lib/language-context";
+import { useL } from "@/components/i18n/L";
 
 interface SearchResult {
   id: string;
@@ -30,6 +31,7 @@ export function CommandPalette() {
   const router = useRouter();
   const { toggleTheme } = useTheme();
   const { language, setLanguage } = useLanguage();
+  const l = useL();
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -65,12 +67,12 @@ export function CommandPalette() {
 
     APPLICATIONS.forEach((a) => {
       if (`${a.country} ${a.visaType}`.toLowerCase().includes(q)) {
-        results.push({ id: a.id, label: `${a.country} — ${a.visaType}`, group: "Arizalar", href: "/applications" });
+        results.push({ id: a.id, label: `${a.country} — ${a.visaType}`, group: "Arizalar", href: "/dashboard/tracker" });
       }
     });
     DOCUMENTS.forEach((d) => {
       if (d.title.toLowerCase().includes(q)) {
-        results.push({ id: d.id, label: d.title, group: "Hujjatlar", href: "/documents" });
+        results.push({ id: d.id, label: d.title, group: "Hujjatlar", href: "/dashboard/documents" });
       }
     });
     RECOMMENDATION_TASKS.forEach((t) => {
@@ -89,8 +91,8 @@ export function CommandPalette() {
   const filteredCommands = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return COMMAND_ITEMS;
-    return COMMAND_ITEMS.filter((c) => c.label.toLowerCase().includes(q));
-  }, [query]);
+    return COMMAND_ITEMS.filter((c) => c.label.toLowerCase().includes(q) || l(c.label).toLowerCase().includes(q));
+  }, [query, l]);
 
   const flatList = [
     ...searchResults.map((r) => ({ kind: "result" as const, item: r })),
@@ -146,7 +148,7 @@ export function CommandPalette() {
               transition={{ duration: 0.18, ease: "easeOut" }}
               role="dialog"
               aria-modal="true"
-              aria-label="Qidiruv va buyruqlar paneli"
+              aria-label={l("Qidiruv va buyruqlar paneli")}
               className="w-full max-w-xl overflow-hidden rounded-2xl border border-surface-border bg-white shadow-float dark:border-white/10 dark:bg-navy-900"
             >
               <div className="flex items-center gap-3 border-b border-surface-border px-4 py-3 dark:border-white/10">
@@ -159,8 +161,8 @@ export function CommandPalette() {
                     setActiveIndex(0);
                   }}
                   onKeyDown={onKeyNav}
-                  placeholder="Qidirish yoki buyruq yozing..."
-                  aria-label="Qidirish yoki buyruq yozing"
+                  placeholder={l("Qidirish yoki buyruq yozing...")}
+                  aria-label={l("Qidirish yoki buyruq yozing")}
                   className="w-full bg-transparent text-body-sm text-ink-900 outline-none placeholder:text-ink-400 dark:text-white dark:placeholder:text-white/30"
                 />
                 <kbd className="hidden rounded-md border border-surface-border px-1.5 py-0.5 text-caption text-ink-400 dark:border-white/10 dark:text-white/40 sm:block">
@@ -171,13 +173,13 @@ export function CommandPalette() {
               <div className="max-h-80 overflow-y-auto p-2">
                 {flatList.length === 0 && (
                   <p className="px-3 py-6 text-center text-body-sm text-ink-400 dark:text-white/40">
-                    Hech narsa topilmadi.
+                    {l("Hech narsa topilmadi.")}
                   </p>
                 )}
 
                 {searchResults.length > 0 && (
                   <p className="px-3 pb-1 pt-2 text-caption font-semibold uppercase text-ink-400 dark:text-white/40">
-                    Natijalar
+                    {l("Natijalar")}
                   </p>
                 )}
                 {searchResults.map((r) => {
@@ -190,19 +192,19 @@ export function CommandPalette() {
                       onClick={() => runCommand({ kind: "result", item: r })}
                       className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-left text-body-sm ${
                         activeIndex === idx
-                          ? "bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300"
+                          ? "bg-brand-50 text-brand-700 dark:bg-brand-600/30 dark:text-brand-300"
                           : "text-ink-700 dark:text-white/70"
                       }`}
                     >
-                      <span>{r.label}</span>
-                      <span className="text-caption text-ink-400 dark:text-white/40">{r.group}</span>
+                      <span>{l(r.label)}</span>
+                      <span className="text-caption text-ink-400 dark:text-white/40">{l(r.group)}</span>
                     </button>
                   );
                 })}
 
                 {filteredCommands.length > 0 && (
                   <p className="px-3 pb-1 pt-3 text-caption font-semibold uppercase text-ink-400 dark:text-white/40">
-                    Buyruqlar
+                    {l("Buyruqlar")}
                   </p>
                 )}
                 {filteredCommands.map((c) => {
@@ -215,12 +217,12 @@ export function CommandPalette() {
                       onClick={() => runCommand({ kind: "command", item: c })}
                       className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-body-sm ${
                         activeIndex === idx
-                          ? "bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300"
+                          ? "bg-brand-50 text-brand-700 dark:bg-brand-600/30 dark:text-brand-300"
                           : "text-ink-700 dark:text-white/70"
                       }`}
                     >
                       <c.icon size={16} />
-                      {c.label}
+                      {l(c.label)}
                     </button>
                   );
                 })}

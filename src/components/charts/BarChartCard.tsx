@@ -21,7 +21,7 @@ interface BarChartCardProps {
 export function BarChartCard({
   title,
   data,
-  color = "#2E1FD0",
+  color = "#2563EB",
   horizontal = false,
 }: BarChartCardProps) {
   return (
@@ -58,7 +58,7 @@ export function BarChartCard({
             <Tooltip
               contentStyle={{
                 borderRadius: 10,
-                border: "1px solid #E4E8F5",
+                border: "1px solid #E6E8EC",
                 fontSize: 12,
               }}
             />

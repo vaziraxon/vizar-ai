@@ -37,14 +37,14 @@ export default function InvestorAnalyticsPage() {
         <TrendChartCard
           title="Tahlillarni yakunlash dinamikasi"
           data={ASSESSMENT_COMPLETION_TREND}
-          color="#22D3EE"
+          color="#17191F"
         />
         <BarChartCard title="Eng ko'p tanlangan davlatlar" data={DESTINATION_COUNTRIES_DATA} horizontal />
         <DonutChartCard title="Viza turlari bo'yicha taqsimot" data={VISA_TYPE_DISTRIBUTION} />
         <FunnelChartCard title="Konversiya voronkasi" steps={CONVERSION_FUNNEL} />
-        <TrendChartCard title="Saqlanish (retention) ko'rsatkichi" data={RETENTION_TREND} color="#16C79A" suffix="%" />
-        <TrendChartCard title="Daromad dinamikasi (namuna)" data={REVENUE_TREND} color="#FAA93A" />
-        <BarChartCard title="Platforma bo'yicha faollik" data={ENGAGEMENT_DATA} color="#8F97F5" />
+        <TrendChartCard title="Saqlanish (retention) ko'rsatkichi" data={RETENTION_TREND} color="#585D68" suffix="%" />
+        <TrendChartCard title="Daromad dinamikasi (namuna)" data={REVENUE_TREND} color="#989DA7" />
+        <BarChartCard title="Platforma bo'yicha faollik" data={ENGAGEMENT_DATA} color="#93B8FD" />
       </div>
     </DashboardShell>
   );

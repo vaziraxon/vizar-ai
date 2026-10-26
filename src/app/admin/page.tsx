@@ -40,7 +40,7 @@ export default function AdminPage() {
               href={item.href}
               className={
                 i === 0
-                  ? "flex items-center gap-3 rounded-xl bg-brand-gradient px-3 py-2.5 text-body-sm font-medium text-white shadow-glow"
+                  ? "flex items-center gap-3 rounded-xl bg-night px-3 py-2.5 text-body-sm font-medium text-white"
                   : "flex items-center gap-3 rounded-xl px-3 py-2.5 text-body-sm font-medium text-ink-700 transition-colors hover:bg-surface-muted dark:text-white/70 dark:hover:bg-white/5"
               }
             >
@@ -139,7 +139,7 @@ export default function AdminPage() {
                   {USER_GROWTH.map((v, i) => (
                     <div key={i} className="flex flex-1 flex-col items-center gap-2">
                       <div
-                        className="w-full rounded-t-md bg-brand-gradient"
+                        className="w-full rounded-t-md bg-brand-600"
                         style={{ height: `${(v / maxGrowth) * 100}%` }}
                       />
                       <span className="text-caption text-ink-400 dark:text-white/40">

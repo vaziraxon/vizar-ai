@@ -24,12 +24,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem(STORAGE_KEY) as Theme | null;
-    const prefersDark = window.matchMedia?.(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    const initial: Theme = stored ?? (prefersDark ? "dark" : "light");
-    setTheme(initial);
+    // Light is the primary theme; dark only applies when the user has
+    // explicitly chosen it via the toggle.
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    setTheme(stored === "dark" ? "dark" : "light");
     setMounted(true);
   }, []);
 

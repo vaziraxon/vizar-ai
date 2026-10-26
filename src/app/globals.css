@@ -3,20 +3,101 @@
 @tailwind utilities;
 
 :root {
-  --font-display: var(--font-space-grotesk);
+  --font-display: var(--font-manrope);
   --font-sans: var(--font-inter);
+  color-scheme: light;
+
+  /* Light theme — white cards on a light-violet interior */
+  --surface: 255 255 255;
+  --surface-canvas: 250 248 255;
+  --surface-tint: 244 241 255;
+  --surface-muted: 236 232 251;
+  --surface-border: 231 227 246;
+  --surface-strong: 214 207 239;
+  --ink-950: 11 16 32;
+  --ink-900: 17 19 24;
+  --ink-800: 34 37 44;
+  --ink-700: 54 58 67;
+  --ink-600: 74 79 90;
+  --ink-500: 94 99 112;
+  --ink-400: 141 146 157;
+  --ink-300: 194 198 206;
+  --brand-50: 239 245 255;
+  --brand-100: 219 232 254;
+  --brand-200: 191 213 254;
+  --brand-700: 29 79 215;
+  --brand-800: 30 64 175;
+  --brand-900: 30 58 138;
+  --violet-50: 245 243 255;
+  --violet-100: 237 233 254;
+  --violet-200: 221 214 254;
+  --violet-700: 109 40 217;
+  --violet-800: 91 33 182;
+  --violet-900: 76 29 149;
+}
+
+/* Dark theme — midnight cards, pale text, translucent tints */
+:root.dark {
+  color-scheme: dark;
+  --surface: 16 20 42;
+  --surface-canvas: 9 12 24;
+  --surface-tint: 19 24 51;
+  --surface-muted: 27 33 66;
+  --surface-border: 35 41 72;
+  --surface-strong: 48 56 96;
+  --ink-950: 246 247 252;
+  --ink-900: 236 238 246;
+  --ink-800: 217 220 232;
+  --ink-700: 196 200 215;
+  --ink-600: 166 171 190;
+  --ink-500: 139 145 166;
+  --ink-400: 108 114 138;
+  --ink-300: 70 77 104;
+  --brand-50: 18 27 61;
+  --brand-100: 26 38 80;
+  --brand-200: 37 52 102;
+  --brand-700: 155 190 253;
+  --brand-800: 181 206 254;
+  --brand-900: 204 221 255;
+  --violet-50: 26 21 56;
+  --violet-100: 36 28 74;
+  --violet-200: 49 39 95;
+  --violet-700: 196 181 253;
+  --violet-800: 212 200 254;
+  --violet-900: 226 218 255;
 }
 
 html {
   scroll-behavior: smooth;
+  /* Keeps anchor targets clear of the floating navbar */
+  scroll-padding-top: 104px;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  @apply bg-surface text-ink-900 antialiased;
+  @apply bg-surface-canvas text-ink-900 antialiased;
+  font-feature-settings: "cv11", "ss01";
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -25,45 +106,238 @@ body {
 }
 
 ::selection {
-  @apply bg-brand-200 text-brand-900;
+  @apply bg-violet-200 text-ink-900;
 }
 
 /* Focus ring — visible keyboard focus everywhere */
 :focus-visible {
-  outline: 2px solid #2E1FD0;
+  outline: 2px solid #2563eb;
   outline-offset: 2px;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 @layer components {
   .container-page {
-    @apply mx-auto w-full max-w-container px-6 md:px-10;
+    @apply mx-auto w-full max-w-container px-5 sm:px-6 lg:px-8;
   }
 
-  /* Buttons ------------------------------------------------------------ */
+  /* Buttons ---------------------------------------------------------------
+     Heights on the 8px grid: sm 36 · md 44 · lg 48. 200ms, no bounce. */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-pill px-6 py-3.5 text-body-sm font-semibold transition-all duration-200 ease-out;
+    @apply inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-pill font-semibold transition-[background-color,border-color,color,box-shadow,transform] duration-200 ease-premium active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
   }
+  .btn-sm {
+    @apply h-9 px-4 text-body-sm;
+  }
+  .btn-md {
+    @apply h-11 px-5 text-body-sm;
+  }
+  .btn-lg {
+    @apply h-12 px-6 text-body;
+  }
+  /* Tactile primary: soft top-lit gradient + inner highlight */
   .btn-primary {
-    @apply btn bg-brand-gradient text-white shadow-glow hover:shadow-glow hover:-translate-y-0.5 active:translate-y-0;
+    @apply btn bg-brand-600 bg-gradient-to-b from-brand-500 to-brand-600 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.28),0_10px_24px_-12px_rgba(37,99,235,0.75)] hover:from-brand-600 hover:to-brand-deep;
+  }
+  .btn-dark {
+    @apply btn bg-night text-white shadow-button hover:bg-night/90 dark:bg-white dark:text-night dark:hover:bg-white/90;
   }
   .btn-secondary {
-    @apply btn border border-surface-border bg-white text-ink-900 hover:border-brand-300 hover:bg-brand-50;
+    @apply btn border border-surface-border bg-white text-ink-900 hover:border-surface-strong hover:bg-surface-tint dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10;
   }
   .btn-ghost {
-    @apply btn text-ink-700 hover:bg-surface-muted;
+    @apply btn text-ink-700 hover:bg-surface-tint hover:text-ink-900 dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white;
   }
 
-  /* Cards ---------------------------------------------------------------- */
+  /* Surfaces ----------------------------------------------------------------
+     card  — 16px, hairline border, level-1 shadow (lists, forms, app cards)
+     panel — 20px, level-3 shadow, reserved for product UI previews       */
   .card {
-    @apply rounded-2xl border border-surface-border bg-white shadow-card transition-all duration-300;
+    @apply rounded-xl border border-surface-border bg-surface shadow-card transition-[box-shadow,border-color] duration-200 ease-premium;
   }
   .card-hover {
-    @apply hover:shadow-card-hover hover:-translate-y-1;
+    @apply hover:border-surface-strong hover:shadow-card-hover;
+  }
+  .card-muted {
+    @apply rounded-xl border border-surface-border/70 bg-surface-tint;
+  }
+  .panel {
+    @apply rounded-2xl border border-surface-border bg-surface shadow-float;
   }
 
-  /* Section rhythm --------------------------------------------------------- */
+  /* Icon container — 36px, 10px radius, 18px icon */
+  .icon-tile {
+    @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-surface-border bg-surface text-ink-800;
+  }
+
+  /* Section rhythm ---------------------------------------------------------- */
   .section {
     @apply py-section-y-sm md:py-section-y-md lg:py-section-y-lg;
+  }
+
+  /* Section label: a small white pill with an emoji — sentence case */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-pill border border-violet-200/80 bg-surface/80 px-3 py-1 text-[13px] font-medium text-ink-700;
+  }
+
+  /* Emoji in a soft violet tile — the identity mark for each product feature */
+  .emoji-tile {
+    @apply flex h-10 w-10 shrink-0 select-none items-center justify-center rounded-xl bg-violet-50 text-[20px] leading-none ring-1 ring-violet-100;
+  }
+
+  /* Form inputs ------------------------------------------------------------- */
+  .input {
+    @apply h-12 w-full rounded-xl border border-surface-border bg-surface px-4 text-body-sm text-ink-900 outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-ink-400 hover:border-surface-strong focus:border-brand-500 focus:shadow-focus disabled:cursor-not-allowed disabled:bg-surface-tint disabled:text-ink-400 dark:border-white/10 dark:bg-navy-800 dark:text-white dark:placeholder:text-white/30;
+  }
+
+  /* Loading skeleton -------------------------------------------------------- */
+  .skeleton {
+    @apply animate-shimmer rounded-lg;
+    background-image: linear-gradient(90deg, #ece8fb 0%, #f4f1ff 50%, #ece8fb 100%);
+    background-size: 200% 100%;
+  }
+  :root.dark .skeleton {
+    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.06) 100%);
+  }
+
+  /* Hero atmosphere — one faint violet/blue light, plain CSS gradients (no
+     theme-dependent @apply, no blur filters). */
+  .hero-backdrop {
+    background:
+      radial-gradient(50% 55% at 80% 28%, rgba(167, 139, 250, 0.30) 0%, rgba(167, 139, 250, 0) 72%),
+      radial-gradient(38% 40% at 8% 10%, rgba(196, 181, 253, 0.28) 0%, rgba(196, 181, 253, 0) 72%),
+      radial-gradient(40% 40% at 96% 78%, rgba(37, 99, 235, 0.08) 0%, rgba(37, 99, 235, 0) 72%),
+      linear-gradient(180deg, #efe9ff 0%, #f5f1ff 55%, #faf8ff 100%);
+  }
+
+  /* Homepage hero — saturated periwinkle → lavender sky, fading into the
+     canvas so the product stage can overlap the edge. */
+  .hero-sky {
+    background:
+      radial-gradient(45% 55% at 88% 12%, rgba(196, 181, 253, 0.85) 0%, rgba(196, 181, 253, 0) 70%),
+      radial-gradient(40% 50% at 6% 24%, rgba(147, 184, 253, 0.75) 0%, rgba(147, 184, 253, 0) 70%),
+      radial-gradient(35% 40% at 55% 62%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 70%),
+      linear-gradient(180deg, #a9c1fb 0%, #c3cffc 38%, #dcd5fd 68%, #f1edff 88%, #faf8ff 100%);
+  }
+
+  /* Midnight versions of the washes */
+  :root.dark .hero-sky {
+    background:
+      radial-gradient(45% 55% at 88% 8%, rgba(124, 58, 237, 0.34) 0%, rgba(124, 58, 237, 0) 70%),
+      radial-gradient(40% 50% at 6% 20%, rgba(37, 99, 235, 0.32) 0%, rgba(37, 99, 235, 0) 70%),
+      linear-gradient(180deg, #0e1433 0%, #0b1028 55%, #090c18 100%);
+  }
+  :root.dark .hero-sky-soft {
+    background:
+      radial-gradient(45% 60% at 85% 0%, rgba(124, 58, 237, 0.26) 0%, rgba(124, 58, 237, 0) 70%),
+      radial-gradient(40% 60% at 10% 10%, rgba(37, 99, 235, 0.24) 0%, rgba(37, 99, 235, 0) 70%),
+      linear-gradient(180deg, #0d1230 0%, #090c18 100%);
+  }
+  :root.dark .hero-backdrop {
+    background:
+      radial-gradient(50% 55% at 80% 28%, rgba(124, 58, 237, 0.22) 0%, rgba(124, 58, 237, 0) 72%),
+      linear-gradient(180deg, #0d1230 0%, #090c18 100%);
+  }
+
+  /* Fine film grain over a wash — sits behind content (isolation + z -1) */
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.22;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27><filter id=%27n%27><feTurbulence type=%27fractalNoise%27 baseFrequency=%270.85%27 numOctaves=%273%27 stitchTiles=%27stitch%27/></filter><rect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/></svg>");
+  }
+
+  /* Pointer spotlight — SpotlightObserver writes --mx/--my on hover.
+     Painted behind content (isolation + z -1), above the card fill. */
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+    --spot: rgba(99, 102, 241, 0.12);
+  }
+  .spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), var(--spot), transparent 45%);
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+  .spotlight-dark {
+    --spot: rgba(167, 139, 250, 0.16);
+  }
+
+  /* Inner-page header — the same sky, softer */
+  .hero-sky-soft {
+    background:
+      radial-gradient(45% 60% at 85% 0%, rgba(196, 181, 253, 0.6) 0%, rgba(196, 181, 253, 0) 70%),
+      radial-gradient(40% 60% at 10% 10%, rgba(147, 184, 253, 0.5) 0%, rgba(147, 184, 253, 0) 70%),
+      linear-gradient(180deg, #d5e0fd 0%, #e6e3fe 50%, #faf8ff 100%);
+  }
+
+  /* Dotted "digital" numerals for product facts */
+  .dot-numeral {
+    background-image: radial-gradient(circle, #111318 1.1px, transparent 1.4px);
+    background-size: 5px 5px;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@layer utilities {
+  /* Scroll-reveal: content is visible by default (no-JS / reduced motion);
+     the hidden state only applies once JS has opted the page in. */
+  .js-reveal [data-reveal] {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .js-reveal [data-reveal][data-shown] {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js-reveal [data-reveal] {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Draws an SVG progress ring from empty to its own stroke-dashoffset */
+  .ring-draw {
+    animation: ring-draw 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+  }
+  @keyframes ring-draw {
+    from {
+      stroke-dashoffset: var(--ring-circumference);
+    }
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
   }
 }

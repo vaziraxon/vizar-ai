@@ -10,8 +10,8 @@ import { AGENCY_NAV } from "@/data/mockData";
 export default function WhiteLabelPage() {
   const [logo, setLogo] = useState<string | null>(null);
   const [brandName, setBrandName] = useState("Ishonch Viza Agentligi");
-  const [primaryColor, setPrimaryColor] = useState("#2E1FD0");
-  const [accentColor, setAccentColor] = useState("#22D3EE");
+  const [primaryColor, setPrimaryColor] = useState("#2563EB");
+  const [accentColor, setAccentColor] = useState("#17191F");
   const [domain, setDomain] = useState("portal.ishonchviza.uz");
   const [senderName, setSenderName] = useState("Ishonch Viza Agentligi");
   const [saved, setSaved] = useState(false);

@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { CheckCircle2, X } from "lucide-react";
+import { useL } from "@/components/i18n/L";
 
 interface SuccessToastProps {
   open: boolean;
@@ -17,6 +18,7 @@ export function SuccessToast({
   onClose,
   duration = 3000,
 }: SuccessToastProps) {
+  const l = useL();
   useEffect(() => {
     if (!open) return;
     const t = setTimeout(onClose, duration);
@@ -37,12 +39,12 @@ export function SuccessToast({
         >
           <CheckCircle2 size={18} className="text-success" />
           <span className="text-body-sm font-medium text-ink-900 dark:text-white">
-            {message}
+            {l(message)}
           </span>
           <button
             type="button"
             onClick={onClose}
-            aria-label="Yopish"
+            aria-label={l("Yopish")}
             className="text-ink-400 hover:text-ink-700 dark:text-white/40 dark:hover:text-white"
           >
             <X size={15} />

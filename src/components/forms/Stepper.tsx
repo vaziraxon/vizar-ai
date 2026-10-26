@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import { L } from "@/components/i18n/L";
 import { cn } from "@/lib/utils";
 
 interface StepperProps {
@@ -19,7 +20,7 @@ export function Stepper({ steps, currentStep }: StepperProps) {
                 className={cn(
                   "flex h-9 w-9 items-center justify-center rounded-full text-body-sm font-semibold transition-colors",
                   isDone && "bg-success text-white",
-                  isActive && !isDone && "bg-brand-gradient text-white shadow-glow",
+                  isActive && !isDone && "bg-gradient-to-br from-brand-500 to-violet-600 text-white shadow-button",
                   !isDone && !isActive &&
                     "bg-surface-muted text-ink-400 dark:bg-white/10 dark:text-white/40"
                 )}
@@ -34,7 +35,7 @@ export function Stepper({ steps, currentStep }: StepperProps) {
                     : "text-ink-400 dark:text-white/40"
                 )}
               >
-                {label}
+                <L>{label}</L>
               </span>
             </div>
             {i < steps.length - 1 && (

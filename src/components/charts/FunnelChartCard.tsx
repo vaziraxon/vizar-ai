@@ -41,7 +41,7 @@ export function FunnelChartCard({
                   whileInView={{ width: `${widthPct}%` }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.08 }}
-                  className="h-full rounded-md bg-brand-gradient"
+                  className="h-full rounded-md bg-brand-600"
                 />
               </div>
             </div>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Trash2, Moon, Sun, PlayCircle, LogOut, KeyRound, ShieldAlert } from "lucide-react";
+import { Trash2, Moon, Sun, PlayCircle, LogOut, ShieldAlert } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { LanguageSelector } from "@/components/ui/LanguageSelector";
 import { ConfirmationModal } from "@/components/states/ConfirmationModal";
@@ -11,6 +11,9 @@ import { InlineAlert } from "@/components/states/InlineAlert";
 import { useTheme } from "@/lib/theme-context";
 import { logoutAction } from "@/lib/actions/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { useL } from "@/components/i18n/L";
+
+const sectionTitle = "flex items-center gap-2 text-body-sm font-semibold text-ink-950";
 
 function ToggleRow({
   label,
@@ -22,14 +25,15 @@ function ToggleRow({
   defaultChecked?: boolean;
 }) {
   const [checked, setChecked] = useState(defaultChecked);
+  const l = useL();
   return (
     <div className="flex items-center justify-between gap-4 py-3">
       <div>
         <p className="text-body-sm font-medium text-ink-900 dark:text-white">
-          {label}
+          {l(label)}
         </p>
         <p className="text-caption text-ink-400 dark:text-white/40">
-          {description}
+          {l(description)}
         </p>
       </div>
       <button
@@ -38,7 +42,7 @@ function ToggleRow({
         aria-checked={checked}
         onClick={() => setChecked((v) => !v)}
         className={`relative h-6 w-11 shrink-0 rounded-pill transition-colors ${
-          checked ? "bg-brand-600" : "bg-surface-muted dark:bg-white/10"
+          checked ? "bg-gradient-to-r from-brand-600 to-violet-600" : "bg-surface-muted dark:bg-white/10"
         }`}
       >
         <span
@@ -53,6 +57,7 @@ function ToggleRow({
 
 export default function SettingsPage() {
   const { theme, toggleTheme } = useTheme();
+  const l = useL();
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteToast, setDeleteToast] = useState(false);
   const router = useRouter();
@@ -66,43 +71,42 @@ export default function SettingsPage() {
   return (
     <DashboardShell title="Sozlamalar" subtitle="Hisobingiz sozlamalarini boshqaring.">
       <div className="space-y-6">
-        <div className="card p-6 dark:border-white/10 dark:bg-navy-800">
-          <p className="mb-3 text-body-sm font-semibold text-ink-900 dark:text-white">
-            Til
-          </p>
-          <LanguageSelector />
+        <div className="card flex flex-wrap items-center justify-between gap-4 rounded-[24px] p-6">
+          <div>
+            <p className={sectionTitle}>
+              <span aria-hidden="true">🌐</span> {l("Til")}
+            </p>
+            <p className="mt-0.5 text-caption text-ink-400">{l("Interfeys tili: o'zbek, rus yoki ingliz.")}</p>
+          </div>
+          <LanguageSelector variant="pill" />
         </div>
 
-        <div className="card flex items-center justify-between gap-4 p-6 dark:border-white/10 dark:bg-navy-800">
+        <div className="card flex items-center justify-between gap-4 rounded-[24px] p-6">
           <div>
-            <p className="text-body-sm font-semibold text-ink-900 dark:text-white">
-              Tanishtiruv (onboarding)
+            <p className={sectionTitle}>
+              <span aria-hidden="true">🎬</span> {l("Tanishtiruv (onboarding)")}
             </p>
-            <p className="text-caption text-ink-400 dark:text-white/40">
-              Birinchi marta ko&apos;rsatilgan tanishtiruv oynasini qayta oching.
-            </p>
+            <p className="text-caption text-ink-400">{l("Birinchi marta ko'rsatilgan tanishtiruv oynasini qayta oching.")}</p>
           </div>
           <button
             type="button"
             onClick={reopenOnboarding}
             className="inline-flex shrink-0 items-center gap-1.5 rounded-pill border border-surface-border px-4 py-2 text-body-sm font-semibold text-ink-700 hover:bg-surface-muted dark:border-white/10 dark:text-white/70 dark:hover:bg-white/5"
           >
-            <PlayCircle size={15} /> Qayta ko&apos;rish
+            <PlayCircle size={15} /> {l("Qayta ko'rish")}
           </button>
         </div>
 
-        <div className="card p-6 dark:border-white/10 dark:bg-navy-800">
-          <p className="mb-1 text-body-sm font-semibold text-ink-900 dark:text-white">
-            Ko&apos;rinish
+        <div className="card rounded-[24px] p-6">
+          <p className={`mb-1 ${sectionTitle}`}>
+            <span aria-hidden="true">🎨</span> {l("Ko'rinish")}
           </p>
           <div className="flex items-center justify-between py-3">
             <div>
               <p className="text-body-sm font-medium text-ink-900 dark:text-white">
-                Tungi rejim
+                {l("Tungi rejim")}
               </p>
-              <p className="text-caption text-ink-400 dark:text-white/40">
-                Interfeys ko&apos;rinishini almashtiring.
-              </p>
+              <p className="text-caption text-ink-400">{l("Interfeys ko'rinishini almashtiring.")}</p>
             </div>
             <button
               type="button"
@@ -110,14 +114,14 @@ export default function SettingsPage() {
               className="flex items-center gap-2 rounded-pill border border-surface-border px-3.5 py-2 text-body-sm font-medium text-ink-700 transition-colors hover:bg-surface-muted dark:border-white/10 dark:text-white/70 dark:hover:bg-white/5"
             >
               {theme === "light" ? <Moon size={15} /> : <Sun size={15} />}
-              {theme === "light" ? "Tungi rejim" : "Kunduzgi rejim"}
+              {theme === "light" ? l("Tungi rejim") : l("Kunduzgi rejim")}
             </button>
           </div>
         </div>
 
-        <div className="card divide-y divide-surface-border p-6 dark:divide-white/10 dark:border-white/10 dark:bg-navy-800">
-          <p className="pb-1 text-body-sm font-semibold text-ink-900 dark:text-white">
-            Bildirishnomalar
+        <div className="card divide-y divide-surface-border rounded-[24px] p-6">
+          <p className={`pb-1 ${sectionTitle}`}>
+            <span aria-hidden="true">🔔</span> {l("Bildirishnomalar")}
           </p>
           <ToggleRow
             label="Email orqali bildirishnomalar"
@@ -129,9 +133,9 @@ export default function SettingsPage() {
           />
         </div>
 
-        <div className="card divide-y divide-surface-border p-6 dark:divide-white/10 dark:border-white/10 dark:bg-navy-800">
-          <p className="pb-1 text-body-sm font-semibold text-ink-900 dark:text-white">
-            Maxfiylik
+        <div className="card divide-y divide-surface-border rounded-[24px] p-6">
+          <p className={`pb-1 ${sectionTitle}`}>
+            <span aria-hidden="true">🔒</span> {l("Maxfiylik")}
           </p>
           <ToggleRow
             label="Ma'lumotlarni tahlil uchun ishlatish"
@@ -140,52 +144,45 @@ export default function SettingsPage() {
           />
         </div>
 
-        <div className="card p-6 dark:border-white/10 dark:bg-navy-800">
-          <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-900 dark:text-white">
-            <KeyRound size={16} className="text-brand-600" /> Parolni o&apos;zgartirish
+        <div className="card rounded-[24px] p-6">
+          <p className={`mb-3 ${sectionTitle}`}>
+            <span aria-hidden="true">🔑</span> {l("Parolni o'zgartirish")}
           </p>
-          <p className="mb-4 text-body-sm text-ink-600 dark:text-white/60">
-            Xavfsizlik uchun parolni o&apos;zgartirish email orqali tasdiqlash
-            havolasi bilan amalga oshiriladi.
+          <p className="mb-4 text-body-sm text-ink-600">
+            {l("Xavfsizlik uchun parolni o'zgartirish email orqali tasdiqlash havolasi bilan amalga oshiriladi.")}
           </p>
           <a
             href="/forgot-password"
             className="inline-flex items-center gap-1.5 rounded-pill border border-surface-border px-4 py-2 text-body-sm font-semibold text-ink-700 hover:bg-surface-muted dark:border-white/10 dark:text-white/70 dark:hover:bg-white/5"
           >
-            Parolni tiklash havolasini olish
+            {l("Parolni tiklash havolasini olish")}
           </a>
         </div>
 
-        <div className="card p-6 dark:border-white/10 dark:bg-navy-800">
-          <p className="mb-3 text-body-sm font-semibold text-ink-900 dark:text-white">
-            Hisobdan chiqish
+        <div className="card rounded-[24px] p-6">
+          <p className={`mb-3 ${sectionTitle}`}>
+            <span aria-hidden="true">🚪</span> {l("Hisobdan chiqish")}
           </p>
           <form action={logoutAction}>
             <button
               type="submit"
               className="inline-flex items-center gap-1.5 rounded-pill border border-surface-border px-4 py-2 text-body-sm font-semibold text-ink-700 hover:bg-surface-muted dark:border-white/10 dark:text-white/70 dark:hover:bg-white/5"
             >
-              <LogOut size={15} /> Chiqish
+              <LogOut size={15} /> {l("Chiqish")}
             </button>
           </form>
         </div>
 
-        <div className="card border-red-200 p-6 dark:border-red-400/20 dark:bg-navy-800">
-          <p className="mb-1 text-body-sm font-semibold text-red-600">
-            Xavfli hudud
+        <div className="card rounded-[24px] border-red-200 p-6 dark:border-red-400/20">
+          <p className="mb-1 flex items-center gap-2 text-body-sm font-semibold text-red-600 dark:text-red-300">
+            <span aria-hidden="true">⚠️</span> {l("Xavfli hudud")}
           </p>
-          <p className="mb-3 text-caption text-ink-400 dark:text-white/40">
-            Hisobni o&apos;chirish qaytarib bo&apos;lmaydigan amal.
-          </p>
+          <p className="mb-3 text-caption text-ink-400">{l("Hisobni o'chirish qaytarib bo'lmaydigan amal.")}</p>
           <div className="mb-4">
             <InlineAlert variant="warning">
               <span className="flex items-start gap-1.5">
                 <ShieldAlert size={14} className="mt-0.5 shrink-0" />
-                Xavfsizlik sababli, hisobni o&apos;chirish brauzerdan
-                to&apos;g&apos;ridan-to&apos;g&apos;ri amalga
-                oshirilmaydi — bu amal maxsus sozlangan server tomonidagi
-                (admin) funksiya orqali bajarilishi kerak. Hozircha bu
-                tugma faqat namunaviy xabar ko&apos;rsatadi.
+                {l("Xavfsizlik sababli, hisobni o'chirish brauzerdan to'g'ridan-to'g'ri amalga oshirilmaydi — bu amal maxsus sozlangan server tomonidagi (admin) funksiya orqali bajarilishi kerak. Hozircha bu tugma faqat namunaviy xabar ko'rsatadi.")}
               </span>
             </InlineAlert>
           </div>
@@ -194,14 +191,13 @@ export default function SettingsPage() {
             onClick={() => setDeleteOpen(true)}
             className="inline-flex items-center gap-2 rounded-pill border border-red-300 px-4 py-2 text-body-sm font-semibold text-red-600 transition-colors hover:bg-red-50 dark:border-red-400/30 dark:hover:bg-red-400/10"
           >
-            <Trash2 size={15} /> Hisobni o&apos;chirish
+            <Trash2 size={15} /> {l("Hisobni o'chirish")}
           </button>
         </div>
 
         {!configured && (
           <InlineAlert variant="info">
-            Supabase sozlanmagan — chiqish va parolni tiklash havolalari
-            hozircha ishlamaydi.
+            {l("Supabase sozlanmagan — chiqish va parolni tiklash havolalari hozircha ishlamaydi.")}
           </InlineAlert>
         )}
       </div>

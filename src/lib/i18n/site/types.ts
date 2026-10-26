@@ -1,0 +1,200 @@
+import type { DestinationSlug, PopularCountry, ToolId } from "@/lib/site/registry";
+
+type Three<T> = [T, T, T];
+type Step = { title: string; desc: string };
+type QA = { q: string; a: string };
+
+/**
+ * Typed copy for the public site. Every language file must satisfy this
+ * shape, so a missing translation is a compile error rather than a blank.
+ */
+export interface SiteContent {
+  nav: {
+    home: string;
+    tools: string;
+    destinations: string;
+    howItWorks: string;
+    pricing: string;
+    signIn: string;
+    getStarted: string;
+    language: string;
+    openMenu: string;
+    closeMenu: string;
+    homeAria: string;
+    skip: string;
+    toolsGroupPrepare: string;
+    toolsGroupApply: string;
+    allTools: string;
+    allDestinations: string;
+    featuredEyebrow: string;
+    featuredTitle: string;
+    featuredText: string;
+    featuredCta: string;
+    destinationsNote: string;
+    themeToDark: string;
+    themeToLight: string;
+  };
+  status: { available: string; beta: string; soon: string };
+  common: {
+    demo: string;
+    demoData: string;
+    notGuaranteed: string;
+    ready: string;
+    review: string;
+    missing: string;
+    current: string;
+    learnMore: string;
+    open: string;
+    prepared: string;
+  };
+  tools: Record<
+    ToolId,
+    {
+      name: string;
+      menu: string;
+      tagline: string;
+      desc: string;
+      benefits: Three<string>;
+      cta: string;
+      steps: Three<Step>;
+    }
+  >;
+  destinations: Record<
+    DestinationSlug,
+    { name: string; region: string; menu: string; intro: string; visaTypes: string[] }
+  >;
+  countries: Record<PopularCountry, string>;
+  home: {
+    hero: {
+      eyebrow: string;
+      /** Headline line 1 + a rotating destination chip, line 2 wraps the brand chip */
+      headline: { line1: string; rotating: string[]; line2Pre: string; line2Post: string };
+      /** "{n}" is replaced with the number of available destinations */
+      cluster: string;
+      clusterNote: string;
+      /** Demo boarding pass on the hero photo */
+      pass: { fromCity: string; toCity: string; scoreLabel: string };
+      subtitle: string;
+      ctaPrimary: string;
+      ctaSecondary: string;
+      trust: Three<string>;
+      panel: {
+        route: string;
+        tabs: Three<string>;
+        scoreLabel: string;
+        scoreNote: string;
+        docsTitle: string;
+        docsSummary: string;
+        docs: { name: string; state: "ready" | "review" | "missing" }[];
+        nextLabel: string;
+        nextText: string;
+        nextHint: string;
+        aiNote: string;
+        roadmap: { title: string; when: string; state: "done" | "current" | "todo" }[];
+      };
+      journey: { title: string; steps: string[] };
+    };
+    tour: {
+      label: string;
+      title: string;
+      subtitle: string;
+      tabs: { id: "readiness" | "documents" | "checklist" | "roadmap" | "interview"; title: string; desc: string }[];
+      open: string;
+    };
+    board: {
+      label: string;
+      title: string;
+      subtitle: string;
+      alerts: { title: string; time: string; tone: "warn" | "ok" | "info" }[];
+    };
+    stats: {
+      eyebrow: string;
+      title: string;
+      subtitle: string;
+      items: { value: string; label: string; note: string }[];
+    };
+    tools: { eyebrow: string; title: string; subtitle: string; all: string };
+    more: { pricing: string; faq: string };
+    /** Two endless rows: what to prepare (emoji by index) + destinations */
+    marquee: { label: string; items: string[] };
+    bento: { eyebrow: string; title: string; subtitle: string; languagesTitle: string; languagesText: string; alertsText: string };
+    destinations: { eyebrow: string; title: string; subtitle: string; all: string };
+    how: { eyebrow: string; title: string; subtitle: string; steps: Three<Step>; cta: string };
+    cta: { title: string; subtitle: string; primary: string; secondary: string };
+  };
+  howPage: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    steps: Three<Step & { points: Three<string> }>;
+    outcomesTitle: string;
+    outcomes: Three<Step>;
+    honestyTitle: string;
+    honesty: Step[];
+  };
+  toolsPage: { eyebrow: string; title: string; subtitle: string };
+  toolPage: {
+    breadcrumb: string;
+    whatYouGet: string;
+    howTitle: string;
+    relatedTitle: string;
+    notice: Record<"available" | "beta" | "soon", string>;
+    ctaTitle: string;
+    ctaText: string;
+  };
+  destinationsPage: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    visaTypesTitle: string;
+    docsTitle: string;
+    docsNote: string;
+    docs: string[];
+    schengenExtra: string;
+    statusAvailable: string;
+    statusSoon: string;
+    ctaTitle: string;
+    ctaText: string;
+    otherTitle: string;
+  };
+  pricing: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    popular: string;
+    plans: Record<"standard" | "premium" | "pro" | "vip", { name: string; price: string; period: string; features: string[]; cta: string }>;
+    note: string;
+    b2b: { label: string; soon: string; items: [string, string, string] };
+    faqTitle: string;
+    faq: QA[];
+  };
+  faq: { eyebrow: string; title: string; subtitle: string; items: QA[] };
+  demos: {
+    readiness: { title: string; categories: { label: string; value: number }[]; nextLabel: string; nextText: string };
+    documents: {
+      dropTitle: string;
+      dropHint: string;
+      files: { name: string; state: "ready" | "review" | "missing" }[];
+      noteTitle: string;
+      note: string;
+    };
+    checklist: { title: string; progress: string; groups: { title: string; items: string[] }[] };
+    interview: { title: string; counter: string; questions: string[]; placeholder: string; next: string; tipTitle: string; tips: string[] };
+    tracker: { title: string; stages: Step[] };
+    rejection: { prompt: string; actionsTitle: string; reasons: { label: string; actions: string[] }[] };
+    experts: { topicLabel: string; topics: string[]; slotLabel: string; slots: string[]; cta: string; note: string; role: string };
+  };
+  footer: {
+    tagline: string;
+    product: string;
+    company: string;
+    account: string;
+    faq: string;
+    roadmap: string;
+    trust: string;
+    legal: string;
+    rights: string;
+    backToTop: string;
+    disclaimer: string;
+  };
+}
