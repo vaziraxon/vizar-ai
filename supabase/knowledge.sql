@@ -527,9 +527,12 @@ $$;
 grant execute on function public.kb_search(text[], extensions.vector, integer, double precision, double precision, integer)
   to anon, authenticated;
 
--- Country rules relevant to a question: rules for countries named in it
--- first, then full-text matches. Includes sources and review state so the
--- assistant can say how fresh each rule is.
+-- Country rules relevant to a question. If the question names countries
+-- (by book name or a common alias such as "Britaniya", "Dubay", "Shengen"),
+-- only those countries' rules are returned; otherwise only strong full-text
+-- matches, so a question about 90/180 days doesn't pull in China's rules.
+-- Includes sources and review state so the assistant can say how fresh
+-- each rule is.
 create or replace function public.kb_search_rules(
   query_text text,
   query_terms text[],
@@ -568,13 +571,20 @@ as $$
         ))
       end as tsq
   ),
+  aliases(code, pattern) as (
+    values ('EU', 'shengen'), ('GB', 'britaniya|angliya'), ('US', 'amerika'), ('NZ', 'zelandiya'),
+           ('KR', 'koreya'), ('BA', 'bosniya'), ('MK', 'makedoniya'), ('SA', 'saudiya'), ('AE', 'dubay|amirlik')
+  ),
   scored as (
     select r.*,
-           (q.qn ~ ('\m' || public.kb_normalize(r.country_name))) as hit,
+           (q.qn ~ ('\m' || public.kb_normalize(r.country_name))
+             or exists (select 1 from aliases a where a.code = r.country_code and q.qn ~ ('\m(' || a.pattern || ')'))) as hit,
            coalesce(ts_rank_cd(r.fts, q.tsq, 32), 0)::real as rk
     from public.kb_country_rules r, q
     where r.status <> 'outdated'
-      and ((q.qn ~ ('\m' || public.kb_normalize(r.country_name))) or (q.tsq is not null and r.fts @@ q.tsq))
+  ),
+  any_hit as (
+    select exists (select 1 from scored where hit) as yes
   )
   select sc.id, sc.country_code, sc.country_name, sc.topic, sc.rule_text, sc.volatility, sc.status,
          sc.as_of, sc.last_verified_at, sc.next_review_at, s.slug, ch.slug,
@@ -586,8 +596,10 @@ as $$
          ), '[]'::jsonb),
          sc.hit, sc.rk
   from scored sc
+  cross join any_hit
   left join public.kb_sections s on s.id = sc.section_id
   left join public.kb_chapters ch on ch.id = s.chapter_id
+  where (any_hit.yes and sc.hit) or (not any_hit.yes and sc.rk >= 0.3)
   order by sc.hit desc, sc.rk desc, sc.country_code, sc.topic
   limit least(greatest(match_count, 1), 20);
 $$;
