@@ -292,6 +292,214 @@ export interface Database {
         Update: Partial<Database["public"]["Tables"]["agency_clients"]["Insert"]>;
         Relationships: [];
       };
+      /* ---- Knowledge base (supabase/knowledge.sql) ---- */
+      kb_books: {
+        Row: {
+          id: string;
+          slug: string;
+          title: string;
+          author: string | null;
+          edition_date: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          slug: string;
+          title: string;
+          author?: string | null;
+          edition_date?: string | null;
+        };
+        Update: Partial<Database["public"]["Tables"]["kb_books"]["Insert"]>;
+        Relationships: [];
+      };
+      kb_chapters: {
+        Row: {
+          id: string;
+          book_id: string;
+          position: number;
+          slug: string;
+          kind: string;
+          number: number | null;
+          label: string;
+          title: string;
+          display_title: string;
+          status: string;
+          updated_by: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          book_id: string;
+          position: number;
+          slug: string;
+          kind?: string;
+          number?: number | null;
+          label: string;
+          title: string;
+          display_title: string;
+          status?: string;
+          updated_by?: string | null;
+        };
+        Update: Partial<Database["public"]["Tables"]["kb_chapters"]["Insert"]>;
+        Relationships: [];
+      };
+      kb_sections: {
+        Row: {
+          id: string;
+          chapter_id: string;
+          position: number;
+          slug: string;
+          number: string | null;
+          title: string;
+          is_intro: boolean;
+          content_md: string;
+          status: string;
+          updated_by: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          chapter_id: string;
+          position: number;
+          slug: string;
+          number?: string | null;
+          title: string;
+          is_intro?: boolean;
+          content_md?: string;
+          status?: string;
+          updated_by?: string | null;
+        };
+        Update: Partial<Database["public"]["Tables"]["kb_sections"]["Insert"]>;
+        Relationships: [];
+      };
+      kb_section_revisions: {
+        Row: {
+          id: number;
+          section_id: string;
+          number: string | null;
+          title: string;
+          content_md: string;
+          edited_by: string | null;
+          edited_at: string;
+        };
+        Insert: never;
+        Update: never;
+        Relationships: [];
+      };
+      kb_chunks: {
+        Row: {
+          id: string;
+          section_id: string;
+          chunk_index: number;
+          heading_path: string;
+          content: string;
+          content_hash: string;
+          embedding: string | null;
+          embedded_at: string | null;
+          created_at: string;
+        };
+        Insert: never;
+        Update: never;
+        Relationships: [];
+      };
+      kb_sources: {
+        Row: {
+          id: string;
+          code: string | null;
+          title: string;
+          url: string;
+          chapters: string[];
+          check_status: string;
+          last_checked_at: string | null;
+          last_http_status: number | null;
+          last_content_hash: string | null;
+          last_changed_at: string | null;
+          last_text: string | null;
+          check_error: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          code?: string | null;
+          title: string;
+          url: string;
+          chapters?: string[];
+          check_status?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["kb_sources"]["Insert"]>;
+        Relationships: [];
+      };
+      kb_source_checks: {
+        Row: {
+          id: number;
+          source_id: string;
+          checked_at: string;
+          http_status: number | null;
+          content_hash: string | null;
+          changed: boolean;
+          previous_text: string | null;
+          error: string | null;
+        };
+        Insert: never;
+        Update: never;
+        Relationships: [];
+      };
+      kb_country_rules: {
+        Row: {
+          id: string;
+          country_code: string;
+          country_name: string;
+          region: string;
+          topic: string;
+          rule_text: string;
+          volatility: string;
+          section_id: string | null;
+          source_match: string;
+          as_of: string | null;
+          status: string;
+          last_verified_at: string | null;
+          verified_by: string | null;
+          review_note: string | null;
+          next_review_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          country_code: string;
+          country_name: string;
+          region: string;
+          topic: string;
+          rule_text: string;
+          volatility?: string;
+          section_id?: string | null;
+          source_match?: string;
+          as_of?: string | null;
+          status?: string;
+          last_verified_at?: string | null;
+          verified_by?: string | null;
+          review_note?: string | null;
+          next_review_at?: string | null;
+        };
+        Update: Partial<Database["public"]["Tables"]["kb_country_rules"]["Insert"]>;
+        Relationships: [];
+      };
+      kb_rule_sources: {
+        Row: { rule_id: string; source_id: string };
+        Insert: { rule_id: string; source_id: string };
+        Update: Partial<Database["public"]["Tables"]["kb_rule_sources"]["Insert"]>;
+        Relationships: [];
+      };
+      kb_country_sections: {
+        Row: { id: number; country_code: string; section_id: string; anchor: string | null };
+        Insert: { country_code: string; section_id: string; anchor?: string | null };
+        Update: Partial<Database["public"]["Tables"]["kb_country_sections"]["Insert"]>;
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

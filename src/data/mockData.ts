@@ -4,6 +4,8 @@ import {
   FolderOpen,
   Gauge,
   MessagesSquare,
+  Bot,
+  BookOpen,
   FileWarning,
   ListChecks,
   UserCog,
@@ -125,6 +127,7 @@ export const SIDEBAR_NAV: SidebarNavItem[] = [
   { icon: FolderOpen, label: "Hujjatlar", href: "/dashboard/documents" },
   { icon: ListChecks, label: "Checklist", href: "/dashboard/checklist" },
   { icon: MessagesSquare, label: "Suhbat mashqi", href: "/dashboard/interview" },
+  { icon: Bot, label: "AI maslahatchi", href: "/dashboard/assistant" },
   { icon: Route, label: "Ariza kuzatuvi", href: "/dashboard/tracker" },
   { icon: FileWarning, label: "Rad javobi tahlili", href: "/dashboard/rejection-analysis" },
   { icon: UserCog, label: "Mutaxassislar", href: "/dashboard/experts" },
@@ -315,6 +318,7 @@ export const ADMIN_STATS: AdminStat[] = [
 
 export const ADMIN_NAV: SidebarNavItem[] = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
+  { icon: BookOpen, label: "AI bilimlar bazasi", href: "/admin/knowledge" },
   { icon: Users, label: "Foydalanuvchilar", href: "/admin" },
   { icon: FileSearch2, label: "Arizalar", href: "/admin" },
   { icon: FolderOpen, label: "Hujjatlar", href: "/admin" },

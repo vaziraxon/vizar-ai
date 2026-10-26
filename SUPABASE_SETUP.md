@@ -222,3 +222,87 @@ npx supabase gen types typescript --project-id <sizning-project-id> \
 
 Bu buyruq **ushbu tayyorlov jarayonida ishga tushirilmagan** — haqiqiy
 loyiha ID topilmagani sababli faqat hujjatlashtirilgan.
+
+## AI bilimlar bazasi (kitob RAG, mamlakat qoidalari, manba monitoringi)
+
+VIZAR AI kitobi to'liq matni bilan Supabase'da saqlanadi va AI maslahatchi
+(`/dashboard/assistant`) faqat shu matn hamda rasmiy manbalarga tayanib
+javob beradi. Tarkibi:
+
+| Qism | Joyi |
+| --- | --- |
+| Sxema (faqat yangi `kb_*` jadvallar, mavjudlarga tegmaydi) | `supabase/knowledge.sql` |
+| Edge Functions: embedding, gibrid qidiruv, manba tekshiruvi | `supabase/functions/kb-embed`, `kb-search`, `kb-verify-sources` |
+| Kitobni .docx'dan ajratish (matn qisqartirilmaydi, tekshiriladi) | `scripts/knowledge/parse-book.mjs` |
+| Bazaga bir martalik import | `scripts/knowledge/import-book.mjs` |
+| Javob API (Claude, manba ko'rsatib) | `src/app/api/knowledge/ask/route.ts` |
+| Tahrirlash paneli | `/admin/knowledge` |
+
+### O'rnatish tartibi
+
+1. **Zaxira nusxa.** Free tarifda Supabase avtomatik backup bermaydi —
+   avval o'zingiz oling (Docker kerak; ulanish satri: Dashboard → Connect):
+
+   ```bash
+   npx supabase db dump --db-url "$DB_URL" -f backup/schema.sql
+   npx supabase db dump --db-url "$DB_URL" -f backup/data.sql --use-copy --data-only
+   ```
+
+2. **Sxema.** SQL Editor'da `supabase/knowledge.sql`ni ishga tushiring.
+   So'ng Edge Functions manzilini kiriting (embedding trigger va cron
+   uchun):
+
+   ```sql
+   insert into kb_private.settings (key, value)
+   values ('functions_url', 'https://<project-ref>.supabase.co/functions/v1')
+   on conflict (key) do update set value = excluded.value;
+   ```
+
+3. **Edge Functions.** `kb-embed`, `kb-search`, `kb-verify-sources`ni
+   `verify_jwt = false` bilan deploy qiling
+   (`npx supabase functions deploy kb-search --no-verify-jwt` va h.k.).
+   Embedding modeli (`gte-small`) Supabase ichida ishlaydi — kalit kerak emas.
+
+4. **Kitobni yuklash.**
+
+   ```bash
+   node scripts/knowledge/parse-book.mjs kitob.docx book.json
+   node scripts/knowledge/import-book.mjs prepare token.txt   # chiqqan SQLni SQL Editor'da ishga tushiring
+   node scripts/knowledge/import-book.mjs run book.json token.txt
+   ```
+
+   Keyin SQL Editor'da `drop function public.kb_admin_import(text, text, jsonb);`
+   va `token.txt`ni o'chiring. Embedding hisoblash to'xtab qolsa (Edge
+   Function CPU limiti, HTTP 546), uni alohida davom ettirish mumkin:
+   `node scripts/knowledge/import-book.mjs embed`.
+
+5. **Muharrirlar.** `/admin/knowledge`da tahrirlash uchun email ham
+   `ADMIN_EMAILS`da, ham bazada bo'lishi kerak:
+
+   ```sql
+   insert into public.kb_editors (email) values ('siz@example.com');
+   ```
+
+6. **AI javoblar.** Hosting muhitiga `ANTHROPIC_API_KEY` qo'shing. Kalit
+   bo'lmasa, maslahatchi kitobdan topilgan parchalarni manbalari bilan
+   ko'rsatadi, lekin javob yozmaydi.
+
+### Qanday ishlaydi
+
+- **Qidiruv:** savol so'zlari o'zbekcha qo'shimchalardan tozalanib
+  (`vizalarning` → `viza`), apostrof variantlari birxillashtirilib
+  full-text qidiruv qilinadi va `gte-small` vektor qidiruvi bilan
+  Reciprocal Rank Fusion orqali birlashtiriladi.
+- **Javob:** topilgan bo'laklar Claude'ga `search_result` bloklari sifatida
+  beriladi; javobdagi har bir iqtibos `[n]` bilan bob/bo'lim yoki rasmiy
+  manbaga bog'lanadi.
+- **O'zgaruvchan talablar:** `kb-verify-sources` har soatda haftada bir
+  marta tekshirilmagan 10 tagacha rasmiy sahifani ochib, matnini
+  solishtiradi. Sahifa o'zgarsa, unga tayangan mamlakat qoidalari
+  `needs_review` holatiga o'tadi va AI javobida “rasmiy sahifada
+  tekshiring” deb ogohlantiradi. Muharrir sahifani o'qib, qoidani
+  `/admin/knowledge/rules`da tasdiqlaydi yoki yangilaydi.
+- **Kitob faqat o'qish uchun ochiq:** `published` holatidagi qatorlarni
+  hamma o'qiy oladi. Faqat tizimga kirganlar uchun qilish kerak bo'lsa,
+  `knowledge.sql`dagi `*_read` siyosatlarida `to anon, authenticated`ni
+  `to authenticated`ga almashtiring.

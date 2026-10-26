@@ -18,6 +18,7 @@ const PAGE_EMOJI: Record<string, string> = {
   "/dashboard/documents": "📄",
   "/dashboard/checklist": "✅",
   "/dashboard/interview": "🎤",
+  "/dashboard/assistant": "🤖",
   "/dashboard/tracker": "📍",
   "/dashboard/rejection-analysis": "🔍",
   "/dashboard/experts": "🤝",
