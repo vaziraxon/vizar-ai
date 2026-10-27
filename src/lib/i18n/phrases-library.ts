@@ -126,4 +126,36 @@ export const LIBRARY_PHRASES: PhraseTable = {
   "Kitobdan": { ru: "Из книги", en: "From the book" },
   "Davlat qoidalari": { ru: "Правила стран", en: "Country rules" },
   "Topilgan bo‘limlarni to‘liq o‘qing": { ru: "Читайте найденные разделы полностью", en: "Read the matching sections in full" },
+
+  /* ----------------------------------------------------------- Design */
+  "Kutubxona ochiladi": { ru: "Открывает библиотеку", en: "Unlocks the library" },
+  "9 bob to‘liq": { ru: "9 глав полностью", en: "All 9 chapters" },
+  "Rasmiy manbalar": { ru: "Официальные источники", en: "Official sources" },
+  "Mundarija va qisqa parchalar hamma uchun ochiq. To‘liq matn obuna davomida ochiladi.": {
+    ru: "Оглавление и короткие фрагменты открыты всем. Полный текст — на время подписки.",
+    en: "The contents and short excerpts are open to everyone. The full text opens for the length of a subscription.",
+  },
+  "AI maslahatchi": { ru: "AI-консультант", en: "AI consultant" },
+  "Savol berish": { ru: "Задать вопрос", en: "Ask a question" },
+  "To‘liq matn": { ru: "Полный текст", en: "Full text" },
+  "Qisqa parcha": { ru: "Короткий фрагмент", en: "Short excerpt" },
+  "Shu hududdagi davlatlar": { ru: "Страны этого региона", en: "Countries in this region" },
+  "Barcha {n} bo‘limni ko‘rish": { ru: "Все разделы: {n}", en: "See all {n} sections" },
+  "Bitta viza bilan 29 davlat: qaysi konsullikka topshirish va 90/180 qoidasi.": {
+    ru: "29 стран по одной визе: в какое консульство подавать и правило 90/180.",
+    en: "29 countries on one visa: which consulate to apply to and the 90/180 rule.",
+  },
+  "Britaniya, Irlandiya, Bolqon va Kavkaz: alohida milliy qoidalar.": {
+    ru: "Британия, Ирландия, Балканы и Кавказ: отдельные национальные правила.",
+    en: "Britain, Ireland, the Balkans and the Caucasus: separate national rules.",
+  },
+  "AQSh, Kanada, Avstraliya va Yangi Zelandiya: anketa, biometrika, suhbat.": {
+    ru: "США, Канада, Австралия и Новая Зеландия: анкета, биометрия, собеседование.",
+    en: "USA, Canada, Australia and New Zealand: forms, biometrics, interview.",
+  },
+  "e-Visa, vizasiz kirish va Yaqin Sharq davlatlari: tez o‘zgaradigan rejimlar.": {
+    ru: "e-Visa, безвизовый въезд и Ближний Восток: быстро меняющиеся режимы.",
+    en: "e-Visas, visa-free entry and the Middle East: rules that change quickly.",
+  },
+  "Barcha yo‘nalishlar uchun umumiy qoidalar.": { ru: "Общие правила для всех направлений.", en: "General rules for every destination." },
 };

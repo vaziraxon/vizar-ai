@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { headers } from "next/headers";
-import { BookOpen, Globe2 } from "lucide-react";
 import { L } from "@/components/i18n/L";
 import { SearchForm } from "@/components/knowledge/library/SearchForm";
-import { AccessCard, CountryMark, LibraryHero, LibraryTabs, LockIcon, Paywall } from "@/components/knowledge/library/ui";
+import { CountryFlag } from "@/components/knowledge/library/visuals";
+import { AccessCard, LibraryHero, LibraryTabs, LockIcon, Paywall } from "@/components/knowledge/library/ui";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import { excerpt, libraryHref } from "@/lib/knowledge/offline";
+import { chapterSlugEmoji, sectionEmoji, topicEmoji } from "@/lib/knowledge/visuals";
 import { searchKnowledge } from "@/lib/knowledge/search";
 import type { KbSearchResult } from "@/lib/knowledge/types";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
@@ -80,7 +81,9 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
           <div className="grid gap-10 lg:grid-cols-12">
             <section aria-labelledby="hits-book" className="min-w-0 lg:col-span-8">
               <h2 id="hits-book" className="flex items-center gap-2 font-display text-display-sm font-bold text-ink-950">
-                <BookOpen size={20} aria-hidden="true" className="text-brand-600" />
+                <span aria-hidden="true" className="emoji-tile">
+                  📚
+                </span>
                 <L>Kitobdan</L>
                 <span className="text-body font-medium text-ink-500">· {result.chunks.length}</span>
               </h2>
@@ -89,15 +92,22 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
                   <li key={hit.chunk_id}>
                     <Link
                       href={libraryHref.section(hit.chapter_slug, hit.section_slug)}
-                      className="group block rounded-[24px] border border-surface-border bg-surface p-5 transition-colors hover:border-brand-200"
+                      className="group flex gap-4 rounded-[24px] border border-surface-border bg-surface p-4 transition-[border-color,box-shadow] duration-200 hover:border-violet-200 hover:shadow-card-hover sm:p-5"
                     >
-                      <p className="flex items-center gap-2 text-caption font-semibold uppercase tracking-[0.06em] text-ink-500">
-                        {hit.chapter_label}
-                        {hit.section_number ? ` · ${hit.section_number}` : ""}
-                        {!full ? <LockIcon /> : null}
-                      </p>
-                      <p className="mt-1.5 font-display text-body-lg font-bold text-ink-950 group-hover:text-brand-700">{hit.section_title}</p>
-                      {hit.content ? <p className="mt-2 text-body-sm text-ink-600">{excerpt(hit.content, full ? 320 : 180)}</p> : null}
+                      <span aria-hidden="true" className="emoji-tile h-12 w-12 rounded-2xl text-[22px] transition-transform duration-200 group-hover:-rotate-6">
+                        {sectionEmoji(hit.section_title)}
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="flex items-center gap-2 text-caption font-semibold uppercase tracking-[0.06em] text-ink-500">
+                          {chapterSlugEmoji(hit.chapter_slug)} {hit.chapter_label}
+                          {hit.section_number ? ` · ${hit.section_number}` : ""}
+                          {!full ? <LockIcon /> : null}
+                        </span>
+                        <span className="mt-1 block font-display text-body-lg font-bold text-ink-950 group-hover:text-brand-700">{hit.section_title}</span>
+                        {hit.content ? (
+                          <span className="mt-1.5 block text-body-sm text-ink-600 [overflow-wrap:anywhere]">{excerpt(hit.content, full ? 320 : 180)}</span>
+                        ) : null}
+                      </span>
                     </Link>
                   </li>
                 ))}
@@ -107,7 +117,9 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
             {result.rules.length ? (
               <section aria-labelledby="hits-rules" className="lg:col-span-4">
                 <h2 id="hits-rules" className="flex items-center gap-2 font-display text-display-sm font-bold text-ink-950">
-                  <Globe2 size={20} aria-hidden="true" className="text-brand-600" />
+                  <span aria-hidden="true" className="emoji-tile">
+                    🌍
+                  </span>
                   <L>Davlat qoidalari</L>
                 </h2>
                 <ul className="mt-5 space-y-2.5">
@@ -115,13 +127,15 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
                     <li key={rule.rule_id}>
                       <Link
                         href={libraryHref.country(rule.country_code)}
-                        className="group flex items-start gap-3 rounded-2xl border border-surface-border bg-surface p-3.5 transition-colors hover:border-brand-200"
+                        className="group flex items-start gap-3 rounded-2xl border border-surface-border bg-surface p-3.5 transition-[border-color,box-shadow] duration-200 hover:border-violet-200 hover:shadow-card-hover"
                       >
-                        <CountryMark code={rule.country_code} />
+                        <CountryFlag code={rule.country_code} size="md" className="mt-0.5" />
                         <span className="min-w-0">
                           <span className="block text-body-sm font-semibold text-ink-900 group-hover:text-brand-700">{rule.country_name}</span>
-                          <span className="block text-caption text-ink-500">{rule.topic}</span>
-                          {full && rule.rule_text ? <span className="mt-1 block text-caption text-ink-600">{excerpt(rule.rule_text, 140)}</span> : null}
+                          <span className="block text-caption text-ink-500">
+                            {topicEmoji(rule.topic)} {rule.topic}
+                          </span>
+                          {full && rule.rule_text ? <span className="mt-1 block text-caption text-ink-600 [overflow-wrap:anywhere]">{excerpt(rule.rule_text, 140)}</span> : null}
                         </span>
                       </Link>
                     </li>
