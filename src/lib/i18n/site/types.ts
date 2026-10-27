@@ -14,6 +14,8 @@ export interface SiteContent {
     tools: string;
     destinations: string;
     howItWorks: string;
+    /** /knowledge-base — the premium visa library */
+    library: string;
     pricing: string;
     signIn: string;
     getStarted: string;

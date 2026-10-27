@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { BookOpen, ExternalLink, FlaskConical, Info, Loader2, Send, ShieldAlert, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { BookOpen, ExternalLink, FlaskConical, Info, Library, Loader2, Lock, Send, ShieldAlert, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Markdown } from "@/components/knowledge/Markdown";
 import { useL } from "@/components/i18n/L";
@@ -30,6 +31,14 @@ interface Turn {
 /** How the answer was produced, when it was not written by the AI model. */
 function ModeChip({ mode }: { mode: AnswerMode | null }) {
   const l = useL();
+  if (mode === "preview") {
+    return (
+      <p className="mb-3 inline-flex items-center gap-1.5 rounded-pill bg-amber-50 px-2.5 py-1 text-caption font-semibold text-amber-800 dark:bg-amber-400/10 dark:text-amber-300">
+        <Lock size={13} />
+        {l("Obuna talab qilinadi")}
+      </p>
+    );
+  }
   if (mode !== "retrieval" && mode !== "mock") return null;
   const mock = mode === "mock";
   return (
@@ -72,7 +81,13 @@ function References({ references }: { references: KbReference[] }) {
       <div className="min-w-0 text-body-sm">
         <p className="flex flex-wrap items-center gap-2 font-semibold text-ink-900">
           {r.kind === "book" ? <BookOpen size={14} className="shrink-0 text-ink-400" /> : null}
-          {r.title}
+          {r.href ? (
+            <Link href={r.href} className="underline-offset-2 hover:text-brand-700 hover:underline">
+              {r.title}
+            </Link>
+          ) : (
+            r.title
+          )}
           {r.kind === "rule" ? <StatusBadge status={r.status} /> : null}
         </p>
         {r.location ? <p className="mt-0.5 text-ink-500">{r.location}</p> : null}
@@ -104,6 +119,34 @@ function References({ references }: { references: KbReference[] }) {
           <ol className="divide-y divide-surface-border">{other.map(item)}</ol>
         </details>
       ) : null}
+    </div>
+  );
+}
+
+/** Shown under preview answers: the full text and AI answers need a subscription. */
+function UnlockCard() {
+  const l = useL();
+  return (
+    <div className="mt-5 flex flex-col gap-3 rounded-2xl border border-brand-200 bg-brand-50/60 p-4 sm:flex-row sm:items-center sm:justify-between dark:border-white/10 dark:bg-white/5">
+      <p className="text-body-sm text-ink-800">
+        {l("Bo‘limlarning to‘liq matni, mamlakat qoidalari va to‘liq javoblar obuna davomida ochiq bo‘ladi.")}
+      </p>
+      <div className="flex shrink-0 flex-wrap gap-2">
+        <Link
+          href="/pricing"
+          className="inline-flex items-center gap-1.5 rounded-pill bg-brand-600 px-4 py-2 text-body-sm font-semibold text-white transition-colors hover:bg-brand-700"
+        >
+          <Sparkles size={15} />
+          {l("Obunani faollashtirish")}
+        </Link>
+        <Link
+          href="/knowledge-base"
+          className="inline-flex items-center gap-1.5 rounded-pill border border-surface-border bg-surface px-4 py-2 text-body-sm font-semibold text-ink-800 transition-colors hover:border-brand-300 hover:text-brand-700"
+        >
+          <Library size={15} />
+          {l("Kutubxona")}
+        </Link>
+      </div>
     </div>
   );
 }
@@ -247,6 +290,7 @@ export function AssistantChat() {
                 {l(t.references.length ? "Javob tayyorlanmoqda…" : "Kitobdan qidirilmoqda…")}
               </p>
             )}
+            {t.mode === "preview" && !t.error ? <UnlockCard /> : null}
             {t.references.length > 0 && !t.error ? <References references={t.references} /> : null}
           </div>
         </article>

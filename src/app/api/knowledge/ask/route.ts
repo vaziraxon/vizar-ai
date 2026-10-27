@@ -5,7 +5,7 @@ import { rateLimit } from "@/lib/rate-limit";
 import { AI_NOTICES, resolveAiMode } from "@/lib/ai/mode";
 import { searchKnowledge } from "@/lib/knowledge/search";
 import { assembleAnswer, buildContext, createAnswerStream } from "@/lib/knowledge/answer";
-import { buildReferences, mockAnswer, retrievalAnswer } from "@/lib/knowledge/offline";
+import { buildReferences, mockAnswer, previewAnswer, retrievalAnswer } from "@/lib/knowledge/offline";
 import type { AskEvent } from "@/lib/knowledge/types";
 
 export const runtime = "nodejs";
@@ -27,6 +27,10 @@ const pause = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
  *          user still gets the book passages instead of an error
  *   mock — development-only canned answer, streamed like the real one
  *   off  — book passages and official sources only; no paid call is made
+ *
+ * The book itself is a paid library: without an active subscription
+ * kb-search returns previews only, and the answer is the list of matching
+ * sections ("preview") whatever the mode — no full text, no AI call.
  */
 export async function POST(request: Request) {
   const supabase = createClient();
@@ -47,12 +51,21 @@ export async function POST(request: Request) {
   const question = parsed.data.question;
   const mode = resolveAiMode();
   const encoder = new TextEncoder();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
       const send = (event: AskEvent) => controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
       try {
-        const result = await searchKnowledge(question, 8);
+        const result = await searchKnowledge(question, 8, session?.access_token);
+
+        if (result.access !== "full") {
+          send({ type: "references", references: buildReferences(result) });
+          send({ type: "final", mode: "preview", notice: AI_NOTICES.locked, ...previewAnswer(result) });
+          return;
+        }
 
         if (mode === "off") {
           send({ type: "references", references: buildReferences(result) });

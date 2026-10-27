@@ -9,6 +9,12 @@ import type { KbChunkHit, KbReference, KbRuleHit, KbSearchResult } from "./types
 
 const sectionName = (hit: KbChunkHit) => (hit.section_number ? `${hit.section_number}. ${hit.section_title}` : hit.section_title);
 
+/** Library pages (src/app/(site)/knowledge-base). */
+export const libraryHref = {
+  section: (chapterSlug: string, sectionSlug: string) => `/knowledge-base/book/${chapterSlug}/${sectionSlug}`,
+  country: (code: string) => `/knowledge-base/countries/${code.toLowerCase()}`,
+};
+
 /** Numbered references in retrieval order: book passages first, then country rules. */
 export function buildReferences(result: KbSearchResult): KbReference[] {
   const references: KbReference[] = [];
@@ -18,6 +24,7 @@ export function buildReferences(result: KbSearchResult): KbReference[] {
       kind: "book",
       title: sectionName(hit),
       location: `${hit.chapter_title} › ${sectionName(hit)}`,
+      href: libraryHref.section(hit.chapter_slug, hit.section_slug),
       cited: false,
     });
   }
@@ -27,6 +34,7 @@ export function buildReferences(result: KbSearchResult): KbReference[] {
       kind: "rule",
       title: `${rule.country_name}: ${rule.topic}`,
       urls: rule.sources.map((s) => s.url),
+      href: libraryHref.country(rule.country_code),
       status: rule.status,
       asOf: rule.as_of,
       cited: false,
@@ -114,4 +122,31 @@ export function mockAnswer(result: KbSearchResult): { markdown: string; referenc
   if (rules.length) lines.push(`Mamlakat qoidalari:\n${rules.join("\n")}`);
   lines.push("Aniq talablarni ariza topshirishdan oldin rasmiy manbalarda tekshiring.");
   return { markdown: lines.join("\n\n"), references: markCited(references, cited) };
+}
+
+/**
+ * For callers without an active subscription: which sections and country
+ * rules answer the question, with the short excerpts kb-search returns for
+ * them — no full passages, no rule texts and no AI call.
+ */
+export function previewAnswer(result: KbSearchResult): { markdown: string; references: KbReference[] } {
+  const references = buildReferences(result);
+  if (!result.chunks.length && !result.rules.length) {
+    return { markdown: "Kitobda bu savolga mos bo‘lim topilmadi. Savolni boshqacha ifodalab ko‘ring.", references };
+  }
+  const cited = new Set<number>();
+  const parts: string[] = [];
+  const sections = result.chunks.slice(0, 5).map((hit, i) => {
+    cited.add(i + 1);
+    const text = hit.content ? ` — ${excerpt(hit.content, 180)}` : "";
+    return `${i + 1}. **${hit.chapter_label} › ${sectionName(hit)}**${text} ⟦${i + 1}⟧`;
+  });
+  if (sections.length) parts.push(`Savolingizga kitobning quyidagi bo‘limlari javob beradi:\n\n${sections.join("\n")}`);
+  const rules = result.rules.map((rule, i) => {
+    const n = result.chunks.length + i + 1;
+    cited.add(n);
+    return `- **${rule.country_name}: ${rule.topic}** ⟦${n}⟧`;
+  });
+  if (rules.length) parts.push(`Mamlakat qoidalari:\n\n${rules.join("\n")}`);
+  return { markdown: parts.join("\n\n"), references: markCited(references, cited) };
 }

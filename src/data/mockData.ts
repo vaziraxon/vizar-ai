@@ -44,6 +44,7 @@ import {
   Server,
   Moon,
   Globe,
+  Library,
 } from "lucide-react";
 import type {
   SidebarNavItem,
@@ -128,6 +129,7 @@ export const SIDEBAR_NAV: SidebarNavItem[] = [
   { icon: ListChecks, label: "Checklist", href: "/dashboard/checklist" },
   { icon: MessagesSquare, label: "Suhbat mashqi", href: "/dashboard/interview" },
   { icon: Bot, label: "AI maslahatchi", href: "/dashboard/assistant" },
+  { icon: Library, label: "Viza bazasi", href: "/knowledge-base" },
   { icon: Route, label: "Ariza kuzatuvi", href: "/dashboard/tracker" },
   { icon: FileWarning, label: "Rad javobi tahlili", href: "/dashboard/rejection-analysis" },
   { icon: UserCog, label: "Mutaxassislar", href: "/dashboard/experts" },

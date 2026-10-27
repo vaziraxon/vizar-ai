@@ -303,8 +303,8 @@ javob beradi. Tarkibi:
 | Endpoint | Kim uchun | Nima qiladi | Pullik? |
 | --- | --- | --- | --- |
 | `GET /api/knowledge/status` | hamma | AI rejimi (`live`/`mock`/`off`) va baza hajmi | yo'q |
-| `POST /api/knowledge/search` | tizimga kirganlar, 60/10 daq | gibrid qidiruv: bo'limlar + mamlakat qoidalari | yo'q |
-| `POST /api/knowledge/ask` | tizimga kirganlar, 20/10 daq | javob (NDJSON oqim) + manbalar | faqat `live` rejimda |
+| `POST /api/knowledge/search` | tizimga kirganlar, 60/10 daq | gibrid qidiruv: bo'limlar + mamlakat qoidalari (obunasizlarga qisqa parchalar) | yo'q |
+| `POST /api/knowledge/ask` | tizimga kirganlar, 20/10 daq | javob (NDJSON oqim) + manbalar; obunasizlarga faqat mos bo'limlar ro'yxati | faqat `live` rejimda va faqat obunachilarga |
 
 ### Qanday ishlaydi
 
@@ -321,7 +321,48 @@ javob beradi. Tarkibi:
   `needs_review` holatiga o'tadi va AI javobida “rasmiy sahifada
   tekshiring” deb ogohlantiradi. Muharrir sahifani o'qib, qoidani
   `/admin/knowledge/rules`da tasdiqlaydi yoki yangilaydi.
-- **Kitob faqat o'qish uchun ochiq:** `published` holatidagi qatorlarni
-  hamma o'qiy oladi. Faqat tizimga kirganlar uchun qilish kerak bo'lsa,
-  `knowledge.sql`dagi `*_read` siyosatlarida `to anon, authenticated`ni
-  `to authenticated`ga almashtiring.
+- **Kitob matni pullik:** `supabase/kb_library_access.sql` o'rnatilgach,
+  to'liq matnni faqat faol obunachilar va muharrirlar o'qiydi (pastga qarang).
+
+## Viza ma'lumotlar bazasi (premium kutubxona, `/knowledge-base`)
+
+Kitobning 9 bobi, davlatlar, viza turlari, hujjatlar va qidiruv alohida
+sahifalarda. Mundarija, bo'lim nomlari, davlatlar ro'yxati va ~320 belgilik
+parchalar hamma uchun ochiq; to'liq matn faqat faol obuna davomida.
+
+| Qism | Joyi |
+| --- | --- |
+| Obunalar jadvali, `kb_has_access()`, RLS, ochiq mundarija RPC'lari | `supabase/kb_library_access.sql` (qaytarish: `kb_library_access_rollback.sql`) |
+| Sahifalar | `src/app/(site)/knowledge-base` |
+| Kim nimani ko'radi | `src/lib/knowledge/access.ts` |
+
+**Ruxsat qayerda tekshiriladi.** Faqat interfeysda emas:
+
+- **Postgres RLS:** `kb_sections`, `kb_chunks`, `kb_country_rules` qatorlari
+  faqat `kb_has_access()` rost bo'lganda qaytadi — muharrir yoki
+  `subscriptions`da `status = 'active'` va `starts_at <= now() < expires_at`
+  bo'lgan foydalanuvchi. Har so'rovda hisoblanadi, shuning uchun muddat
+  tugashi bilan kirish o'zi yopiladi (cron kerak emas).
+- **`kb-search` Edge Function:** chaqiruvchining JWT'i bilan
+  `kb_has_access()`ni so'raydi; obunasizlarga parchalar 180 belgigacha
+  qisqartiriladi, qoida matnlari bo'sh (`"access": "preview"`).
+- **Next.js:** sahifalar to'liq matnni foydalanuvchining o'z sessiyasi
+  bilan (RLS orqali) o'qiydi; `/api/knowledge/ask` obunasizlarga AI'ni
+  chaqirmaydi.
+
+**Tariflar:** Standard — 7 kun, Premium — 30 kun, Pro — 45 kun, VIP — kelishilgan
+sana. To'lov tizimi ulanmaguncha obunani SQL Editor'da qo'lda yoqing:
+
+```sql
+select public.grant_subscription('mijoz@example.com', 'premium');           -- 30 kun
+select public.grant_subscription('vip@example.com', 'vip', '2027-03-01');   -- VIP: tugash sanasi
+-- Bekor qilish:
+update public.subscriptions set status = 'canceled'
+where user_id = (select id from auth.users where email = 'mijoz@example.com') and status = 'active';
+```
+
+Faol obuna ustiga yangisi berilsa, yangi davr eskisi tugagan kundan
+boshlanadi. `grant_subscription` faqat SQL Editor / service role uchun —
+foydalanuvchilar uni chaqira olmaydi va `subscriptions`ga yoza olmaydi,
+faqat o'z qatorlarini o'qiydi. Kelajakdagi to'lov webhook'i ham shu
+jadvalga service role bilan yozadi (`source = 'payment'`, `payment_ref`).

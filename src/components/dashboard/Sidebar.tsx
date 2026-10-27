@@ -52,6 +52,7 @@ export const NAV_KEY_BY_HREF: Record<string, string> = {
   "/dashboard/checklist": "nav_checklist",
   "/dashboard/interview": "nav_interview",
   "/dashboard/assistant": "nav_assistant",
+  "/knowledge-base": "nav_library",
   "/dashboard/tracker": "nav_tracker",
   "/dashboard/rejection-analysis": "nav_rejection",
   "/dashboard/experts": "nav_experts",

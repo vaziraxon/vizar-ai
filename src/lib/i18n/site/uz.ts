@@ -8,6 +8,7 @@ export const uz: SiteContent = {
     tools: "Vositalar",
     destinations: "Yo‘nalishlar",
     howItWorks: "Qanday ishlaydi",
+    library: "Viza bazasi",
     pricing: "Narxlar",
     signIn: "Kirish",
     getStarted: "Boshlash",
