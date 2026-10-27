@@ -1,0 +1,214 @@
+{
+  "57674c7c-9b8d-47ad-b1dc-c219b7f4ab5d": {
+    "ru": "Страна: ОАЭ\nОсновной путь: короткий безвизовый визит\nЧто решить заранее: паспорт и условия 30-дневного режима",
+    "en": "Country: UAE\nMain route: short visa-free visit\nWhat to settle in advance: passport and the terms of the 30-day regime"
+  },
+  "6d67d42c-0f1c-478f-af17-79a4029931e3": {
+    "ru": "Страна: ОАЭ\nКороткий туристический визит: до 30 дней без визы\nГлавное предупреждение: проверяются срок действия паспорта и цель визита",
+    "en": "Country: UAE\nShort tourist visit: up to 30 days visa-free\nKey warning: passport validity and the purpose of the visit are checked"
+  },
+  "6f160041-1d31-4fc7-9d7d-fdcb80eabce6": {
+    "ru": "Страна: Албания\nБазовое правило для обычного паспорта: национальная виза или исключение по другой визе при соблюдении условий\nЧто проверить отдельно: официальный e-visa.al и условие о ранее использованной визе [R06]",
+    "en": "Country: Albania\nStarting rule for an ordinary passport: national visa, or a conditional exemption based on another visa\nCheck separately: the official e-visa.al and the previously-used-visa condition [R06]"
+  },
+  "61516035-4a75-4ede-8413-c4d4974ac9ce": {
+    "ru": "Страна: Армения\nБазовое правило для обычного паспорта: без визы для всех видов паспортов Узбекистана\nЧто проверить отдельно: национальные требования к цели и сроку пребывания [R16]",
+    "en": "Country: Armenia\nStarting rule for an ordinary passport: visa-free for all types of Uzbek passports\nCheck separately: national requirements on purpose and length of stay [R16]"
+  },
+  "d6d24b8d-7542-4e7b-8756-0ac5627433e9": {
+    "ru": "Практическая ситуация. Турист проводит 4 ночи в Вене и 2 ночи в Мюнхене. Если основное направление — Австрия, заявление подаётся по процедуре, компетентной для Австрии; первая посадка в Мюнхене решения не меняет.",
+    "en": "Practical case. A tourist spends 4 nights in Vienna and 2 in Munich. If Austria is the main destination, the application goes through the procedure competent for Austria; landing in Munich first does not change that."
+  },
+  "de0ebbf9-1964-41f0-b391-dee1b7c42026": {
+    "ru": "Документы и логика поездки. При поездке по Вене, Зальцбургу или Альпам согласуйте между собой билеты между городами, последовательность отелей и реальный план расходов. Для зимнего спортивного отдыха отдельно прочитайте, покрывает ли страховой полис занятия спортом.",
+    "en": "Documents and trip logic. For a trip around Vienna, Salzburg or the Alps, make intercity tickets, the sequence of hotels and a realistic spending plan match. For a winter sports trip, read separately whether the insurance policy covers sports activities."
+  },
+  "0ada1b87-755f-4eff-9ff0-3bcbf750dcef": {
+    "ru": "Куда обращаться. Объявлено, что с апреля 2025 года заявления на визу C в Австрию принимаются через представительство Венгрии в Ташкенте; официальную страницу VFS/Венгрии нужно перепроверить. [R07]",
+    "en": "Where to apply. It was announced that from April 2025 C visa applications for Austria are accepted through Hungary’s representation in Tashkent; re-check the official VFS/Hungary page. [R07]"
+  },
+  "4bc52c39-82b5-45c0-b799-9f2e4838bc5f": {
+    "ru": "Основное направление: Австрия и Дания\nОбъявленный порядок приёма на октябрь 2026 года: представительство Венгрии\nВажное примечание: для визы C; подтвердите актуальную страницу VFS. [R07, R10]",
+    "en": "Main destination: Austria and Denmark\nApplication route announced as of October 2026: Hungary’s representation\nImportant note: for C visas; confirm the current VFS page. [R07, R10]"
+  },
+  "f74f9e57-1396-4926-b7ee-80f60431a685": {
+    "ru": "Страна: Австралия\nКороткий туристический путь: Visitor visa (subclass 600), Tourist stream offshore\nОфициальная система: ImmiAccount\nФинансовый подход: достаточные средства; доказательством может служить история счёта за 3 месяца",
+    "en": "Country: Australia\nShort tourist route: Visitor visa (subclass 600), Tourist stream offshore\nOfficial system: ImmiAccount\nFinancial approach: sufficient funds; a 3-month account history can serve as evidence"
+  },
+  "2d9a5678-0734-4cb7-b9c8-bef4cc793e1b": {
+    "ru": "Страна: Австралия 600 offshore\nПоказатель на официальной странице на 26.10.2026: от AUD 250\nПримечание: проверяйте в калькуляторе — зависит от потока, срока и тарифа",
+    "en": "Country: Australia 600 offshore\nFigure on the official page as of 26 Oct 2026: from AUD 250\nNote: check the calculator — it depends on the stream, timing and tariff"
+  },
+  "b5cb8d8f-6d78-4ce7-9f2c-696fd8b0fd8e": {
+    "ru": "Страна: Азербайджан\nБазовое правило для обычного паспорта: без визы до 90 дней\nЧто проверить отдельно: правила длительного пребывания и регистрации [R17]",
+    "en": "Country: Azerbaijan\nStarting rule for an ordinary passport: visa-free for up to 90 days\nCheck separately: rules on longer stays and registration [R17]"
+  },
+  "72524937-69b9-4527-a960-a6da347b69b1": {
+    "ru": "Страна: Босния и Герцеговина\nБазовое правило для обычного паспорта: как правило, нужна виза; есть установленные исключения\nЧто проверить отдельно: многократная виза другой страны или вид на жительство [R10]",
+    "en": "Country: Bosnia and Herzegovina\nStarting rule for an ordinary passport: usually a visa; set exemptions apply\nCheck separately: another country’s multiple-entry visa or residence permit [R10]"
+  },
+  "a4496e83-5726-43a1-8d51-5e14253c3d7f": {
+    "ru": "Практическая ситуация. Если планируются 3 дня конференции в Брюсселе, а затем 4 дня поездки в Париж, основной целью может быть конференция. Эту ситуацию нужно пояснить в письме с указанием цели поездки и расходов.",
+    "en": "Practical case. If the plan is 3 days at a conference in Brussels followed by 4 days in Paris, the main purpose may be the conference. Explain this in a letter setting out the purpose of the trip and the costs."
+  },
+  "d4c90dd4-39db-4705-85a4-130e9b8259b4": {
+    "ru": "Документы и логика поездки. Мероприятие международной организации в Брюсселе, деловая встреча в Антверпене или визит к родственнику требуют разных доказательств. Чётко разделите в документах, кто приглашает (лицо или организация), сроки мероприятия, жильё и кто оплачивает расходы.",
+    "en": "Documents and trip logic. An international organisation’s event in Brussels, a business meeting in Antwerp or a visit to a relative each need different evidence. Keep separate in your documents who is inviting you (person or organisation), the event dates, accommodation and who pays."
+  },
+  "99cc3a49-e394-4c73-bbf5-60a985d502c4": {
+    "ru": "Куда обращаться. С 1 марта 2026 года в Узбекистане краткосрочные заявления на бельгийскую визу C рассматривает посольство Венгрии. Для визы D действует другой консульский порядок. [R08]",
+    "en": "Where to apply. Since 1 March 2026, Hungary’s embassy has been handling Belgian short-stay C visa applications in Uzbekistan. D visas follow a different consular procedure. [R08]"
+  },
+  "4bfe69a7-4efa-440d-8f79-e499646686bf": {
+    "ru": "Основное направление: Бельгия\nОбъявленный порядок приёма на октябрь 2026 года: Венгрия, Ташкент\nВажное примечание: с 1 марта 2026 года; виза C. [R08]",
+    "en": "Main destination: Belgium\nApplication route announced as of October 2026: Hungary, Tashkent\nImportant note: since 1 March 2026; C visa. [R08]"
+  },
+  "795ab7dc-38ce-4699-b023-b448b06e83a0": {
+    "ru": "Практическая ситуация. Если 7 ночей на курорте Варна и 2 ночи в Румынии, заявление рассматривается в компетенции Болгарии как основного направления.",
+    "en": "Practical case. With 7 nights at the Varna resort and 2 nights in Romania, the application falls under Bulgaria’s competence as the main destination."
+  },
+  "c86dd200-666d-4a6c-9550-c98cde173461": {
+    "ru": "Документы и логика поездки. Для поездок в Софию, Варну и Бургас последовательно подготовьте подтверждения трансфера в аэропорт и обратно, проживания на курорте, услуг турпакета и сезона поездки. Не полагайтесь на устаревшие источники, где говорится, что «болгарская виза отдельно от Шенгена».",
+    "en": "Documents and trip logic. For Sofia, Varna and Burgas, prepare consistent evidence of airport transfers, resort accommodation, package-tour services and the travel season. Don’t rely on old sources saying a “Bulgarian visa is separate from Schengen”."
+  },
+  "d284cd9c-13f5-4739-8118-45ad6e62cf7b": {
+    "ru": "Куда обращаться. С 1 января 2025 года Болгария — полноправный член Шенгенской зоны; к краткосрочной визе C применяются шенгенские правила. Актуальный пункт приёма в Узбекистане уточняйте в официальном консульстве Болгарии или аккредитованном центре. [R01]",
+    "en": "Where to apply. Since 1 January 2025 Bulgaria has been a full Schengen member; Schengen rules apply to short-stay C visas. Check the current application point in Uzbekistan with Bulgaria’s official consulate or an accredited centre. [R01]"
+  },
+  "13265e79-b8f5-4f1e-9959-20a0b2b8d8f6": {
+    "ru": "Страна: Канада\nКороткий туристический путь: Visitor visa / TRV\nОфициальная система: IRCC Portal + биометрия при необходимости\nФинансовый подход: средства, соразмерные длительности поездки, жилью и банковской истории",
+    "en": "Country: Canada\nShort tourist route: Visitor visa / TRV\nOfficial system: IRCC Portal + biometrics when required\nFinancial approach: funds proportionate to the trip length, accommodation and bank history"
+  },
+  "a9d504cc-4deb-4b18-b3fe-e99b348a7d9d": {
+    "ru": "Страна: Канада, Visitor\nПоказатель на официальной странице на 26.10.2026: сбор за заявление CAD 100; биометрия обычно CAD 85\nПримечание: для семьи возможна скидка или исключение по биометрии",
+    "en": "Country: Canada Visitor\nFigure on the official page as of 26 Oct 2026: CAD 100 application fee; biometrics usually CAD 85\nNote: a family discount or a biometrics exemption may apply"
+  },
+  "65a7714c-5948-45d7-85bc-868d9e62b07a": {
+    "ru": "Практическая ситуация. Человек, едущий на деловую конференцию в Швейцарию, должен ДО создания заявления проверить, принимает ли представительство Латвии такие поездки.",
+    "en": "Practical case. Someone travelling to a business conference in Switzerland should check BEFORE starting the application whether Latvia’s representation accepts that kind of trip."
+  },
+  "ea94a648-1a55-4066-b47b-f7bf4e31b198": {
+    "ru": "Документы и логика поездки. При поездке по Цюриху, Женеве и горам важны железная дорога, отель и реальный бюджет. Если речь о конференции, лечении или оплачиваемой деятельности, не объединяйте орган приёма заявления с обычным туристическим путём.",
+    "en": "Documents and trip logic. For a trip around Zurich, Geneva and the mountains, rail travel, hotels and a realistic budget matter. If it’s a conference, medical treatment or paid activity, don’t lump the receiving authority together with the ordinary tourist route."
+  },
+  "650360fb-ba38-4eed-8de1-1aa83bc1982f": {
+    "ru": "Куда обращаться. Официальный портал Швейцарии указывает, что визы C в Узбекистане оформляет посольство Латвии по представительству; некоторые цели поездки, включая работу, лечение и некоторые официальные визиты, выходят за рамки представительства. [R28]",
+    "en": "Where to apply. Switzerland’s official portal shows Latvia’s embassy representing it for C visas in Uzbekistan; some purposes, including work, medical treatment and certain official visits, fall outside that representation. [R28]"
+  },
+  "3adcb0af-faaf-4138-9698-00da2b5d4b2d": {
+    "ru": "Основное направление: Швейцария\nОбъявленный порядок приёма на октябрь 2026 года: посольство Латвии, Ташкент\nВажное примечание: некоторые цели не входят в представительство. [R28]",
+    "en": "Main destination: Switzerland\nApplication route announced as of October 2026: Embassy of Latvia, Tashkent\nImportant note: some purposes fall outside the representation. [R28]"
+  },
+  "712581ab-85bf-4c78-90ed-ddf8eb1181df": {
+    "ru": "Страна: Китай\nОсновной путь: без визы — 30 дней за поездку, всего 90 из 180\nЧто решить заранее: вид деятельности и подсчёт дней",
+    "en": "Country: China\nMain route: visa-free — 30 days per trip, 90 in any 180 in total\nWhat to settle in advance: type of activity and counting the days"
+  },
+  "2c88d2ea-aee3-4900-9759-adac798ed402": {
+    "ru": "Страна: Китай\nКороткий туристический визит: до 30 дней без визы; всего 90 дней за 180\nГлавное предупреждение: для работы, учёбы и длительного пребывания — отдельная виза",
+    "en": "Country: China\nShort tourist visit: up to 30 days visa-free; 90 days in any 180 in total\nKey warning: work, study and long stays need a separate visa"
+  },
+  "5fef5438-3550-45c8-9826-f0dcf4ed4f56": {
+    "ru": "Китай: с 1 июня 2025 года установлены рамки и исключения правила безвизового въезда для обычного паспорта Узбекистана — не более 30 дней за одну поездку и не более 90 дней в сумме за 180 дней.",
+    "en": "China: since 1 June 2025 the scope and exceptions of visa-free entry for ordinary Uzbek passports have been set — no more than 30 days per trip and no more than 90 days in total within 180 days."
+  },
+  "d756d5f4-b4aa-4e7c-b522-daf6e41a07b3": {
+    "ru": "Страна: Кипр\nБазовое правило для обычного паспорта: как правило, национальная виза\nЧто проверить отдельно: исключение для действующей двукратной/многократной шенгенской визы C [R05]",
+    "en": "Country: Cyprus\nStarting rule for an ordinary passport: usually a national visa\nCheck separately: the exemption for a valid double/multiple-entry Schengen C visa [R05]"
+  },
+  "cefbb95c-65a4-4a47-b3dd-9a74be301bdc": {
+    "ru": "Практическая ситуация. На маршруте Ташкент–Прага–Вена с 5 ночами в Праге и 2 в Вене основное направление — Чехия; при этом ночи в другой стране в плане проживания не скрываются.",
+    "en": "Practical case. On a Tashkent–Prague–Vienna route with 5 nights in Prague and 2 in Vienna, Czechia is the main destination; the nights in the other country are still shown in the accommodation plan."
+  },
+  "9d48f8d9-2703-4c47-a4db-e7bb25bfa480": {
+    "ru": "Документы и логика поездки. Для туризма в Праге подготовьте билеты туда и обратно, жильё, подтверждение работы или учёбы и бюджет поездки на одни и те же даты. Для гостевого визита покажите частное приглашение, для делового — программу мероприятия или письмо партнёра.",
+    "en": "Documents and trip logic. For tourism in Prague, prepare return tickets, accommodation, proof of work or study and a trip budget for the same dates. For a private visit show a personal invitation; for business, the event programme or a partner’s letter."
+  },
+  "90b04926-da79-460a-83a4-128108384ea3": {
+    "ru": "Куда обращаться. В Узбекистане работает центр VFS Global, сотрудничающий с посольством Чехии; посольство рассматривает только заявления, где Чехия — основное направление. [R09]",
+    "en": "Where to apply. A VFS Global centre working with the Czech embassy operates in Uzbekistan; the embassy only handles applications where Czechia is the main destination. [R09]"
+  },
+  "42d1d7c9-c310-427a-b5f4-70f1f7d4c383": {
+    "ru": "Практическая ситуация. Если руководитель компании едет на 4-дневную ярмарку в Берлин, цель поездки нужно честно указать как служебную, а не «туризм».",
+    "en": "Practical case. If a company director goes to a 4-day trade fair in Berlin, the purpose must honestly be stated as a business visit, not “tourism”."
+  },
+  "71f74cf0-1b32-4c67-b789-203d2e31cbf6": {
+    "ru": "Документы и логика поездки. Для гостевого визита докажите отношения с принимающей стороной и то, кто несёт расходы; для командировки покажите программу переговоров/выставки и поручение работодателя. Не планируйте долгосрочную работу по краткосрочной визе C.",
+    "en": "Documents and trip logic. For a private visit, prove your relationship with the host and who covers the costs; for a business trip, show the meeting/exhibition programme and your employer’s assignment. Don’t plan long-term work on a short-stay C visa."
+  },
+  "e7027912-5856-40be-a906-c218c0022436": {
+    "ru": "Куда обращаться. Посольство Германии в Ташкенте сообщило, что с 1 июля 2025 года документы на визу C принимаются через партнёра TLScontact; другие посредники не гарантируют ускорения. [R14]",
+    "en": "Where to apply. Germany’s embassy in Tashkent announced that from 1 July 2025 C visa documents are accepted through its partner TLScontact; other intermediaries cannot guarantee faster processing. [R14]"
+  },
+  "5ffab253-436f-44e1-85aa-470c76529ae6": {
+    "ru": "Практическая ситуация. Если в поездке на 5 дней в Копенгаген и 5 дней в Стокгольм основная цель не выделяется, проверьте правило страны первого въезда в Шенгенскую зону.",
+    "en": "Practical case. If a trip of 5 days in Copenhagen and 5 days in Stockholm has no single main purpose, check the rule for the country of first entry into the Schengen area."
+  },
+  "de95fef0-a7a3-455f-82cf-8bc9fd35cb19": {
+    "ru": "Документы и логика поездки. При визите к другу в Копенгаген чётко укажите приглашение, адрес принимающего, ваши отношения и кто покрывает расходы. Для туристической поездки вместо общего «просто Скандинавия» нужен маршрут по дням.",
+    "en": "Documents and trip logic. When visiting a friend in Copenhagen, clearly show the invitation, the host’s address, your relationship and who pays for the trip. For tourism, give a day-by-day route instead of a vague “just Scandinavia”."
+  },
+  "64f07845-d15f-48b8-be26-ca02112d31bd": {
+    "ru": "Куда обращаться. Правительство Дании указывает, что в Узбекистане визу C подают через представительство Венгрии / его центр приёма. [R10]",
+    "en": "Where to apply. The Danish government states that in Uzbekistan C visas are submitted through Hungary’s representation / its application centre. [R10]"
+  },
+  "a101764f-3f96-4788-b3c0-9606897103b7": {
+    "ru": "Основное направление: Австрия и Дания\nОбъявленный порядок приёма на октябрь 2026 года: представительство Венгрии\nВажное примечание: для визы C; подтвердите актуальную страницу VFS. [R07, R10]",
+    "en": "Main destination: Austria and Denmark\nApplication route announced as of October 2026: Hungary’s representation\nImportant note: for C visas; confirm the current VFS page. [R07, R10]"
+  },
+  "3538cd79-a11c-4d50-a3bb-f0470f8723c0": {
+    "ru": "Практическая ситуация. Владельцу обычного паспорта, едущему на 4-дневное мероприятие в Таллин, нужно смотреть не на данные за сентябрь 2026 года, а именно на правило приёма Эстонии, действующее после октября.",
+    "en": "Practical case. An ordinary passport holder going to a 4-day event in Tallinn must look not at September 2026 information but at Estonia’s application rule in force after October."
+  },
+  "ddddfd62-822f-42f6-af99-c2edf924e4ca": {
+    "ru": "Документы и логика поездки. Для туристической поездки по Таллину и Тарту обоснуйте транзитные маршруты перелётов, отель и реальную цель. Поскольку представительство приостановлено, автоматически повторять «раньше подавал в Латвию» рискованно.",
+    "en": "Documents and trip logic. For a tourist trip to Tallinn and Tartu, justify the transit flight routes, hotel and real purpose. Because the representation has been suspended, automatically repeating “I applied through Latvia before” is risky."
+  },
+  "50a53f79-3cdf-475d-9e6c-b281a5cecef2": {
+    "ru": "Куда обращаться. С 1 октября 2026 года посольство Латвии в Ташкенте временно прекратило приём заявлений на визу C в Эстонию от владельцев обычных паспортов; дипломатические и служебные паспорта указаны как исключение. Куда подавать, обязательно уточните по официальному списку МИД Эстонии. [R11]",
+    "en": "Where to apply. Since 1 October 2026 Latvia’s embassy in Tashkent has temporarily stopped accepting Estonian C visa applications from ordinary passport holders; diplomatic and service passports are listed as an exception. Be sure to confirm where to apply from Estonia’s Foreign Ministry official list. [R11]"
+  },
+  "c9739251-68df-4b01-a0be-4d3244952f4d": {
+    "ru": "Основное направление: Эстония\nОбъявленный порядок приёма на октябрь 2026 года: обычный паспорт — прежний путь через Латвию приостановлен с 01.10.2026\nВажное примечание: новую компетенцию для подачи уточните в МИД Эстонии. [R11]",
+    "en": "Main destination: Estonia\nApplication route announced as of October 2026: ordinary passports — the former Latvia route stopped on 2026-10-01\nImportant note: confirm the new competent authority with Estonia’s Foreign Ministry. [R11]"
+  },
+  "09e1a630-f060-495e-9c06-9e3a5df6419d": {
+    "ru": "Практическая ситуация. В поездке на 7 ночей в Испании и 4 ночи в Португалии основное направление — Испания. Включите ночи в обеих странах в план и расходы.",
+    "en": "Practical case. On a trip of 7 nights in Spain and 4 in Portugal, Spain is the main destination. Include the nights in both countries in your plan and costs."
+  },
+  "7a353dd0-edc9-4f9b-85b8-58e196f2a07b": {
+    "ru": "Документы и логика поездки. На маршруте Барселона, Мадрид или Андалусия согласованно укажите поезда, отели, даты выезда и возвращения. Если вы живёте у друга, адрес и документы принимающего отличаются от туристического пакета.",
+    "en": "Documents and trip logic. On a Barcelona, Madrid or Andalusia route, keep trains, hotels, departure and return details consistent. If you stay with a friend, the address and host documents differ from a tour package."
+  },
+  "12ee276a-3fe5-4d12-aaa8-49dc0cc824f7": {
+    "ru": "Куда обращаться. В консульских данных Испании указан центр приёма заявлений в Ташкенте; подтвердите этот официальный порядок для туризма или другой цели. [R16]",
+    "en": "Where to apply. Spain’s consular information lists an application centre in Tashkent; confirm this official procedure for tourism or any other purpose. [R16]"
+  },
+  "4f5eae13-86fc-4821-ac7c-f0dd25e98f1e": {
+    "ru": "Шенгенская зона: по состоянию на 2026 год 29 государств; общее правило для коротких поездок — 90 дней в любые 180 дней.",
+    "en": "Schengen area: 29 states as of 2026; the general rule for short trips is 90 days in any 180-day period."
+  },
+  "8543e88a-66d3-4629-b8a3-3f44dddfbece": {
+    "ru": "Практическая ситуация. В поездке на 8 дней в Хельсинки и 3 дня в Таллин основное направление — Финляндия; не скрывайте билет на паром и ночи в Эстонии.",
+    "en": "Practical case. On a trip of 8 days in Helsinki and 3 in Tallinn, Finland is the main destination; don’t hide the ferry ticket or the nights in Estonia."
+  },
+  "56ddef94-889a-402c-8d20-ec59fd04311c": {
+    "ru": "Документы и логика поездки. Для поездок в Хельсинки, Рованиеми или Лапландию реалистично рассчитайте сезонные расходы на дорогу и жильё. Для зимнего спорта, аренды автомобиля и сложного многоэтапного маршрута описание поездки должно быть кратким, но точным.",
+    "en": "Documents and trip logic. For Helsinki, Rovaniemi or Lapland, calculate seasonal travel and accommodation costs realistically. For snow sports, car hire or a complex multi-stage route, keep the trip description short but precise."
+  },
+  "881f7c11-7ec5-49d5-8ba2-2acab3ea72a3": {
+    "ru": "Куда обращаться. Официальные указания Финляндии рекомендуют проверить документы на finlandvisa.fi, подготовить анкету и записаться на приём в соответствующий VFS. [R12]",
+    "en": "Where to apply. Finland’s official guidance recommends checking documents on finlandvisa.fi, preparing the form and booking an appointment at the relevant VFS centre. [R12]"
+  },
+  "fcc7a367-fdec-4bf2-b058-e6ed94c8f1b1": {
+    "ru": "Практическая ситуация. Ташкент–Рим–Париж, 7 ночей во Франции и 1 ночь в Италии: даже если первая посадка в Риме, основное направление — Франция. Подавать в Италию ради «более быстрой записи» нельзя.",
+    "en": "Practical case. Tashkent–Rome–Paris with 7 nights in France and 1 in Italy: even if you land in Rome first, France is the main destination. You don’t apply to Italy for a “quicker appointment”."
+  },
+  "bc3d64be-ccd8-4323-b8d3-a74c99978bc6": {
+    "ru": "Документы и логика поездки. Для туристической поездки в Париж программа по дням, брони отелей, транспорт и источник денег должны совпадать. При проживании у родственника или принимающей стороны могут запросить подтверждения гостеприимства, отличающиеся от обычной брони отеля.",
+    "en": "Documents and trip logic. For a tourist trip to Paris, the day-by-day programme, hotel bookings, transport and source of funds should match. If you stay with a relative or host, you may be asked for proof of hosting that differs from a normal hotel booking."
+  },
+  "8f54bf62-ca9b-42e5-966c-1a0db513bdcf": {
+    "ru": "Куда обращаться. Виза во Францию начинается на государственном портале France-Visas; в Ташкенте указан порядок оформления через официальный центр и посольство. [R13]",
+    "en": "Where to apply. A French visa starts on the official France-Visas portal; in Tashkent the procedure goes through the official centre and the embassy. [R13]"
+  }
+}

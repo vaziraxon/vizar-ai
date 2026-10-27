@@ -171,8 +171,12 @@ const ALIASES: [string, string][] = [
  * ("Buyuk Britaniya: …", "BAA: 30 kunlik …", "Kanada va Avstraliya: …").
  * Longest name first, so "Bosniya va Gersegovina" beats a shorter match.
  */
-export function sectionCountry(title: string, countries: { code: string; name: string }[]): string | null {
-  const names: [string, string][] = [...countries.filter((c) => c.code !== "EU").map((c): [string, string] => [c.name, c.code]), ...ALIASES];
+export function sectionCountry(title: string, countries: { code: string; name: string; nameSrc?: string }[]): string | null {
+  // Titles are matched in Uzbek, so use the Uzbek country name when the page is translated.
+  const names: [string, string][] = [
+    ...countries.filter((c) => c.code !== "EU").map((c): [string, string] => [c.nameSrc ?? c.name, c.code]),
+    ...ALIASES,
+  ];
   names.sort((a, b) => b[0].length - a[0].length);
   const hit = names.find(([name]) => title.startsWith(name) && /^[\s:,.(—-]|^$/.test(title.slice(name.length, name.length + 1)));
   return hit?.[1] ?? null;

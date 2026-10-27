@@ -3,12 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { L } from "@/components/i18n/L";
+import { Plural, type PluralWord } from "@/components/i18n/Plural";
 import { SearchForm } from "@/components/knowledge/library/SearchForm";
 import { CountryFlag, CoverArt } from "@/components/knowledge/library/visuals";
-import { AccessCard, LibraryError, LibraryTabs, Paywall, SectionRow, chapterEmoji } from "@/components/knowledge/library/ui";
+import { AccessCard, LibraryError, LibraryTabs, Paywall, SectionRow, SrLabel, TranslationNote, chapterEmoji } from "@/components/knowledge/library/ui";
 import { Marquee } from "@/components/site/Marquee";
 import { EmojiSticker } from "@/components/site/primitives";
 import { buttonClasses } from "@/components/ui/Button";
+import { getRequestLanguage } from "@/lib/i18n/request-language";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import {
   REGIONS,
@@ -24,12 +26,25 @@ import { REGION_VISUALS, chapterCover, sectionCountry, sectionEmoji, topicEmoji 
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Viza ma’lumotlar bazasi",
-  description:
-    "VIZAR AI kitobining 9 bobi, davlatlar bo‘yicha viza qoidalari, viza turlari va hujjatlar — rasmiy manbalar bilan. To‘liq matn obunachilar uchun.",
-  alternates: { canonical: "/knowledge-base" },
+const META = {
+  uz: {
+    title: "Viza ma’lumotlar bazasi",
+    description:
+      "VIZAR AI kitobining 9 bobi, davlatlar bo‘yicha viza qoidalari, viza turlari va hujjatlar — rasmiy manbalar bilan. To‘liq matn obunachilar uchun.",
+  },
+  ru: {
+    title: "Визовая база знаний",
+    description: "9 глав книги VIZAR AI, визовые правила по странам, типы виз и документы — с официальными источниками. Полный текст для подписчиков.",
+  },
+  en: {
+    title: "Visa knowledge base",
+    description: "The 9 chapters of the VIZAR AI book, visa rules by country, visa types and documents — with official sources. Full text for subscribers.",
+  },
 };
+
+export function generateMetadata(): Metadata {
+  return { ...META[getRequestLanguage()], alternates: { canonical: "/knowledge-base" } };
+}
 
 const QUICK_SEARCHES: { q: string; flag?: string; emoji?: string }[] = [
   { q: "Germaniya vizasi", flag: "DE" },
@@ -91,7 +106,7 @@ function TopicList({
               <span aria-hidden="true" className="text-[16px]">
                 {chapterEmoji(chapter)}
               </span>
-              {chapter.label} · {sections.length} <L>bo‘lim</L>
+              {chapter.label} · {sections.length} <Plural n={sections.length} word="bo‘lim" />
             </span>
             <span id={`${id}-title`} className="mt-1.5 block font-display text-display-sm font-extrabold tracking-[-0.02em] text-ink-950">
               <L>{title}</L>
@@ -114,8 +129,8 @@ function TopicList({
                 href={libraryHref.section(chapter.slug, s.slug)}
                 number={s.number}
                 title={s.title}
-                emoji={sectionEmoji(s.title)}
-                flag={sectionCountry(s.title, countries)}
+                emoji={sectionEmoji(s.titleSrc)}
+                flag={sectionCountry(s.titleSrc, countries)}
                 locked={locked}
               />
             ))}
@@ -150,7 +165,7 @@ function CountryCard({ country }: { country: LibraryCountry }) {
             {icons.join("")}
           </span>
           <span>
-            {country.ruleCount} <L>qoida</L>
+            {country.ruleCount} <Plural n={country.ruleCount} word="qoida" />
           </span>
         </span>
       </span>
@@ -161,14 +176,15 @@ function CountryCard({ country }: { country: LibraryCountry }) {
 export default async function KnowledgeBasePage() {
   const viewer = await getLibraryViewer();
   if (!viewer.supabase) return <LibraryError />;
+  const lang = getRequestLanguage();
 
   let outline: OutlineChapter[];
   let countries: LibraryCountry[];
   let stats: { sections?: number; sources?: number } | null;
   try {
     [outline, countries, stats] = await Promise.all([
-      getOutline(viewer.supabase),
-      getCountries(viewer.supabase),
+      getOutline(viewer.supabase, lang),
+      getCountries(viewer.supabase, lang),
       viewer.supabase.rpc("kb_stats").then((r) => (r.data as { sections?: number; sources?: number } | null) ?? null),
     ]);
   } catch (error) {
@@ -183,11 +199,11 @@ export default async function KnowledgeBasePage() {
   const extras = outline.filter((c) => c.kind !== "chapter");
   const visaTypes = chapters.find((c) => c.number === 1);
   const documents = chapters.find((c) => c.number === 2);
-  const figures = [
+  const figures: { emoji: string; value: number; label: PluralWord }[] = [
     { emoji: "📚", value: chapters.length, label: "bob" },
     { emoji: "📄", value: stats?.sections ?? outline.reduce((n, c) => n + c.sections.length, 0), label: "bo‘lim" },
     { emoji: "🌍", value: realCountries.length, label: "davlat" },
-    ...(stats?.sources ? [{ emoji: "🔗", value: stats.sources, label: "rasmiy manba" }] : []),
+    ...(stats?.sources ? [{ emoji: "🔗", value: stats.sources, label: "rasmiy manba" as const }] : []),
   ];
 
   return (
@@ -205,8 +221,10 @@ export default async function KnowledgeBasePage() {
             <p className="mt-4 max-w-xl text-body-lg text-ink-700">
               <L>VIZAR AI kitobining to‘liq matni: viza turlari, hujjatlar, topshirish jarayoni, suhbat va davlatlar bo‘yicha qoidalar — rasmiy manbalar bilan.</L>
             </p>
+            {lang !== "uz" ? <TranslationNote className="mt-4 max-w-xl" /> : null}
             <SearchForm className="mt-7 max-w-xl" />
-            <ul className="mt-4 flex flex-wrap gap-2" aria-label="Tez qidiruv">
+            <SrLabel id="kb-quick-search" text="Tez qidiruv" />
+            <ul className="mt-4 flex flex-wrap gap-2" aria-labelledby="kb-quick-search">
               {QUICK_SEARCHES.map((s) => (
                 <li key={s.q}>
                   <Link
@@ -214,7 +232,7 @@ export default async function KnowledgeBasePage() {
                     className="inline-flex items-center gap-2 rounded-pill border border-white/80 bg-surface/80 px-3 py-1.5 text-body-sm font-medium text-ink-800 backdrop-blur transition-colors hover:border-brand-300 hover:text-brand-700 dark:border-white/10"
                   >
                     {s.flag ? <CountryFlag code={s.flag} size="xs" /> : <span aria-hidden="true">{s.emoji}</span>}
-                    {s.q}
+                    <L>{s.q}</L>
                   </Link>
                 </li>
               ))}
@@ -224,7 +242,7 @@ export default async function KnowledgeBasePage() {
                 <div key={f.label} className="flex flex-col-reverse justify-end rounded-2xl border border-white/80 bg-surface/75 px-3.5 py-3 backdrop-blur dark:border-white/10">
                   <dt className="mt-1.5 flex items-center gap-1.5 text-caption font-medium leading-tight text-ink-600">
                     <span aria-hidden="true">{f.emoji}</span>
-                    <L>{f.label}</L>
+                    <Plural n={f.value} word={f.label} />
                   </dt>
                   <dd className="font-accent text-[30px] italic leading-none text-ink-950 tabular-nums">{f.value}</dd>
                 </div>
@@ -315,7 +333,7 @@ export default async function KnowledgeBasePage() {
                       <span className="font-display text-[19px] font-bold leading-snug text-ink-950 group-hover:text-brand-700">{chapterHeading(c)}</span>
                       <span className="mt-auto flex items-center justify-between pt-4 text-caption text-ink-500">
                         <span>
-                          📄 {c.sections.length} <L>bo‘lim</L> · ⏱ ~{readingMinutes(c.chars)} <L>daq</L>
+                          📄 {c.sections.length} <Plural n={c.sections.length} word="bo‘lim" /> · ⏱ ~{readingMinutes(c.chars)} <L>daq</L>
                         </span>
                         <ArrowRight size={16} aria-hidden="true" className="text-ink-300 transition-transform group-hover:translate-x-0.5 group-hover:text-violet-600" />
                       </span>
@@ -365,7 +383,7 @@ export default async function KnowledgeBasePage() {
                       <span className="flex items-center gap-2">
                         {visual.flag ? <CountryFlag code={visual.flag} size="sm" /> : <span aria-hidden="true" className="text-[22px]">{visual.emoji}</span>}
                         <span className="rounded-pill bg-white/15 px-2.5 py-0.5 text-caption font-semibold backdrop-blur">
-                          {list.filter((c) => c.code !== "EU").length} <L>davlat</L>
+                          {list.filter((c) => c.code !== "EU").length} <Plural n={list.filter((c) => c.code !== "EU").length} word="davlat" />
                         </span>
                       </span>
                       <h3 className="mt-3 font-display text-display-sm font-extrabold tracking-[-0.02em]">

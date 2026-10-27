@@ -1,0 +1,198 @@
+{
+  "809c4798-dbfb-41d0-aff6-14c9c01c475c": {
+    "ru": "Страна: Великобритания\nБазовое правило для обычного паспорта: для стандартного визита нужна британская виза заранее\nЧто проверить отдельно: официальное онлайн-заявление UKVI, финансовая последовательность [R01]",
+    "en": "Country: United Kingdom\nStarting rule for an ordinary passport: a UK visa in advance for a standard visit\nCheck separately: the official UKVI online application and financial consistency [R01]"
+  },
+  "2a41ab79-cecb-4c3d-9f09-e76db53edbd2": {
+    "ru": "Страна: Грузия\nБазовое правило для обычного паспорта: действует безвизовый режим\nЧто проверить отдельно: официальная проверка длительности пребывания и доказательств на границе [R15]",
+    "en": "Country: Georgia\nStarting rule for an ordinary passport: a visa-free regime applies\nCheck separately: official checks on length of stay and evidence at the border [R15]"
+  },
+  "3aacabdb-f756-4241-8466-cc678bf5946a": {
+    "ru": "Практическая ситуация. Афины 2 ночи, Санторини 4 ночи, затем Италия 3 ночи: основное направление — Греция; полезно приложить подтверждения транспорта между островами.",
+    "en": "Practical case. Athens 2 nights, Santorini 4 nights, then Italy 3 nights: Greece is the main destination; it helps to include proof of inter-island transport."
+  },
+  "edebbc21-f646-4e40-b0a5-5f31e961d876": {
+    "ru": "Документы и логика поездки. В поездках по Афинам, Санторини и Криту паромы или внутренние рейсы между островами, отели и временные интервалы должны логично совпадать. Отдельно продумайте, как в день вылета успеть с острова в Афины.",
+    "en": "Documents and trip logic. On trips to Athens, Santorini and Crete, ferries or domestic flights between islands, hotels and timings should fit together. Plan separately how you’ll get from the island to Athens in time on the return day."
+  },
+  "527f3baf-c859-409b-8144-6a7f95af6dcd": {
+    "ru": "Куда обращаться. Актуальный порядок приёма и компетенцию посольства по краткосрочным визам Греции в Узбекистане уточняйте на официальном государственном сайте или сайте утверждённого визового центра. [R26]",
+    "en": "Where to apply. For Greek short-stay visas, confirm the current application route and the embassy’s competence in Uzbekistan on the official government site or the approved visa centre’s site. [R26]"
+  },
+  "0e6ba3a7-6776-4b4e-91c8-4d9191b76715": {
+    "ru": "Практическая ситуация. Если Хорватия 6 ночей, Черногория 2 ночи и снова Хорватия 2 ночи, учтите выезд из Шенгенской зоны и повторный въезд и проверьте условие single/multiple-entry.",
+    "en": "Practical case. With Croatia 6 nights, Montenegro 2 nights and Croatia again for 2, account for leaving and re-entering the Schengen area and check the single/multiple-entry condition."
+  },
+  "152a83f7-dfab-46fe-b103-206de1306f23": {
+    "ru": "Документы и логика поездки. В поездках по Дубровнику, Сплиту и Загребу согласуйте даты морского транспорта и отелей. Если планируете выезд в соседнюю нешенгенскую страну и повторный въезд, особенно важно количество въездов по визе.",
+    "en": "Documents and trip logic. For Dubrovnik, Split and Zagreb, align the dates of sea transport and hotels. If you plan to leave for a neighbouring non-Schengen country and come back, the number of entries on the visa is especially important."
+  },
+  "0e54f67e-67ae-4d1e-94ef-599106ea8efb": {
+    "ru": "Куда обращаться. Хорватия — полноправный член Шенгена; официальные данные подтверждают, что для короткой поездки по обычному паспорту Узбекистана нужна виза. Компетентное посольство или центр проверяйте в день подачи. [R30]",
+    "en": "Where to apply. Croatia is a full Schengen member, and official information confirms a visa is required for a short trip on an ordinary Uzbek passport. Check the competent embassy or centre on the day you apply. [R30]"
+  },
+  "d5f96f5f-b1ea-480a-b4fe-3770800b1c94": {
+    "ru": "Практическая ситуация. При туризме на 4 ночи в Будапеште и 2 ночи в Австрии основное направление — Венгрия; обосновывать нужно именно это, а не удобство записи в VFS.",
+    "en": "Practical case. For 4 nights of tourism in Budapest and 2 nights in Austria, Hungary is the main destination; that is what you justify — not the convenience of a VFS appointment."
+  },
+  "eb44b1fa-6bb2-4340-914a-4968de4ccfe5": {
+    "ru": "Документы и логика поездки. Для туризма в Будапеште объедините подтверждения отеля, плана поездки и возвращения. Если Венгрия представляет другую шенгенскую страну, в заявлении обязательно указывается реальная страна поездки.",
+    "en": "Documents and trip logic. For tourism in Budapest, bring together the hotel, itinerary and return evidence. If Hungary is representing another Schengen country, the application must name the country you are really going to."
+  },
+  "f1bcb750-6e9d-42ad-8b1f-ccd22f6ec1a8": {
+    "ru": "Куда обращаться. Посольство Венгрии в Ташкенте объявило порядок приёма заявлений на визу C через VFS Global; по представительству принимаются и заявления некоторых других стран. [R29]",
+    "en": "Where to apply. Hungary’s embassy in Tashkent has announced that C visa applications are accepted through VFS Global; applications for some other countries are also accepted under representation. [R29]"
+  },
+  "525eef89-4d16-4b11-ad88-dd83b8a11b95": {
+    "ru": "Страна: Индонезия\nОсновной путь: Visa on Arrival / e-VoA\nЧто решить заранее: паспорт на 6 месяцев, обратный билет, сбор",
+    "en": "Country: Indonesia\nMain route: Visa on Arrival / e-VoA\nWhat to settle in advance: 6 months’ passport validity, return ticket, fee"
+  },
+  "34de342c-5f2b-4066-a680-df9b9be6bc4b": {
+    "ru": "Страна: Индонезия\nКороткий туристический визит: VoA или e-VoA (для подходящих паспортов)\nГлавное предупреждение: для Бали тоже есть визовые требования и требования при прибытии",
+    "en": "Country: Indonesia\nShort tourist visit: VoA or e-VoA (for eligible passports)\nKey warning: Bali also has visa and arrival requirements"
+  },
+  "2f22aff8-3b9f-4f93-9d11-ef88c05a074b": {
+    "ru": "Страна: Ирландия\nБазовое правило для обычного паспорта: как правило, ирландская виза; исключение при некоторых британских визах\nЧто проверить отдельно: может требоваться сначала законный въезд в Великобританию [R03]",
+    "en": "Country: Ireland\nStarting rule for an ordinary passport: usually an Irish visa; an exemption with certain UK visas\nCheck separately: you may first need to enter the UK lawfully [R03]"
+  },
+  "f7fd9fee-569c-427f-aa6a-c42276429356": {
+    "ru": "Страна: Индия\nОсновной путь: e-Visa + отдельные формы прибытия\nЧто решить заранее: правильная цель и категория e-Visa",
+    "en": "Country: India\nMain route: e-Visa + separate arrival forms\nWhat to settle in advance: the right purpose and e-Visa category"
+  },
+  "6dbff541-6cab-4f0d-a323-48fd2d4dc807": {
+    "ru": "Страна: Индия\nКороткий туристический визит: e-Visa или обычная виза\nГлавное предупреждение: e-Arrival card не заменяет e-Visa",
+    "en": "Country: India\nShort tourist visit: e-Visa or a regular visa\nKey warning: the e-Arrival card does not replace the e-Visa"
+  },
+  "15645284-506b-4889-ab9c-8b85837a12ac": {
+    "ru": "Практическая ситуация. 6 ночей в Исландии, 2 ночи во Франции: первая посадка во Франции не меняет того, что основное направление — Исландия.",
+    "en": "Practical case. 6 nights in Iceland, 2 nights in France: landing first in France doesn’t change the fact that Iceland is the main destination."
+  },
+  "b8cae723-569f-4dc4-8420-4eb2823e1f2b": {
+    "ru": "Документы и логика поездки. Для поездок за пределы Рейкьявика реалистично рассчитайте транспорт, запасные дни на погоду и дорогое жильё. Если в маршруте аренда автомобиля, покажите план аренды и оцените, насколько он реально выполним.",
+    "en": "Documents and trip logic. For trips beyond Reykjavík, realistically budget transport, spare days for the weather and expensive accommodation. If car hire is part of the route, show the rental plan and judge whether it’s actually workable."
+  },
+  "9ac36410-6951-49e8-9900-a01628f1ac84": {
+    "ru": "Куда обращаться. В своём списке представительств правительство Исландии указывает для Ташкента посольство Франции. Перед подачей проверьте именно это место на странице Исландии и условия приёма Франции. [R15]",
+    "en": "Where to apply. Iceland’s government lists France’s embassy as its representation for Tashkent. Before applying, check that exact entry on Iceland’s page and France’s application conditions. [R15]"
+  },
+  "94baa5b1-1241-4315-893f-25aca4172361": {
+    "ru": "Основное направление: Исландия\nОбъявленный порядок приёма на октябрь 2026 года: посольство Франции, Ташкент\nВажное примечание: так указано в списке МИД Исландии. [R15]",
+    "en": "Main destination: Iceland\nApplication route announced as of October 2026: Embassy of France, Tashkent\nImportant note: as listed by Iceland’s Foreign Ministry. [R15]"
+  },
+  "b0d2c282-499b-4f68-8075-2fee7896b75b": {
+    "ru": "Практическая ситуация. Если Рим 3 ночи, Флоренция 3 ночи и Словения 2 ночи, основное направление — Италия; отдельную визовую папку для Словении не открывают.",
+    "en": "Practical case. With Rome 3 nights, Florence 3 nights and Slovenia 2 nights, Italy is the main destination; you don’t open a separate visa folder for Slovenia."
+  },
+  "e51f54b5-ec72-471a-a8ed-2bbbd4c52e6e": {
+    "ru": "Документы и логика поездки. При поездке по Риму, Флоренции и Венеции согласуйте междугородние поезда, отели и даты. Приглашение на модную выставку, научную конференцию или к родственникам по содержанию отличается от туристической брони.",
+    "en": "Documents and trip logic. On a Rome, Florence and Venice trip, align intercity trains, hotels and dates. An invitation to a fashion show, a scientific conference or a relative’s home differs in content from a tourist booking."
+  },
+  "26b48444-637e-4918-ad04-eaf587b4e41a": {
+    "ru": "Куда обращаться. Посольство Италии в Ташкенте указывает, что принимает заявления на визу C от резидентов Узбекистана. Италия также значится представителем по визам C для некоторых других шенгенских стран — Норвегии, Словении и Мальты. [R17]",
+    "en": "Where to apply. Italy’s embassy in Tashkent states that it accepts C visa applications from residents of Uzbekistan. Italy is also listed as representing some other Schengen countries — Norway, Slovenia and Malta — for C visas. [R17]"
+  },
+  "1df32ab9-663e-40e9-b742-a10577ffa9ae": {
+    "ru": "Страна: Япония\nОсновной путь: краткосрочная виза заранее\nЧто решить заранее: чек-лист посольства и онлайн-запись",
+    "en": "Country: Japan\nMain route: a short-stay visa in advance\nWhat to settle in advance: the embassy checklist and online booking"
+  },
+  "48572878-34e9-4feb-86e2-24050080ac5c": {
+    "ru": "Страна: Япония\nКороткий туристический визит: как правило, краткосрочная виза заранее\nГлавное предупреждение: список документов посольства строгий",
+    "en": "Country: Japan\nShort tourist visit: usually a short-stay visa in advance\nKey warning: the embassy’s document list is strict"
+  },
+  "80d6dfb6-6573-42f4-894c-8757c4e7a6e3": {
+    "ru": "Страна: Южная Корея\nОсновной путь: подходящая туристическая виза C-3\nЧто решить заранее: местное посольство / аккредитованный агент",
+    "en": "Country: South Korea\nMain route: the appropriate C-3 tourist visa\nWhat to settle in advance: the local embassy / an accredited agent"
+  },
+  "ad87af8f-cd63-4351-abd5-016b8d1581d7": {
+    "ru": "Страна: Южная Корея\nКороткий туристический визит: как правило, виза категории C-3 заранее\nГлавное предупреждение: K-ETA — не универсальная замена визы",
+    "en": "Country: South Korea\nShort tourist visit: usually a C-3 category visa in advance\nKey warning: K-ETA is not a general substitute for a visa"
+  },
+  "35802c5e-f04f-465b-aab7-2dac198c3f1c": {
+    "ru": "Практическая ситуация. Если планируется 2-дневный визит в Вадуц и 6 ночей отдыха в Швейцарии, не выбирайте основное направление просто по принципу «хочу увидеть Лихтенштейн».",
+    "en": "Practical case. If you plan a 2-day visit to Vaduz and a 6-night holiday in Switzerland, don’t pick the main destination simply because you “want to see Liechtenstein”."
+  },
+  "2a9c2132-bc42-437c-8be0-c84d9aaf03dc": {
+    "ru": "Документы и логика поездки. Лихтенштейн — маленькая страна, поэтому отель иногда находится в Швейцарии или Австрии. Чётко отразите в официальном заявлении, сколько ночей в какой стране и какова основная цель.",
+    "en": "Documents and trip logic. Liechtenstein is small, so the hotel is sometimes in Switzerland or Austria. State clearly in the official application how many nights you spend in each country and what the main purpose is."
+  },
+  "88e67b4b-ce3a-423e-9d41-650c215ddad9": {
+    "ru": "Куда обращаться. Процесс получения краткосрочной визы Лихтенштейна связан с консульским порядком Швейцарии; какой орган компетентен для Узбекистана, уточняйте в официальных источниках Швейцарии/Лихтенштейна. [R19]",
+    "en": "Where to apply. Liechtenstein’s short-stay visa process is tied to Switzerland’s consular procedure; confirm which authority is competent for Uzbekistan from official Swiss/Liechtenstein sources. [R19]"
+  },
+  "dee453b6-8047-45e5-8467-41a9d7fa675b": {
+    "ru": "Практическая ситуация. На маршруте с 3 ночами в Вильнюсе и 5 в Варшаве основным направлением может быть Польша; не обманывайтесь тем, что Литва — лишь страна первого въезда.",
+    "en": "Practical case. On a route with 3 nights in Vilnius and 5 in Warsaw, Poland may be the main destination; don’t be misled by Lithuania being only the country of first entry."
+  },
+  "9cbe4921-e9f6-43ff-b731-7963c2462a44": {
+    "ru": "Документы и логика поездки. Для поездки в Вильнюс, Каунас и Тракай покажите жильё, переезды между городами и достаточность средств. Если приглашает литовская компания-партнёр, работодатель должен подтвердить служебную цель и дату возвращения.",
+    "en": "Documents and trip logic. For Vilnius, Kaunas and Trakai, show accommodation, intercity travel and sufficient funds. If a Lithuanian partner company invites you, your employer should confirm the business purpose and return date."
+  },
+  "00ec3499-333e-4bfd-a36f-4c4080ad68c8": {
+    "ru": "Куда обращаться. Консульство Литвы в Алматы официально подтвердило, что по состоянию на октябрь 2026 года заявления на визу C принимает центр VFS Global в Ташкенте. [R20]",
+    "en": "Where to apply. Lithuania’s consulate in Almaty has officially confirmed that, as of October 2026, the VFS Global centre in Tashkent accepts C visa applications. [R20]"
+  },
+  "81a56a5d-8605-4f94-84a6-cd8cf67ba67a": {
+    "ru": "Практическая ситуация. 3-дневная конференция в Люксембурге и 5 дней отдыха в Бельгии: заявление обосновывается основной целью и сроками пребывания, а не удобством «представительство ближе».",
+    "en": "Practical case. A 3-day conference in Luxembourg and 5 days of sightseeing in Belgium: the application is based on the main purpose and lengths of stay, not on which representation is “closer”."
+  },
+  "791123be-ae1e-4685-aabc-1a547e70cf67": {
+    "ru": "Документы и логика поездки. Требования к документам для встречи по банковским делам, короткой бизнес-конференции и туризма различаются. Согласуйте цель поездки с письмом партнёра, программой или бронью.",
+    "en": "Documents and trip logic. Document requirements differ for a banking meeting, a short business conference and tourism. Align the purpose of your trip with the partner’s letter, the programme or the booking."
+  },
+  "fdce8853-f3d8-4c4b-a61f-ba13ee87c220": {
+    "ru": "Куда обращаться. На период с 1 мая по 31 декабря 2026 года для визы C в Люксембург установлено представительство посольства Венгрии в Ташкенте. Это договорённость на определённый срок, поэтому место подачи для поездок в 2027 году нужно проверить заново. [R21]",
+    "en": "Where to apply. From 1 May to 31 December 2026, Hungary’s embassy in Tashkent represents Luxembourg for C visas. This is a fixed-term arrangement, so check the application point again for trips in 2027. [R21]"
+  },
+  "d45bd559-28a9-4330-a9b9-f61b0616fe08": {
+    "ru": "Основное направление: Люксембург\nОбъявленный порядок приёма на октябрь 2026 года: Венгрия, Ташкент\nВажное примечание: с 1 мая по 31 декабря 2026 года; дальнейшую дату проверьте заново. [R21]",
+    "en": "Main destination: Luxembourg\nApplication route announced as of October 2026: Hungary, Tashkent\nImportant note: 1 May–31 December 2026; re-check after that date. [R21]"
+  },
+  "e20aa75a-4705-4cc4-ab3f-e02c4b399db3": {
+    "ru": "Практическая ситуация. Ташкент–Рига–Вильнюс: при 5 ночах в Латвии и 2 в Литве подача в Латвию логически обоснована.",
+    "en": "Practical case. Tashkent–Riga–Vilnius: with 5 nights in Latvia and 2 in Lithuania, applying to Latvia is logically justified."
+  },
+  "9b2556d3-9ba9-4513-822e-3986c6501bd9": {
+    "ru": "Документы и логика поездки. Для поездки по Риге чётко укажите авиатранзит, жильё, средства и основное направление. Если Латвия представляет другую страну, отдельно проверьте, входит ли ваша цель поездки в рамки представительства.",
+    "en": "Documents and trip logic. For a trip around Riga, clearly show flight transit, accommodation, funds and the main destination. If Latvia represents another country, check separately whether your purpose falls within that representation."
+  },
+  "4c6fe787-294e-4feb-902f-a09757e74c43": {
+    "ru": "Куда обращаться. Посольство Латвии в Узбекистане официально объявляет порядок приёма заявлений на шенгенскую визу C, в том числе подачу через VFS. [R18]",
+    "en": "Where to apply. Latvia’s embassy in Uzbekistan officially announces its procedure for Schengen C visa applications, including submission through VFS. [R18]"
+  },
+  "4bfc8917-2f43-48d8-845a-eb87c8e60813": {
+    "ru": "Страна: Молдова\nБазовое правило для обычного паспорта: для граждан Узбекистана без визы\nЧто проверить отдельно: длительность поездки и требование о регистрации в стране [R13]",
+    "en": "Country: Moldova\nStarting rule for an ordinary passport: visa-free for citizens of Uzbekistan\nCheck separately: length of stay and in-country registration requirements [R13]"
+  },
+  "161dfdf1-8347-47af-9255-95051a9ef9b2": {
+    "ru": "Страна: Черногория\nБазовое правило для обычного паспорта: как правило, виза; въезд по некоторым имеющимся визам\nЧто проверить отдельно: не полагайтесь на сезонную льготу 2025 года в 2026 году [R09]",
+    "en": "Country: Montenegro\nStarting rule for an ordinary passport: usually a visa; entry with certain existing visas\nCheck separately: don’t rely on the 2025 seasonal exemption for 2026 [R09]"
+  },
+  "58a5ef68-4fa5-4bc0-b7b0-bb7b7bc2498c": {
+    "ru": "Страна: Северная Македония\nБазовое правило для обычного паспорта: национальная виза или условные исключения\nЧто проверить отдельно: шенгенская мультивиза + 5 дней; другое исключение 2026 года [R11]",
+    "en": "Country: North Macedonia\nStarting rule for an ordinary passport: national visa or conditional exemptions\nCheck separately: Schengen multi-entry + 5 days; another 2026 exemption [R11]"
+  },
+  "07a94bcf-7f01-4c8c-974e-c42bc0411541": {
+    "ru": "Практическая ситуация. При обращении в представительство Италии для 7-дневного отдыха на Мальте нужно указать Мальту как страну поездки и предоставить реальную бронь на Мальте.",
+    "en": "Practical case. When applying through Italy’s representation for a 7-night holiday in Malta, list Malta as the destination country and provide a real booking in Malta."
+  },
+  "add3d370-ca00-4b08-abe4-4f263260361b": {
+    "ru": "Документы и логика поездки. Для летней поездки в Валлетту или на остров Гозо последовательно подтвердите трансфер из турпакета, паромы между островами и места проживания. Если планируете языковые курсы или более долгую учёбу, отдельно выясните, хватает ли возможностей визы C.",
+    "en": "Documents and trip logic. For a summer trip to Valletta or Gozo, consistently cover the package transfer, inter-island ferries and places to stay. If you plan a language course or longer study, check separately whether a C visa is enough."
+  },
+  "efe29d9c-3360-4e6e-a50b-9cea2a83f882": {
+    "ru": "Куда обращаться. Посольство Италии в Ташкенте указывает, что принимает заявления на визу C на Мальту по представительству. [R17]",
+    "en": "Where to apply. Italy’s embassy in Tashkent states that it accepts Malta C visa applications under representation. [R17]"
+  },
+  "7056f120-917c-44e2-bdb3-e7fb8205d1d6": {
+    "ru": "Основное направление: Норвегия, Словения, Мальта\nОбъявленный порядок приёма на октябрь 2026 года: посольство Италии, Ташкент\nВажное примечание: краткосрочная виза C. [R17]",
+    "en": "Main destination: Norway, Slovenia, Malta\nApplication route announced as of October 2026: Embassy of Italy, Tashkent\nImportant note: short-stay C visa. [R17]"
+  },
+  "ed469883-a88a-4c24-81e5-eabebf3d73cd": {
+    "ru": "Страна: Малайзия\nОсновной путь: короткий безвизовый визит + MDAC\nЧто решить заранее: MDAC — не виза, доказательства для границы",
+    "en": "Country: Malaysia\nMain route: short visa-free visit + MDAC\nWhat to settle in advance: MDAC is not a visa; evidence for the border"
+  },
+  "0a9ec3b2-a34b-4614-a326-5510f1c7f1b2": {
+    "ru": "Страна: Малайзия\nКороткий туристический визит: до 30 дней без визы\nГлавное предупреждение: заполните карту прибытия MDAC",
+    "en": "Country: Malaysia\nShort tourist visit: up to 30 days visa-free\nKey warning: fill in the MDAC arrival card"
+  }
+}

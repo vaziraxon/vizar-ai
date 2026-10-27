@@ -366,3 +366,40 @@ boshlanadi. `grant_subscription` faqat SQL Editor / service role uchun —
 foydalanuvchilar uni chaqira olmaydi va `subscriptions`ga yoza olmaydi,
 faqat o'z qatorlarini o'qiydi. Kelajakdagi to'lov webhook'i ham shu
 jadvalga service role bilan yozadi (`source = 'payment'`, `payment_ref`).
+
+### Uch til (o'zbek, rus, ingliz)
+
+Kitobning asl nusxasi o'zbekcha va o'zgarmaydi. Rus va ingliz tarjimalari
+alohida `*_i18n` jadvallarda (`supabase/kb_i18n.sql`, qaytarish:
+`kb_i18n_rollback.sql`): bob va bo'lim nomlari, davlat nomlari, qoidalar
+va — bosqichma-bosqich — bo'limlar matni. Tarjima yo'q joyda sahifa
+o'zbekcha matnni ko'rsatadi va buni ogohlantiradi. Ruxsatlar o'zbekcha
+jadvallar bilan bir xil: bo'lim matni va qoida tarjimasi faqat obunachilarga.
+
+- **Til tanlovi:** sayt tilini almashtirish `vizar-ai-language` cookie'sini
+  yozadi, server sahifani shu tilda chizadi (`src/lib/i18n/request-language.ts`).
+- **Tarjima manbai:** `supabase/i18n/*.json` (AI tarjimasi, sahifada
+  "AI tarjimasi" deb belgilanadi). `source_md5` qaysi o'zbekcha matndan
+  tarjima qilinganini saqlaydi — kitob o'zgarsa, eskirgan tarjimalarni topish mumkin.
+- **Bazaga yuklash** (token bilan himoyalangan vaqtinchalik funksiya orqali):
+
+  ```bash
+  node scripts/knowledge/i18n-import.mjs check
+  node scripts/knowledge/i18n-import.mjs prepare token.txt   # chiqqan SQLni SQL Editor'da ishga tushiring
+  node scripts/knowledge/i18n-import.mjs run token.txt
+  node scripts/knowledge/i18n-import.mjs cleanup             # chiqqan SQLni ishga tushiring, token.txt'ni o'chiring
+  ```
+
+- **Bo'limlar matni** bob-bob qo'shiladi: `supabase/i18n/bodies-<bob>.json`
+  (`{ "<bo'lim slug>": { "ru": "...", "en": "..." } }`, butun bob birdaniga).
+  Yuklashdan oldin tarjima o'zbekcha asl matn tuzilishini saqlaganini
+  tekshiring (qatorlar, sarlavhalar, jadval, ro'yxat, havolalar, raqamlar):
+
+  ```bash
+  node scripts/knowledge/i18n-import.mjs shapes bob-1          # chiqqan SQL natijasini uz.json'ga saqlang
+  node scripts/knowledge/i18n-import.mjs shapes bob-1 uz.json  # farq bo'lmasa "OK"
+  node scripts/knowledge/i18n-import.mjs run token.txt bodies:bob-1  # faqat shu bob matnlari; boshqa jadval va boblarga tegmaydi
+  ```
+
+- **Qidiruv** hozircha o'zbekcha matn bo'yicha ishlaydi; rus/ingliz
+  davlat nomlari so'rovda o'zbekchaga almashtiriladi.
