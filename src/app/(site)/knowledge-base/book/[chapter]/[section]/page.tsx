@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 import { L } from "@/components/i18n/L";
 import { Markdown } from "@/components/knowledge/Markdown";
+import { CoverArt } from "@/components/knowledge/library/visuals";
 import { LibraryError, LibraryTabs, LockIcon, Paywall, chapterEmoji } from "@/components/knowledge/library/ui";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import {
@@ -15,6 +16,7 @@ import {
   sectionLabel,
 } from "@/lib/knowledge/library";
 import { libraryHref } from "@/lib/knowledge/offline";
+import { chapterCover, sectionEmoji } from "@/lib/knowledge/visuals";
 import { cn } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -51,6 +53,7 @@ export default async function SectionPage({ params }: Params) {
   const chapter = outline.find((c) => c.slug === section.chapterSlug);
   const here = libraryHref.section(section.chapterSlug, section.sectionSlug);
   const title = section.isIntro ? chapterHeading({ label: section.chapterLabel, title: section.chapterTitle }) : section.sectionTitle;
+  const emoji = chapter ? chapterEmoji(chapter) : "📘";
 
   return (
     <>
@@ -71,15 +74,41 @@ export default async function SectionPage({ params }: Params) {
               </li>
             </ol>
           </nav>
-          <div className="mt-5 max-w-3xl animate-fade-up">
-            <p className="eyebrow">
-              <span aria-hidden="true">{chapter ? chapterEmoji(chapter) : "📘"}</span>
-              {section.sectionNumber ? `${section.chapterLabel} · ${section.sectionNumber}` : section.chapterLabel}
-            </p>
-            <h1 className="mt-4 font-display text-display-md font-extrabold tracking-[-0.03em] text-ink-950 sm:text-display-lg">{title}</h1>
-            <p className="mt-4 flex items-center gap-2 text-body-sm text-ink-500">
-              <Clock size={15} aria-hidden="true" />~{readingMinutes(section.chars)} <L>daqiqalik o‘qish</L>
-            </p>
+          <div className="mt-5 grid gap-8 lg:grid-cols-12 lg:items-center">
+            <div className="animate-fade-up lg:col-span-8">
+              <p className="eyebrow">
+                <span aria-hidden="true">{section.isIntro ? emoji : sectionEmoji(section.sectionTitle)}</span>
+                {section.sectionNumber ? `${section.chapterLabel} · ${section.sectionNumber}` : section.chapterLabel}
+              </p>
+              <h1 className="mt-4 font-display text-display-md font-extrabold tracking-[-0.03em] text-ink-950 sm:text-display-lg">{title}</h1>
+              <ul className="mt-5 flex flex-wrap gap-2 text-body-sm font-medium text-ink-700">
+                <li className="inline-flex items-center gap-1.5 rounded-pill border border-white/80 bg-surface/80 px-3 py-1.5 backdrop-blur dark:border-white/10">
+                  <Clock size={14} aria-hidden="true" className="text-brand-600" />~{readingMinutes(section.chars)} <L>daqiqalik o‘qish</L>
+                </li>
+                <li className="inline-flex items-center gap-1.5 rounded-pill border border-white/80 bg-surface/80 px-3 py-1.5 backdrop-blur dark:border-white/10">
+                  <span aria-hidden="true">{emoji}</span>
+                  {section.chapterLabel}
+                </li>
+                <li className="inline-flex items-center gap-1.5 rounded-pill border border-white/80 bg-surface/80 px-3 py-1.5 backdrop-blur dark:border-white/10">
+                  {content !== null ? <>✅ <L>To‘liq matn</L></> : <>🔐 <L>Qisqa parcha</L></>}
+                </li>
+              </ul>
+            </div>
+            {chapter ? (
+              <Link href={`/knowledge-base/book/${chapter.slug}`} className="group hidden lg:col-span-4 lg:block">
+                <CoverArt
+                  cover={chapterCover(chapter)}
+                  alt={chapterHeading(chapter)}
+                  sizes="380px"
+                  priority
+                  className="aspect-[16/10] rotate-2 rounded-[28px] border-4 border-white shadow-float transition-transform duration-300 group-hover:rotate-0 dark:border-white/10"
+                >
+                  <span className="absolute inset-x-3 bottom-3 rounded-2xl bg-surface/90 px-4 py-2.5 text-body-sm font-semibold text-ink-900 backdrop-blur">
+                    {chapter.label} — {chapterHeading(chapter)}
+                  </span>
+                </CoverArt>
+              </Link>
+            ) : null}
           </div>
         </div>
       </section>
@@ -94,7 +123,7 @@ export default async function SectionPage({ params }: Params) {
           ) : (
             <>
               <div className="relative overflow-hidden rounded-[28px] border border-surface-border bg-surface p-5 sm:p-9">
-                <p className="text-body-lg leading-relaxed text-ink-800">{section.preview}…</p>
+                <p className="text-body-lg leading-relaxed text-ink-800 [overflow-wrap:anywhere]">{section.preview}…</p>
                 <div aria-hidden="true" className="mt-4 space-y-3 blur-[3px]">
                   {[92, 100, 86, 97, 74].map((w, i) => (
                     <div key={i} className="h-3.5 rounded-full bg-surface-muted" style={{ width: `${w}%` }} />
@@ -158,6 +187,9 @@ export default async function SectionPage({ params }: Params) {
                           current ? "bg-brand-50 font-semibold text-brand-800 dark:bg-white/10 dark:text-white" : "text-ink-700 hover:bg-surface-tint hover:text-brand-700"
                         )}
                       >
+                        <span aria-hidden="true" className="w-5 shrink-0 text-center">
+                          {s.isIntro ? emoji : sectionEmoji(s.title)}
+                        </span>
                         <span className="w-11 shrink-0 tabular-nums text-ink-500">{s.number ?? "•"}</span>
                         <span className="min-w-0 flex-1">{s.isIntro ? <L>Bob haqida</L> : s.title}</span>
                         {!viewer.hasAccess ? <LockIcon className="mt-0.5" /> : null}

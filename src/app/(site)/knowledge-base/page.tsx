@@ -1,21 +1,26 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Bot } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { L } from "@/components/i18n/L";
 import { SearchForm } from "@/components/knowledge/library/SearchForm";
-import {
-  AccessCard,
-  CountryMark,
-  LibraryError,
-  LibraryHero,
-  LibraryTabs,
-  Paywall,
-  SectionRow,
-  chapterEmoji,
-} from "@/components/knowledge/library/ui";
+import { CountryFlag, CoverArt } from "@/components/knowledge/library/visuals";
+import { AccessCard, LibraryError, LibraryTabs, Paywall, SectionRow, chapterEmoji } from "@/components/knowledge/library/ui";
+import { Marquee } from "@/components/site/Marquee";
+import { EmojiSticker } from "@/components/site/primitives";
+import { buttonClasses } from "@/components/ui/Button";
 import { getLibraryViewer } from "@/lib/knowledge/access";
-import { REGIONS, chapterHeading, getCountries, getOutline, readingMinutes, type OutlineChapter } from "@/lib/knowledge/library";
+import {
+  REGIONS,
+  chapterHeading,
+  getCountries,
+  getOutline,
+  readingMinutes,
+  type LibraryCountry,
+  type OutlineChapter,
+} from "@/lib/knowledge/library";
 import { libraryHref } from "@/lib/knowledge/offline";
+import { REGION_VISUALS, chapterCover, sectionCountry, sectionEmoji, topicEmoji } from "@/lib/knowledge/visuals";
 
 export const dynamic = "force-dynamic";
 
@@ -26,34 +31,130 @@ export const metadata: Metadata = {
   alternates: { canonical: "/knowledge-base" },
 };
 
-function TopicList({ id, emoji, title, subtitle, chapter, locked }: { id: string; emoji: string; title: string; subtitle: string; chapter: OutlineChapter | undefined; locked: boolean }) {
-  if (!chapter) return null;
-  const sections = chapter.sections.filter((s) => !s.isIntro && s.number);
+const QUICK_SEARCHES: { q: string; flag?: string; emoji?: string }[] = [
+  { q: "Germaniya vizasi", flag: "DE" },
+  { q: "AQSh B-1/B-2", flag: "US" },
+  { q: "90/180 qoidasi", emoji: "📅" },
+  { q: "Bank ko‘chirmasi", emoji: "🏦" },
+  { q: "Yaponiya", flag: "JP" },
+];
+
+function SectionHeading({ id, emoji, eyebrow, title, subtitle, action }: { id: string; emoji: string; eyebrow: string; title: React.ReactNode; subtitle?: string; action?: React.ReactNode }) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-40">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p className="eyebrow">
-            <span aria-hidden="true">{emoji}</span> {chapter.label}
-          </p>
-          <h2 id={`${id}-title`} className="mt-4 font-display text-display-md font-extrabold tracking-[-0.03em] text-ink-950">
-            <L>{title}</L>
-          </h2>
-          <p className="mt-2 max-w-2xl text-body text-ink-600">
+    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div className="max-w-2xl">
+        <p className="eyebrow">
+          <span aria-hidden="true">{emoji}</span> <L>{eyebrow}</L>
+        </p>
+        <h2 id={id} className="mt-4 font-display text-display-md font-extrabold tracking-[-0.03em] text-ink-950">
+          {title}
+        </h2>
+        {subtitle ? (
+          <p className="mt-2 text-body text-ink-600">
             <L>{subtitle}</L>
           </p>
-        </div>
-        <Link href={`/knowledge-base/book/${chapter.slug}`} className="inline-flex shrink-0 items-center gap-1.5 text-body-sm font-semibold text-brand-700 hover:underline">
-          <L>Bobni ochish</L>
-          <ArrowRight size={15} aria-hidden="true" />
-        </Link>
+        ) : null}
       </div>
-      <ul className="mt-6 grid gap-x-6 rounded-[28px] border border-surface-border bg-surface p-2 sm:p-3 lg:grid-cols-2">
-        {sections.map((s) => (
-          <SectionRow key={s.slug} href={libraryHref.section(chapter.slug, s.slug)} number={s.number} title={s.title} locked={locked} />
-        ))}
-      </ul>
+      {action}
+    </div>
+  );
+}
+
+function TopicList({
+  id,
+  title,
+  subtitle,
+  chapter,
+  countries,
+  locked,
+}: {
+  id: string;
+  title: string;
+  subtitle: string;
+  chapter: OutlineChapter | undefined;
+  countries: LibraryCountry[];
+  locked: boolean;
+}) {
+  if (!chapter) return null;
+  const sections = chapter.sections.filter((s) => !s.isIntro && s.number);
+  const cover = chapterCover(chapter);
+  return (
+    <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-40">
+      <div className="grid gap-6 lg:grid-cols-12">
+        <Link
+          href={`/knowledge-base/book/${chapter.slug}`}
+          className="group relative flex min-h-[260px] flex-col justify-end overflow-hidden rounded-[28px] lg:sticky lg:top-40 lg:col-span-4 lg:h-[460px] lg:self-start"
+        >
+          <CoverArt cover={cover} alt="" sizes="(min-width: 1024px) 380px, 100vw" className="absolute inset-0" />
+          <span className="relative m-3 rounded-[22px] bg-surface/90 p-5 backdrop-blur-md">
+            <span className="flex items-center gap-2 text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">
+              <span aria-hidden="true" className="text-[16px]">
+                {chapterEmoji(chapter)}
+              </span>
+              {chapter.label} · {sections.length} <L>bo‘lim</L>
+            </span>
+            <span id={`${id}-title`} className="mt-1.5 block font-display text-display-sm font-extrabold tracking-[-0.02em] text-ink-950">
+              <L>{title}</L>
+            </span>
+            <span className="mt-1.5 block text-body-sm text-ink-600">
+              <L>{subtitle}</L>
+            </span>
+            <span className="mt-3 inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand-700 group-hover:underline">
+              <L>Bobni ochish</L>
+              <ArrowRight size={15} aria-hidden="true" className="transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </span>
+        </Link>
+        <div className="lg:col-span-8">
+          {/* Phones show the first eight; the chapter page lists the rest */}
+          <ul className="grid content-start rounded-[28px] border border-surface-border bg-surface p-2 sm:p-3 max-lg:[&>li:nth-child(n+9)]:hidden">
+            {sections.map((s) => (
+              <SectionRow
+                key={s.slug}
+                href={libraryHref.section(chapter.slug, s.slug)}
+                number={s.number}
+                title={s.title}
+                emoji={sectionEmoji(s.title)}
+                flag={sectionCountry(s.title, countries)}
+                locked={locked}
+              />
+            ))}
+          </ul>
+          {sections.length > 8 ? (
+            <Link
+              href={`/knowledge-base/book/${chapter.slug}`}
+              className="mt-3 flex items-center justify-center gap-1.5 rounded-2xl border border-surface-border bg-surface px-4 py-3 text-body-sm font-semibold text-brand-700 lg:hidden"
+            >
+              <L vars={{ n: sections.length }}>{"Barcha {n} bo‘limni ko‘rish"}</L>
+              <ArrowRight size={15} aria-hidden="true" />
+            </Link>
+          ) : null}
+        </div>
+      </div>
     </section>
+  );
+}
+
+function CountryCard({ country }: { country: LibraryCountry }) {
+  const icons = Array.from(new Set(country.topics.map(topicEmoji))).slice(0, 4);
+  return (
+    <Link
+      href={libraryHref.country(country.code)}
+      className="group flex h-full items-center gap-2.5 rounded-2xl border border-surface-border bg-surface p-2.5 transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-violet-200 hover:shadow-card-hover sm:gap-3 sm:p-3"
+    >
+      <CountryFlag code={country.code} size="md" className="max-sm:h-6 max-sm:w-9" />
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-body-sm font-semibold text-ink-900 group-hover:text-brand-700">{country.name}</span>
+        <span className="mt-0.5 flex items-center gap-1.5 text-caption text-ink-500">
+          <span aria-hidden="true" className="tracking-[0.08em]">
+            {icons.join("")}
+          </span>
+          <span>
+            {country.ruleCount} <L>qoida</L>
+          </span>
+        </span>
+      </span>
+    </Link>
   );
 }
 
@@ -62,7 +163,7 @@ export default async function KnowledgeBasePage() {
   if (!viewer.supabase) return <LibraryError />;
 
   let outline: OutlineChapter[];
-  let countries: Awaited<ReturnType<typeof getCountries>>;
+  let countries: LibraryCountry[];
   let stats: { sections?: number; sources?: number } | null;
   try {
     [outline, countries, stats] = await Promise.all([
@@ -76,81 +177,156 @@ export default async function KnowledgeBasePage() {
   }
 
   const locked = !viewer.hasAccess;
+  // "EU" holds the Schengen-wide rules; it is listed with the countries but is not one.
+  const realCountries = countries.filter((c) => c.code !== "EU");
   const chapters = outline.filter((c) => c.kind === "chapter");
   const extras = outline.filter((c) => c.kind !== "chapter");
   const visaTypes = chapters.find((c) => c.number === 1);
   const documents = chapters.find((c) => c.number === 2);
   const figures = [
-    { value: chapters.length, label: "bob" },
-    { value: stats?.sections ?? outline.reduce((n, c) => n + c.sections.length, 0), label: "bo‘lim" },
-    { value: countries.length, label: "davlat" },
-    ...(stats?.sources ? [{ value: stats.sources, label: "rasmiy manba" }] : []),
+    { emoji: "📚", value: chapters.length, label: "bob" },
+    { emoji: "📄", value: stats?.sections ?? outline.reduce((n, c) => n + c.sections.length, 0), label: "bo‘lim" },
+    { emoji: "🌍", value: realCountries.length, label: "davlat" },
+    ...(stats?.sources ? [{ emoji: "🔗", value: stats.sources, label: "rasmiy manba" }] : []),
   ];
 
   return (
     <>
-      <LibraryHero
-        eyebrow={
-          <>
-            <span aria-hidden="true">📚</span> <L>Premium kutubxona</L>
-          </>
-        }
-        title={<L>Viza ma’lumotlar bazasi</L>}
-        subtitle={<L>VIZAR AI kitobining to‘liq matni: viza turlari, hujjatlar, topshirish jarayoni, suhbat va davlatlar bo‘yicha qoidalar — rasmiy manbalar bilan.</L>}
-        aside={<AccessCard viewer={viewer} next="/knowledge-base" />}
-      >
-        <SearchForm className="mt-7 max-w-xl" />
-        <dl className="mt-7 flex flex-wrap gap-x-8 gap-y-3">
-          {figures.map((f) => (
-            <div key={f.label}>
-              <dt className="sr-only">
-                <L>{f.label}</L>
-              </dt>
-              <dd className="flex items-baseline gap-1.5">
-                <span className="font-display text-display-sm font-extrabold tabular-nums text-ink-950">{f.value}</span>
-                <span className="text-body-sm text-ink-600">
-                  <L>{f.label}</L>
-                </span>
-              </dd>
+      {/* Hero: copy + search on the left, a travel-photo collage on the right */}
+      <section className="hero-sky grain relative overflow-hidden">
+        <div className="container-page relative grid gap-10 pb-12 pt-28 sm:pt-36 lg:grid-cols-12 lg:items-center lg:gap-12 lg:pb-16 lg:pt-40">
+          <div className="animate-fade-up lg:col-span-6">
+            <p className="eyebrow">
+              <span aria-hidden="true">📚</span> <L>Premium kutubxona</L>
+            </p>
+            <h1 className="mt-4 font-display text-display-lg font-extrabold tracking-[-0.04em] text-ink-950 sm:text-display-xl">
+              <L>Viza ma’lumotlar bazasi</L>
+            </h1>
+            <p className="mt-4 max-w-xl text-body-lg text-ink-700">
+              <L>VIZAR AI kitobining to‘liq matni: viza turlari, hujjatlar, topshirish jarayoni, suhbat va davlatlar bo‘yicha qoidalar — rasmiy manbalar bilan.</L>
+            </p>
+            <SearchForm className="mt-7 max-w-xl" />
+            <ul className="mt-4 flex flex-wrap gap-2" aria-label="Tez qidiruv">
+              {QUICK_SEARCHES.map((s) => (
+                <li key={s.q}>
+                  <Link
+                    href={`/knowledge-base/search?q=${encodeURIComponent(s.q)}`}
+                    className="inline-flex items-center gap-2 rounded-pill border border-white/80 bg-surface/80 px-3 py-1.5 text-body-sm font-medium text-ink-800 backdrop-blur transition-colors hover:border-brand-300 hover:text-brand-700 dark:border-white/10"
+                  >
+                    {s.flag ? <CountryFlag code={s.flag} size="xs" /> : <span aria-hidden="true">{s.emoji}</span>}
+                    {s.q}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <dl className="mt-8 grid max-w-xl grid-cols-2 gap-2.5 sm:grid-cols-4">
+              {figures.map((f) => (
+                <div key={f.label} className="flex flex-col-reverse justify-end rounded-2xl border border-white/80 bg-surface/75 px-3.5 py-3 backdrop-blur dark:border-white/10">
+                  <dt className="mt-1.5 flex items-center gap-1.5 text-caption font-medium leading-tight text-ink-600">
+                    <span aria-hidden="true">{f.emoji}</span>
+                    <L>{f.label}</L>
+                  </dt>
+                  <dd className="font-accent text-[30px] italic leading-none text-ink-950 tabular-nums">{f.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          <div className="relative lg:col-span-6">
+            {/* Collage (decorative): three destinations, tilted like postcards */}
+            <div aria-hidden="true" className="relative mx-auto hidden h-[540px] max-w-[540px] lg:block">
+              <figure className="absolute left-0 top-6 h-[300px] w-[230px] -rotate-6 overflow-hidden rounded-[28px] border-4 border-white shadow-float dark:border-white/10">
+                <Image src="/images/destinations/schengen.webp" alt="" fill priority sizes="230px" className="object-cover" />
+                <span className="absolute left-3 top-3"><CountryFlag code="EU" size="sm" /></span>
+              </figure>
+              <figure className="absolute left-[34%] top-0 z-10 h-[320px] w-[240px] rotate-2 overflow-hidden rounded-[28px] border-4 border-white shadow-float dark:border-white/10">
+                <Image src="/images/destinations/jp.webp" alt="" fill priority sizes="240px" className="object-cover" />
+                <span className="absolute left-3 top-3"><CountryFlag code="JP" size="sm" /></span>
+              </figure>
+              <figure className="absolute right-0 top-16 h-[280px] w-[210px] rotate-[8deg] overflow-hidden rounded-[28px] border-4 border-white shadow-float dark:border-white/10">
+                <Image src="/images/destinations/us.webp" alt="" fill priority sizes="210px" className="object-cover" />
+                <span className="absolute left-3 top-3"><CountryFlag code="US" size="sm" /></span>
+              </figure>
+              <EmojiSticker emoji="🛂" tilt={-12} className="absolute -left-4 top-[300px] z-20" />
+              <EmojiSticker emoji="✈️" size="sm" tilt={10} delay={900} className="absolute right-6 top-0 z-20" />
             </div>
-          ))}
-        </dl>
-      </LibraryHero>
+            <div aria-hidden="true" className="grid grid-cols-3 gap-2.5 lg:hidden">
+              {[
+                { src: "/images/destinations/schengen.webp", code: "EU" },
+                { src: "/images/destinations/jp.webp", code: "JP" },
+                { src: "/images/destinations/us.webp", code: "US" },
+              ].map(({ src, code }) => (
+                <figure key={code} className="relative aspect-[3/4] overflow-hidden rounded-2xl border-2 border-white shadow-card dark:border-white/10">
+                  <Image src={src} alt="" fill sizes="33vw" className="object-cover" />
+                  <span className="absolute left-2 top-2"><CountryFlag code={code} size="xs" /></span>
+                </figure>
+              ))}
+            </div>
+            <div className="relative z-30 mt-4 lg:absolute lg:bottom-0 lg:left-12 lg:right-0 lg:mt-0">
+              <AccessCard viewer={viewer} next="/knowledge-base" />
+            </div>
+          </div>
+        </div>
+
+        {/* Every country in the library, as a slow flag ribbon */}
+        <div className="relative pb-8">
+          <Marquee duration={90}>
+            {realCountries.map((c) => (
+              <span
+                key={c.code}
+                className="inline-flex items-center gap-2 rounded-pill border border-white/80 bg-surface/80 py-1.5 pl-1.5 pr-3.5 text-body-sm font-semibold text-ink-800 backdrop-blur dark:border-white/10"
+              >
+                <CountryFlag code={c.code} size="sm" className="rounded-pill" />
+                {c.name}
+              </span>
+            ))}
+          </Marquee>
+        </div>
+      </section>
 
       <LibraryTabs active="home" />
 
-      <div className="container-page space-y-20 py-14 sm:py-20">
+      <div className="container-page space-y-24 py-14 sm:py-20">
         {/* Chapters */}
         <section id="boblar" aria-labelledby="boblar-title" className="scroll-mt-40">
-          <p className="eyebrow">
-            <span aria-hidden="true">📚</span> <L>Kitob</L>
-          </p>
-          <h2 id="boblar-title" className="mt-4 font-display text-display-md font-extrabold tracking-[-0.03em] text-ink-950">
-            <L>To‘qqiz bob</L>
-          </h2>
-          <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {chapters.map((c) => (
-              <li key={c.slug}>
-                <Link
-                  href={`/knowledge-base/book/${c.slug}`}
-                  className="group flex h-full flex-col rounded-[28px] border border-surface-border bg-surface p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-float"
-                >
-                  <div className="flex items-center justify-between">
-                    <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-[24px] dark:bg-white/10">
-                      {chapterEmoji(c)}
+          <SectionHeading id="boblar-title" emoji="📚" eyebrow="Kitob" title={<L>To‘qqiz bob</L>} />
+          <ol className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {chapters.map((c, i) => {
+              const cover = chapterCover(c);
+              return (
+                <li key={c.slug}>
+                  <Link
+                    href={`/knowledge-base/book/${c.slug}`}
+                    className="group flex h-full flex-col overflow-hidden rounded-[28px] border border-surface-border bg-surface transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-violet-200 hover:shadow-float"
+                  >
+                    <CoverArt
+                      cover={cover}
+                      alt={chapterHeading(c)}
+                      sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+                      priority={i < 3}
+                      className="aspect-[16/10]"
+                    >
+                      <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-pill bg-surface/90 px-3 py-1 text-caption font-bold text-ink-900 backdrop-blur">
+                        <span aria-hidden="true">{chapterEmoji(c)}</span>
+                        {c.label}
+                      </span>
+                    </CoverArt>
+                    <span className="flex flex-1 flex-col p-5">
+                      <span className="font-display text-[19px] font-bold leading-snug text-ink-950 group-hover:text-brand-700">{chapterHeading(c)}</span>
+                      <span className="mt-auto flex items-center justify-between pt-4 text-caption text-ink-500">
+                        <span>
+                          📄 {c.sections.length} <L>bo‘lim</L> · ⏱ ~{readingMinutes(c.chars)} <L>daq</L>
+                        </span>
+                        <ArrowRight size={16} aria-hidden="true" className="text-ink-300 transition-transform group-hover:translate-x-0.5 group-hover:text-violet-600" />
+                      </span>
                     </span>
-                    <span className="rounded-pill bg-surface-tint px-2.5 py-1 text-caption font-semibold text-ink-600">{c.label}</span>
-                  </div>
-                  <p className="mt-5 font-display text-[19px] font-bold leading-snug text-ink-950 group-hover:text-brand-700">{chapterHeading(c)}</p>
-                  <p className="mt-auto pt-5 text-caption text-ink-500">
-                    {c.sections.length} <L>bo‘lim</L> · ~{readingMinutes(c.chars)} <L>daq</L>
-                  </p>
-                </Link>
-              </li>
-            ))}
+                  </Link>
+                </li>
+              );
+            })}
           </ol>
           {extras.length ? (
-            <ul className="mt-5 flex flex-wrap gap-2">
+            <ul className="mt-6 flex flex-wrap gap-2">
               {extras.map((c) => (
                 <li key={c.slug}>
                   <Link
@@ -166,43 +342,44 @@ export default async function KnowledgeBasePage() {
           ) : null}
         </section>
 
-        {/* Countries */}
+        {/* Countries by region: a photo banner, then flag cards */}
         <section id="davlatlar" aria-labelledby="davlatlar-title" className="scroll-mt-40">
-          <p className="eyebrow">
-            <span aria-hidden="true">🌍</span> <L>Davlatlar</L>
-          </p>
-          <h2 id="davlatlar-title" className="mt-4 font-display text-display-md font-extrabold tracking-[-0.03em] text-ink-950">
-            <L vars={{ n: countries.length }}>{"{n} davlat bo‘yicha qoidalar"}</L>
-          </h2>
-          <p className="mt-2 max-w-2xl text-body text-ink-600">
-            <L>Har bir davlat uchun murojaat yo‘li, hujjatlar va kirish tartibi — rasmiy manbalar havolasi va oxirgi tekshiruv holati bilan.</L>
-          </p>
-          <div className="mt-8 space-y-8">
+          <SectionHeading
+            id="davlatlar-title"
+            emoji="🌍"
+            eyebrow="Davlatlar"
+            title={<L vars={{ n: realCountries.length }}>{"{n} davlat bo‘yicha qoidalar"}</L>}
+            subtitle="Har bir davlat uchun murojaat yo‘li, hujjatlar va kirish tartibi — rasmiy manbalar havolasi va oxirgi tekshiruv holati bilan."
+          />
+          <div className="mt-10 space-y-12">
             {REGIONS.map((region) => {
               const list = countries.filter((c) => c.region === region.id);
               if (!list.length) return null;
+              const visual = REGION_VISUALS[region.id];
               return (
-                <div key={region.id}>
-                  <h3 className="flex items-center gap-2 text-body font-semibold text-ink-900">
-                    <span aria-hidden="true">{region.emoji}</span>
-                    <L>{region.title}</L>
-                    <span className="text-caption font-medium text-ink-500">· {list.length}</span>
-                  </h3>
-                  <ul className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5">
+                <div key={region.id} className="grid gap-4 lg:grid-cols-12">
+                  <div className="relative flex min-h-[220px] flex-col justify-end overflow-hidden rounded-[28px] bg-night-950 p-6 text-white lg:sticky lg:top-40 lg:col-span-4 lg:min-h-[340px] lg:self-start">
+                    <Image src={visual.photo} alt="" fill sizes="(min-width: 1024px) 380px, 100vw" className="object-cover opacity-80" />
+                    <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-night-950/90 via-night-950/40 to-transparent" />
+                    <span className="relative">
+                      <span className="flex items-center gap-2">
+                        {visual.flag ? <CountryFlag code={visual.flag} size="sm" /> : <span aria-hidden="true" className="text-[22px]">{visual.emoji}</span>}
+                        <span className="rounded-pill bg-white/15 px-2.5 py-0.5 text-caption font-semibold backdrop-blur">
+                          {list.filter((c) => c.code !== "EU").length} <L>davlat</L>
+                        </span>
+                      </span>
+                      <h3 className="mt-3 font-display text-display-sm font-extrabold tracking-[-0.02em]">
+                        <L>{region.title}</L>
+                      </h3>
+                      <p className="mt-1 text-body-sm text-white/80">
+                        <L>{visual.blurb}</L>
+                      </p>
+                    </span>
+                  </div>
+                  <ul className="grid grid-cols-2 content-start gap-2 sm:grid-cols-3 sm:gap-2.5 lg:col-span-8">
                     {list.map((c) => (
                       <li key={c.code}>
-                        <Link
-                          href={libraryHref.country(c.code)}
-                          className="group flex items-center gap-3 rounded-2xl border border-surface-border bg-surface p-2.5 pr-3 transition-colors hover:border-brand-200 hover:bg-surface-tint"
-                        >
-                          <CountryMark code={c.code} />
-                          <span className="min-w-0">
-                            <span className="block truncate text-body-sm font-semibold text-ink-900 group-hover:text-brand-700">{c.name}</span>
-                            <span className="block text-caption text-ink-500">
-                              {c.ruleCount} <L>qoida</L>
-                            </span>
-                          </span>
-                        </Link>
+                        <CountryCard country={c} />
                       </li>
                     ))}
                   </ul>
@@ -214,43 +391,51 @@ export default async function KnowledgeBasePage() {
 
         <TopicList
           id="viza-turlari"
-          emoji="🛂"
           title="Viza turlari"
           subtitle="Turistik, biznes, talaba, tranzit, e-Visa va vizasiz kirish: qaysi viza qachon kerakligi va unda nima yozilgani."
           chapter={visaTypes}
+          countries={countries}
           locked={locked}
         />
 
         <TopicList
           id="hujjatlar"
-          emoji="📑"
           title="Hujjatlar"
           subtitle="Pasport, anketa, bank ko‘chirmasi, ish joyi ma’lumotnomasi, homiylik va safar rejasi — har bir hujjat nimani isbotlashi kerak."
           chapter={documents}
+          countries={countries}
           locked={locked}
         />
 
-        {locked ? (
-          <Paywall viewer={viewer} next="/knowledge-base" title={<L>Kutubxonaning to‘liq matnini oching</L>} />
-        ) : null}
+        {locked ? <Paywall viewer={viewer} next="/knowledge-base" title={<L>Kutubxonaning to‘liq matnini oching</L>} /> : null}
 
-        <Link
-          href="/dashboard/assistant"
-          className="group flex flex-col gap-4 rounded-[28px] border border-surface-border bg-surface p-6 transition-colors hover:border-brand-200 sm:flex-row sm:items-center sm:p-8"
-        >
-          <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-violet-50 text-violet-700 dark:bg-white/10 dark:text-violet-300">
-            <Bot size={24} />
-          </span>
-          <span className="flex-1">
-            <span className="block font-display text-[19px] font-bold text-ink-950">
-              <L>Savolingiz bormi? AI maslahatchidan so‘rang</L>
-            </span>
-            <span className="mt-1 block text-body-sm text-ink-600">
-              <L>Maslahatchi shu kitob asosida javob beradi va har bir javob ostida bob hamda manbani ko‘rsatadi.</L>
-            </span>
-          </span>
-          <ArrowRight size={18} aria-hidden="true" className="shrink-0 text-ink-400 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-600" />
-        </Link>
+        {/* The AI consultant lives on its own page; this only points to it */}
+        <section className="relative overflow-hidden rounded-[32px] bg-night-950 px-6 py-10 text-white sm:px-10 sm:py-12">
+          <span aria-hidden="true" className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-violet-600/40 blur-3xl" />
+          <span aria-hidden="true" className="absolute -bottom-28 left-10 h-72 w-72 rounded-full bg-brand-600/30 blur-3xl" />
+          <div className="relative grid gap-8 lg:grid-cols-12 lg:items-center">
+            <div className="lg:col-span-8">
+              <p className="inline-flex items-center gap-2 rounded-pill border border-white/15 bg-white/10 px-3 py-1 text-[13px] font-medium">
+                <span aria-hidden="true">🤖</span> <L>AI maslahatchi</L>
+              </p>
+              <h2 className="mt-4 font-display text-display-md font-extrabold tracking-[-0.03em]">
+                <L>Savolingiz bormi? AI maslahatchidan so‘rang</L>
+              </h2>
+              <p className="mt-3 max-w-2xl text-body text-white/75">
+                <L>Maslahatchi shu kitob asosida javob beradi va har bir javob ostida bob hamda manbani ko‘rsatadi.</L>
+              </p>
+              <Link href="/dashboard/assistant" className={buttonClasses({ size: "lg", className: "mt-6 bg-white text-brand-deep hover:bg-brand-50" })}>
+                <L>Savol berish</L>
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+            </div>
+            <div aria-hidden="true" className="hidden justify-center gap-3 lg:col-span-4 lg:flex">
+              <EmojiSticker emoji="💬" tilt={-8} />
+              <EmojiSticker emoji="📖" size="lg" tilt={6} delay={800} />
+              <EmojiSticker emoji="✅" tilt={-3} delay={1600} />
+            </div>
+          </div>
+        </section>
       </div>
     </>
   );
