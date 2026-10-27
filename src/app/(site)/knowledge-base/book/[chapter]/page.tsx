@@ -3,8 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { L } from "@/components/i18n/L";
+import { Plural } from "@/components/i18n/Plural";
 import { CoverArt } from "@/components/knowledge/library/visuals";
-import { AccessCard, LibraryError, LibraryHero, LibraryTabs, Paywall, SectionRow, chapterEmoji } from "@/components/knowledge/library/ui";
+import { AccessCard, LibraryError, LibraryHero, LibraryTabs, Paywall, SectionRow, SrLabel, chapterEmoji } from "@/components/knowledge/library/ui";
+import { getRequestLanguage } from "@/lib/i18n/request-language";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import { chapterHeading, getCountries, getOutline, readingMinutes, type LibraryCountry, type OutlineChapter } from "@/lib/knowledge/library";
 import { libraryHref } from "@/lib/knowledge/offline";
@@ -17,10 +19,11 @@ type Params = { params: { chapter: string } };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const viewer = await getLibraryViewer();
-  const chapter = viewer.supabase ? (await getOutline(viewer.supabase).catch(() => [])).find((c) => c.slug === params.chapter) : undefined;
+  const lang = getRequestLanguage();
+  const chapter = viewer.supabase ? (await getOutline(viewer.supabase, lang).catch(() => [])).find((c) => c.slug === params.chapter) : undefined;
   if (!chapter) return {};
   return {
-    title: `${chapter.label}. ${chapterHeading(chapter)} — Viza ma’lumotlar bazasi`,
+    title: `${chapter.label}. ${chapterHeading(chapter)}`,
     description: chapter.sections
       .filter((s) => !s.isIntro)
       .slice(0, 6)
@@ -58,11 +61,12 @@ function ChapterLink({ chapter, direction }: { chapter: OutlineChapter; directio
 export default async function ChapterPage({ params }: Params) {
   const viewer = await getLibraryViewer();
   if (!viewer.supabase) return <LibraryError />;
+  const lang = getRequestLanguage();
 
   let outline: OutlineChapter[];
   let countries: LibraryCountry[];
   try {
-    [outline, countries] = await Promise.all([getOutline(viewer.supabase), getCountries(viewer.supabase)]);
+    [outline, countries] = await Promise.all([getOutline(viewer.supabase, lang), getCountries(viewer.supabase, lang)]);
   } catch (error) {
     console.error("[knowledge-base/chapter]", error);
     return <LibraryError />;
@@ -90,7 +94,7 @@ export default async function ChapterPage({ params }: Params) {
         title={chapterHeading(chapter)}
         subtitle={
           <>
-            📄 {chapter.sections.length} <L>bo‘lim</L> · ⏱ ~{readingMinutes(chapter.chars)} <L>daqiqalik o‘qish</L>
+            📄 {chapter.sections.length} <Plural n={chapter.sections.length} word="bo‘lim" /> · ⏱ ~{readingMinutes(chapter.chars)} <L>daqiqalik o‘qish</L>
           </>
         }
         aside={<AccessCard viewer={viewer} next={here} />}
@@ -105,8 +109,8 @@ export default async function ChapterPage({ params }: Params) {
               href={libraryHref.section(chapter.slug, s.slug)}
               number={s.number}
               title={s.isIntro ? <L>Bob haqida</L> : s.title}
-              emoji={s.isIntro ? chapterEmoji(chapter) : sectionEmoji(s.title)}
-              flag={s.isIntro ? null : sectionCountry(s.title, countries)}
+              emoji={s.isIntro ? chapterEmoji(chapter) : sectionEmoji(s.titleSrc)}
+              flag={s.isIntro ? null : sectionCountry(s.titleSrc, countries)}
               minutes={readingMinutes(s.chars)}
               locked={locked}
             />
@@ -119,7 +123,8 @@ export default async function ChapterPage({ params }: Params) {
           </div>
         ) : null}
 
-        <nav aria-label="Boblar" className="mt-12 grid gap-3 md:grid-cols-2">
+        <SrLabel id="kb-chapter-nav" text="Boblar" />
+        <nav aria-labelledby="kb-chapter-nav" className="mt-12 grid gap-3 md:grid-cols-2">
           {prev ? <ChapterLink chapter={prev} direction="prev" /> : <span />}
           {next ? <ChapterLink chapter={next} direction="next" /> : null}
         </nav>

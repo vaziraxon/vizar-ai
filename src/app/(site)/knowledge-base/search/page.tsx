@@ -5,7 +5,9 @@ import { L } from "@/components/i18n/L";
 import { SearchForm } from "@/components/knowledge/library/SearchForm";
 import { CountryFlag } from "@/components/knowledge/library/visuals";
 import { AccessCard, LibraryHero, LibraryTabs, LockIcon, Paywall } from "@/components/knowledge/library/ui";
+import { getRequestLanguage } from "@/lib/i18n/request-language";
 import { getLibraryViewer } from "@/lib/knowledge/access";
+import { getCountries, getOutline, type LibraryCountry } from "@/lib/knowledge/library";
 import { excerpt, libraryHref } from "@/lib/knowledge/offline";
 import { chapterSlugEmoji, sectionEmoji, topicEmoji } from "@/lib/knowledge/visuals";
 import { searchKnowledge } from "@/lib/knowledge/search";
@@ -14,20 +16,42 @@ import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Qidiruv — Viza ma’lumotlar bazasi",
-  robots: { index: false },
-};
+export function generateMetadata(): Metadata {
+  const title = { uz: "Qidiruv — Viza ma’lumotlar bazasi", ru: "Поиск — Визовая база знаний", en: "Search — Visa knowledge base" };
+  return { title: title[getRequestLanguage()], robots: { index: false } };
+}
 
 type Props = { searchParams: { q?: string | string[] } };
+
+const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/** The book is indexed in Uzbek: swap Russian/English country names in the query for the Uzbek ones. */
+function toUzbekQuery(q: string, countries: LibraryCountry[]): string {
+  return countries
+    .filter((c) => c.name !== c.nameSrc)
+    .sort((a, b) => b.name.length - a.name.length)
+    .reduce((acc, c) => acc.replace(new RegExp(`(^|[^\\p{L}])${escapeRegExp(c.name)}(?=$|[^\\p{L}])`, "giu"), `$1${c.nameSrc}`), q);
+}
 
 export default async function LibrarySearchPage({ searchParams }: Props) {
   const raw = Array.isArray(searchParams.q) ? searchParams.q[0] : searchParams.q;
   const q = (raw ?? "").trim().slice(0, 200);
   const viewer = await getLibraryViewer();
+  const lang = getRequestLanguage();
   const here = q ? `/knowledge-base/search?q=${encodeURIComponent(q)}` : "/knowledge-base/search";
 
+  // Labels in the page language (only needed when it isn't Uzbek).
+  const [outline, countries] =
+    lang !== "uz" && viewer.supabase
+      ? await Promise.all([getOutline(viewer.supabase, lang).catch(() => []), getCountries(viewer.supabase, lang).catch(() => [])])
+      : [[], []];
+  const sectionTitles = new Map(outline.flatMap((c) => c.sections.map((s) => [`${c.slug}/${s.slug}`, s.title] as const)));
+  const chapterLabels = new Map(outline.map((c) => [c.slug, c.label] as const));
+  const countryNames = new Map(countries.map((c) => [c.code, c.name] as const));
+  const topicLabels = new Map(countries.flatMap((c) => c.topics.map((t, i) => [t, c.topicLabels[i] ?? t] as const)));
+
   let result: KbSearchResult | null = null;
+  let ruleTexts = new Map<string, string>();
   let failure: "limit" | "error" | null = null;
   if (q.length >= 2) {
     const who = viewer.user ? `u:${viewer.user.id}` : `ip:${getClientIp(headers())}`;
@@ -35,7 +59,19 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
     if (!limit.allowed) failure = "limit";
     else {
       try {
-        result = await searchKnowledge(q, 12, viewer.accessToken);
+        result = await searchKnowledge(lang === "uz" ? q : toUzbekQuery(q, countries), 12, viewer.accessToken);
+        if (result.access === "full" && lang !== "uz" && result.rules.length && viewer.supabase) {
+          const { data } = await viewer.supabase
+            .from("kb_rule_i18n")
+            .select("rule_id, rule_text")
+            .eq("lang", lang)
+            .in(
+              "rule_id",
+              result.rules.map((r) => r.rule_id)
+            )
+            .returns<{ rule_id: string; rule_text: string }[]>();
+          ruleTexts = new Map((data ?? []).map((r) => [r.rule_id, r.rule_text]));
+        }
       } catch (error) {
         console.error("[knowledge-base/search]", error);
         failure = "error";
@@ -57,6 +93,11 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
         aside={<AccessCard viewer={viewer} next={here} />}
       >
         <SearchForm defaultValue={q} className="mt-7 max-w-xl" />
+        {lang !== "uz" ? (
+          <p className="mt-3 max-w-xl text-body-sm text-ink-600">
+            🌐 <L>Qidiruv kitobning o‘zbekcha matni bo‘yicha ishlaydi; davlat nomlarini istalgan tilda yozishingiz mumkin.</L>
+          </p>
+        ) : null}
       </LibraryHero>
       <LibraryTabs active="search" />
 
@@ -99,13 +140,17 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
                       </span>
                       <span className="min-w-0 flex-1">
                         <span className="flex items-center gap-2 text-caption font-semibold uppercase tracking-[0.06em] text-ink-500">
-                          {chapterSlugEmoji(hit.chapter_slug)} {hit.chapter_label}
+                          {chapterSlugEmoji(hit.chapter_slug)} {chapterLabels.get(hit.chapter_slug) ?? hit.chapter_label}
                           {hit.section_number ? ` · ${hit.section_number}` : ""}
                           {!full ? <LockIcon /> : null}
                         </span>
-                        <span className="mt-1 block font-display text-body-lg font-bold text-ink-950 group-hover:text-brand-700">{hit.section_title}</span>
+                        <span className="mt-1 block font-display text-body-lg font-bold text-ink-950 group-hover:text-brand-700">
+                          {sectionTitles.get(`${hit.chapter_slug}/${hit.section_slug}`) ?? hit.section_title}
+                        </span>
                         {hit.content ? (
-                          <span className="mt-1.5 block text-body-sm text-ink-600 [overflow-wrap:anywhere]">{excerpt(hit.content, full ? 320 : 180)}</span>
+                          <span lang="uz" className="mt-1.5 block text-body-sm text-ink-600 [overflow-wrap:anywhere]">
+                            {excerpt(hit.content, full ? 320 : 180)}
+                          </span>
                         ) : null}
                       </span>
                     </Link>
@@ -131,11 +176,17 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
                       >
                         <CountryFlag code={rule.country_code} size="md" className="mt-0.5" />
                         <span className="min-w-0">
-                          <span className="block text-body-sm font-semibold text-ink-900 group-hover:text-brand-700">{rule.country_name}</span>
-                          <span className="block text-caption text-ink-500">
-                            {topicEmoji(rule.topic)} {rule.topic}
+                          <span className="block text-body-sm font-semibold text-ink-900 group-hover:text-brand-700">
+                            {countryNames.get(rule.country_code) ?? rule.country_name}
                           </span>
-                          {full && rule.rule_text ? <span className="mt-1 block text-caption text-ink-600 [overflow-wrap:anywhere]">{excerpt(rule.rule_text, 140)}</span> : null}
+                          <span className="block text-caption text-ink-500">
+                            {topicEmoji(rule.topic)} {topicLabels.get(rule.topic) ?? rule.topic}
+                          </span>
+                          {full && rule.rule_text ? (
+                            <span lang={ruleTexts.has(rule.rule_id) ? lang : "uz"} className="mt-1 block text-caption text-ink-600 [overflow-wrap:anywhere]">
+                              {excerpt(ruleTexts.get(rule.rule_id) ?? rule.rule_text, 140)}
+                            </span>
+                          ) : null}
                         </span>
                       </Link>
                     </li>

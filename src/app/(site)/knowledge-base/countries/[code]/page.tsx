@@ -3,10 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExternalLink, ShieldAlert, ShieldCheck } from "lucide-react";
 import { L } from "@/components/i18n/L";
+import { Plural } from "@/components/i18n/Plural";
 import { Markdown } from "@/components/knowledge/Markdown";
 import { LibraryDate } from "@/components/knowledge/library/LibraryDate";
 import { CountryFlag } from "@/components/knowledge/library/visuals";
-import { AccessCard, LibraryError, LibraryHero, LibraryTabs, LockIcon, Paywall, SectionRow } from "@/components/knowledge/library/ui";
+import { AccessCard, AiTranslatedBadge, LibraryError, LibraryHero, LibraryTabs, LockIcon, Paywall, SectionRow } from "@/components/knowledge/library/ui";
+import { getRequestLanguage } from "@/lib/i18n/request-language";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import { REGIONS, getCountries, getCountryRules, getCountrySections, type CountryRule } from "@/lib/knowledge/library";
 import { libraryHref } from "@/lib/knowledge/offline";
@@ -25,13 +27,15 @@ const CHECK_EMOJI: Record<string, string> = { ok: "✅", changed: "⚠️", pend
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!isCode(params.code)) return {};
   const viewer = await getLibraryViewer();
+  const lang = getRequestLanguage();
   const country = viewer.supabase
-    ? (await getCountries(viewer.supabase).catch(() => [])).find((c) => c.code === params.code.toUpperCase())
+    ? (await getCountries(viewer.supabase, lang).catch(() => [])).find((c) => c.code === params.code.toUpperCase())
     : undefined;
   if (!country) return {};
+  const title = { uz: `${country.name} vizasi — qoidalar va rasmiy manbalar`, ru: `${country.name}: визовые правила и официальные источники`, en: `${country.name} visa rules and official sources` };
   return {
-    title: `${country.name} vizasi — qoidalar va rasmiy manbalar`,
-    description: `${country.name}: ${country.topics.join(", ")}.`,
+    title: title[lang],
+    description: `${country.name}: ${country.topicLabels.join(", ")}.`,
     alternates: { canonical: libraryHref.country(country.code) },
   };
 }
@@ -56,11 +60,12 @@ export default async function CountryPage({ params }: Params) {
   const code = params.code.toUpperCase();
   const viewer = await getLibraryViewer();
   if (!viewer.supabase) return <LibraryError />;
+  const lang = getRequestLanguage();
 
   let countries: Awaited<ReturnType<typeof getCountries>>;
   let sections: Awaited<ReturnType<typeof getCountrySections>>;
   try {
-    [countries, sections] = await Promise.all([getCountries(viewer.supabase), getCountrySections(viewer.supabase, code)]);
+    [countries, sections] = await Promise.all([getCountries(viewer.supabase, lang), getCountrySections(viewer.supabase, code, lang)]);
   } catch (error) {
     console.error("[knowledge-base/country]", error);
     return <LibraryError />;
@@ -69,7 +74,7 @@ export default async function CountryPage({ params }: Params) {
   if (!country) notFound();
 
   // Rule texts only through RLS: empty unless kb_has_access() is true right now.
-  const rules = viewer.hasAccess ? await getCountryRules(viewer.supabase, code) : [];
+  const rules = viewer.hasAccess ? await getCountryRules(viewer.supabase, code, lang) : [];
   const region = REGIONS.find((r) => r.id === country.region);
   const visual = REGION_VISUALS[country.region];
   const neighbours = countries.filter((c) => c.region === country.region && c.code !== code).slice(0, 8);
@@ -99,14 +104,14 @@ export default async function CountryPage({ params }: Params) {
         subtitle={
           <span className="mt-1 flex flex-wrap gap-2 text-body-sm font-medium">
             <span className="rounded-pill bg-white/15 px-3 py-1.5 backdrop-blur">
-              📌 {country.ruleCount} <L>qoida</L>
+              📌 {country.ruleCount} <Plural n={country.ruleCount} word="qoida" />
             </span>
             <span className="rounded-pill bg-white/15 px-3 py-1.5 backdrop-blur">
-              📖 {sections.length} <L>bo‘lim kitobda</L>
+              📖 {sections.length} <Plural n={sections.length} word="bo‘lim kitobda" />
             </span>
-            {country.topics.slice(0, 3).map((t) => (
+            {country.topics.slice(0, 3).map((t, i) => (
               <span key={t} className="hidden rounded-pill bg-white/15 px-3 py-1.5 backdrop-blur sm:inline">
-                {topicEmoji(t)} {t}
+                {topicEmoji(t)} {country.topicLabels[i] ?? t}
               </span>
             ))}
           </span>
@@ -135,13 +140,16 @@ export default async function CountryPage({ params }: Params) {
                     <div className="flex flex-wrap items-center justify-between gap-3 border-b border-surface-border bg-surface-tint/60 px-5 py-4 sm:px-6">
                       <h3 className="flex items-center gap-3 font-display text-body-lg font-bold text-ink-950">
                         <span aria-hidden="true" className="emoji-tile h-9 w-9 text-[17px]">
-                          {topicEmoji(rule.topic)}
+                          {topicEmoji(rule.topicSrc)}
                         </span>
                         {rule.topic}
                       </h3>
-                      <RuleStatus rule={rule} />
+                      <span className="flex flex-wrap items-center gap-2">
+                        {rule.translated ? <AiTranslatedBadge /> : null}
+                        <RuleStatus rule={rule} />
+                      </span>
                     </div>
-                    <div className="px-5 py-5 text-body text-ink-800 sm:px-6">
+                    <div lang={rule.translated ? lang : "uz"} className="px-5 py-5 text-body text-ink-800 sm:px-6">
                       <Markdown source={rule.ruleText} />
                       <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-caption text-ink-500">
                         {rule.asOf ? (
@@ -181,12 +189,12 @@ export default async function CountryPage({ params }: Params) {
           ) : (
             <>
               <ul className="grid gap-2.5 sm:grid-cols-2">
-                {country.topics.map((topic) => (
+                {country.topics.map((topic, i) => (
                   <li key={topic} className="flex items-center gap-3 rounded-2xl border border-surface-border bg-surface px-4 py-3.5">
                     <span aria-hidden="true" className="emoji-tile h-9 w-9 text-[17px]">
                       {topicEmoji(topic)}
                     </span>
-                    <span className="min-w-0 flex-1 text-body font-medium text-ink-900">{topic}</span>
+                    <span className="min-w-0 flex-1 text-body font-medium text-ink-900">{country.topicLabels[i] ?? topic}</span>
                     <LockIcon />
                   </li>
                 ))}
@@ -205,14 +213,15 @@ export default async function CountryPage({ params }: Params) {
             {sections.length ? (
               <ul className="mt-4 rounded-[24px] border border-surface-border bg-surface p-2">
                 {sections.map((s) => {
-                  const title = s.anchor ? s.anchor.replace(/^[\d.]+\s*/, "") : s.sectionTitle;
+                  // Anchors ("5.9.01. Avstriya") name the country inside a longer section.
+                  const title = s.anchor ? (lang === "uz" ? s.anchor.replace(/^[\d.]+\s*/, "") : country.name) : s.sectionTitle;
                   return (
                     <SectionRow
                       key={`${s.chapterSlug}/${s.sectionSlug}/${s.anchor ?? ""}`}
                       href={libraryHref.section(s.chapterSlug, s.sectionSlug)}
                       number={s.sectionNumber}
                       title={title}
-                      emoji={s.anchor ? "📍" : sectionEmoji(s.sectionTitle)}
+                      emoji={s.anchor ? "📍" : sectionEmoji(s.sectionTitleSrc)}
                       locked={!viewer.hasAccess}
                     />
                   );

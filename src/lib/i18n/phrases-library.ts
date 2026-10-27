@@ -44,7 +44,7 @@ export const LIBRARY_PHRASES: PhraseTable = {
   "Qidiruv": { ru: "Поиск", en: "Search" },
   "Qidirish": { ru: "Найти", en: "Search" },
   "Kutubxonadan qidirish": { ru: "Поиск по библиотеке", en: "Search the library" },
-  "Masalan: Germaniya, 90/180, bank ko‘chirmasi": { ru: "Например: Германия, 90/180, выписка из банка", en: "E.g. Germany, 90/180, bank statement" },
+  "Masalan: Germaniya, 90/180, bank ko‘chirmasi": { ru: "Например: Германия, 90/180, выписка", en: "E.g. Germany, 90/180, bank statement" },
   "Kutubxona hozir ochilmadi": { ru: "Библиотека сейчас недоступна", en: "The library could not be opened" },
   "Birozdan keyin sahifani yangilang.": { ru: "Обновите страницу чуть позже.", en: "Please refresh the page in a moment." },
   "daq": { ru: "мин", en: "min" },
@@ -158,4 +158,28 @@ export const LIBRARY_PHRASES: PhraseTable = {
     en: "e-Visas, visa-free entry and the Middle East: rules that change quickly.",
   },
   "Barcha yo‘nalishlar uchun umumiy qoidalar.": { ru: "Общие правила для всех направлений.", en: "General rules for every destination." },
+
+  /* ------------------------------------------------------ Translations */
+  "Nomlar va davlat qoidalari AI yordamida tarjima qilingan; bo‘limlar matni bosqichma-bosqich qo‘shilmoqda. Asl nusxa — o‘zbek tilida.": {
+    ru: "Названия и правила по странам переведены с помощью ИИ; тексты разделов добавляются поэтапно. Оригинал — на узбекском языке.",
+    en: "Titles and country rules are AI-translated; section texts are being added step by step. The original is in Uzbek.",
+  },
+  "AI tarjimasi": { ru: "Перевод ИИ", en: "AI translation" },
+  "Bu bo‘lim matni hozircha faqat o‘zbek tilida. Tarjimasi bosqichma-bosqich qo‘shilmoqda.": {
+    ru: "Текст этого раздела пока только на узбекском. Перевод добавляется поэтапно.",
+    en: "This section is only in Uzbek for now. Translations are being added step by step.",
+  },
+  "Qidiruv kitobning o‘zbekcha matni bo‘yicha ishlaydi; davlat nomlarini istalgan tilda yozishingiz mumkin.": {
+    ru: "Поиск идёт по узбекскому тексту книги; названия стран можно писать на любом языке.",
+    en: "Search runs on the book’s Uzbek text; you can type country names in any language.",
+  },
+  "Obuna kerak": { ru: "Нужна подписка", en: "Subscription required" },
+  "Kutubxona bo‘limlari": { ru: "Разделы библиотеки", en: "Library sections" },
+  "Tez qidiruv": { ru: "Быстрый поиск", en: "Quick search" },
+  "Bo‘limlar": { ru: "Разделы", en: "Sections" },
+  "Germaniya vizasi": { ru: "Виза в Германию", en: "Germany visa" },
+  "AQSh B-1/B-2": { ru: "США B-1/B-2", en: "US B-1/B-2" },
+  "90/180 qoidasi": { ru: "Правило 90/180", en: "The 90/180 rule" },
+  "Bank ko‘chirmasi": { ru: "Выписка из банка", en: "Bank statement" },
+  "Yaponiya": { ru: "Япония", en: "Japan" },
 };

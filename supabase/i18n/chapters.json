@@ -1,0 +1,62 @@
+{
+  "kitob-haqida": {
+    "ru": { "label": "О книге", "title": "Об авторе и издании" },
+    "en": { "label": "About the book", "title": "About the author and this edition" }
+  },
+  "kirish": {
+    "ru": { "label": "Введение", "title": "Введение" },
+    "en": { "label": "Introduction", "title": "Introduction" }
+  },
+  "bob-1": {
+    "ru": { "label": "Глава I", "title": "Глава I. Визовая система и виды виз" },
+    "en": { "label": "Chapter I", "title": "Chapter I. The visa system and types of visas" }
+  },
+  "bob-2": {
+    "ru": { "label": "Глава II", "title": "Глава II. Подготовка документов для визы" },
+    "en": { "label": "Chapter II", "title": "Chapter II. Preparing documents for a visa" }
+  },
+  "bob-3": {
+    "ru": { "label": "Глава III", "title": "Глава III. Процесс подачи на визу" },
+    "en": { "label": "Chapter III", "title": "Chapter III. The visa application process" }
+  },
+  "bob-4": {
+    "ru": { "label": "Глава IV", "title": "Глава IV. Визовое собеседование и отказ" },
+    "en": { "label": "Chapter IV", "title": "Chapter IV. The visa interview and refusals" }
+  },
+  "bob-5": {
+    "ru": { "label": "Глава V", "title": "Глава V. Визы в 29 стран Шенгенской зоны" },
+    "en": { "label": "Chapter V", "title": "Chapter V. Visas for the 29 Schengen countries" }
+  },
+  "bob-6": {
+    "ru": { "label": "Глава VI", "title": "Глава VI. Визы в европейские страны вне Шенгенской зоны" },
+    "en": { "label": "Chapter VI", "title": "Chapter VI. Visas for European countries outside Schengen" }
+  },
+  "bob-7": {
+    "ru": { "label": "Глава VII", "title": "Глава VII. Визы в США, Канаду, Австралию и Новую Зеландию" },
+    "en": { "label": "Chapter VII", "title": "Chapter VII. Visas for the USA, Canada, Australia and New Zealand" }
+  },
+  "bob-8": {
+    "ru": { "label": "Глава VIII", "title": "Глава VIII. Визы в страны Азии и Ближнего Востока" },
+    "en": { "label": "Chapter VIII", "title": "Chapter VIII. Visas for Asia and the Middle East" }
+  },
+  "bob-9": {
+    "ru": { "label": "Глава IX", "title": "Глава IX. Подготовка к визе с помощью VIZAR AI" },
+    "en": { "label": "Chapter IX", "title": "Chapter IX. Preparing for a visa with VIZAR AI" }
+  },
+  "xulosa": {
+    "ru": { "label": "Заключение", "title": "Заключение" },
+    "en": { "label": "Conclusion", "title": "Conclusion" }
+  },
+  "ilovalar": {
+    "ru": { "label": "Приложения", "title": "Практические приложения" },
+    "en": { "label": "Appendices", "title": "Practical appendices" }
+  },
+  "manbalar": {
+    "ru": { "label": "Источники", "title": "Использованные источники — единый каталог" },
+    "en": { "label": "Sources", "title": "Sources used — a single catalogue" }
+  },
+  "tahririy-tekshiruv": {
+    "ru": { "label": "Редакционная проверка", "title": "Редакционная проверка перед публикацией" },
+    "en": { "label": "Editorial review", "title": "Editorial review before publication" }
+  }
+}

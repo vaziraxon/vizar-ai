@@ -5,7 +5,8 @@ import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 import { L } from "@/components/i18n/L";
 import { Markdown } from "@/components/knowledge/Markdown";
 import { CoverArt } from "@/components/knowledge/library/visuals";
-import { LibraryError, LibraryTabs, LockIcon, Paywall, chapterEmoji } from "@/components/knowledge/library/ui";
+import { AiTranslatedBadge, LibraryError, LibraryTabs, LockIcon, Paywall, SrLabel, chapterEmoji } from "@/components/knowledge/library/ui";
+import { getRequestLanguage } from "@/lib/i18n/request-language";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import {
   chapterHeading,
@@ -25,7 +26,8 @@ type Params = { params: { chapter: string; section: string } };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const viewer = await getLibraryViewer();
-  const section = viewer.supabase ? await getSectionPreview(viewer.supabase, params.chapter, params.section).catch(() => null) : null;
+  const lang = getRequestLanguage();
+  const section = viewer.supabase ? await getSectionPreview(viewer.supabase, params.chapter, params.section, lang).catch(() => null) : null;
   if (!section) return {};
   return {
     title: `${sectionLabel({ number: section.sectionNumber, title: section.sectionTitle })} — ${section.chapterLabel}`,
@@ -37,11 +39,15 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function SectionPage({ params }: Params) {
   const viewer = await getLibraryViewer();
   if (!viewer.supabase) return <LibraryError />;
+  const lang = getRequestLanguage();
 
   let section: Awaited<ReturnType<typeof getSectionPreview>>;
   let outline: Awaited<ReturnType<typeof getOutline>>;
   try {
-    [section, outline] = await Promise.all([getSectionPreview(viewer.supabase, params.chapter, params.section), getOutline(viewer.supabase)]);
+    [section, outline] = await Promise.all([
+      getSectionPreview(viewer.supabase, params.chapter, params.section, lang),
+      getOutline(viewer.supabase, lang),
+    ]);
   } catch (error) {
     console.error("[knowledge-base/section]", error);
     return <LibraryError />;
@@ -49,7 +55,8 @@ export default async function SectionPage({ params }: Params) {
   if (!section) notFound();
 
   // Full text only through RLS: null unless kb_has_access() is true right now.
-  const content = viewer.hasAccess ? await getSectionContent(viewer.supabase, section.sectionId) : null;
+  const content = viewer.hasAccess ? await getSectionContent(viewer.supabase, section.sectionId, lang) : null;
+  const bodyLang = content?.lang ?? section.bodyLang;
   const chapter = outline.find((c) => c.slug === section.chapterSlug);
   const here = libraryHref.section(section.chapterSlug, section.sectionSlug);
   const title = section.isIntro ? chapterHeading({ label: section.chapterLabel, title: section.chapterTitle }) : section.sectionTitle;
@@ -77,7 +84,7 @@ export default async function SectionPage({ params }: Params) {
           <div className="mt-5 grid gap-8 lg:grid-cols-12 lg:items-center">
             <div className="animate-fade-up lg:col-span-8">
               <p className="eyebrow">
-                <span aria-hidden="true">{section.isIntro ? emoji : sectionEmoji(section.sectionTitle)}</span>
+                <span aria-hidden="true">{section.isIntro ? emoji : sectionEmoji(section.sectionTitleSrc)}</span>
                 {section.sectionNumber ? `${section.chapterLabel} · ${section.sectionNumber}` : section.chapterLabel}
               </p>
               <h1 className="mt-4 font-display text-display-md font-extrabold tracking-[-0.03em] text-ink-950 sm:text-display-lg">{title}</h1>
@@ -116,14 +123,25 @@ export default async function SectionPage({ params }: Params) {
 
       <div className="container-page grid gap-10 py-10 sm:py-14 lg:grid-cols-12">
         <article className="min-w-0 lg:col-span-8">
+          {lang !== "uz" && bodyLang === "uz" ? (
+            <p className="mb-4 flex items-start gap-2 rounded-2xl border border-violet-200 bg-violet-50/70 px-4 py-3 text-body-sm text-ink-700 dark:border-violet-400/20 dark:bg-violet-400/10">
+              <span aria-hidden="true">🌐</span>
+              <L>Bu bo‘lim matni hozircha faqat o‘zbek tilida. Tarjimasi bosqichma-bosqich qo‘shilmoqda.</L>
+            </p>
+          ) : null}
           {content !== null ? (
-            <div className="rounded-[28px] border border-surface-border bg-surface p-5 text-body-lg leading-relaxed text-ink-800 sm:p-9">
-              <Markdown source={content} />
+            <div lang={content.lang} className="rounded-[28px] border border-surface-border bg-surface p-5 text-body-lg leading-relaxed text-ink-800 sm:p-9">
+              {content.lang !== "uz" ? (
+                <p className="mb-4">
+                  <AiTranslatedBadge />
+                </p>
+              ) : null}
+              <Markdown source={content.markdown} />
             </div>
           ) : (
             <>
               <div className="relative overflow-hidden rounded-[28px] border border-surface-border bg-surface p-5 sm:p-9">
-                <p className="text-body-lg leading-relaxed text-ink-800 [overflow-wrap:anywhere]">{section.preview}…</p>
+                <p lang={section.bodyLang} className="text-body-lg leading-relaxed text-ink-800 [overflow-wrap:anywhere]">{section.preview}…</p>
                 <div aria-hidden="true" className="mt-4 space-y-3 blur-[3px]">
                   {[92, 100, 86, 97, 74].map((w, i) => (
                     <div key={i} className="h-3.5 rounded-full bg-surface-muted" style={{ width: `${w}%` }} />
@@ -137,7 +155,8 @@ export default async function SectionPage({ params }: Params) {
             </>
           )}
 
-          <nav aria-label="Bo‘limlar" className="mt-8 grid gap-3 sm:grid-cols-2">
+          <SrLabel id="kb-section-nav" text="Bo‘limlar" />
+          <nav aria-labelledby="kb-section-nav" className="mt-8 grid gap-3 sm:grid-cols-2">
             {section.prev ? (
               <Link
                 href={libraryHref.section(section.chapterSlug, section.prev.slug)}
@@ -188,7 +207,7 @@ export default async function SectionPage({ params }: Params) {
                         )}
                       >
                         <span aria-hidden="true" className="w-5 shrink-0 text-center">
-                          {s.isIntro ? emoji : sectionEmoji(s.title)}
+                          {s.isIntro ? emoji : sectionEmoji(s.titleSrc)}
                         </span>
                         <span className="w-11 shrink-0 tabular-nums text-ink-500">{s.number ?? "•"}</span>
                         <span className="min-w-0 flex-1">{s.isIntro ? <L>Bob haqida</L> : s.title}</span>

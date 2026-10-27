@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronRight, Lock, LogIn, Sparkles } from "lucide-react";
 import { L } from "@/components/i18n/L";
+import { Plural } from "@/components/i18n/Plural";
 import { LibraryDate } from "@/components/knowledge/library/LibraryDate";
 import { PlanStrip } from "@/components/knowledge/library/PlanStrip";
 import { CountryFlag } from "@/components/knowledge/library/visuals";
@@ -130,7 +131,7 @@ function PlanChips({ className }: { className?: string }) {
       {chips.map(([plan, days]) => (
         <li key={plan} className="inline-flex items-center gap-1 rounded-pill bg-surface-tint px-2.5 py-1 text-caption font-semibold text-ink-700">
           <span aria-hidden="true">{PLAN_EMOJI[plan]}</span>
-          {PLAN_LABEL[plan]} · {days} <L>kun</L>
+          {PLAN_LABEL[plan]} · {days} <Plural n={Number(days)} word="kun" />
         </li>
       ))}
       <li className="inline-flex items-center gap-1 rounded-pill bg-surface-tint px-2.5 py-1 text-caption font-semibold text-ink-700">
@@ -243,8 +244,46 @@ export function Paywall({ viewer, next, title, children }: { viewer: LibraryView
   );
 }
 
+/** Shown on Russian / English pages: titles and rules are machine-translated, the book is Uzbek. */
+export function TranslationNote({ className }: { className?: string }) {
+  return (
+    <p className={cn("flex items-start gap-2 rounded-2xl border border-white/80 bg-surface/75 px-3.5 py-2.5 text-body-sm text-ink-700 backdrop-blur dark:border-white/10", className)}>
+      <span aria-hidden="true">🌐</span>
+      <span>
+        <L>Nomlar va davlat qoidalari AI yordamida tarjima qilingan; bo‘limlar matni bosqichma-bosqich qo‘shilmoqda. Asl nusxa — o‘zbek tilida.</L>
+      </span>
+    </p>
+  );
+}
+
+/** Marks a text block as a machine translation of the Uzbek original. */
+export function AiTranslatedBadge() {
+  return (
+    <span className="inline-flex items-center gap-1 rounded-pill bg-violet-50 px-2 py-0.5 text-[11px] font-semibold text-violet-700 dark:bg-violet-400/10 dark:text-violet-300">
+      <span aria-hidden="true">🌐</span>
+      <L>AI tarjimasi</L>
+    </span>
+  );
+}
+
 export function LockIcon({ className }: { className?: string }) {
-  return <Lock size={14} aria-label="Obuna kerak" className={cn("shrink-0 text-ink-300", className)} />;
+  return (
+    <span className={cn("inline-flex shrink-0", className)}>
+      <Lock size={14} aria-hidden="true" className="text-ink-300" />
+      <span className="sr-only">
+        <L>Obuna kerak</L>
+      </span>
+    </span>
+  );
+}
+
+/** A screen-reader name in the page language, for aria-labelledby (aria-label can't be translated on the server). */
+export function SrLabel({ id, text }: { id: string; text: string }) {
+  return (
+    <span id={id} className="sr-only">
+      <L>{text}</L>
+    </span>
+  );
 }
 
 /** Sub-navigation between the library's parts. */
@@ -257,7 +296,8 @@ export function LibraryTabs({ active }: { active?: "home" | "search" }) {
     { href: "/knowledge-base/search", label: "Qidiruv", emoji: "🔎", key: "search" as const },
   ];
   return (
-    <nav aria-label="Kutubxona bo‘limlari" className="sticky top-16 z-20 border-b border-surface-border bg-surface-canvas/85 backdrop-blur-xl lg:top-[88px]">
+    <nav aria-labelledby="kb-tabs-label" className="sticky top-16 z-20 border-b border-surface-border bg-surface-canvas/85 backdrop-blur-xl lg:top-[88px]">
+      <SrLabel id="kb-tabs-label" text="Kutubxona bo‘limlari" />
       <div className="container-page">
         <ul className="-mx-1 flex gap-1 overflow-x-auto py-2.5 [scrollbar-width:none]">
           {tabs.map((t) => {
