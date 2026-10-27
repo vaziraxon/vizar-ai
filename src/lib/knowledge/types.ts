@@ -44,9 +44,17 @@ export interface KbRuleHit {
   rank: number;
 }
 
+/**
+ * "full" — the caller has an active subscription (or edits the knowledge
+ * base) and got passages and rule texts in full; "preview" — everyone else:
+ * the same hits with short excerpts and empty rule texts.
+ */
+export type KbAccess = "full" | "preview";
+
 export interface KbSearchResult {
   query: string;
   terms: string[];
+  access: KbAccess;
   chunks: KbChunkHit[];
   rules: KbRuleHit[];
 }
@@ -58,6 +66,8 @@ export interface KbReference {
   title: string;
   /** Book location, e.g. "I BOB. Viza tizimi … › 1.4. Vizada yozilgan …" */
   location?: string;
+  /** Page of the section or country in the /knowledge-base library */
+  href?: string;
   /** Official page for country rules */
   urls?: string[];
   status?: KbRuleStatus;
@@ -67,9 +77,10 @@ export interface KbReference {
 
 /**
  * How an answer was produced: "ai" (Claude), "retrieval" (book passages
- * only — AI off or unavailable), "mock" (development test answer).
+ * only — AI off or unavailable), "mock" (development test answer),
+ * "preview" (no active subscription: matching sections with short excerpts).
  */
-export type AnswerMode = "ai" | "retrieval" | "mock";
+export type AnswerMode = "ai" | "retrieval" | "mock" | "preview";
 
 /** NDJSON events streamed by POST /api/knowledge/ask. */
 export type AskEvent =

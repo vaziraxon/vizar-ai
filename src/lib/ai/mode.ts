@@ -23,6 +23,7 @@ export const AI_NOTICES = {
   off: "AI javoblari hozircha ulanmagan. Savolingiz bo‘yicha kitobdan eng mos bo‘limlar va rasmiy manbalar ko‘rsatiladi.",
   mock: "Test rejimi: javoblar sun’iy (mock) va faqat development muhitida ko‘rinadi.",
   liveFailed: "AI xizmati hozir javob bera olmadi. Kitobdan eng mos bo‘limlar ko‘rsatildi.",
+  locked: "To‘liq javob va kitob matni faol obunada ochiladi (Standard, Premium, Pro yoki VIP). Hozircha savolingizga mos bo‘limlar ko‘rsatildi.",
 } as const;
 
 export function resolveAiMode(env: Record<string, string | undefined> = process.env): AiMode {

@@ -1,5 +1,6 @@
 import type { LangCode } from "../translations";
 import { DASHBOARD_PHRASES } from "./phrases-dashboard";
+import { LIBRARY_PHRASES } from "./phrases-library";
 
 /**
  * Phrase-based translation for the signed-in app. The Uzbek text *is* the
@@ -15,7 +16,7 @@ export type PhraseTable = Record<string, { ru: string; en: string }>;
 const norm = (s: string) => s.replace(/[‘’`ʻʼ]/g, "'").replace(/\s+/g, " ").trim();
 
 const INDEX: Map<string, { ru: string; en: string }> = new Map(
-  Object.entries(DASHBOARD_PHRASES).map(([uz, tr]) => [norm(uz), tr])
+  Object.entries({ ...DASHBOARD_PHRASES, ...LIBRARY_PHRASES }).map(([uz, tr]) => [norm(uz), tr])
 );
 
 function fill(text: string, vars?: Record<string, string | number>) {

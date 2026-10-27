@@ -6,6 +6,7 @@ export const en: SiteContent = {
     tools: "Visa Tools",
     destinations: "Destinations",
     howItWorks: "How It Works",
+    library: "Visa library",
     pricing: "Pricing",
     signIn: "Sign in",
     getStarted: "Get Started",

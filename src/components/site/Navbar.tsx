@@ -151,7 +151,9 @@ export function Navbar() {
             ? "how"
             : pathname === "/pricing"
               ? "pricing"
-              : null;
+              : pathname.startsWith("/knowledge-base")
+                ? "library"
+                : null;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -274,6 +276,7 @@ export function Navbar() {
               ))}
               {[
                 { key: "how", href: "/how-it-works", label: site.nav.howItWorks },
+                { key: "library", href: "/knowledge-base", label: site.nav.library },
                 { key: "pricing", href: "/pricing", label: site.nav.pricing },
               ].map((item) => (
                 <Link
@@ -410,6 +413,7 @@ export function Navbar() {
             {[
               { key: "home", href: "/", label: site.nav.home },
               { key: "how", href: "/how-it-works", label: site.nav.howItWorks },
+              { key: "library", href: "/knowledge-base", label: site.nav.library },
               { key: "pricing", href: "/pricing", label: site.nav.pricing },
               { key: "faq", href: "/faq", label: site.footer.faq },
             ].map((item) => (

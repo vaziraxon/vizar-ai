@@ -1,12 +1,39 @@
 // kb-search — hybrid retrieval over the VIZAR AI knowledge base.
 //
 // POST { query: string, match_count?: number, include_rules?: boolean, semantic_weight?: number }
-//   → { query, terms, chunks: kb_search rows, rules: kb_search_rules rows }
+//   → { query, terms, access, chunks: kb_search rows, rules: kb_search_rules rows }
 //
-// Read-only over published content, so it needs no caller identity
-// (deployed with verify_jwt = false). The Next.js /api/knowledge/ask route
-// is the rate-limited entry point for users.
-import { embed, json, queryTerms, serviceClient } from "../_shared/kb.ts";
+// Deployed with verify_jwt = false so the public library can search too, but
+// the full text is a paid feature: only callers whose JWT passes
+// public.kb_has_access() (active subscription or knowledge-base editor) get
+// passages and rule texts in full ("access": "full"). Everyone else gets the
+// same hits with short previews and empty rule texts ("access": "preview").
+// The decision is made by Postgres from the caller's own JWT, never from the
+// request body.
+import { callerClient, embed, json, queryTerms, serviceClient } from "../_shared/kb.ts";
+
+const PREVIEW_CHARS = 180;
+
+/** Plain-text start of a passage: no table rows, heading marks or emphasis. */
+function preview(markdown: string): string {
+  const text = markdown
+    .split("\n")
+    .filter((line) => !line.startsWith("|") && !line.startsWith("#"))
+    .join(" ")
+    .replace(/[*>]/g, "")
+    .replace(/<br>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (text.length <= PREVIEW_CHARS) return text;
+  const cut = text.slice(0, PREVIEW_CHARS);
+  return `${cut.slice(0, cut.lastIndexOf(" ") > 0 ? cut.lastIndexOf(" ") : PREVIEW_CHARS)}…`;
+}
+
+async function hasFullAccess(authorization: string | null): Promise<boolean> {
+  if (!authorization || !/^Bearer\s+\S+\.\S+\.\S+$/.test(authorization)) return false;
+  const { data, error } = await callerClient(authorization).rpc("kb_has_access");
+  return !error && data === true;
+}
 
 Deno.serve(async (req) => {
   if (req.method !== "POST") return json({ error: "POST only" }, 405);
@@ -27,7 +54,7 @@ Deno.serve(async (req) => {
 
   const supabase = serviceClient();
   const terms = queryTerms(query);
-  const embedding = await embed(query);
+  const [full, embedding] = await Promise.all([hasFullAccess(req.headers.get("Authorization")), embed(query)]);
 
   const [chunks, rules] = await Promise.all([
     supabase.rpc("kb_search", {
@@ -43,5 +70,13 @@ Deno.serve(async (req) => {
 
   if (chunks.error) return json({ error: chunks.error.message }, 500);
   if (rules.error) return json({ error: rules.error.message }, 500);
-  return json({ query, terms, chunks: chunks.data, rules: rules.data });
+  if (full) return json({ query, terms, access: "full", chunks: chunks.data, rules: rules.data });
+
+  return json({
+    query,
+    terms,
+    access: "preview",
+    chunks: (chunks.data ?? []).map((c: { content: string }) => ({ ...c, content: preview(c.content) })),
+    rules: (rules.data ?? []).map((r: Record<string, unknown>) => ({ ...r, rule_text: "" })),
+  });
 });

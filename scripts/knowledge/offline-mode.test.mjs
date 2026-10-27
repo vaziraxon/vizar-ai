@@ -5,7 +5,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { resolveAiMode } from "../../src/lib/ai/mode.ts";
-import { buildReferences, excerpt, mockAnswer, retrievalAnswer } from "../../src/lib/knowledge/offline.ts";
+import { buildReferences, excerpt, libraryHref, mockAnswer, previewAnswer, retrievalAnswer } from "../../src/lib/knowledge/offline.ts";
 
 test("resolveAiMode: production without a key never calls a paid API", () => {
   assert.equal(resolveAiMode({ NODE_ENV: "production" }), "off");
@@ -98,6 +98,34 @@ test("empty search results give a helpful message", () => {
   const empty = { query: "q", terms: [], chunks: [], rules: [] };
   assert.match(retrievalAnswer(empty).markdown, /mos bo‘lim topilmadi/);
   assert.match(mockAnswer(empty).markdown, /mos bo‘lim topilmadi/);
+});
+
+test("references link into the /knowledge-base library", () => {
+  const refs = buildReferences(result);
+  assert.equal(refs[0].href, "/knowledge-base/book/bob-1/1-1");
+  assert.equal(refs[4].href, "/knowledge-base/countries/ae");
+  assert.equal(libraryHref.country("DE"), "/knowledge-base/countries/de");
+});
+
+test("previewAnswer (no subscription) never contains full passages or rule texts", () => {
+  // kb-search already shortens passages for preview callers; previewAnswer must not add anything back.
+  const preview = {
+    ...result,
+    access: "preview",
+    chunks: result.chunks.map((c) => ({ ...c, content: "Birinchi gap…" })),
+    rules: [{ ...rule, rule_text: "" }],
+  };
+  const { markdown, references } = previewAnswer(preview);
+  assert.ok(markdown.includes("I BOB › 1.1. Bo‘lim 1") && markdown.includes("⟦1⟧"));
+  assert.ok(markdown.includes("BAA: Kirish rejimi (2026)") && markdown.includes("⟦5⟧"));
+  assert.ok(!markdown.includes("Ikkinchi gap"), "no text beyond the preview");
+  assert.ok(!markdown.includes("Asosiy yo‘l"), "no rule text");
+  assert.ok(!markdown.includes("| --- |"));
+  assert.deepEqual(references.filter((r) => r.cited).map((r) => r.n), [1, 2, 3, 4, 5]);
+  // Even if a full result slipped through, the answer stays an excerpt.
+  const leaked = previewAnswer({ ...result, chunks: [chunk(1, { content: `${"so‘z ".repeat(200)}SIR` })] }).markdown;
+  assert.ok(!leaked.includes("SIR") && leaked.length < 400);
+  assert.match(previewAnswer({ query: "q", terms: [], access: "preview", chunks: [], rules: [] }).markdown, /mos bo‘lim topilmadi/);
 });
 
 test("excerpt drops tables/headings and cuts on a boundary", () => {

@@ -500,6 +500,34 @@ export interface Database {
         Update: Partial<Database["public"]["Tables"]["kb_country_sections"]["Insert"]>;
         Relationships: [];
       };
+      // supabase/kb_library_access.sql — users can only read their own rows.
+      subscriptions: {
+        Row: {
+          id: string;
+          user_id: string;
+          plan: "standard" | "premium" | "pro" | "vip";
+          status: "active" | "canceled" | "refunded";
+          starts_at: string;
+          expires_at: string;
+          source: "manual" | "payment" | "promo";
+          payment_ref: string | null;
+          note: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          user_id: string;
+          plan: "standard" | "premium" | "pro" | "vip";
+          status?: "active" | "canceled" | "refunded";
+          starts_at?: string;
+          expires_at: string;
+          source?: "manual" | "payment" | "promo";
+          payment_ref?: string | null;
+          note?: string | null;
+        };
+        Update: Partial<Database["public"]["Tables"]["subscriptions"]["Insert"]>;
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

@@ -12,7 +12,8 @@ const bodySchema = z.object({
 });
 
 /**
- * POST { query, limit? } → { query, chunks, rules }
+ * POST { query, limit? } → { query, access, chunks, rules }
+ * (access "preview" without an active subscription: excerpts, no rule texts)
  *
  * Knowledge-base search without any answer generation: the hybrid
  * (full-text + gte-small) retrieval that /api/knowledge/ask builds on, for
@@ -36,8 +37,11 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { query, chunks, rules } = await searchKnowledge(parsed.data.query, parsed.data.limit ?? 8);
-    return Response.json({ query, chunks, rules }, { headers: { "Cache-Control": "no-store" } });
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    const { query, access, chunks, rules } = await searchKnowledge(parsed.data.query, parsed.data.limit ?? 8, session?.access_token);
+    return Response.json({ query, access, chunks, rules }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     console.error("[kb-search]", error);
     return Response.json({ error: "Qidiruvda xatolik yuz berdi. Keyinroq qayta urinib ko‘ring." }, { status: 502 });

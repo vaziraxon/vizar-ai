@@ -52,6 +52,46 @@ await check("Public read: published chapters visible", async () => {
   return `${count} ta bob ochiq o‘qiladi`;
 });
 
+// Premium library (supabase/kb_library_access.sql): the outline is public,
+// the full text is not.
+const countRows = async (path) => {
+  const res = await rest(path, { headers: { Prefer: "count=exact" } });
+  return { status: res.status, count: Number(res.headers.get("content-range")?.split("/")[1] ?? NaN) };
+};
+
+await check("Paywall: anonymous callers get no full text", async () => {
+  const counts = {};
+  for (const table of ["kb_sections", "kb_chunks", "kb_country_rules"]) {
+    const { status, count } = await countRows(`${table}?select=id`);
+    counts[table] = count;
+    expect(status === 200 || status === 206, `${table}: HTTP ${status}`);
+    expect(count === 0, `${table}: ${count} rows visible without a subscription`);
+  }
+  return Object.entries(counts).map(([t, n]) => `${t}=${n}`).join(", ");
+});
+
+await check("Library outline is public (titles and previews only)", async () => {
+  const outline = await (await rest("rpc/kb_library_outline", { method: "POST", body: "{}" })).json();
+  const countries = await (await rest("rpc/kb_library_countries", { method: "POST", body: "{}" })).json();
+  const [preview] = await (await rest("rpc/kb_section_preview", { method: "POST", body: JSON.stringify({ p_chapter_slug: "bob-1", p_section_slug: "1-1" }) })).json();
+  expect(Array.isArray(outline) && outline.length >= 352, `outline=${JSON.stringify(outline).slice(0, 120)}`);
+  expect(outline.every((r) => !("content_md" in r)), "outline must not carry section text");
+  expect(Array.isArray(countries) && countries.length >= 61, `countries=${countries.length}`);
+  expect(preview && preview.preview.length <= 320, `preview=${preview?.preview?.length}`);
+  return `${outline.length} bo‘lim nomi, ${countries.length} davlat, preview ${preview.preview.length} belgi`;
+});
+
+await check("kb_has_access() is false and grant_subscription is closed for anonymous callers", async () => {
+  const access = await (await rest("rpc/kb_has_access", { method: "POST", body: "{}" })).json();
+  expect(access === false, `kb_has_access=${JSON.stringify(access)}`);
+  const grant = await rest("rpc/grant_subscription", { method: "POST", body: JSON.stringify({ p_email: "x@example.com", p_plan: "vip" }) });
+  expect(!grant.ok, `grant_subscription HTTP ${grant.status}`);
+  const subs = await rest("subscriptions?select=id");
+  const rows = subs.ok ? await subs.json() : [];
+  expect(rows.length === 0, `subscriptions visible: ${rows.length}`);
+  return `kb_has_access=false, grant → HTTP ${grant.status}, subscriptions → ${subs.status}`;
+});
+
 await check("RLS: anonymous insert into kb_sections is rejected", async () => {
   const res = await rest("kb_sections", {
     method: "POST",
@@ -83,7 +123,16 @@ await check("kb-search: hybrid search answers a question", async () => {
   const body = await res.json();
   expect(res.ok && body.chunks?.length > 0, `HTTP ${res.status}: ${JSON.stringify(body).slice(0, 200)}`);
   const top = body.chunks.slice(0, 3).map((c) => c.section_number ?? c.section_title).join(", ");
-  return `${body.chunks.length} bo‘lak, ${body.rules.length} qoida, ${Date.now() - t0} ms; top-3: ${top}`;
+  return `${body.chunks.length} bo‘lak (${body.access}), ${body.rules.length} qoida, ${Date.now() - t0} ms; top-3: ${top}`;
+});
+
+await check("kb-search: anonymous callers get previews only", async () => {
+  const body = await (await fn("kb-search", { query: "Germaniya vizasi uchun qayerga topshiriladi?" })).json();
+  expect(body.access === "preview", `access=${body.access}`);
+  const longest = Math.max(0, ...body.chunks.map((c) => c.content.length));
+  expect(longest <= 181, `longest passage ${longest} chars`);
+  expect(body.rules.every((r) => r.rule_text === ""), "rule texts must be empty");
+  return `access=preview, eng uzun parcha ${longest} belgi, ${body.rules.length} qoida matnsiz`;
 });
 
 await check("kb-search: country rules stay on topic", async () => {
