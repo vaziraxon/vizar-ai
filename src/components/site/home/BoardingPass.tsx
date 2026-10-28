@@ -25,10 +25,10 @@ export function BoardingPass({ score }: { score: number }) {
             <p className="font-display text-[26px] font-extrabold leading-none tracking-[-0.02em] text-ink-950">TAS</p>
             <p className="mt-1 text-caption text-ink-500">{pass.fromCity}</p>
           </div>
-          <div className="flex flex-1 items-center gap-1.5 pb-4 text-brand-600">
-            <span className="flex-1 border-t-2 border-dotted border-brand-300" />
+          <div className="flex flex-1 items-center gap-1.5 pb-4 text-violet-600 dark:text-citron-300">
+            <span className="flex-1 border-t-2 border-dotted border-violet-300" />
             <Plane size={16} strokeWidth={2.4} className="shrink-0" />
-            <span className="flex-1 border-t-2 border-dotted border-brand-300" />
+            <span className="flex-1 border-t-2 border-dotted border-violet-300" />
           </div>
           <div className="text-right">
             <p className="font-display text-[26px] font-extrabold leading-none tracking-[-0.02em] text-ink-950">CDG</p>

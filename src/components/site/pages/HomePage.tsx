@@ -14,12 +14,13 @@ import {
 import { FinalCTA } from "@/components/site/FinalCTA";
 
 /**
- * Homepage rhythm: sky hero + product stage → emoji marquee → facts strip →
- * tool cards → three steps → dark bento → destinations → plans → FAQ → CTA.
+ * Homepage rhythm: violet→lime hero + product stage → emoji marquee → facts
+ * strip → tool cards → three steps → dark bento → destinations → plans → FAQ
+ * → CTA. `.landing-lime` swaps in the landing palette (see globals.css).
  */
 export function HomePage() {
   return (
-    <>
+    <div className="landing-lime bg-surface-canvas">
       <HomeHero />
       <MarqueeBand />
       <StatsBand />
@@ -29,7 +30,7 @@ export function HomePage() {
       <DestinationsSection />
       <PricingSection />
       <FaqSection />
-      <FinalCTA />
-    </>
+      <FinalCTA tone="lime" />
+    </div>
   );
 }

@@ -200,11 +200,17 @@ export function Navbar() {
   };
   const close = () => setMenu(null);
 
+  // The landing page has its own palette: charcoal + lime instead of blue
+  const lime = pathname === "/";
+  const activeFill = lime
+    ? "bg-charcoal text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_8px_20px_-10px_rgba(17,19,24,0.6)] dark:bg-citron-300 dark:text-night"
+    : "bg-gradient-to-r from-brand-600 to-violet-600 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_8px_20px_-10px_rgba(79,70,229,0.8)]";
+
   const itemClass = (key: string) =>
     cn(
       "flex h-11 items-center gap-1 whitespace-nowrap rounded-pill px-3.5 text-body-sm font-medium transition-[background-color,color,box-shadow] duration-200 xl:px-4",
       activeKey === key
-        ? "bg-gradient-to-r from-brand-600 to-violet-600 font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_8px_20px_-10px_rgba(79,70,229,0.8)]"
+        ? cn(activeFill, "font-semibold")
         : menu === key
           ? "bg-surface text-ink-900 shadow-xs"
           : "text-ink-700 hover:bg-surface/80 hover:text-ink-900"
@@ -298,7 +304,12 @@ export function Navbar() {
             <Link
               href="/visa-readiness"
               title={site.nav.featuredCta}
-              className="hidden h-12 w-12 items-center justify-center gap-2 whitespace-nowrap rounded-pill border border-brand-200 bg-brand-50/90 text-body-sm font-semibold text-brand-700 shadow-xs backdrop-blur transition-colors duration-200 hover:border-brand-300 hover:bg-brand-100 xl:flex 2xl:w-auto 2xl:px-4"
+              className={cn(
+                "hidden h-12 w-12 items-center justify-center gap-2 whitespace-nowrap rounded-pill border text-body-sm font-semibold shadow-xs backdrop-blur transition-colors duration-200 xl:flex 2xl:w-auto 2xl:px-4",
+                lime
+                  ? "border-citron-400/70 bg-citron-100/90 text-ink-900 hover:bg-citron-200 dark:border-citron-300/30 dark:bg-citron-300/10 dark:text-citron-200 dark:hover:bg-citron-300/20"
+                  : "border-brand-200 bg-brand-50/90 text-brand-700 hover:border-brand-300 hover:bg-brand-100"
+              )}
             >
               <span aria-hidden="true" className="text-[17px] leading-none">
                 🎯
@@ -312,7 +323,12 @@ export function Navbar() {
               className="group flex h-12 items-center gap-3 whitespace-nowrap rounded-pill border border-surface-border/80 bg-surface/80 pl-5 pr-1.5 text-body-sm font-semibold text-ink-900 shadow-xs backdrop-blur transition-colors duration-200 hover:bg-surface"
             >
               {site.nav.signIn}
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white shadow-button transition-transform duration-200 group-hover:rotate-45">
+              <span
+                className={cn(
+                  "flex h-9 w-9 items-center justify-center rounded-full shadow-button transition-transform duration-200 group-hover:rotate-45",
+                  lime ? "bg-citron-300 text-night" : "bg-brand-600 text-white"
+                )}
+              >
                 <ArrowUpRight size={17} strokeWidth={2.2} />
               </span>
             </Link>
@@ -425,7 +441,9 @@ export function Navbar() {
                   className={cn(
                     "flex h-11 items-center rounded-pill px-5 text-body-sm font-semibold transition-colors",
                     activeKey === item.key || pathname === item.href
-                      ? "bg-gradient-to-r from-brand-600 to-violet-600 text-white shadow-button"
+                      ? lime
+                        ? "bg-charcoal text-white shadow-button dark:bg-citron-300 dark:text-night"
+                        : "bg-gradient-to-r from-brand-600 to-violet-600 text-white shadow-button"
                       : "border border-surface-border bg-surface-tint text-ink-800"
                   )}
                 >

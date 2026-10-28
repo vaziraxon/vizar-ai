@@ -207,14 +207,14 @@ export function ToolsGrid() {
                 <ul className="mt-5 flex-1 space-y-3">
                   {copy.benefits.map((b) => (
                     <li key={b} className="flex gap-2.5 text-body-sm text-ink-800">
-                      <CheckCheck size={18} strokeWidth={2.2} className="mt-px shrink-0 text-brand-600" />
+                      <CheckCheck size={18} strokeWidth={2.2} className="mt-px shrink-0 text-violet-600 dark:text-citron-300" />
                       {b}
                     </li>
                   ))}
                 </ul>
                 <Link
                   href={tool.href}
-                  className={cn("btn-lg mt-7 w-full rounded-2xl", live ? "btn-primary" : "btn-secondary")}
+                  className={cn("btn-lg mt-7 w-full rounded-2xl", live ? "btn-charcoal" : "btn-secondary")}
                 >
                   {live ? site.nav.getStarted : site.common.learnMore}
                 </Link>
@@ -308,8 +308,8 @@ export function BentoSection() {
     >
       {/* Aurora + fine dots */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <span className="absolute -left-40 -top-24 h-[520px] w-[520px] animate-drift rounded-full bg-brand-600/35 blur-[120px] motion-reduce:animate-none" />
-        <span className="absolute -bottom-40 -right-32 h-[560px] w-[560px] animate-drift rounded-full bg-violet-600/35 blur-[130px] [animation-delay:-9s] motion-reduce:animate-none" />
+        <span className="absolute -left-40 -top-24 h-[520px] w-[520px] animate-drift rounded-full bg-violet-600/40 blur-[120px] motion-reduce:animate-none" />
+        <span className="absolute -bottom-40 -right-32 h-[560px] w-[560px] animate-drift rounded-full bg-citron-300/20 blur-[130px] [animation-delay:-9s] motion-reduce:animate-none" />
         <span className="absolute inset-0 [background-image:radial-gradient(rgba(255,255,255,0.09)_1px,transparent_1.2px)] [background-size:24px_24px] [mask-image:radial-gradient(70%_60%_at_50%_30%,#000_15%,transparent_80%)]" />
       </div>
 
@@ -340,8 +340,8 @@ export function BentoSection() {
                 <svg viewBox="0 0 128 128" className="h-full w-full -rotate-90">
                   <defs>
                     <linearGradient id="bento-ring" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#60A5FA" />
-                      <stop offset="100%" stopColor="#A78BFA" />
+                      <stop offset="0%" stopColor="#A78BFA" />
+                      <stop offset="100%" stopColor="#D9F26B" />
                     </linearGradient>
                   </defs>
                   <circle cx="64" cy="64" r={r} fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="10" />
@@ -370,7 +370,7 @@ export function BentoSection() {
                       <span className="font-semibold tabular-nums text-white">{cat.value}</span>
                     </div>
                     <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/10">
-                      <div className="h-full rounded-full bg-gradient-to-r from-brand-400 to-violet-400" style={{ width: `${cat.value}%` }} />
+                      <div className="h-full rounded-full bg-gradient-to-r from-violet-400 to-citron-300" style={{ width: `${cat.value}%` }} />
                     </div>
                   </li>
                 ))}
@@ -435,9 +435,9 @@ export function BentoSection() {
                 </p>
               </div>
               <div className="flex justify-end">
-                <p aria-hidden="true" className="flex items-center gap-1.5 rounded-2xl rounded-br-md bg-gradient-to-r from-brand-600 to-violet-600 px-4 py-3">
+                <p aria-hidden="true" className="flex items-center gap-1.5 rounded-2xl rounded-br-md bg-citron-300 px-4 py-3">
                   {[0, 1, 2].map((i) => (
-                    <span key={i} className="h-1.5 w-1.5 animate-pulse rounded-full bg-white/90 motion-reduce:animate-none" style={{ animationDelay: `${i * 180}ms` }} />
+                    <span key={i} className="h-1.5 w-1.5 animate-pulse rounded-full bg-night/80 motion-reduce:animate-none" style={{ animationDelay: `${i * 180}ms` }} />
                   ))}
                 </p>
               </div>
@@ -467,7 +467,7 @@ export function BentoSection() {
                       className={cn(
                         "flex h-11 w-11 items-center justify-center rounded-2xl text-[18px] leading-none ring-1",
                         done && "bg-white/10 ring-white/15",
-                        current && "bg-gradient-to-br from-brand-500 to-violet-600 shadow-[0_0_0_6px_rgba(124,58,237,0.18)] ring-white/30",
+                        current && "bg-gradient-to-br from-violet-500 to-citron-300 shadow-[0_0_0_6px_rgba(217,242,107,0.16)] ring-white/30",
                         !done && !current && "bg-white/[0.03] opacity-60 ring-white/10"
                       )}
                     >
@@ -538,7 +538,7 @@ export function HowTimeline() {
             >
               <span className="flex items-center justify-between">
                 <EmojiTile emoji={HOW_EMOJI[i]!} size="lg" />
-                <span className="font-display text-[44px] font-light leading-none tracking-[0.02em] text-brand-200">
+                <span className="font-display text-[44px] font-light leading-none tracking-[0.02em] text-violet-300 dark:text-brand-200">
                   {String(i + 1).padStart(2, "0")}
                 </span>
               </span>
@@ -602,7 +602,7 @@ export function DestinationsSection() {
                     </span>
                     <span className="mt-0.5 flex items-center justify-between gap-2 text-caption font-medium text-white/85">
                       {p.slug === "schengen" ? "Schengen" : site.destinations[dest.slug].region}
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-colors duration-200 group-hover:bg-brand-600">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-colors duration-200 group-hover:bg-citron-300 group-hover:text-night">
                         <ArrowRight size={15} />
                       </span>
                     </span>
@@ -630,7 +630,7 @@ export function PricingSection() {
       <div className="container-page">
         <SectionHeader id="pricing-title" align="center" emoji="💎" eyebrow={p.eyebrow} title={p.title} subtitle={p.subtitle} />
         <div className="mt-14 lg:mt-16">
-          <PricingPlans />
+          <PricingPlans tone="lime" />
         </div>
         <div className="mt-10 text-center">
           <Link href="/pricing" className="rounded">
