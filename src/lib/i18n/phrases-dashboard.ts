@@ -125,6 +125,21 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Kecha": { ru: "Вчера", en: "Yesterday" },
   "Bugun": { ru: "Сегодня", en: "Today" },
   "24-iyul, 2026, 14:00": { ru: "24 июля 2026, 14:00", en: "24 July 2026, 14:00" },
+  "Bank ma'lumotnomasida hisob egasining to'liq ismi ko'rsatilmagan.": { ru: "В банковской справке не указано полное имя владельца счёта.", en: "The bank statement doesn't show the account holder's full name." },
+
+  /* ------- Saved by the app in Uzbek (recommendations, notifications, errors) */
+  "Bank statementni tekshirib chiqing": { ru: "Проверьте выписку из банка", en: "Check your bank statement" },
+  "Visa Readiness Score yangilandi": { ru: "Visa Readiness Score обновлён", en: "Visa Readiness Score updated" },
+  "Yangi tayyorgarlik darajangiz: {score}/100.": { ru: "Ваш новый уровень готовности: {score}/100.", en: "Your new readiness level: {score}/100." },
+  "Hujjat yuklandi": { ru: "Документ загружен", en: "Document uploaded" },
+  "{document} hujjati muvaffaqiyatli yuklandi va demo tahlildan o'tmoqda.": { ru: "Документ «{document}» успешно загружен и проходит демо-анализ.", en: "{document}: uploaded successfully, demo analysis in progress." },
+  "Konsultatsiya band qilindi": { ru: "Консультация забронирована", en: "Consultation booked" },
+  "{specialist} bilan konsultatsiyangiz tasdiqlandi.": { ru: "Ваша консультация со специалистом {specialist} подтверждена.", en: "Your consultation with {specialist} is confirmed." },
+  "Kiritilgan ma'lumotlar noto'g'ri.": { ru: "Введённые данные неверны.", en: "The details entered are invalid." },
+  "Fayl ma'lumotlari noto'g'ri.": { ru: "Неверные данные файла.", en: "Invalid file details." },
+  "Fayl yo'li noto'g'ri.": { ru: "Неверный путь к файлу.", en: "Invalid file path." },
+  "Ushbu faylni ko'rishga ruxsat yo'q.": { ru: "Нет доступа к просмотру этого файла.", en: "You don't have access to this file." },
+  "Noto'g'ri so'rov.": { ru: "Неверный запрос.", en: "Invalid request." },
 
   /* ----------------------------------------------------------- Onboarding */
   "VIZAR AI'ga xush kelibsiz": { ru: "Добро пожаловать в VIZAR AI", en: "Welcome to VIZAR AI" },
