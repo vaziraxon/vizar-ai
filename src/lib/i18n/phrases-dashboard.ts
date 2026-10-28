@@ -126,6 +126,7 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Bugun": { ru: "Сегодня", en: "Today" },
   "24-iyul, 2026, 14:00": { ru: "24 июля 2026, 14:00", en: "24 July 2026, 14:00" },
   "Bank ma'lumotnomasida hisob egasining to'liq ismi ko'rsatilmagan.": { ru: "В банковской справке не указано полное имя владельца счёта.", en: "The bank statement doesn't show the account holder's full name." },
+  "Visa Readiness hisobot": { ru: "Отчёт Visa Readiness", en: "Visa Readiness report" },
 
   /* ------- Saved by the app in Uzbek (recommendations, notifications, errors) */
   "Bank statementni tekshirib chiqing": { ru: "Проверьте выписку из банка", en: "Check your bank statement" },
