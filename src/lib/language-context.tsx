@@ -56,9 +56,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (syncCookie(lang)) router.refresh();
   }, [router]);
 
+  // Wait for the stored choice: the first render is always Uzbek, and writing
+  // it would undo the lang the inline script in the root layout already set.
   useEffect(() => {
-    document.documentElement.lang = language;
-  }, [language]);
+    if (ready) document.documentElement.lang = language;
+  }, [language, ready]);
 
   function setLanguage(lang: LangCode) {
     setLanguageState(lang);
