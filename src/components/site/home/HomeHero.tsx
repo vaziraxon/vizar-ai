@@ -19,7 +19,7 @@ const HERO_PHOTO = "/images/travel/passports.webp";
 const ROTATE_MS = 2400;
 const delay = (ms: number) => ({ animationDelay: `${ms}ms` });
 
-/** Blue headline chip cycling through destinations; sized to the longest word so nothing shifts. */
+/** Lime headline chip cycling through destinations; sized to the longest word so nothing shifts. */
 function RotatingChip({ words }: { words: string[] }) {
   const [index, setIndex] = useState(0);
 
@@ -32,7 +32,7 @@ function RotatingChip({ words }: { words: string[] }) {
 
   const prev = (index - 1 + words.length) % words.length;
   return (
-    <span className="relative inline-grid -rotate-2 overflow-hidden rounded-[0.3em] bg-brand-600 px-[0.34em] pb-[0.06em] text-white shadow-[0_14px_32px_-12px_rgba(37,99,235,0.7)]">
+    <span className="relative inline-grid -rotate-2 overflow-hidden rounded-[0.3em] bg-citron-300 px-[0.34em] pb-[0.06em] text-night shadow-[0_14px_32px_-12px_rgba(120,150,20,0.75)]">
       {words.map((word, i) => (
         <span
           key={word}
@@ -48,13 +48,13 @@ function RotatingChip({ words }: { words: string[] }) {
   );
 }
 
-function IconCircle({ tone, children }: { tone: "blue" | "white"; children: ReactNode }) {
+function IconCircle({ tone, children }: { tone: "charcoal" | "white"; children: ReactNode }) {
   return (
     <span
       className={cn(
         "inline-flex h-[0.86em] w-[0.86em] shrink-0 items-center justify-center rounded-full [&_svg]:h-[0.46em] [&_svg]:w-[0.46em]",
-        tone === "blue"
-          ? "bg-brand-600 text-white shadow-[0_10px_24px_-10px_rgba(37,99,235,0.8)]"
+        tone === "charcoal"
+          ? "bg-charcoal text-citron-300 shadow-[0_10px_24px_-10px_rgba(17,19,24,0.7)] dark:bg-citron-300 dark:text-night"
           : "bg-surface text-ink-950 shadow-card ring-1 ring-ink-900/5 dark:ring-white/10"
       )}
     >
@@ -107,12 +107,14 @@ export function HomeHero() {
 
   return (
     <>
-      <section className="hero-sky grain relative overflow-hidden">
-        {/* Aurora — three soft blobs drifting slowly */}
+      <section className="lime-wash grain relative overflow-hidden">
+        {/* Aurora — violet, periwinkle and lime blobs drifting slowly; the
+            bottom fades into the canvas under the product stage */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-          <span className="absolute -left-32 top-24 h-[420px] w-[420px] animate-drift rounded-full bg-[#93b8fd]/55 blur-[100px] dark:bg-brand-600/25 motion-reduce:animate-none" />
-          <span className="absolute -right-24 -top-10 h-[480px] w-[480px] animate-drift rounded-full bg-[#c4b5fd]/65 blur-[110px] dark:bg-violet-600/25 [animation-delay:-6s] motion-reduce:animate-none" />
-          <span className="absolute bottom-0 left-1/3 h-[340px] w-[560px] animate-drift rounded-full bg-surface/55 blur-[100px] dark:bg-white/[0.03] [animation-delay:-12s] motion-reduce:animate-none" />
+          <span className="absolute -left-32 top-24 h-[420px] w-[420px] animate-drift rounded-full bg-[#b3a4fc]/55 blur-[100px] dark:bg-violet-600/25 motion-reduce:animate-none" />
+          <span className="absolute -right-24 -top-10 h-[480px] w-[480px] animate-drift rounded-full bg-[#bcd2f8]/60 blur-[110px] dark:bg-brand-600/20 [animation-delay:-6s] motion-reduce:animate-none" />
+          <span className="absolute bottom-0 left-1/3 h-[340px] w-[560px] animate-drift rounded-full bg-[#e4f59a]/60 blur-[100px] dark:bg-citron-300/[0.06] [animation-delay:-12s] motion-reduce:animate-none" />
+          <span className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-surface-canvas/0 to-surface-canvas" />
         </div>
         <div className="container-page relative pb-20 pt-28 sm:pt-36 lg:pb-24 lg:pt-44">
           {/* Floating emoji stickers — desktop only, decorative */}
@@ -126,7 +128,7 @@ export function HomeHero() {
             >
               <path
                 d="M8 132 C 110 18, 250 4, 392 40"
-                stroke="rgba(37, 99, 235, 0.45)"
+                stroke="rgba(43, 45, 51, 0.38)"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeDasharray="2 12"
@@ -156,7 +158,7 @@ export function HomeHero() {
             <span aria-hidden="true" className="flex flex-wrap items-center gap-x-[0.26em] gap-y-[0.14em]">
               <span>{h.line1}</span>
               <RotatingChip words={h.rotating} />
-              <IconCircle tone="blue">
+              <IconCircle tone="charcoal">
                 <Plane strokeWidth={2.4} />
               </IconCircle>
             </span>
@@ -166,7 +168,7 @@ export function HomeHero() {
               </IconCircle>
               <span>{h.line2Pre}</span>
               <span className="inline-block rotate-2 rounded-[0.3em] bg-surface px-[0.32em] pb-[0.06em] shadow-card dark:bg-white dark:text-night">VIZAR</span>
-              {h.line2Post && <span className="font-accent font-medium italic tracking-[-0.02em] text-brand-900">{h.line2Post}</span>}
+              {h.line2Post && <span className="font-accent font-medium italic tracking-[-0.02em] text-violet-800">{h.line2Post}</span>}
             </span>
           </h1>
 
@@ -176,11 +178,11 @@ export function HomeHero() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/register"
-                  className="btn btn-primary group h-14 justify-between pl-7 pr-2 text-body sm:justify-center sm:gap-4"
+                  className="btn btn-charcoal group h-14 justify-between pl-7 pr-2 text-body sm:justify-center sm:gap-4"
                 >
                   {hero.ctaPrimary}
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-brand-600 transition-transform dark:bg-white dark:text-brand-deep duration-200 group-hover:rotate-45">
-                    <ArrowUpRight size={18} strokeWidth={2.4} />
+                  <span className="flex h-10 w-10 items-center justify-center rounded-[14px] bg-citron-300 text-night dark:bg-night dark:text-citron-300">
+                    <ArrowUpRight size={18} strokeWidth={2.4} className="transition-transform duration-200 group-hover:rotate-45" />
                   </span>
                 </Link>
                 <Link
@@ -230,7 +232,7 @@ export function HomeHero() {
             <div className="grid gap-3 lg:grid-cols-12">
               <figure className="relative min-h-[240px] overflow-hidden rounded-[24px] sm:min-h-[340px] lg:col-span-7 lg:min-h-0">
                 <Image src={HERO_PHOTO} alt="" fill priority sizes="(min-width: 1024px) 680px, 100vw" className="object-cover" />
-                <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-tr from-brand-950/45 via-violet-600/10 to-transparent" />
+                <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-tr from-night-950/45 via-violet-600/10 to-transparent" />
                 <EmojiSticker
                   emoji="🛂"
                   label={`${hero.panel.docs[0]!.name} · ${site.common.ready}`}

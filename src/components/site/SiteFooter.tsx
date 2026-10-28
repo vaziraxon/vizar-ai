@@ -1,16 +1,20 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowUp } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { LanguageSelector } from "@/components/ui/LanguageSelector";
 import { useSite } from "@/lib/i18n/site";
 import { useLanguage } from "@/lib/language-context";
 import { DESTINATIONS, TOOLS } from "@/lib/site/registry";
+import { cn } from "@/lib/utils";
 
 export function SiteFooter() {
   const site = useSite();
   const { t } = useLanguage();
+  // The landing page has its own palette: violet→lime wordmark, charcoal bar
+  const lime = usePathname() === "/";
 
   const columns = [
     {
@@ -77,13 +81,21 @@ export function SiteFooter() {
 
       {/* Oversized outline wordmark */}
       <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">
-        <p className="container-page -mb-[0.2em] text-center font-display text-[clamp(4.5rem,17vw,15rem)] font-extrabold leading-none tracking-[-0.06em] text-[#efebfd] dark:text-white/[0.035]">
+        <p
+          className={cn(
+            "container-page -mb-[0.2em] text-center font-display text-[clamp(4.5rem,17vw,15rem)] font-extrabold leading-none tracking-[-0.06em]",
+            lime
+              ? "bg-gradient-to-r from-[#e9e4fd] to-[#ecf5c8] bg-clip-text text-transparent dark:from-white/[0.035] dark:to-citron-300/[0.06]"
+              : "text-[#efebfd] dark:text-white/[0.035]"
+          )}
+        >
           VIZAR AI
         </p>
       </div>
 
       {/* Bottom bar */}
-      <div className="relative bg-gradient-to-r from-brand-600 via-brand-600 to-violet-600">
+      <div className={cn("relative", lime ? "bg-charcoal" : "bg-gradient-to-r from-brand-600 via-brand-600 to-violet-600")}>
+        {lime && <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-violet-400 to-citron-300" />}
         <div className="container-page flex items-center justify-between gap-4 py-5">
           <p className="text-body-sm font-medium text-white">
             © {new Date().getFullYear()} VIZAR AI. {site.footer.rights}

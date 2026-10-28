@@ -148,6 +148,10 @@ p {
   .btn-ghost {
     @apply btn text-ink-700 hover:bg-surface-tint hover:text-ink-900 dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white;
   }
+  /* Landing primary: charcoal pill with white text; turns lime in dark mode */
+  .btn-charcoal {
+    @apply btn bg-charcoal text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_10px_24px_-12px_rgba(17,19,24,0.55)] hover:bg-charcoal-deep dark:bg-citron-300 dark:text-night dark:hover:bg-citron-200;
+  }
 
   /* Surfaces ----------------------------------------------------------------
      card  — 16px, hairline border, level-1 shadow (lists, forms, app cards)
@@ -237,6 +241,55 @@ p {
     background:
       radial-gradient(50% 55% at 80% 28%, rgba(124, 58, 237, 0.22) 0%, rgba(124, 58, 237, 0) 72%),
       linear-gradient(180deg, #0d1230 0%, #090c18 100%);
+  }
+
+  /* Landing palette ----------------------------------------------------------
+     The home page only (HomePage wraps itself in .landing-lime): periwinkle
+     violet melting into lime. Inside the scope the canvas turns a soft citron
+     cream, brand tints (50–200) turn lime and brand text shades (700–900)
+     turn deep violet — pale lime in dark mode. Inner pages keep the violet
+     interior. */
+  :root:not(.dark) .landing-lime {
+    --surface-canvas: 250 251 242;
+    --surface-tint: 245 247 231;
+    --surface-muted: 235 240 214;
+    --surface-border: 230 233 214;
+    --surface-strong: 208 215 180;
+    --brand-50: 247 251 228;
+    --brand-100: 236 246 196;
+    --brand-200: 221 239 150;
+    --brand-700: 109 40 217;
+    --brand-800: 91 33 182;
+    --brand-900: 76 29 149;
+  }
+  :root.dark .landing-lime {
+    --brand-50: 26 21 56;
+    --brand-100: 36 28 74;
+    --brand-200: 49 39 95;
+    --brand-700: 217 242 107;
+    --brand-800: 229 246 156;
+    --brand-900: 238 249 196;
+  }
+  .landing-lime .spotlight {
+    --spot: rgba(166, 194, 43, 0.14);
+  }
+  .landing-lime .spotlight-dark {
+    --spot: rgba(217, 242, 107, 0.1);
+  }
+
+  /* The landing wash: violet top-left → mint → lime bottom-right. The mint
+     stop keeps the blend from going grey. Used by the hero and final CTA. */
+  .lime-wash {
+    background:
+      radial-gradient(50% 60% at 2% 0%, rgba(176, 160, 252, 0.75) 0%, rgba(176, 160, 252, 0) 70%),
+      radial-gradient(45% 55% at 98% 78%, rgba(217, 242, 107, 0.8) 0%, rgba(217, 242, 107, 0) 70%),
+      linear-gradient(115deg, #c4bffb 0%, #bccdf8 26%, #cbe6dd 56%, #def2ad 82%, #e9f6c0 100%);
+  }
+  :root.dark .lime-wash {
+    background:
+      radial-gradient(50% 60% at 2% 0%, rgba(124, 58, 237, 0.36) 0%, rgba(124, 58, 237, 0) 70%),
+      radial-gradient(45% 55% at 98% 78%, rgba(190, 228, 60, 0.16) 0%, rgba(190, 228, 60, 0) 70%),
+      linear-gradient(115deg, #15123a 0%, #0f1431 50%, #0f1519 100%);
   }
 
   /* Fine film grain over a wash — sits behind content (isolation + z -1) */

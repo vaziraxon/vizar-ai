@@ -74,6 +74,22 @@ const config: Config = {
           DEFAULT: "#111318",
           950: "#0B1020",
         },
+        // Citron — the landing page's lime accent (headline chip, arrow
+        // tiles, highlights). Fills only: always pair with night text, never
+        // use it as text on a light surface.
+        citron: {
+          50: "#F8FCE6",
+          100: "#F0F8C8",
+          200: "#E5F49C",
+          300: "#D9F26B",
+          400: "#C6E244",
+          500: "#A6C22B",
+        },
+        // Charcoal — the landing page's dark pill buttons (white text)
+        charcoal: {
+          DEFAULT: "#2B2D33",
+          deep: "#1D1F24",
+        },
         // Ink — near-black text scale. 600+ for body copy; 500 is the
         // lightest shade allowed for readable text; 400/300 are for icons
         // and decoration only.

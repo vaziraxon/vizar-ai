@@ -16,20 +16,29 @@ function ScoreRing({ value }: { value: number }) {
   const stroke = 9;
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
+  const gradientId = `ring${useId().replace(/:/g, "")}`;
   return (
     <div className="relative shrink-0" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90" aria-hidden="true">
+        {/* Violet melting into lime, like the landing wash */}
+        <defs>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#8B5CF6" />
+            <stop offset="100%" stopColor="#B5D334" />
+          </linearGradient>
+        </defs>
         <circle cx={size / 2} cy={size / 2} r={r} fill="none" strokeWidth={stroke} className="stroke-surface-muted" />
         <circle
           cx={size / 2}
           cy={size / 2}
           r={r}
           fill="none"
+          stroke={`url(#${gradientId})`}
           strokeWidth={stroke}
           strokeLinecap="round"
           strokeDasharray={c}
           strokeDashoffset={c * (1 - value / 100)}
-          className="ring-draw stroke-brand-600"
+          className="ring-draw"
           style={{ ["--ring-circumference" as string]: `${c}px` }}
         />
       </svg>
@@ -41,7 +50,7 @@ function ScoreRing({ value }: { value: number }) {
   );
 }
 
-/** Five-step journey; the current step is blue with a soft (static) halo. */
+/** Five-step journey; the current step is violet with a lime (static) halo. */
 export function JourneyBar({ steps, current }: { steps: string[]; current: number }) {
   return (
     <ol className="flex items-start" aria-label={steps.join(", ")}>
@@ -53,15 +62,15 @@ export function JourneyBar({ steps, current }: { steps: string[]; current: numbe
             {i > 0 && (
               <span
                 aria-hidden="true"
-                className={cn("absolute right-1/2 top-[7px] h-px w-full", i <= current ? "bg-brand-600" : "bg-surface-strong")}
+                className={cn("absolute right-1/2 top-[7px] h-px w-full", i <= current ? "bg-violet-600" : "bg-surface-strong")}
               />
             )}
             <span
               aria-current={isCurrent ? "step" : undefined}
               className={cn(
                 "relative z-10 flex h-[15px] w-[15px] items-center justify-center rounded-full",
-                done && "bg-brand-deep text-white",
-                isCurrent && "bg-brand-600 ring-4 ring-brand-100",
+                done && "bg-violet-600 text-white",
+                isCurrent && "bg-violet-600 ring-4 ring-citron-300",
                 !done && !isCurrent && "border border-surface-strong bg-surface"
               )}
             >
@@ -161,7 +170,7 @@ export function HeroPanel() {
                         key={d.name}
                         className={cn(
                           "h-1.5 flex-1 rounded-full",
-                          d.state === "ready" ? "bg-brand-600" : d.state === "review" ? "bg-amber-400" : "bg-surface-muted"
+                          d.state === "ready" ? "bg-violet-500" : d.state === "review" ? "bg-amber-400" : "bg-surface-muted"
                         )}
                       />
                     ))}
@@ -179,7 +188,7 @@ export function HeroPanel() {
                 <p className="mt-0.5 text-body-sm font-semibold text-ink-900">{p.nextText}</p>
                 <p className="mt-0.5 text-caption text-ink-500">{p.nextHint}</p>
               </div>
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white transition-transform duration-200 hover:translate-x-0.5">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-citron-300 text-night transition-transform duration-200 hover:translate-x-0.5">
                 <ArrowRight size={16} />
               </span>
             </div>
@@ -222,14 +231,14 @@ export function HeroPanel() {
                 {i < p.roadmap.length - 1 && (
                   <span
                     aria-hidden="true"
-                    className={cn("absolute left-[7px] top-5 h-[calc(100%-12px)] w-px", step.state === "done" ? "bg-brand-600" : "bg-surface-border")}
+                    className={cn("absolute left-[7px] top-5 h-[calc(100%-12px)] w-px", step.state === "done" ? "bg-violet-600" : "bg-surface-border")}
                   />
                 )}
                 <span
                   className={cn(
                     "relative z-10 mt-[3px] flex h-[15px] w-[15px] shrink-0 items-center justify-center rounded-full",
-                    step.state === "done" && "bg-brand-deep text-white",
-                    step.state === "current" && "bg-brand-600 ring-4 ring-brand-100",
+                    step.state === "done" && "bg-violet-600 text-white",
+                    step.state === "current" && "bg-violet-600 ring-4 ring-citron-300",
                     step.state === "todo" && "border border-surface-strong bg-surface"
                   )}
                 >
