@@ -63,30 +63,33 @@ export function CommandPalette() {
   const searchResults: SearchResult[] = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return [];
+    const has = (text: string) => text.toLowerCase().includes(q);
+    // The data is Uzbek source text: match it and what the visitor sees in their language.
+    const matches = (uz: string) => has(uz) || has(l(uz));
     const results: SearchResult[] = [];
 
     APPLICATIONS.forEach((a) => {
-      if (`${a.country} ${a.visaType}`.toLowerCase().includes(q)) {
-        results.push({ id: a.id, label: `${a.country} — ${a.visaType}`, group: "Arizalar", href: "/dashboard/tracker" });
+      if (has(`${a.country} ${a.visaType}`) || has(`${l(a.country)} ${l(a.visaType)}`)) {
+        results.push({ id: a.id, label: `${l(a.country)} — ${l(a.visaType)}`, group: "Arizalar", href: "/dashboard/tracker" });
       }
     });
     DOCUMENTS.forEach((d) => {
-      if (d.title.toLowerCase().includes(q)) {
+      if (matches(d.title)) {
         results.push({ id: d.id, label: d.title, group: "Hujjatlar", href: "/dashboard/documents" });
       }
     });
     RECOMMENDATION_TASKS.forEach((t) => {
-      if (t.title.toLowerCase().includes(q)) {
+      if (matches(t.title)) {
         results.push({ id: t.id, label: t.title, group: "Tavsiyalar", href: "/recommendations" });
       }
     });
     REPORTS.forEach((r) => {
-      if (r.title.toLowerCase().includes(q)) {
+      if (matches(r.title)) {
         results.push({ id: r.id, label: r.title, group: "Hisobotlar", href: "/reports" });
       }
     });
     return results;
-  }, [query]);
+  }, [query, l]);
 
   const filteredCommands = useMemo(() => {
     const q = query.trim().toLowerCase();
