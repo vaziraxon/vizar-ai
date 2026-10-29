@@ -12,9 +12,10 @@ import landTopology from "world-atlas/land-110m.json";
 // Landing hero globe — React Three Fiber. Continents are painted onto a
 // canvas texture from Natural Earth outlines (world-atlas), so no image is
 // downloaded. A glossy ocean, an atmosphere halo, gold flight arcs from
-// Tashkent with travelling light pulses, a tilted orbit with a small plane
-// and sparkles. Spins once every ~40s; drag to turn it, it coasts and then
-// resumes. Rendering stops while the hero is off screen.
+// Tashkent with travelling light pulses and little planes flying them, a
+// tilted orbit with two planes and sparkles. Spins once every ~40s; drag to
+// turn it, it coasts and then resumes. Rendering stops while the hero is off
+// screen.
 // ---------------------------------------------------------------------------
 
 const TURN_SECONDS = 40;
@@ -29,7 +30,16 @@ const ROUTES = [
   { lat: 37.57, lon: 126.98 }, // Seoul
   { lat: 25.2, lon: 55.27 }, // Dubai
   { lat: 41.01, lon: 28.98 }, // Istanbul
+  { lat: 52.52, lon: 13.4 }, // Berlin
+  { lat: 41.9, lon: 12.5 }, // Rome
+  { lat: 52.23, lon: 21.01 }, // Warsaw
+  { lat: 39.9, lon: 116.4 }, // Beijing
+  { lat: 1.35, lon: 103.82 }, // Singapore
+  { lat: -33.87, lon: 151.21 }, // Sydney
+  { lat: 34.05, lon: -118.24 }, // Los Angeles
 ];
+// Every other route also has a small plane flying it (fewer on phones)
+const FLIGHT_PLANE_SCALE = 0.75;
 
 /** Same mapping as THREE.SphereGeometry's UVs, so markers sit on the texture. */
 function latLonToVec3(lat: number, lon: number, r = 1) {
@@ -186,16 +196,19 @@ function sparkMaterial(color: string, pixelRatio: number) {
   });
 }
 
-/** Small white airliner, nose along +z (so lookAt points it forward). */
-function makePlane() {
+/**
+ * Small white airliner, nose along +z (so lookAt points it forward). With
+ * `violetWings` the wings are violet too, so it stays visible over pale land.
+ */
+function makePlane(violetWings = false) {
   const plane = new THREE.Group();
   const white = new THREE.MeshStandardMaterial({ color: "#FFFFFF", roughness: 0.35, metalness: 0.1 });
   const violet = new THREE.MeshStandardMaterial({ color: "#7138EC", roughness: 0.4 });
   const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.017, 0.1, 4, 10), white);
   body.rotation.x = Math.PI / 2;
-  const wings = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.006, 0.032), white);
+  const wings = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.006, 0.032), violetWings ? violet : white);
   wings.position.z = 0.004;
-  const tailplane = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.005, 0.018), white);
+  const tailplane = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.005, 0.018), violetWings ? violet : white);
   tailplane.position.z = -0.052;
   const fin = new THREE.Mesh(new THREE.BoxGeometry(0.005, 0.034, 0.024), violet);
   fin.position.set(0, 0.018, -0.05);
@@ -208,7 +221,8 @@ function Scene({ reducedMotion, compact }: { reducedMotion: boolean; compact: bo
   const { gl, size, invalidate } = useThree();
   const spin = useRef<THREE.Group>(null);
   const orbit = useRef<THREE.Group>(null);
-  const plane = useMemo(makePlane, []);
+  const plane = useMemo(() => makePlane(), []);
+  const plane2 = useMemo(() => makePlane(), []);
   const drag = useRef({ active: false, x: 0, y: 0, vy: 0, vx: 0, tiltX: 0, at: 0 });
 
   const texture = useMemo(() => {
@@ -225,13 +239,27 @@ function Scene({ reducedMotion, compact }: { reducedMotion: boolean; compact: bo
     const from = latLonToVec3(HOME.lat, HOME.lon, 1.004);
     return ROUTES.map((to, i) => {
       const end = latLonToVec3(to.lat, to.lon, 1.004);
-      const lift = 1 + 0.12 + from.angleTo(end) * 0.22;
+      // Long hauls are capped so their arcs stay inside the canvas
+      const lift = 1 + 0.12 + Math.min(from.angleTo(end), 1.25) * 0.22;
       const mid = from.clone().add(end).normalize().multiplyScalar(lift);
       const curve = new THREE.QuadraticBezierCurve3(from, mid, end);
       return { curve, end, geometry: new THREE.TubeGeometry(curve, 64, 0.0042, 6, false), phase: i / ROUTES.length };
     });
   }, []);
   const pulses = useRef<THREE.Mesh[]>([]);
+  const flights = useMemo(
+    () =>
+      arcs
+        .filter((_, i) => i % 2 === 0)
+        .slice(0, compact ? 5 : 8)
+        .map((arc, k, list) => {
+          const plane = makePlane(true);
+          plane.scale.setScalar(FLIGHT_PLANE_SCALE);
+          return { arc, plane, phase: k / list.length, speed: 0.06 + (k % 3) * 0.012 };
+        }),
+    [arcs, compact]
+  );
+  const aim = useMemo(() => ({ m: new THREE.Matrix4(), pos: new THREE.Vector3(), dir: new THREE.Vector3(), up: new THREE.Vector3() }), []);
   const homeRing = useRef<THREE.Mesh>(null);
 
   // Orbit: a dashed gold ellipse and sparkles drifting along it
@@ -250,7 +278,7 @@ function Scene({ reducedMotion, compact }: { reducedMotion: boolean; compact: bo
   const TRAIL = 22;
   const sparks = useMemo(() => {
     const geometry = new THREE.BufferGeometry();
-    const count = SPARKS + TRAIL;
+    const count = SPARKS + TRAIL * 2;
     geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(count * 3), 3));
     geometry.setAttribute("aAlpha", new THREE.BufferAttribute(new Float32Array(count), 1));
     geometry.setAttribute("aSize", new THREE.BufferAttribute(new Float32Array(count), 1));
@@ -339,13 +367,29 @@ function Scene({ reducedMotion, compact }: { reducedMotion: boolean; compact: bo
       (homeRing.current.material as THREE.MeshBasicMaterial).opacity = (1 - k) * 0.8;
     }
 
-    // Orbit: the plane laps it, sparkles drift and twinkle, a fading trail follows the plane
+    // Planes fly the arcs nose-first, belly to the globe, growing in after take-off and shrinking before landing
+    flights.forEach((f) => {
+      const p = (t * f.speed + f.phase) % 1;
+      f.arc.curve.getPoint(p, aim.pos);
+      f.arc.curve.getTangent(p, aim.dir);
+      aim.up.copy(aim.pos).normalize();
+      aim.m.lookAt(aim.dir.add(aim.pos), aim.pos, aim.up);
+      f.plane.position.copy(aim.pos);
+      f.plane.quaternion.setFromRotationMatrix(aim.m);
+      f.plane.scale.setScalar(Math.max(0.001, FLIGHT_PLANE_SCALE * Math.min(1, Math.sin(p * Math.PI) * 4)));
+    });
+
+    // Orbit: two planes lap it on opposite sides, sparkles drift and twinkle, a fading trail follows each plane
     const angle = t * ((Math.PI * 2) / 16);
-    plane.position.set(Math.cos(angle) * ORBIT_R, 0, Math.sin(angle) * ORBIT_R);
-    if (orbit.current) {
+    const laps = [
+      { craft: plane, a: angle },
+      { craft: plane2, a: angle + Math.PI },
+    ];
+    if (orbit.current) orbit.current.updateMatrixWorld();
+    for (const { craft, a } of laps) {
+      craft.position.set(Math.cos(a) * ORBIT_R, 0, Math.sin(a) * ORBIT_R);
       // lookAt takes world coordinates: aim at the point just ahead on the orbit
-      orbit.current.updateMatrixWorld();
-      plane.lookAt(orbit.current.localToWorld(ahead.set(Math.cos(angle + 0.05) * ORBIT_R, 0, Math.sin(angle + 0.05) * ORBIT_R)));
+      if (orbit.current) craft.lookAt(orbit.current.localToWorld(ahead.set(Math.cos(a + 0.05) * ORBIT_R, 0, Math.sin(a + 0.05) * ORBIT_R)));
     }
     const pos = sparks.points.geometry.getAttribute("position") as THREE.BufferAttribute;
     const alpha = sparks.points.geometry.getAttribute("aAlpha") as THREE.BufferAttribute;
@@ -356,13 +400,15 @@ function Scene({ reducedMotion, compact }: { reducedMotion: boolean; compact: bo
       alpha.setX(i, 0.35 + 0.45 * (0.5 + 0.5 * Math.sin(t * 2.2 + s.tw)));
       sizeAttr.setX(i, 5 + 4 * (0.5 + 0.5 * Math.sin(t * 1.3 + s.tw * 2)));
     });
-    for (let k = 0; k < TRAIL; k++) {
-      const i = SPARKS + k;
-      const a = angle - (k + 1) * 0.028;
-      pos.setXYZ(i, Math.cos(a) * ORBIT_R, 0, Math.sin(a) * ORBIT_R);
-      alpha.setX(i, 0.85 * (1 - k / TRAIL));
-      sizeAttr.setX(i, 7 * (1 - k / TRAIL) + 2);
-    }
+    laps.forEach(({ a: lead }, n) => {
+      for (let k = 0; k < TRAIL; k++) {
+        const i = SPARKS + n * TRAIL + k;
+        const a = lead - (k + 1) * 0.028;
+        pos.setXYZ(i, Math.cos(a) * ORBIT_R, 0, Math.sin(a) * ORBIT_R);
+        alpha.setX(i, 0.85 * (1 - k / TRAIL));
+        sizeAttr.setX(i, 7 * (1 - k / TRAIL) + 2);
+      }
+    });
     pos.needsUpdate = true;
     alpha.needsUpdate = true;
     sizeAttr.needsUpdate = true;
@@ -411,6 +457,9 @@ function Scene({ reducedMotion, compact }: { reducedMotion: boolean; compact: bo
               <meshBasicMaterial color={GOLD} transparent side={THREE.DoubleSide} />
             </mesh>
           </group>
+          {flights.map((f, i) => (
+            <primitive key={i} object={f.plane} />
+          ))}
         </group>
         {/* Rim light on the sphere */}
         <mesh scale={1.003}>
@@ -444,6 +493,7 @@ function Scene({ reducedMotion, compact }: { reducedMotion: boolean; compact: bo
           <primitive object={orbitLine} />
           <primitive object={sparks.points} />
           <primitive object={plane} />
+          <primitive object={plane2} />
         </group>
       </group>
     </>

@@ -37,9 +37,9 @@ function makeSprite(rgb: string) {
 
 /**
  * Decorative star field for the hero: twinkling stars drifting slowly
- * down-right, a thin meteor every 8–15s, and a faint parallax toward the
- * pointer. Pauses off screen and in background tabs; static (no meteors) for
- * reduced motion; fewer stars on phones.
+ * down-right, a thin meteor every 2.5–5.5s (now and then two at once), and a
+ * faint parallax toward the pointer. Pauses off screen and in background tabs;
+ * static (no meteors) for reduced motion; fewer stars on phones.
  */
 export function Starfield({ className }: { className?: string }) {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -52,7 +52,7 @@ export function Starfield({ className }: { className?: string }) {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const phone = window.matchMedia("(max-width: 767px)").matches;
     const sprites = COLORS.map(makeSprite);
-    const count = phone ? 70 : 140;
+    const count = phone ? 110 : 230;
     const stars: Star[] = Array.from({ length: count }, () => ({
       x: Math.random(),
       y: Math.random(),
@@ -64,7 +64,7 @@ export function Starfield({ className }: { className?: string }) {
       depth: 0.25 + Math.random() * 0.75,
     }));
     const meteors: Meteor[] = [];
-    let nextMeteor = performance.now() + 3000 + Math.random() * 4000;
+    let nextMeteor = performance.now() + 1200 + Math.random() * 1800;
 
     let w = 0;
     let h = 0;
@@ -112,21 +112,26 @@ export function Starfield({ className }: { className?: string }) {
 
       if (reduced) return;
       if (now > nextMeteor) {
-        const fromTop = Math.random() < 0.6;
-        meteors.push({
-          x: fromTop ? w * (0.25 + Math.random() * 0.7) : w + 20,
-          y: fromTop ? -20 : h * Math.random() * 0.45,
-          vx: -(520 + Math.random() * 260),
-          vy: 300 + Math.random() * 160,
-          life: 1.1 + Math.random() * 0.5,
-          age: 0,
-          length: 120 + Math.random() * 90,
-        });
-        nextMeteor = now + 8000 + Math.random() * 7000;
+        // Sometimes a second one follows a moment later from elsewhere
+        const burst = Math.random() < 0.3 ? 2 : 1;
+        for (let k = 0; k < burst; k++) {
+          const fromTop = Math.random() < 0.6;
+          meteors.push({
+            x: fromTop ? w * (0.2 + Math.random() * 0.75) : w + 20,
+            y: fromTop ? -20 : h * Math.random() * 0.5,
+            vx: -(520 + Math.random() * 260),
+            vy: 300 + Math.random() * 160,
+            life: 1.1 + Math.random() * 0.5,
+            age: -k * (0.25 + Math.random() * 0.35),
+            length: 120 + Math.random() * 90,
+          });
+        }
+        nextMeteor = now + 2500 + Math.random() * 3000;
       }
       for (let i = meteors.length - 1; i >= 0; i--) {
         const m = meteors[i]!;
         m.age += dt;
+        if (m.age < 0) continue;
         m.x += m.vx * dt;
         m.y += m.vy * dt;
         const fade = Math.sin(Math.min(1, m.age / m.life) * Math.PI);
