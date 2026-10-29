@@ -1,0 +1,8 @@
+Fonts in this folder are served unmodified from the Google Fonts releases and
+are licensed under the SIL Open Font License, Version 1.1:
+https://openfontlicense.org/open-font-license-official-text/
+
+- Inter — Copyright 2020 The Inter Project Authors (https://github.com/rsms/inter)
+- Manrope — Copyright 2018 The Manrope Project Authors (https://github.com/sharanda/manrope)
+- Playfair Display — Copyright 2017 The Playfair Display Project Authors (https://github.com/clauseggers/Playfair-Display)
+- Bodoni Moda — Copyright 2020 The Bodoni Moda Project Authors (https://github.com/indestructible-type/Bodoni)
