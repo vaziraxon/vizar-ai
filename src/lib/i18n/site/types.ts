@@ -153,16 +153,8 @@ export interface SiteContent {
       subtitle: string;
       alerts: { title: string; time: string; tone: "warn" | "ok" | "info" }[];
     };
-    stats: {
-      eyebrow: string;
-      title: string;
-      subtitle: string;
-      items: { value: string; label: string; note: string }[];
-    };
     tools: { eyebrow: string; title: string; subtitle: string; all: string };
     more: { pricing: string; faq: string };
-    /** Two endless rows: what to prepare (emoji by index) + destinations */
-    marquee: { label: string; items: string[] };
     destinations: { eyebrow: string; title: string; subtitle: string; all: string };
     cta: { title: string; subtitle: string; primary: string; secondary: string };
   };
