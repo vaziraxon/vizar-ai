@@ -234,7 +234,11 @@ export function Navbar() {
             "relative mx-auto flex h-16 max-w-[1240px] items-center justify-between gap-4 px-5 transition-[max-width,background-color,border-color,box-shadow,padding] duration-300 ease-premium sm:px-6 lg:h-[72px] lg:rounded-[26px] lg:border lg:px-8",
             scrolled
               ? "lg:max-w-[1240px] lg:border-white/80 dark:border-white/10 lg:bg-surface/75 lg:pl-5 lg:pr-2.5 lg:shadow-float lg:backdrop-blur-xl lg:backdrop-saturate-150"
-              : "lg:border-transparent"
+              : "lg:border-transparent",
+            // Landing: a touch more glass once the page scrolls
+            scrolled &&
+              lime &&
+              "lg:bg-surface/60 lg:shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_24px_48px_-24px_rgba(16,24,40,0.28)] lg:backdrop-blur-2xl lg:backdrop-saturate-[1.8] dark:lg:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_48px_-24px_rgba(0,0,0,0.6)]"
           )}
           onMouseLeave={scheduleClose}
         >
@@ -300,38 +304,41 @@ export function Navbar() {
 
           {/* Desktop actions */}
           <div className="hidden items-center gap-2 lg:flex">
-            {/* Highlighted entry point, like a "special event" pill */}
-            <Link
-              href="/visa-readiness"
-              title={site.nav.featuredCta}
-              className={cn(
-                "hidden h-12 w-12 items-center justify-center gap-2 whitespace-nowrap rounded-pill border text-body-sm font-semibold shadow-xs backdrop-blur transition-colors duration-200 xl:flex 2xl:w-auto 2xl:px-4",
-                lime
-                  ? "border-citron-400/70 bg-citron-100/90 text-ink-900 hover:bg-citron-200 dark:border-citron-300/30 dark:bg-citron-300/10 dark:text-citron-200 dark:hover:bg-citron-300/20"
-                  : "border-brand-200 bg-brand-50/90 text-brand-700 hover:border-brand-300 hover:bg-brand-100"
-              )}
-            >
-              <span aria-hidden="true" className="text-[17px] leading-none">
-                🎯
-              </span>
-              <span className="sr-only 2xl:not-sr-only">{site.nav.featuredCta}</span>
-            </Link>
+            {/* Highlighted entry point, like a "special event" pill (the landing
+                page keeps its header to theme · language · sign in) */}
+            {!lime && (
+              <Link
+                href="/visa-readiness"
+                title={site.nav.featuredCta}
+                className="hidden h-12 w-12 items-center justify-center gap-2 whitespace-nowrap rounded-pill border border-brand-200 bg-brand-50/90 text-body-sm font-semibold text-brand-700 shadow-xs backdrop-blur transition-colors duration-200 hover:border-brand-300 hover:bg-brand-100 xl:flex 2xl:w-auto 2xl:px-4"
+              >
+                <span aria-hidden="true" className="text-[17px] leading-none">
+                  🎯
+                </span>
+                <span className="sr-only 2xl:not-sr-only">{site.nav.featuredCta}</span>
+              </Link>
+            )}
             <ThemeToggle variant="pill" labels={{ toDark: site.nav.themeToDark, toLight: site.nav.themeToLight }} />
             <LanguageSelector variant="pill" />
-            <Link
-              href="/login"
-              className="group flex h-12 items-center gap-3 whitespace-nowrap rounded-pill border border-surface-border/80 bg-surface/80 pl-5 pr-1.5 text-body-sm font-semibold text-ink-900 shadow-xs backdrop-blur transition-colors duration-200 hover:bg-surface"
-            >
-              {site.nav.signIn}
-              <span
-                className={cn(
-                  "flex h-9 w-9 items-center justify-center rounded-full shadow-button transition-transform duration-200 group-hover:rotate-45",
-                  lime ? "bg-citron-300 text-night" : "bg-brand-600 text-white"
-                )}
+            {lime ? (
+              <Link
+                href="/login"
+                className="group flex h-12 items-center gap-2.5 whitespace-nowrap rounded-pill bg-gradient-to-r from-[#7138EC] to-violet-600 px-6 text-body-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_12px_28px_-12px_rgba(113,56,236,0.8)] transition-[transform,box-shadow] duration-200 hover:-translate-y-px hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_16px_32px_-12px_rgba(113,56,236,0.9)]"
               >
-                <ArrowUpRight size={17} strokeWidth={2.2} />
-              </span>
-            </Link>
+                {site.nav.signIn}
+                <ArrowRight size={17} strokeWidth={2.2} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="group flex h-12 items-center gap-3 whitespace-nowrap rounded-pill border border-surface-border/80 bg-surface/80 pl-5 pr-1.5 text-body-sm font-semibold text-ink-900 shadow-xs backdrop-blur transition-colors duration-200 hover:bg-surface"
+              >
+                {site.nav.signIn}
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white shadow-button transition-transform duration-200 group-hover:rotate-45">
+                  <ArrowUpRight size={17} strokeWidth={2.2} />
+                </span>
+              </Link>
+            )}
           </div>
 
           {/* Mobile: theme + menu */}

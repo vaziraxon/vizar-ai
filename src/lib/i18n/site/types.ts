@@ -69,17 +69,13 @@ export interface SiteContent {
   home: {
     hero: {
       eyebrow: string;
-      /** Headline line 1 + a rotating destination chip, line 2 wraps the brand chip */
-      headline: { line1: string; rotating: string[]; line2Pre: string; line2Post: string };
-      /** "{n}" is replaced with the number of available destinations */
-      cluster: string;
-      clusterNote: string;
-      /** Demo boarding pass on the hero photo */
-      pass: { fromCity: string; toCity: string; scoreLabel: string };
+      /** Line 1, then the italic line 2 wrapped around the VIZAR wordmark */
+      headline: { line1: string; line2Pre: string; line2Post: string };
       subtitle: string;
       ctaPrimary: string;
       ctaSecondary: string;
-      trust: Three<string>;
+      /** Screen-reader description of the mascot artwork */
+      mascotAlt: string;
       panel: {
         route: string;
         tabs: Three<string>;
@@ -94,7 +90,55 @@ export interface SiteContent {
         aiNote: string;
         roadmap: { title: string; when: string; state: "done" | "current" | "todo" }[];
       };
-      journey: { title: string; steps: string[] };
+    };
+    /**
+     * Customer stories. `title`/`subtitle` are for real, consented reviews;
+     * until those exist the section shows labelled sample cards instead.
+     */
+    testimonials: {
+      eyebrow: string;
+      title: string;
+      subtitle: string;
+      sampleTitle: string;
+      sampleSubtitle: string;
+      sampleBadge: string;
+      usedTool: string;
+      prev: string;
+      next: string;
+      pause: string;
+      play: string;
+      samples: Three<{ persona: string; quote: string }>;
+      /** Customers write their own review — free, signed-in, one per account */
+      write: string;
+      empty: string;
+      /** "{n}" → number of published reviews */
+      count: string;
+      form: {
+        title: string;
+        note: string;
+        loading: string;
+        signInTitle: string;
+        signInText: string;
+        signIn: string;
+        register: string;
+        name: string;
+        nameHint: string;
+        destination: string;
+        tool: string;
+        rating: string;
+        quote: string;
+        quoteHint: string;
+        choose: string;
+        consent: string;
+        submit: string;
+        save: string;
+        remove: string;
+        close: string;
+        sent: string;
+        hidden: string;
+        removed: string;
+        errors: { signin: string; confirm: string; links: string; invalid: string; failed: string };
+      };
     };
     tour: {
       label: string;

@@ -528,6 +528,58 @@ export interface Database {
         Update: Partial<Database["public"]["Tables"]["subscriptions"]["Insert"]>;
         Relationships: [];
       };
+      // supabase/testimonials.sql — public read only when published + consented.
+      site_editors: {
+        Row: { email: string; added_at: string };
+        Insert: never;
+        Update: never;
+        Relationships: [];
+      };
+      testimonials: {
+        Row: {
+          id: string;
+          name: string;
+          avatar_url: string | null;
+          destination: string;
+          tool: string;
+          rating: number | null;
+          quote: string;
+          locale: "uz" | "ru" | "en" | null;
+          photo_url: string | null;
+          consent_given: boolean;
+          consent_at: string | null;
+          published: boolean;
+          sort_order: number;
+          created_by: string | null;
+          /** Set when the customer wrote the review on the site (supabase/testimonials_user_reviews.sql) */
+          user_id: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          avatar_url?: string | null;
+          destination: string;
+          tool: string;
+          rating?: number | null;
+          quote: string;
+          locale?: "uz" | "ru" | "en" | null;
+          photo_url?: string | null;
+          consent_given?: boolean;
+          consent_at?: string | null;
+          published?: boolean;
+          sort_order?: number;
+        };
+        Update: Partial<Database["public"]["Tables"]["testimonials"]["Insert"]>;
+        Relationships: [];
+      };
+      testimonial_consents: {
+        Row: { testimonial_id: string; note: string; recorded_by: string | null; recorded_at: string };
+        Insert: { testimonial_id: string; note: string };
+        Update: { note?: string };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

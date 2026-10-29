@@ -72,9 +72,12 @@ export function FinalCTA({
             <p className={cn("mx-auto mt-5 max-w-xl text-body-lg", lime ? "text-ink-700" : "text-white/80")}>{subtitle ?? cta.subtitle}</p>
             <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
               {lime ? (
-                <Link href="/register" className="btn-charcoal group h-14 justify-between gap-4 pl-7 pr-2 text-body sm:justify-center">
+                <Link
+                  href="/register"
+                  className="btn-charcoal btn-sheen group h-14 justify-between gap-4 pl-7 pr-2 text-body hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-16px_rgba(113,56,236,0.6)] sm:justify-center"
+                >
                   {cta.primary}
-                  <span className="flex h-10 w-10 items-center justify-center rounded-[14px] bg-citron-300 text-night dark:bg-night dark:text-citron-300">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gold-300 text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:bg-night dark:text-gold-300">
                     <ArrowUpRight size={18} strokeWidth={2.4} className="transition-transform duration-200 group-hover:rotate-45" />
                   </span>
                 </Link>

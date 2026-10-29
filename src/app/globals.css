@@ -149,6 +149,23 @@ p {
     @apply btn text-ink-700 hover:bg-surface-tint hover:text-ink-900 dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white;
   }
   /* Landing primary: charcoal pill with white text; turns lime in dark mode */
+  /* A light reflection sweeps across glossy buttons on hover */
+  .btn-sheen {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.26) 48%, transparent 66%);
+    transform: translateX(-120%);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn-sheen:hover::after {
+    transform: translateX(120%);
+  }
   .btn-charcoal {
     @apply btn bg-charcoal text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_10px_24px_-12px_rgba(17,19,24,0.55)] hover:bg-charcoal-deep dark:bg-citron-300 dark:text-night dark:hover:bg-citron-200;
   }
@@ -275,6 +292,31 @@ p {
   }
   .landing-lime .spotlight-dark {
     --spot: rgba(217, 242, 107, 0.1);
+  }
+
+  /* Landing headings in Bodoni Moda (a route-only font, see app/(site)/page.tsx;
+     Cyrillic falls through to Playfair). Section titles from shared
+     components pick it up here, so inner pages keep Manrope. */
+  .landing-lime {
+    --font-luxe: var(--font-bodoni, Georgia), var(--font-serif-cyr, Georgia), Georgia, serif;
+    --font-luxe-italic: var(--font-bodoni, Georgia), var(--font-accent, Georgia), Georgia, serif;
+  }
+  /* Static globe shown before WebGL loads (and when it can't) */
+  .globe-fallback {
+    background:
+      radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 32%),
+      radial-gradient(circle at 50% 50%, #4a92f2 0%, #2f63d8 55%, #22388f 100%);
+    box-shadow:
+      0 0 0 10px rgba(167, 196, 255, 0.18),
+      0 30px 80px -20px rgba(47, 99, 216, 0.55),
+      inset -24px -30px 60px rgba(16, 17, 34, 0.35);
+  }
+  .landing-lime h2.font-display {
+    font-family: var(--font-luxe);
+    font-size: clamp(2.15rem, 3.6vw, 3.1rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
   }
 
   /* The landing wash: violet top-left → mint → lime bottom-right. The mint

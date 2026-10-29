@@ -1,259 +1,153 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import Image from "next/image";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Globe2, Plane } from "lucide-react";
-import { HeroPanel, SCORE } from "@/components/site/home/HeroPanel";
-import { BoardingPass } from "@/components/site/home/BoardingPass";
-import { Flag } from "@/components/site/Flag";
-import { EmojiSticker, Eyebrow } from "@/components/site/primitives";
+import { ArrowUpRight, Play } from "lucide-react";
+import { HeroGlobe } from "@/components/site/home/globe/HeroGlobe";
+import { Starfield } from "@/components/site/home/Starfield";
+import { Eyebrow } from "@/components/site/primitives";
 import { useSite } from "@/lib/i18n/site";
-import { DESTINATIONS, PHOTO_CREDITS, type FlagCode } from "@/lib/site/registry";
-import { cn } from "@/lib/utils";
 
-const TRUST_EMOJI = ["🎁", "🔒", "🏛️"];
-const CLUSTER_FLAGS: FlagCode[] = ["eu", "us", "gb", "jp", "kr"];
-const AVAILABLE_DESTINATIONS = DESTINATIONS.filter((d) => d.available).length;
-const HERO_PHOTO = "/images/travel/passports.webp";
-const ROTATE_MS = 2400;
 const delay = (ms: number) => ({ animationDelay: `${ms}ms` });
 
-/** Lime headline chip cycling through destinations; sized to the longest word so nothing shifts. */
-function RotatingChip({ words }: { words: string[] }) {
-  const [index, setIndex] = useState(0);
-
+/** A soft glow that drifts toward the pointer (CSS-eased, so it lags gently). */
+function usePointerGlow() {
+  const section = useRef<HTMLElement>(null);
+  const glow = useRef<HTMLSpanElement>(null);
   useEffect(() => {
-    setIndex(0);
+    const el = section.current;
+    const light = glow.current;
+    if (!el || !light) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(() => setIndex((v) => (v + 1) % words.length), ROTATE_MS);
-    return () => clearInterval(id);
-  }, [words]);
-
-  const prev = (index - 1 + words.length) % words.length;
-  return (
-    <span className="relative inline-grid -rotate-2 overflow-hidden rounded-[0.3em] bg-citron-300 px-[0.34em] pb-[0.06em] text-night shadow-[0_14px_32px_-12px_rgba(120,150,20,0.75)]">
-      {words.map((word, i) => (
-        <span
-          key={word}
-          className={cn(
-            "col-start-1 row-start-1 whitespace-nowrap text-center transition-[opacity,transform] duration-500 ease-premium",
-            i === index ? "translate-y-0 opacity-100" : i === prev ? "-translate-y-[0.7em] opacity-0" : "translate-y-[0.7em] opacity-0"
-          )}
-        >
-          {word}
-        </span>
-      ))}
-    </span>
-  );
-}
-
-function IconCircle({ tone, children }: { tone: "charcoal" | "white"; children: ReactNode }) {
-  return (
-    <span
-      className={cn(
-        "inline-flex h-[0.86em] w-[0.86em] shrink-0 items-center justify-center rounded-full [&_svg]:h-[0.46em] [&_svg]:w-[0.46em]",
-        tone === "charcoal"
-          ? "bg-charcoal text-citron-300 shadow-[0_10px_24px_-10px_rgba(17,19,24,0.7)] dark:bg-citron-300 dark:text-night"
-          : "bg-surface text-ink-950 shadow-card ring-1 ring-ink-900/5 dark:ring-white/10"
-      )}
-    >
-      {children}
-    </span>
-  );
-}
-
-/**
- * Desktop "rising screen": the product stage starts tilted back and settles
- * flat as it scrolls into view. Off for reduced motion and narrow screens.
- */
-function useRiseOnScroll() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!window.matchMedia("(min-width: 1024px)").matches) return;
+    if (!window.matchMedia("(pointer: fine)").matches) return;
     let frame = 0;
-    const update = () => {
-      const top = el.getBoundingClientRect().top;
-      const vh = window.innerHeight;
-      const p = Math.min(1, Math.max(0, (vh - top) / (vh * 0.75)));
-      el.style.transform = `perspective(1600px) rotateX(${((1 - p) * 12).toFixed(2)}deg) scale(${(0.965 + p * 0.035).toFixed(3)})`;
-    };
-    const onScroll = () => {
+    const onMove = (e: PointerEvent) => {
       cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(update);
+      frame = requestAnimationFrame(() => {
+        const rect = el.getBoundingClientRect();
+        light.style.transform = `translate3d(${e.clientX - rect.left - 300}px, ${e.clientY - rect.top - 300}px, 0)`;
+      });
     };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    el.addEventListener("pointermove", onMove, { passive: true });
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      el.removeEventListener("pointermove", onMove);
       cancelAnimationFrame(frame);
-      el.style.transform = "";
     };
   }, []);
-  return ref;
+  return { section, glow };
 }
 
 export function HomeHero() {
-  const stageRef = useRiseOnScroll();
   const site = useSite();
   const hero = site.home.hero;
   const h = hero.headline;
-  const credit = PHOTO_CREDITS[HERO_PHOTO]!;
+  const { section, glow } = usePointerGlow();
+  // "VIZAR." in Russian/English: punctuation hugs the wordmark
+  const postGap = h.line2Post && !/^[.,!?]/.test(h.line2Post) ? " " : "";
 
   return (
-    <>
-      <section className="lime-wash grain relative overflow-hidden">
-        {/* Aurora — violet, periwinkle and lime blobs drifting slowly; the
-            bottom fades into the canvas under the product stage */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-          <span className="absolute -left-32 top-24 h-[420px] w-[420px] animate-drift rounded-full bg-[#b3a4fc]/55 blur-[100px] dark:bg-violet-600/25 motion-reduce:animate-none" />
-          <span className="absolute -right-24 -top-10 h-[480px] w-[480px] animate-drift rounded-full bg-[#bcd2f8]/60 blur-[110px] dark:bg-brand-600/20 [animation-delay:-6s] motion-reduce:animate-none" />
-          <span className="absolute bottom-0 left-1/3 h-[340px] w-[560px] animate-drift rounded-full bg-[#e4f59a]/60 blur-[100px] dark:bg-citron-300/[0.06] [animation-delay:-12s] motion-reduce:animate-none" />
-          <span className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-surface-canvas/0 to-surface-canvas" />
-        </div>
-        <div className="container-page relative pb-20 pt-28 sm:pt-36 lg:pb-24 lg:pt-44">
-          {/* Floating emoji stickers — desktop only, decorative */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden lg:block">
-            {/* Flight path — dashes march from the passport to the globe */}
-            <svg
-              className="absolute right-[3%] top-[104px] h-[150px] w-[40%] overflow-visible"
-              viewBox="0 0 400 150"
-              preserveAspectRatio="none"
-              fill="none"
-            >
-              <path
-                d="M8 132 C 110 18, 250 4, 392 40"
-                stroke="rgba(43, 45, 51, 0.38)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeDasharray="2 12"
-                vectorEffect="non-scaling-stroke"
-                className="animate-dash motion-reduce:animate-none"
-              />
-            </svg>
-            <EmojiSticker emoji="🌍" size="lg" tilt={8} className="absolute right-6 top-[118px]" />
-            <EmojiSticker emoji="🛂" tilt={-10} delay={900} className="absolute right-[21%] top-[132px]" />
-            <EmojiSticker emoji="🧳" size="sm" tilt={14} delay={1800} className="absolute right-[11%] top-[190px]" />
-            <EmojiSticker emoji="📄" size="sm" tilt={-8} delay={2600} className="absolute right-[38%] top-[112px]" />
-          </div>
+    <section ref={section} className="lime-wash grain relative overflow-hidden">
+      {/* Aurora — violet, periwinkle and lime blobs drifting slowly; the
+          bottom fades into the canvas */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <span className="absolute -left-32 top-24 h-[420px] w-[420px] animate-drift rounded-full bg-[#b3a4fc]/55 blur-[100px] dark:bg-violet-600/25 motion-reduce:animate-none" />
+        <span className="absolute -right-24 -top-10 h-[480px] w-[480px] animate-drift rounded-full bg-[#bcd2f8]/60 blur-[110px] dark:bg-brand-600/20 [animation-delay:-6s] motion-reduce:animate-none" />
+        <span className="absolute bottom-0 left-1/3 h-[340px] w-[560px] animate-drift rounded-full bg-[#e4f59a]/60 blur-[100px] dark:bg-citron-300/[0.06] [animation-delay:-12s] motion-reduce:animate-none" />
+        <span
+          ref={glow}
+          className="absolute left-0 top-0 h-[600px] w-[600px] translate-x-[55vw] translate-y-[10vh] rounded-full bg-white/40 blur-[110px] transition-transform duration-[1800ms] ease-premium dark:bg-violet-500/15"
+        />
+        <Starfield />
+        <span className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-surface-canvas/0 to-surface-canvas" />
+      </div>
 
-          <div className="animate-fade-up" style={delay(0)}>
-            <Eyebrow emoji="✨" className="border-white/80 dark:border-white/10 bg-surface/70 backdrop-blur">
+      <div className="container-page relative grid items-center gap-8 pb-16 pt-28 sm:pt-32 lg:grid-cols-12 lg:gap-4 lg:pb-24 lg:pt-36">
+        <div className="lg:col-span-7">
+          <div className="animate-rise" style={delay(60)}>
+            <Eyebrow emoji="✨" className="border-white/80 bg-surface/70 backdrop-blur dark:border-white/10">
               {hero.eyebrow}
             </Eyebrow>
           </div>
 
-          <h1
-            className="mt-7 animate-fade-up font-display text-[clamp(2.4rem,5.8vw,4.15rem)] font-extrabold leading-[1.1] tracking-[-0.045em] text-ink-950"
-            style={delay(60)}
-          >
-            <span className="sr-only">
-              {h.line1} {h.rotating.join(", ")}. {h.line2Pre} VIZAR {h.line2Post}
+          <h1 className="mt-8 font-luxe text-ink-950">
+            <span className="block overflow-hidden pb-[0.14em]">
+              <span
+                className="block animate-reveal-up text-[clamp(3rem,6.2vw,5.6rem)] font-semibold leading-[0.98] tracking-[-0.035em]"
+                style={delay(180)}
+              >
+                {h.line1}
+              </span>
             </span>
-            <span aria-hidden="true" className="flex flex-wrap items-center gap-x-[0.26em] gap-y-[0.14em]">
-              <span>{h.line1}</span>
-              <RotatingChip words={h.rotating} />
-              <IconCircle tone="charcoal">
-                <Plane strokeWidth={2.4} />
-              </IconCircle>
-            </span>
-            <span aria-hidden="true" className="mt-[0.14em] flex flex-wrap items-center gap-x-[0.26em] gap-y-[0.14em]">
-              <IconCircle tone="white">
-                <Globe2 strokeWidth={2.2} />
-              </IconCircle>
-              <span>{h.line2Pre}</span>
-              <span className="inline-block rotate-2 rounded-[0.3em] bg-surface px-[0.32em] pb-[0.06em] shadow-card dark:bg-white dark:text-night">VIZAR</span>
-              {h.line2Post && <span className="font-accent font-medium italic tracking-[-0.02em] text-violet-800">{h.line2Post}</span>}
+            <span
+              className="relative inline-block animate-rise text-[clamp(2.4rem,4.7vw,4.15rem)] leading-[1.06] tracking-[-0.02em]"
+              style={delay(560)}
+            >
+              {h.line2Pre && <span className="font-luxe-italic font-medium italic">{h.line2Pre} </span>}
+              <span className="bg-gradient-to-br from-[#5B21B6] via-[#7138EC] to-[#A78BFA] bg-clip-text pr-[0.08em] font-accent font-semibold italic text-transparent dark:from-violet-300 dark:via-[#B79BFF] dark:to-[#ECE4FF]">
+                VIZAR
+              </span>
+              {h.line2Post && (
+                <span className="font-luxe-italic font-medium italic">
+                  {postGap}
+                  {h.line2Post}
+                </span>
+              )}
+              {/* Champagne underline, drawn left → right */}
+              <svg
+                aria-hidden="true"
+                className="absolute -bottom-[0.24em] left-[3%] h-[0.32em] w-[97%] overflow-visible"
+                viewBox="0 0 300 24"
+                preserveAspectRatio="none"
+                fill="none"
+              >
+                <path
+                  d="M3 18 C 72 7, 176 3, 297 9"
+                  pathLength={1}
+                  stroke="#EDB940"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeDasharray="1"
+                  className="animate-draw"
+                  style={delay(950)}
+                />
+              </svg>
             </span>
           </h1>
 
-          <div className="mt-10 grid gap-10 lg:mt-12 lg:grid-cols-12 lg:items-end">
-            <div className="animate-fade-up lg:col-span-7" style={delay(140)}>
-              <p className="max-w-[36rem] text-body-lg text-ink-700">{hero.subtitle}</p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/register"
-                  className="btn btn-charcoal group h-14 justify-between pl-7 pr-2 text-body sm:justify-center sm:gap-4"
-                >
-                  {hero.ctaPrimary}
-                  <span className="flex h-10 w-10 items-center justify-center rounded-[14px] bg-citron-300 text-night dark:bg-night dark:text-citron-300">
-                    <ArrowUpRight size={18} strokeWidth={2.4} className="transition-transform duration-200 group-hover:rotate-45" />
-                  </span>
-                </Link>
-                <Link
-                  href="/how-it-works"
-                  className="btn h-14 border border-white/80 dark:border-white/10 bg-surface/75 px-7 text-body text-ink-900 shadow-xs backdrop-blur hover:bg-surface"
-                >
-                  {hero.ctaSecondary}
-                </Link>
-              </div>
-              <ul className="mt-8 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-x-6">
-                {hero.trust.map((item, i) => (
-                  <li key={item} className="flex items-center gap-2 text-body-sm font-medium text-ink-800">
-                    <span aria-hidden="true" className="text-[16px] leading-none">
-                      {TRUST_EMOJI[i]}
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <p className="mt-9 max-w-[34rem] animate-rise text-body-lg text-ink-700" style={delay(1050)}>
+            {hero.subtitle}
+          </p>
 
-            {/* Honest social proof: where VIZAR can help today — no ratings, no user counts */}
-            <div className="animate-fade-up lg:col-span-5 lg:justify-self-end" style={delay(220)}>
-              <div className="inline-flex items-center gap-4 rounded-pill border border-white/80 dark:border-white/10 bg-surface/60 py-2 pl-2 pr-6 shadow-xs backdrop-blur">
-                <span className="flex -space-x-3">
-                  {CLUSTER_FLAGS.map((code) => (
-                    <Flag key={code} code={code} size={40} className="ring-[3px] ring-surface" />
-                  ))}
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div className="animate-rise" style={delay(1180)}>
+              <Link
+                href="/register"
+                className="btn btn-charcoal btn-sheen group h-14 w-full justify-between pl-7 pr-2 text-body hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-16px_rgba(113,56,236,0.6)] sm:w-auto sm:justify-center sm:gap-4"
+              >
+                {hero.ctaPrimary}
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gold-300 text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:bg-night dark:text-gold-300">
+                  <ArrowUpRight size={18} strokeWidth={2.4} className="transition-transform duration-200 group-hover:rotate-45" />
                 </span>
-                <span>
-                  <span className="block font-display text-body-lg font-bold leading-tight text-ink-950">
-                    {hero.cluster.replace("{n}", String(AVAILABLE_DESTINATIONS))}
-                  </span>
-                  <span className="block text-caption text-ink-600">{hero.clusterNote}</span>
+              </Link>
+            </div>
+            <div className="animate-rise" style={delay(1280)}>
+              <Link
+                href="/how-it-works"
+                className="btn btn-sheen h-14 w-full gap-3 border border-white/80 bg-surface/60 pl-2 pr-7 text-body text-ink-900 shadow-xs backdrop-blur hover:-translate-y-0.5 hover:bg-surface hover:shadow-card-hover dark:border-white/10 sm:w-auto"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-ink-950 shadow-card ring-1 ring-ink-900/5 dark:ring-white/10">
+                  <Play size={14} strokeWidth={2.4} className="ml-0.5 fill-current" />
                 </span>
-              </div>
+                {hero.ctaSecondary}
+              </Link>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Product stage — a glass frame that overlaps the edge of the sky */}
-      <section aria-label={site.home.tour.label} className="relative z-10 -mt-8 lg:-mt-12">
-        <div className="container-page">
-          <div ref={stageRef} className="origin-top will-change-transform">
-          <div className="animate-fade-up rounded-[32px] border border-white dark:border-white/10 bg-surface/70 p-2.5 shadow-float backdrop-blur-xl sm:p-3" style={delay(280)}>
-            <div className="grid gap-3 lg:grid-cols-12">
-              <figure className="relative min-h-[240px] overflow-hidden rounded-[24px] sm:min-h-[340px] lg:col-span-7 lg:min-h-0">
-                <Image src={HERO_PHOTO} alt="" fill priority sizes="(min-width: 1024px) 680px, 100vw" className="object-cover" />
-                <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-tr from-night-950/45 via-violet-600/10 to-transparent" />
-                <EmojiSticker
-                  emoji="🛂"
-                  label={`${hero.panel.docs[0]!.name} · ${site.common.ready}`}
-                  tilt={-3}
-                  className="absolute left-4 top-4 hidden sm:inline-flex"
-                />
-                <div className="absolute inset-x-3 bottom-3 sm:inset-x-auto sm:bottom-5 sm:left-5 sm:w-[380px]">
-                  <BoardingPass score={SCORE} />
-                </div>
-                <figcaption className="absolute right-3 top-3 rounded-pill bg-night-950/35 px-2.5 py-1 text-[10px] font-medium text-white/90 backdrop-blur-sm">
-                  Foto: {credit.author} · Unsplash
-                </figcaption>
-              </figure>
-              <div className="lg:col-span-5">
-                <HeroPanel />
-              </div>
-            </div>
-          </div>
-          </div>
+        <div className="animate-rise lg:col-span-5 lg:-mr-16 xl:-mr-28" style={delay(300)}>
+          <HeroGlobe />
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
