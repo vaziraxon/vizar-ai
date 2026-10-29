@@ -33,34 +33,38 @@ export function DestinationsSection() {
           }
         />
 
-        <ul className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        {/* A touch narrower than the page, so the framed cards come out a little smaller */}
+        <ul className="mx-auto mt-12 grid max-w-[1040px] grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {POPULAR.map((p, i) => {
             const dest = DESTINATION_BY_SLUG[p.slug];
             return (
               <li key={p.country} data-reveal style={{ ["--reveal-delay" as string]: `${(i % 4) * 50}ms` }}>
+                {/* Lemon frame around each photo, with a soft golden shadow that lifts on hover */}
                 <Link
                   href={`/destinations/${p.slug}`}
-                  className="group relative block aspect-[4/5] overflow-hidden rounded-[24px] bg-surface-muted"
+                  className="group block rounded-[26px] bg-lemon-300 p-1.5 shadow-[0_22px_44px_-14px_rgba(222,186,10,0.7),0_6px_16px_-6px_rgba(222,186,10,0.45)] transition-[transform,background-color,box-shadow] duration-300 ease-premium hover:-translate-y-1 hover:bg-lemon-400 hover:shadow-[0_30px_56px_-14px_rgba(222,186,10,0.85),0_8px_20px_-6px_rgba(222,186,10,0.55)] dark:shadow-[0_18px_40px_-16px_rgba(247,227,90,0.4)] dark:hover:shadow-[0_26px_52px_-16px_rgba(247,227,90,0.55)] sm:p-2"
                 >
-                  <Image
-                    src={p.photo}
-                    alt={site.countries[p.country]}
-                    fill
-                    sizes="(min-width: 1024px) 280px, 50vw"
-                    className="object-cover transition-transform duration-500 ease-premium group-hover:scale-[1.04]"
-                  />
-                  <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-night-950/75 via-night-950/10 to-transparent" />
-                  <span className="absolute left-3 top-3 sm:left-4 sm:top-4">
-                    <Flag code={p.country} size={32} className="ring-2 ring-white/80" />
-                  </span>
-                  <span className="absolute inset-x-3 bottom-3 sm:inset-x-4 sm:bottom-4">
-                    <span className="block font-display text-body-lg font-bold tracking-[-0.01em] text-white sm:text-xl">
-                      {site.countries[p.country]}
+                  <span className="relative block aspect-[5/6] overflow-hidden rounded-[20px] bg-surface-muted">
+                    <Image
+                      src={p.photo}
+                      alt={site.countries[p.country]}
+                      fill
+                      sizes="(min-width: 1024px) 280px, 50vw"
+                      className="object-cover transition-transform duration-500 ease-premium group-hover:scale-[1.04]"
+                    />
+                    <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-night-950/75 via-night-950/10 to-transparent" />
+                    <span className="absolute left-3 top-3 sm:left-4 sm:top-4">
+                      <Flag code={p.country} size={32} className="ring-2 ring-white/80" />
                     </span>
-                    <span className="mt-0.5 flex items-center justify-between gap-2 text-caption font-medium text-white/85">
-                      {p.slug === "schengen" ? "Schengen" : site.destinations[dest.slug].region}
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-colors duration-200 group-hover:bg-citron-300 group-hover:text-night">
-                        <ArrowRight size={15} />
+                    <span className="absolute inset-x-3 bottom-3 sm:inset-x-4 sm:bottom-4">
+                      <span className="block font-display text-body-lg font-bold tracking-[-0.01em] text-white sm:text-xl">
+                        {site.countries[p.country]}
+                      </span>
+                      <span className="mt-0.5 flex items-center justify-between gap-2 text-caption font-medium text-white/85">
+                        {p.slug === "schengen" ? "Schengen" : site.destinations[dest.slug].region}
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-colors duration-200 group-hover:bg-lemon-300 group-hover:text-night">
+                          <ArrowRight size={15} />
+                        </span>
                       </span>
                     </span>
                   </span>
