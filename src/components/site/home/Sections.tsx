@@ -18,7 +18,7 @@ export function DestinationsSection() {
   const d = site.home.destinations;
 
   return (
-    <section aria-labelledby="dest-title" className="section pt-8 md:pt-10 lg:pt-10">
+    <section aria-labelledby="dest-title" className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
       <div className="container-page">
         <SectionHeader
           id="dest-title"
@@ -82,7 +82,7 @@ export function FaqSection() {
   const site = useSite();
 
   return (
-    <section aria-labelledby="faq-title" className="section pt-0 md:pt-0 lg:pt-0">
+    <section aria-labelledby="faq-title" className="pb-12 md:pb-14 lg:pb-16">
       <div className="container-page max-w-3xl">
         <SectionHeader id="faq-title" align="center" emoji="💬" eyebrow={site.faq.eyebrow} title={site.faq.title} subtitle={site.faq.subtitle} />
         <div data-reveal className="mt-12">

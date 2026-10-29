@@ -50,7 +50,7 @@ export function SiteFooter() {
     <footer className="border-t border-surface-border bg-surface">
       {lime ? (
         // The landing page keeps its footer short: the legal note and where to read more
-        <div className="container-page pb-10 pt-12 text-center">
+        <div className="container-page pb-1 pt-8 text-center">
           <p className="mx-auto max-w-3xl text-caption leading-relaxed text-ink-500">{site.footer.disclaimer}</p>
           <p className="mt-3 flex justify-center gap-5 text-caption font-medium">
             <Link href="/trust-center" className="rounded text-ink-700 underline-offset-4 hover:text-ink-950 hover:underline">
@@ -99,7 +99,9 @@ export function SiteFooter() {
       <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">
         <p
           className={cn(
-            "container-page -mb-[0.2em] text-center font-display text-[clamp(4.5rem,17vw,15rem)] font-extrabold leading-none tracking-[-0.06em]",
+            "container-page -mb-[0.2em] text-center font-display font-extrabold leading-none tracking-[-0.06em]",
+            // Smaller on the landing page, which is kept short
+            lime ? "text-[clamp(3.5rem,11vw,9rem)]" : "text-[clamp(4.5rem,17vw,15rem)]",
             lime
               ? "bg-gradient-to-r from-[#e9e4fd] to-[#ecf5c8] bg-clip-text text-transparent dark:from-white/[0.035] dark:to-citron-300/[0.06]"
               : "text-[#efebfd] dark:text-white/[0.035]"

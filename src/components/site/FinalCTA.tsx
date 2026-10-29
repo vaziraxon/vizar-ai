@@ -29,12 +29,14 @@ export function FinalCTA({
   const lime = tone === "lime";
 
   return (
-    <section aria-labelledby="cta-title" className="pb-16 sm:pb-24">
+    <section aria-labelledby="cta-title" className={lime ? "pb-10 sm:pb-14" : "pb-16 sm:pb-24"}>
       <div className="container-page">
         <div
           data-reveal
           className={cn(
-            "grain relative overflow-hidden rounded-[32px] px-6 py-14 text-center shadow-float sm:px-12 sm:py-20",
+            "grain relative overflow-hidden rounded-[32px] px-6 text-center shadow-float sm:px-12",
+            // The landing page keeps its CTA compact
+            lime ? "py-11 sm:py-14" : "py-14 sm:py-20",
             lime ? "lime-wash" : "bg-gradient-to-br from-brand-600 via-brand-600 to-violet-600"
           )}
         >
