@@ -389,7 +389,7 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
   const average = rated.length ? rated.reduce((sum, r) => sum + r.rating!, 0) / rated.length : 0;
 
   return (
-    <section aria-labelledby="stories-title" className="relative -mt-6 pb-6 sm:pb-10">
+    <section aria-labelledby="stories-title" className="relative -mt-6 pb-2 sm:pb-3">
       <div className="container-page flex flex-wrap items-end justify-between gap-5">
         <div className="max-w-2xl">
           <Eyebrow emoji="💬">{t.eyebrow}</Eyebrow>
@@ -422,7 +422,7 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
       </div>
 
       {cards.length > 0 ? (
-        <div className="mt-6">
+        <div className="mt-3">
           <StoryRibbon cards={cards} labels={t} />
         </div>
       ) : (
