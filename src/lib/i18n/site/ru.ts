@@ -283,6 +283,9 @@ export const ru: SiteContent = {
       next: "Вперёд",
       pause: "Пауза",
       play: "Продолжить",
+      /** Long reviews are clamped to a few lines */
+      more: "Читать дальше",
+      less: "Свернуть",
       samples: [
         { persona: "Учёба · магистратура", quote: "После анкеты оценка готовности и слабые места видны на одной странице." },
         { persona: "IT-специалист", quote: "Этап заявки и следующий шаг теперь видно в одном месте." },

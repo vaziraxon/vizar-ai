@@ -53,10 +53,28 @@ const formatDate = (iso: string) => {
   return `${String(d.getDate()).padStart(2, "0")}.${String(d.getMonth() + 1).padStart(2, "0")}.${d.getFullYear()}`;
 };
 
-/** One review card. Mouse users get a gentle 3D tilt; `.spotlight` adds the light reflection. */
+/**
+ * One review card. Mouse users get a gentle 3D tilt; `.spotlight` adds the
+ * light reflection. Long reviews are clamped to four lines with a "read more"
+ * toggle, so one chatty review cannot stretch the whole row.
+ */
 function StoryCard({ card, width, labels, hidden }: { card: Card; width: number; labels: Labels; hidden: boolean }) {
   const site = useSite();
   const tilt = useRef<HTMLElement>(null);
+  const quote = useRef<HTMLQuoteElement>(null);
+  const [open, setOpen] = useState(false);
+  const [overflows, setOverflows] = useState(false);
+
+  useEffect(() => {
+    const el = quote.current;
+    if (!el || open) return;
+    const check = () => setOverflows(el.scrollHeight > el.clientHeight + 1);
+    check();
+    const ro = new ResizeObserver(check);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [open]);
+
   const onMove = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (e.pointerType !== "mouse" || !tilt.current) return;
     const r = e.currentTarget.getBoundingClientRect();
@@ -69,25 +87,25 @@ function StoryCard({ card, width, labels, hidden }: { card: Card; width: number;
   };
 
   return (
-    <div aria-hidden={hidden || undefined} style={{ width }} className="shrink-0 py-4" onPointerMove={onMove} onPointerLeave={onLeave}>
+    <div aria-hidden={hidden || undefined} style={{ width }} className="shrink-0 py-3" onPointerMove={onMove} onPointerLeave={onLeave}>
       <article
         ref={tilt}
-        className="spotlight relative flex h-full flex-col rounded-[26px] border border-surface-border bg-surface p-6 shadow-card transition-[transform,box-shadow] duration-300 ease-premium hover:shadow-card-hover"
+        className="spotlight relative flex h-full flex-col rounded-[24px] border border-surface-border bg-surface p-5 shadow-card transition-[transform,box-shadow] duration-300 ease-premium hover:shadow-card-hover"
       >
         <header className="flex items-center gap-3">
           {card.avatar ? (
-            <Image src={card.avatar} alt="" width={48} height={48} className="h-12 w-12 shrink-0 rounded-full object-cover" />
+            <Image src={card.avatar} alt="" width={44} height={44} className="h-11 w-11 shrink-0 rounded-full object-cover" />
           ) : card.emoji ? (
-            <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-100 to-citron-100 text-[22px] dark:from-violet-500/20 dark:to-citron-300/10">
+            <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-100 to-citron-100 text-[20px] dark:from-violet-500/20 dark:to-citron-300/10">
               {card.emoji}
             </span>
           ) : (
-            <span aria-hidden="true" className={cn("flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-[15px] font-bold text-white", toneFor(card.name))}>
+            <span aria-hidden="true" className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[14px] font-bold text-white", toneFor(card.name))}>
               {initials(card.name)}
             </span>
           )}
           <div className="min-w-0 flex-1">
-            <p title={card.name} className="truncate font-display text-[17px] font-bold text-ink-950">
+            <p title={card.name} className="truncate font-display text-[16px] font-bold text-ink-950">
               {card.name}
             </p>
             <p className="mt-0.5 flex items-center gap-1.5 text-caption text-ink-500">
@@ -112,11 +130,24 @@ function StoryCard({ card, width, labels, hidden }: { card: Card; width: number;
           ) : null}
         </header>
 
-        <blockquote lang={card.locale} className="mt-4 flex-1 text-body leading-relaxed text-ink-800">
-          {card.quote}
-        </blockquote>
+        <div className="mt-3.5 flex-1">
+          <blockquote ref={quote} lang={card.locale} className={cn("text-[15px] leading-[1.6] text-ink-800", !open && "line-clamp-4")}>
+            {card.quote}
+          </blockquote>
+          {overflows || open ? (
+            <button
+              type="button"
+              tabIndex={hidden ? -1 : undefined}
+              aria-expanded={open}
+              onClick={() => setOpen((o) => !o)}
+              className="mt-1.5 rounded text-body-sm font-semibold text-violet-700 underline-offset-4 hover:underline dark:text-citron-300"
+            >
+              {open ? labels.less : labels.more}
+            </button>
+          ) : null}
+        </div>
 
-        <footer className="mt-5 flex items-end justify-between gap-3">
+        <footer className="mt-4 flex items-end justify-between gap-3">
           <p className="text-caption text-ink-500">
             <span aria-hidden="true">{TOOL_BY_ID[card.tool].emoji} </span>
             {site.tools[card.tool].name}
@@ -251,7 +282,8 @@ function StoryRibbon({ cards, labels }: { cards: Card[]; labels: Labels }) {
   };
 
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
-    if (!motion.current.loop) return;
+    // A captured pointer would swallow the click on a card's "read more"
+    if (!motion.current.loop || (e.target as HTMLElement).closest("button")) return;
     motion.current.drag = { lastX: e.clientX, id: e.pointerId };
     motion.current.nudge = null;
     e.currentTarget.setPointerCapture(e.pointerId);
