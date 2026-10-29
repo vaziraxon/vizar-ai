@@ -207,15 +207,16 @@ export function Navbar() {
     : "bg-gradient-to-r from-brand-600 to-violet-600 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_8px_20px_-10px_rgba(79,70,229,0.8)]";
 
   // lg–xl (1024–1279px) is the tight range: items and edges sit a little closer
-  // so the bar still fits next to a scrollbar in every language
+  // so the bar still fits next to a scrollbar in every language. An open,
+  // hovered or pressed item lights up soft gold; the current page keeps its fill.
   const itemClass = (key: string) =>
     cn(
       "flex h-11 items-center gap-1 whitespace-nowrap rounded-pill px-3 text-body-sm font-medium transition-[background-color,color,box-shadow] duration-200 xl:px-4",
       activeKey === key
         ? cn(activeFill, "font-semibold")
         : menu === key
-          ? "bg-surface text-ink-900 shadow-xs"
-          : "text-ink-700 hover:bg-surface/80 hover:text-ink-900"
+          ? "bg-gold-200 text-night shadow-xs"
+          : "text-ink-700 hover:bg-gold-200/70 hover:text-night active:bg-gold-200 active:text-night"
     );
 
   const solid = scrolled || mobileOpen;
@@ -273,14 +274,14 @@ export function Navbar() {
                   aria-controls={`menu-${id}`}
                   onMouseEnter={() => openMenu(id)}
                   onClick={() => (menu === id ? close() : openMenu(id))}
-                  className={itemClass(id)}
+                  className={cn(itemClass(id), "group")}
                 >
                   {id === "tools" ? site.nav.tools : site.nav.destinations}
                   <ChevronDown
                     size={14}
                     className={cn(
                       "transition-transform duration-200",
-                      activeKey === id ? "text-white/80" : "text-ink-400",
+                      activeKey === id ? "text-white/80" : menu === id ? "text-night/70" : "text-ink-400 group-hover:text-night/70",
                       menu === id && "rotate-180"
                     )}
                   />
