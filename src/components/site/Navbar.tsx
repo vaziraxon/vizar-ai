@@ -36,7 +36,7 @@ function ToolRow({ tool, onNavigate, tabIndex }: { tool: ToolMeta; onNavigate?: 
       aria-current={selected ? "page" : undefined}
       className={cn(
         "group flex items-center gap-3.5 rounded-2xl px-3 py-2.5 transition-colors duration-150",
-        selected ? "bg-brand-50/70" : "hover:bg-surface-tint"
+        selected ? "bg-gold-200/70 dark:bg-gold-300/30" : "hover:bg-gold-200/50 dark:hover:bg-gold-300/20"
       )}
     >
       <span
@@ -79,7 +79,7 @@ function DestinationRow({ slug, onNavigate, tabIndex }: { slug: DestinationSlug;
       aria-current={pathname === href ? "page" : undefined}
       className={cn(
         "flex items-center gap-3.5 rounded-2xl px-3 py-2.5 transition-colors duration-150",
-        pathname === href ? "bg-brand-50/70" : "hover:bg-surface-tint"
+        pathname === href ? "bg-gold-200/70 dark:bg-gold-300/30" : "hover:bg-gold-200/50 dark:hover:bg-gold-300/20"
       )}
     >
       <Flag code={d.flag} size={40} className="ring-2 ring-surface" />
@@ -200,11 +200,11 @@ export function Navbar() {
   };
   const close = () => setMenu(null);
 
-  // The landing page has its own palette: charcoal + lime instead of blue
+  // The landing page has its own palette (glass bar, lime accents)
   const lime = pathname === "/";
-  const activeFill = lime
-    ? "bg-charcoal text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_8px_20px_-10px_rgba(17,19,24,0.6)] dark:bg-citron-300 dark:text-night"
-    : "bg-gradient-to-r from-brand-600 to-violet-600 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_8px_20px_-10px_rgba(79,70,229,0.8)]";
+  // The current page is a deeper gold than an open or hovered item, on every page and theme
+  const activeFill =
+    "bg-gold-300 text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_8px_20px_-10px_rgba(180,130,20,0.7)]";
 
   // lg–xl (1024–1279px) is the tight range: items and edges sit a little closer
   // so the bar still fits next to a scrollbar in every language. An open,
@@ -281,7 +281,7 @@ export function Navbar() {
                     size={14}
                     className={cn(
                       "transition-transform duration-200",
-                      activeKey === id ? "text-white/80" : menu === id ? "text-night/70" : "text-ink-400 group-hover:text-night/70",
+                      activeKey === id || menu === id ? "text-night/70" : "text-ink-400 group-hover:text-night/70",
                       menu === id && "rotate-180"
                     )}
                   />
@@ -451,10 +451,8 @@ export function Navbar() {
                   className={cn(
                     "flex h-11 items-center rounded-pill px-5 text-body-sm font-semibold transition-colors",
                     activeKey === item.key || pathname === item.href
-                      ? lime
-                        ? "bg-charcoal text-white shadow-button dark:bg-citron-300 dark:text-night"
-                        : "bg-gradient-to-r from-brand-600 to-violet-600 text-white shadow-button"
-                      : "border border-surface-border bg-surface-tint text-ink-800"
+                      ? cn(activeFill, "shadow-button")
+                      : "border border-surface-border bg-surface-tint text-ink-800 active:bg-gold-200 active:text-night"
                   )}
                 >
                   {item.label}
