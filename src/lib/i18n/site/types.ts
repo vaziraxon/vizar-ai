@@ -107,6 +107,8 @@ export interface SiteContent {
       next: string;
       pause: string;
       play: string;
+      more: string;
+      less: string;
       samples: Three<{ persona: string; quote: string }>;
       /** Customers write their own review — free, signed-in, one per account */
       write: string;

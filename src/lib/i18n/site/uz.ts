@@ -285,6 +285,9 @@ export const uz: SiteContent = {
       next: "Keyingi",
       pause: "To‘xtatish",
       play: "Davom ettirish",
+      /** Long reviews are clamped to a few lines */
+      more: "Davomini o‘qish",
+      less: "Yopish",
       samples: [
         { persona: "O‘qish · magistratura", quote: "Savollarga javob berdim — tayyorgarlik bahosi va qaysi joyim zaifligi bitta sahifada chiqdi." },
         { persona: "IT mutaxassis", quote: "Ariza qaysi bosqichda ekanini va keyingi qadamni endi bir joyda kuzataman." },

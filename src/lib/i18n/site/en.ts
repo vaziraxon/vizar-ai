@@ -283,6 +283,9 @@ export const en: SiteContent = {
       next: "Next",
       pause: "Pause",
       play: "Play",
+      /** Long reviews are clamped to a few lines */
+      more: "Read more",
+      less: "Show less",
       samples: [
         { persona: "Study · master's", quote: "I answered the questions — my readiness score and weak spots came up on a single page." },
         { persona: "IT specialist", quote: "I now track which stage my application is at, and the next step, in one place." },
