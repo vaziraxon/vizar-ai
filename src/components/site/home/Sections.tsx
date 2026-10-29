@@ -5,9 +5,21 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Flag } from "@/components/site/Flag";
 import { Accordion } from "@/components/site/Accordion";
-import { ArrowLink, SectionHeader } from "@/components/site/primitives";
+import { SectionHeader } from "@/components/site/primitives";
 import { useSite } from "@/lib/i18n/site";
 import { DESTINATION_BY_SLUG, POPULAR } from "@/lib/site/registry";
+
+// Violet pill with a soft glow, in step with the navbar sign-in button
+const VIOLET_PILL =
+  "group inline-flex h-12 items-center gap-3 whitespace-nowrap rounded-pill bg-gradient-to-r from-[#7138EC] to-violet-600 pl-6 pr-1.5 text-body-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_14px_30px_-12px_rgba(113,56,236,0.8)] transition-[transform,box-shadow] duration-200 hover:-translate-y-px hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_18px_36px_-12px_rgba(113,56,236,0.95)] active:translate-y-0";
+
+function PillArrow() {
+  return (
+    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 ring-1 ring-white/25 transition-colors duration-200 group-hover:bg-lemon-300 group-hover:text-night">
+      <ArrowRight size={16} strokeWidth={2.2} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+    </span>
+  );
+}
 
 /* -------------------------------------------------------------------------- */
 /* Destinations — photo cards                                                   */
@@ -27,15 +39,9 @@ export function DestinationsSection() {
           title={d.title}
           subtitle={d.subtitle}
           action={
-            // Violet pill with a soft glow, in step with the navbar sign-in button
-            <Link
-              href="/destinations"
-              className="group inline-flex h-12 items-center gap-3 whitespace-nowrap rounded-pill bg-gradient-to-r from-[#7138EC] to-violet-600 pl-6 pr-1.5 text-body-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_14px_30px_-12px_rgba(113,56,236,0.8)] transition-[transform,box-shadow] duration-200 hover:-translate-y-px hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_18px_36px_-12px_rgba(113,56,236,0.95)]"
-            >
+            <Link href="/destinations" className={VIOLET_PILL}>
               {d.all}
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 ring-1 ring-white/25 transition-colors duration-200 group-hover:bg-lemon-300 group-hover:text-night">
-                <ArrowRight size={16} strokeWidth={2.2} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-              </span>
+              <PillArrow />
             </Link>
           }
         />
@@ -96,12 +102,14 @@ export function FaqSection() {
     <section aria-labelledby="faq-title" className="pb-12 md:pb-14 lg:pb-16">
       <div className="container-page max-w-3xl">
         <SectionHeader id="faq-title" align="center" emoji="💬" eyebrow={site.faq.eyebrow} title={site.faq.title} subtitle={site.faq.subtitle} />
-        <div data-reveal className="mt-12">
-          <Accordion items={site.faq.items.slice(0, 4)} defaultOpen={null} />
+        {/* Compact violet question cards, a little narrower than the heading */}
+        <div data-reveal className="mx-auto mt-9 max-w-2xl">
+          <Accordion items={site.faq.items.slice(0, 4)} defaultOpen={null} tone="violet" />
         </div>
-        <div className="mt-10 text-center">
-          <Link href="/faq" className="rounded">
-            <ArrowLink>{site.home.more.faq}</ArrowLink>
+        <div className="mt-8 text-center">
+          <Link href="/faq" className={VIOLET_PILL}>
+            {site.home.more.faq}
+            <PillArrow />
           </Link>
         </div>
       </div>
