@@ -11,8 +11,37 @@ import { cn } from "@/lib/utils";
 // three.js + R3F load in their own chunk, after the page is idle
 const Globe3D = dynamic(() => import("./Globe3D").then((m) => m.Globe3D), { ssr: false });
 
-/** Mascot artwork (transparent WebP, 984×1393) standing in front of the globe. */
-const MASCOT = { src: "/images/mascot/penguin.webp", width: 984, height: 1393 };
+/**
+ * Mascot artwork (transparent WebP, 984×1393) standing in front of the globe.
+ * Two pixel-aligned frames that differ only at the right eye: the open-eyed
+ * pose shows by default and the wink flashes in now and then.
+ */
+const MASCOT = { open: "/images/mascot/penguin-open.webp", wink: "/images/mascot/penguin-wink.webp", width: 984, height: 1393 };
+const WINK_MS = 650;
+
+/** Every 5–8s the penguin winks for a moment — only while on screen, never for reduced motion. */
+function useWink(active: boolean) {
+  const [winking, setWinking] = useState(false);
+  useEffect(() => {
+    if (!active || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let timer = 0;
+    const next = () => {
+      timer = window.setTimeout(() => {
+        setWinking(true);
+        timer = window.setTimeout(() => {
+          setWinking(false);
+          next();
+        }, WINK_MS);
+      }, 5000 + Math.random() * 3000);
+    };
+    next();
+    return () => {
+      window.clearTimeout(timer);
+      setWinking(false);
+    };
+  }, [active]);
+  return winking;
+}
 
 /**
  * Destination cards floating around the globe (positions in % of the stage),
@@ -39,8 +68,7 @@ function webglAvailable() {
  * The hero's right side: the VIZAR penguin standing in front of an
  * interactive 3D globe (lazy, client-only) over a static CSS globe that shows
  * first and stays as the fallback when WebGL is missing. Rendering pauses
- * while the stage is off screen. The mascot only floats — no blinking or
- * waving until layered artwork exists.
+ * while the stage is off screen. The mascot floats and winks now and then.
  */
 export function HeroGlobe({ className }: { className?: string }) {
   const site = useSite();
@@ -49,6 +77,7 @@ export function HeroGlobe({ className }: { className?: string }) {
   const [ready, setReady] = useState(false);
   const [active, setActive] = useState(true);
   const [env, setEnv] = useState({ reducedMotion: false, compact: false });
+  const winking = useWink(active);
 
   useEffect(() => {
     const el = stage.current;
@@ -91,15 +120,27 @@ export function HeroGlobe({ className }: { className?: string }) {
         className="pointer-events-none absolute -bottom-[1.5%] left-[1%] h-[6%] w-[50%] animate-float-shadow rounded-[50%] bg-[radial-gradient(closest-side,rgba(16,17,34,0.34),rgba(16,17,34,0))] motion-reduce:animate-none dark:bg-[radial-gradient(closest-side,rgba(0,0,0,0.55),rgba(0,0,0,0))]"
       />
       <div className="pointer-events-none absolute bottom-0 -left-[4%] w-[56%] animate-float motion-reduce:animate-none" style={{ ["--tilt" as string]: "0deg" }}>
-        <Image
-          src={MASCOT.src}
-          width={MASCOT.width}
-          height={MASCOT.height}
-          alt={site.home.hero.mascotAlt}
-          priority
-          sizes="(min-width: 1024px) 340px, 56vw"
-          className="h-auto w-full select-none drop-shadow-[0_18px_26px_rgba(16,17,34,0.22)]"
-        />
+        <div className="relative drop-shadow-[0_18px_26px_rgba(16,17,34,0.22)]">
+          <Image
+            src={MASCOT.open}
+            width={MASCOT.width}
+            height={MASCOT.height}
+            alt={site.home.hero.mascotAlt}
+            priority
+            sizes="(min-width: 1024px) 340px, 56vw"
+            className="h-auto w-full select-none"
+          />
+          <Image
+            src={MASCOT.wink}
+            width={MASCOT.width}
+            height={MASCOT.height}
+            alt=""
+            aria-hidden="true"
+            loading="eager"
+            sizes="(min-width: 1024px) 340px, 56vw"
+            className={cn("absolute inset-0 h-full w-full select-none transition-opacity duration-100", winking ? "opacity-100" : "opacity-0")}
+          />
+        </div>
       </div>
 
       {CHIPS.map(({ slug, className: place, tilt, delay }) => (
