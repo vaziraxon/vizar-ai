@@ -39,10 +39,10 @@ export function DestinationsSection() {
             const dest = DESTINATION_BY_SLUG[p.slug];
             return (
               <li key={p.country} data-reveal style={{ ["--reveal-delay" as string]: `${(i % 4) * 50}ms` }}>
-                {/* Lemon frame around each photo */}
+                {/* Lemon frame around each photo, with a soft golden shadow that lifts on hover */}
                 <Link
                   href={`/destinations/${p.slug}`}
-                  className="group block rounded-[26px] bg-lemon-300 p-1.5 shadow-xs transition-[background-color,box-shadow] duration-300 hover:bg-lemon-400 hover:shadow-card-hover sm:p-2"
+                  className="group block rounded-[26px] bg-lemon-300 p-1.5 shadow-[0_22px_44px_-14px_rgba(222,186,10,0.7),0_6px_16px_-6px_rgba(222,186,10,0.45)] transition-[transform,background-color,box-shadow] duration-300 ease-premium hover:-translate-y-1 hover:bg-lemon-400 hover:shadow-[0_30px_56px_-14px_rgba(222,186,10,0.85),0_8px_20px_-6px_rgba(222,186,10,0.55)] dark:shadow-[0_18px_40px_-16px_rgba(247,227,90,0.4)] dark:hover:shadow-[0_26px_52px_-16px_rgba(247,227,90,0.55)] sm:p-2"
                 >
                   <span className="relative block aspect-[5/6] overflow-hidden rounded-[20px] bg-surface-muted">
                     <Image
