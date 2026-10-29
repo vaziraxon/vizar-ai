@@ -348,12 +348,6 @@ export const en: SiteContent = {
       ],
     },
     more: { pricing: "Compare plans", faq: "All questions" },
-    tools: {
-      eyebrow: "Visa tools",
-      title: "A dedicated tool for every stage",
-      subtitle: "Each one does a single job well.",
-      all: "All tools",
-    },
     destinations: {
       eyebrow: "Destinations",
       title: "Popular visa destinations",
