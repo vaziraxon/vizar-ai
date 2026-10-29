@@ -240,14 +240,11 @@ export const en: SiteContent = {
   home: {
     hero: {
       eyebrow: "The AI platform for visa preparation",
-      headline: { line1: "Get visa-ready for", rotating: ["Schengen", "USA", "Canada", "Japan", "Korea", "UAE"], line2Pre: "Travel smarter with", line2Post: "today." },
-      cluster: "{n} destinations",
-      clusterNote: "Schengen, USA, Japan and more",
-      pass: { fromCity: "Tashkent", toCity: "Paris", scoreLabel: "Score" },
-      subtitle: "Documents, score and your next step — in one place.",
+      headline: { line1: "Prepare for your visa.", line2Pre: "Start with", line2Post: "." },
+      subtitle: "Check your documents, assess your readiness and find your next step — all in one place.",
       ctaPrimary: "Start preparing",
       ctaSecondary: "How it works",
-      trust: ["Free sign-up", "Your data stays protected", "Independent — not an embassy"],
+      mascotAlt: "The VIZAR mascot — a penguin in a yellow suit with a passport and suitcase by a globe",
       panel: {
         route: "Schengen · Tourist · France",
         tabs: ["Overview", "Documents", "Roadmap"],
@@ -273,7 +270,24 @@ export const en: SiteContent = {
           { title: "Submit application", when: "Planned", state: "todo" },
         ],
       },
-      journey: { title: "Visa journey", steps: ["Profile", "Documents", "Score", "Interview", "Apply"] },
+    },
+    testimonials: {
+      eyebrow: "Stories",
+      title: "Real stories from our customers",
+      subtitle: "People who got closer to their trip with VIZAR AI.",
+      sampleTitle: "Stories from our customers",
+      sampleSubtitle: "Real reviews will appear here with users' consent. For now — sample cards.",
+      sampleBadge: "Sample",
+      usedTool: "Tool",
+      prev: "Previous",
+      next: "Next",
+      pause: "Pause",
+      play: "Play",
+      samples: [
+        { persona: "Study · master's", quote: "I answered the questions — my readiness score and weak spots came up on a single page." },
+        { persona: "IT specialist", quote: "I now track which stage my application is at, and the next step, in one place." },
+        { persona: "Family trip", quote: "I sent my document question to an expert and learned exactly what to fix." },
+      ],
     },
     tour: {
       label: "Product",

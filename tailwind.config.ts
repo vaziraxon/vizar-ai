@@ -85,6 +85,13 @@ const config: Config = {
           400: "#C6E244",
           500: "#A6C22B",
         },
+        // Champagne gold — landing hero underline and CTA arrow tiles (fills
+        // and strokes only; pair with night text)
+        gold: {
+          200: "#FBE5A6",
+          300: "#F5CD65",
+          400: "#EDB940",
+        },
         // Charcoal — the landing page's dark pill buttons (white text)
         charcoal: {
           DEFAULT: "#2B2D33",
@@ -119,6 +126,9 @@ const config: Config = {
         display: ["var(--font-display)", "system-ui", "sans-serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         accent: ["var(--font-accent)", "Georgia", "serif"],
+        // Landing-page display serif (Bodoni Moda) — defined inside .landing-lime
+        luxe: ["var(--font-luxe)", "Georgia", "serif"],
+        "luxe-italic": ["var(--font-luxe-italic)", "Georgia", "serif"],
       },
       fontSize: {
         // Strong but not oversized: hero tops out at 60px, sections at 40px.
@@ -184,6 +194,11 @@ const config: Config = {
         dash: "dash 1.6s linear infinite",
         // Aurora blobs wander slowly behind hero content
         drift: "drift 18s ease-in-out infinite",
+        // Landing hero entrance: words rise out of a mask, blocks fade up,
+        // the gold underline draws left → right (pathLength = 1)
+        "reveal-up": "reveal-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both",
+        rise: "rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both",
+        draw: "draw 1s cubic-bezier(0.65, 0, 0.35, 1) both",
       },
       keyframes: {
         shimmer: {
@@ -222,6 +237,18 @@ const config: Config = {
         marquee: {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
+        },
+        "reveal-up": {
+          "0%": { transform: "translateY(110%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        rise: {
+          "0%": { opacity: "0", transform: "translateY(18px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        draw: {
+          "0%": { strokeDashoffset: "1" },
+          "100%": { strokeDashoffset: "0" },
         },
       },
     },

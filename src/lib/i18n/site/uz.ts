@@ -242,14 +242,11 @@ export const uz: SiteContent = {
   home: {
     hero: {
       eyebrow: "Viza tayyorgarligi uchun AI platforma",
-      headline: { line1: "Vizaga tayyorlaning", rotating: ["Shengen", "AQSH", "Kanada", "Yaponiya", "Koreya", "BAA"], line2Pre: "Yo‘lingizni", line2Post: "bilan boshlang." },
-      cluster: "{n} ta yo‘nalish",
-      clusterNote: "Shengen, AQSH, Yaponiya va boshqalar",
-      pass: { fromCity: "Toshkent", toCity: "Parij", scoreLabel: "Baho" },
-      subtitle: "Hujjatlar, baho va keyingi qadam — bitta joyda.",
+      headline: { line1: "Vizaga tayyorlaning.", line2Pre: "", line2Post: "bilan boshlang." },
+      subtitle: "Hujjatlaringizni tekshiring, tayyorgarligingizni baholang va keyingi qadamingizni — bitta joyda aniqlang.",
       ctaPrimary: "Tayyorgarlikni boshlash",
       ctaSecondary: "Qanday ishlaydi?",
-      trust: ["Bepul ro‘yxatdan o‘tish", "Ma’lumotlaringiz himoyalangan", "Mustaqil platforma — elchixona emas"],
+      mascotAlt: "VIZAR maskoti — sariq kostyumdagi pingvin pasport va chamadon bilan globus yonida",
       panel: {
         route: "Shengen · Turistik · Fransiya",
         tabs: ["Umumiy", "Hujjatlar", "Yo‘l xaritasi"],
@@ -275,7 +272,24 @@ export const uz: SiteContent = {
           { title: "Ariza topshirish", when: "Rejada", state: "todo" },
         ],
       },
-      journey: { title: "Viza yo‘li", steps: ["Profil", "Hujjatlar", "Baho", "Suhbat", "Ariza"] },
+    },
+    testimonials: {
+      eyebrow: "Hikoyalar",
+      title: "Mijozlarimizning real hikoyalari",
+      subtitle: "VIZAR AI yordamida orzulariga yaqinlashganlar.",
+      sampleTitle: "Mijozlarimizning hikoyalari",
+      sampleSubtitle: "Haqiqiy sharhlar foydalanuvchilar roziligi bilan shu yerda chiqadi. Hozircha — namunaviy kartalar.",
+      sampleBadge: "Namuna",
+      usedTool: "Vosita",
+      prev: "Oldingi",
+      next: "Keyingi",
+      pause: "To‘xtatish",
+      play: "Davom ettirish",
+      samples: [
+        { persona: "O‘qish · magistratura", quote: "Savollarga javob berdim — tayyorgarlik bahosi va qaysi joyim zaifligi bitta sahifada chiqdi." },
+        { persona: "IT mutaxassis", quote: "Ariza qaysi bosqichda ekanini va keyingi qadamni endi bir joyda kuzataman." },
+        { persona: "Oilaviy sayohat", quote: "Hujjatlar bo‘yicha savolimni mutaxassisga yozdim va nimani to‘g‘rilash kerakligini aniq bildim." },
+      ],
     },
     tour: {
       label: "Mahsulot",

@@ -6,6 +6,7 @@ import {
   MessagesSquare,
   Bot,
   BookOpen,
+  MessageSquareQuote,
   FileWarning,
   ListChecks,
   UserCog,
@@ -321,6 +322,7 @@ export const ADMIN_STATS: AdminStat[] = [
 export const ADMIN_NAV: SidebarNavItem[] = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
   { icon: BookOpen, label: "AI bilimlar bazasi", href: "/admin/knowledge" },
+  { icon: MessageSquareQuote, label: "Mijozlar sharhlari", href: "/admin/testimonials" },
   { icon: Users, label: "Foydalanuvchilar", href: "/admin" },
   { icon: FileSearch2, label: "Arizalar", href: "/admin" },
   { icon: FolderOpen, label: "Hujjatlar", href: "/admin" },
