@@ -58,12 +58,14 @@ const formatDate = (iso: string) => {
  * light reflection. Long reviews are clamped to four lines with a "read more"
  * toggle, so one chatty review cannot stretch the whole row.
  */
-function StoryCard({ card, width, labels, hidden }: { card: Card; width: number; labels: Labels; hidden: boolean }) {
+function StoryCard({ card, width, labels, hidden }: { card: Card; width?: number; labels: Labels; hidden: boolean }) {
   const site = useSite();
   const tilt = useRef<HTMLElement>(null);
   const quote = useRef<HTMLQuoteElement>(null);
   const [open, setOpen] = useState(false);
-  const [overflows, setOverflows] = useState(false);
+  // First guess from the length (same on server and client), corrected once measured,
+  // so the "read more" line is usually already there in the server HTML
+  const [overflows, setOverflows] = useState(() => card.quote.length > 150);
 
   useEffect(() => {
     const el = quote.current;
@@ -87,7 +89,14 @@ function StoryCard({ card, width, labels, hidden }: { card: Card; width: number;
   };
 
   return (
-    <div aria-hidden={hidden || undefined} style={{ width }} className="shrink-0 py-3" onPointerMove={onMove} onPointerLeave={onLeave}>
+    <div
+      aria-hidden={hidden || undefined}
+      style={width ? { width } : undefined}
+      // Until the ribbon has measured itself, CSS gives the same widths (1 / 2 / 3 per view)
+      className={cn("shrink-0 py-3", !width && "w-[min(86%,380px)] sm:w-[calc((100%_-_24px)/2)] lg:w-[calc((100%_-_48px)/3)]")}
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
+    >
       <article
         ref={tilt}
         className="spotlight relative flex h-full flex-col rounded-[24px] border border-surface-border bg-surface p-5 shadow-card transition-[transform,box-shadow] duration-300 ease-premium hover:shadow-card-hover"
@@ -300,6 +309,18 @@ function StoryRibbon({ cards, labels }: { cards: Card[]; labels: Labels }) {
     if (e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.releasePointerCapture(e.pointerId);
   };
 
+  // Server HTML and first paint: one row of CSS-sized cards, centred where they
+  // will fit and start-aligned where the ribbon will loop, so nothing jumps later
+  const measured = layout.cardW > 0;
+  const preAlign =
+    cards.length <= 1
+      ? "justify-center"
+      : cards.length === 2
+        ? "justify-start sm:justify-center"
+        : cards.length === 3
+          ? "justify-start lg:justify-center"
+          : "justify-start";
+
   const controlClass =
     "flex h-11 w-11 items-center justify-center rounded-full border border-surface-border bg-surface text-ink-900 shadow-xs transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:shadow-card-hover";
 
@@ -328,15 +349,14 @@ function StoryRibbon({ cards, labels }: { cards: Card[]; labels: Labels }) {
       >
         <div
           ref={track}
-          className={cn("flex will-change-transform", layout.loop ? "w-max" : "flex-wrap justify-center")}
+          className={cn("flex will-change-transform", !measured ? preAlign : layout.loop ? "w-max" : "flex-wrap justify-center")}
           style={{ gap: layout.gap }}
         >
-          {layout.cardW > 0 &&
-            Array.from({ length: layout.copies }, (_, copy) =>
-              cards.map((card) => (
-                <StoryCard key={`${copy}-${card.key}`} card={card} width={layout.cardW} labels={labels} hidden={copy > 0} />
-              ))
-            )}
+          {Array.from({ length: layout.copies }, (_, copy) =>
+            cards.map((card) => (
+              <StoryCard key={`${copy}-${card.key}`} card={card} width={measured ? layout.cardW : undefined} labels={labels} hidden={copy > 0} />
+            ))
+          )}
         </div>
       </div>
 
