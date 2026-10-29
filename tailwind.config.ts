@@ -85,6 +85,13 @@ const config: Config = {
           400: "#C6E244",
           500: "#A6C22B",
         },
+        // Lemon — the photo frames on the landing destination cards (fills only;
+        // pair with night text)
+        lemon: {
+          200: "#FBF1A6",
+          300: "#F7E35A",
+          400: "#EFD43A",
+        },
         // Champagne gold — landing hero underline and CTA arrow tiles (fills
         // and strokes only; pair with night text)
         gold: {
