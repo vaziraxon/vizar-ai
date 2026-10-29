@@ -163,9 +163,7 @@ export interface SiteContent {
     more: { pricing: string; faq: string };
     /** Two endless rows: what to prepare (emoji by index) + destinations */
     marquee: { label: string; items: string[] };
-    bento: { eyebrow: string; title: string; subtitle: string; languagesTitle: string; languagesText: string; alertsText: string };
     destinations: { eyebrow: string; title: string; subtitle: string; all: string };
-    how: { eyebrow: string; title: string; subtitle: string; steps: Three<Step>; cta: string };
     cta: { title: string; subtitle: string; primary: string; secondary: string };
   };
   howPage: {
