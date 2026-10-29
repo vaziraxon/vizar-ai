@@ -206,9 +206,11 @@ export function Navbar() {
     ? "bg-charcoal text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_8px_20px_-10px_rgba(17,19,24,0.6)] dark:bg-citron-300 dark:text-night"
     : "bg-gradient-to-r from-brand-600 to-violet-600 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_8px_20px_-10px_rgba(79,70,229,0.8)]";
 
+  // lg–xl (1024–1279px) is the tight range: items and edges sit a little closer
+  // so the bar still fits next to a scrollbar in every language
   const itemClass = (key: string) =>
     cn(
-      "flex h-11 items-center gap-1 whitespace-nowrap rounded-pill px-3.5 text-body-sm font-medium transition-[background-color,color,box-shadow] duration-200 xl:px-4",
+      "flex h-11 items-center gap-1 whitespace-nowrap rounded-pill px-3 text-body-sm font-medium transition-[background-color,color,box-shadow] duration-200 xl:px-4",
       activeKey === key
         ? cn(activeFill, "font-semibold")
         : menu === key
@@ -231,9 +233,9 @@ export function Navbar() {
       >
         <div
           className={cn(
-            "relative mx-auto flex h-16 max-w-[1240px] items-center justify-between gap-4 px-5 transition-[max-width,background-color,border-color,box-shadow,padding] duration-300 ease-premium sm:px-6 lg:h-[72px] lg:rounded-[26px] lg:border lg:px-8",
+            "relative mx-auto flex h-16 max-w-[1240px] items-center justify-between gap-4 px-5 transition-[max-width,background-color,border-color,box-shadow,padding] duration-300 ease-premium sm:px-6 lg:h-[72px] lg:gap-3 lg:rounded-[26px] lg:border lg:px-6 xl:gap-4 xl:px-8",
             scrolled
-              ? "lg:max-w-[1240px] lg:border-white/80 dark:border-white/10 lg:bg-surface/75 lg:pl-5 lg:pr-2.5 lg:shadow-float lg:backdrop-blur-xl lg:backdrop-saturate-150"
+              ? "lg:max-w-[1240px] lg:border-white/80 dark:border-white/10 lg:bg-surface/75 lg:pl-5 lg:pr-2.5 lg:shadow-float xl:pl-5 xl:pr-2.5 lg:backdrop-blur-xl lg:backdrop-saturate-150"
               : "lg:border-transparent",
             // Landing: a touch more glass once the page scrolls
             scrolled &&
