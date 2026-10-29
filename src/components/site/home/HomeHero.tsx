@@ -61,7 +61,7 @@ export function HomeHero() {
         <span className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-surface-canvas/0 to-surface-canvas" />
       </div>
 
-      <div className="container-page relative grid items-center gap-8 pb-16 pt-28 sm:pt-32 lg:grid-cols-12 lg:gap-4 lg:pb-24 lg:pt-36">
+      <div className="container-page relative grid items-center gap-8 pb-12 pt-28 sm:pt-32 lg:grid-cols-12 lg:gap-4 lg:pb-14 lg:pt-36">
         <div className="lg:col-span-7">
           <div className="animate-rise" style={delay(60)}>
             <Eyebrow emoji="✨" className="border-white/80 bg-surface/70 backdrop-blur dark:border-white/10">

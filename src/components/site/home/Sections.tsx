@@ -18,7 +18,7 @@ export function DestinationsSection() {
   const d = site.home.destinations;
 
   return (
-    <section aria-labelledby="dest-title" className="section pt-14 md:pt-16 lg:pt-20">
+    <section aria-labelledby="dest-title" className="section pt-8 md:pt-10 lg:pt-10">
       <div className="container-page">
         <SectionHeader
           id="dest-title"
