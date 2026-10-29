@@ -21,6 +21,10 @@ const nextConfig = {
     // uploads through a server action; stays under Vercel's 4.5 MB request cap.
     serverActions: { bodySizeLimit: "4mb" },
   },
+  // Self-hosted fonts carry a content hash in their names (see app/fonts.css)
+  async headers() {
+    return [{ source: "/fonts/:file*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] }];
+  },
   // App features moved under /dashboard/*. Keep old links (emails,
   // bookmarks, notifications) working. Temporary (307) on purpose so the
   // structure can still change without browsers caching the redirect.

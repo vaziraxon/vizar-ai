@@ -1,29 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Manrope, Playfair_Display } from "next/font/google";
+// Self-hosted Inter, Manrope and Playfair Display italic (editorial accent):
+// builds no longer fetch Google Fonts, which intermittently failed on Vercel
+import "./fonts.css";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-context";
 import { LanguageProvider } from "@/lib/language-context";
 
-const inter = Inter({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const manrope = Manrope({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-manrope",
-  display: "swap",
-});
-
-// Editorial accent — italic serif for a few signature words and numerals
-const playfair = Playfair_Display({
-  subsets: ["latin", "cyrillic"],
-  style: ["italic"],
-  weight: ["500", "600"],
-  variable: "--font-accent",
-  display: "swap",
-});
+/** Latin files for body and display text, fetched before the CSS asks for them. */
+const PRELOAD_FONTS = ["/fonts/inter-normal-100-900-latin.1dc044f4.woff2", "/fonts/manrope-normal-200-800-latin.22630002.woff2"];
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vizarai.com";
 const TITLE = "VIZAR AI — Viza olishga aqlliroq tayyorlaning";
@@ -73,12 +57,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="uz"
-      suppressHydrationWarning
-      className={`${inter.variable} ${manrope.variable} ${playfair.variable}`}
-    >
+    <html lang="uz" suppressHydrationWarning>
       <head>
+        {PRELOAD_FONTS.map((href) => (
+          <link key={href} rel="preload" href={href} as="font" type="font/woff2" crossOrigin="anonymous" />
+        ))}
         {/* Apply a saved dark theme before first paint (no light flash) */}
         <script
           dangerouslySetInnerHTML={{

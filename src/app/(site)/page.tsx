@@ -1,27 +1,17 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Playfair_Display } from "next/font/google";
 import { HomePage } from "@/components/site/pages/HomePage";
 import { getPublishedTestimonials } from "@/lib/data/testimonials";
 import { SITE_CONTENT } from "@/lib/i18n/site";
+// Landing-only display serif (self-hosted): Bodoni Moda, with upright
+// Playfair Display for Cyrillic headings, which Bodoni lacks
+import "./landing-fonts.css";
 
-// Landing-only display serif, preloaded on this route alone. Bodoni Moda has
-// no Cyrillic, so Russian headings fall through to Playfair Display.
-const bodoni = Bodoni_Moda({
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["opsz"],
-  variable: "--font-bodoni",
-  display: "swap",
-  adjustFontFallback: false,
-});
-
-const serifCyrillic = Playfair_Display({
-  subsets: ["cyrillic"],
-  variable: "--font-serif-cyr",
-  display: "swap",
-  preload: false,
-  adjustFontFallback: false,
-});
+/** Latin headline faces (Bodoni upright + italic, Playfair italic for the VIZAR wordmark). */
+const PRELOAD_FONTS = [
+  "/fonts/bodoni-moda-normal-400-900-latin.fe6c560d.woff2",
+  "/fonts/bodoni-moda-italic-400-900-latin.9d952bcb.woff2",
+  "/fonts/playfair-display-italic-500-latin.2ca66e76.woff2",
+];
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -56,7 +46,10 @@ export default async function Home() {
   const testimonials = await getPublishedTestimonials();
   return (
     <>
-      <HomePage fontClassName={`${bodoni.variable} ${serifCyrillic.variable}`} testimonials={testimonials} />
+      {PRELOAD_FONTS.map((href) => (
+        <link key={href} rel="preload" href={href} as="font" type="font/woff2" crossOrigin="anonymous" />
+      ))}
+      <HomePage testimonials={testimonials} />
       <script
         type="application/ld+json"
         // Static, build-time content only — no user input reaches this.

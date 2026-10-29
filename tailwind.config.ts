@@ -189,6 +189,8 @@ const config: Config = {
         "menu-in": "menu-in 0.18s cubic-bezier(0.22, 1, 0.36, 1) both",
         // Decorative emoji stickers drift a few pixels; marquee rows scroll forever
         float: "float 6s ease-in-out infinite",
+        // Ground shadow under a floating element: same 6s rhythm, tighter at the top
+        "float-shadow": "float-shadow 6s ease-in-out infinite",
         marquee: "marquee 50s linear infinite",
         // Flight path: dashes march along the route
         dash: "dash 1.6s linear infinite",
@@ -225,6 +227,10 @@ const config: Config = {
         float: {
           "0%, 100%": { transform: "translateY(0) rotate(var(--tilt, 0deg))" },
           "50%": { transform: "translateY(-10px) rotate(var(--tilt, 0deg))" },
+        },
+        "float-shadow": {
+          "0%, 100%": { transform: "scaleX(1)", opacity: "1" },
+          "50%": { transform: "scaleX(0.84)", opacity: "0.65" },
         },
         dash: {
           to: { strokeDashoffset: "-28" },
