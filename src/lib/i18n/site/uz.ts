@@ -349,7 +349,7 @@ export const uz: SiteContent = {
         { title: "Konsultatsiya vaqti tasdiqlandi", time: "2 kun oldin", tone: "info" },
       ],
     },
-    more: { pricing: "Tariflarni solishtirish", faq: "Barcha savollar" },
+    more: { faq: "Barcha savollar" },
     destinations: {
       eyebrow: "Yo‘nalishlar",
       title: "Mashhur viza yo‘nalishlari",

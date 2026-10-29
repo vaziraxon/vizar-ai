@@ -347,7 +347,7 @@ export const ru: SiteContent = {
         { title: "Время консультации подтверждено", time: "2 дня назад", tone: "info" },
       ],
     },
-    more: { pricing: "Сравнить тарифы", faq: "Все вопросы" },
+    more: { faq: "Все вопросы" },
     destinations: {
       eyebrow: "Направления",
       title: "Популярные визовые направления",

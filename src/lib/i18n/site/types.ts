@@ -153,7 +153,7 @@ export interface SiteContent {
       subtitle: string;
       alerts: { title: string; time: string; tone: "warn" | "ok" | "info" }[];
     };
-    more: { pricing: string; faq: string };
+    more: { faq: string };
     destinations: { eyebrow: string; title: string; subtitle: string; all: string };
     cta: { title: string; subtitle: string; primary: string; secondary: string };
   };

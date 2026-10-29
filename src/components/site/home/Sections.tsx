@@ -5,7 +5,6 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Flag } from "@/components/site/Flag";
 import { Accordion } from "@/components/site/Accordion";
-import { PricingPlans } from "@/components/site/PricingPlans";
 import { ArrowLink, SectionHeader } from "@/components/site/primitives";
 import { useSite } from "@/lib/i18n/site";
 import { DESTINATION_BY_SLUG, POPULAR } from "@/lib/site/registry";
@@ -76,35 +75,14 @@ export function DestinationsSection() {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Pricing + FAQ previews                                                      */
+/* FAQ preview                                                                 */
 /* -------------------------------------------------------------------------- */
-
-export function PricingSection() {
-  const site = useSite();
-  const p = site.pricing;
-
-  return (
-    <section aria-labelledby="pricing-title" className="section border-y border-surface-border bg-surface">
-      <div className="container-page">
-        <SectionHeader id="pricing-title" align="center" emoji="💎" eyebrow={p.eyebrow} title={p.title} subtitle={p.subtitle} />
-        <div className="mt-14 lg:mt-16">
-          <PricingPlans tone="lime" />
-        </div>
-        <div className="mt-10 text-center">
-          <Link href="/pricing" className="rounded">
-            <ArrowLink>{site.home.more.pricing}</ArrowLink>
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 export function FaqSection() {
   const site = useSite();
 
   return (
-    <section aria-labelledby="faq-title" className="section">
+    <section aria-labelledby="faq-title" className="section pt-0 md:pt-0 lg:pt-0">
       <div className="container-page max-w-3xl">
         <SectionHeader id="faq-title" align="center" emoji="💬" eyebrow={site.faq.eyebrow} title={site.faq.title} subtitle={site.faq.subtitle} />
         <div data-reveal className="mt-12">
