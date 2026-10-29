@@ -3,10 +3,8 @@
 import { HomeHero } from "@/components/site/home/HomeHero";
 import { Testimonials } from "@/components/site/home/Testimonials";
 import {
-  BentoSection,
   DestinationsSection,
   FaqSection,
-  HowTimeline,
   MarqueeBand,
   PricingSection,
   StatsBand,
@@ -17,10 +15,9 @@ import type { Testimonial } from "@/lib/site/testimonials";
 
 /**
  * Homepage rhythm: violet→lime hero with the mascot → customer stories →
- * emoji marquee → facts strip → tool cards → three steps → dark bento →
- * destinations → plans → FAQ → CTA. `.landing-lime` swaps in the landing
- * palette and the Bodoni headings (see globals.css and
- * app/(site)/landing-fonts.css).
+ * emoji marquee → facts strip → tool cards → destinations → plans → FAQ →
+ * CTA. `.landing-lime` swaps in the landing palette and the Bodoni headings
+ * (see globals.css and app/(site)/landing-fonts.css).
  */
 export function HomePage({ testimonials }: { testimonials: Testimonial[] }) {
   return (
@@ -30,8 +27,6 @@ export function HomePage({ testimonials }: { testimonials: Testimonial[] }) {
       <MarqueeBand />
       <StatsBand />
       <ToolsGrid />
-      <HowTimeline />
-      <BentoSection />
       <DestinationsSection />
       <PricingSection />
       <FaqSection />

@@ -358,14 +358,6 @@ export const en: SiteContent = {
       ],
     },
     more: { pricing: "Compare plans", faq: "All questions" },
-    bento: {
-      eyebrow: "Capabilities",
-      title: "Your whole preparation — in one place",
-      subtitle: "Score, documents, interview and application status — all connected.",
-      languagesTitle: "In three languages",
-      languagesText: "The interface works in Uzbek, Russian and English.",
-      alertsText: "Never miss a deadline or a change",
-    },
     marquee: {
       label: "What to prepare",
       items: ["Passport validity", "Photo requirements", "Bank statement", "Employment letter", "Hotel booking", "Flight reservation", "Travel insurance", "Invitation letter", "Appointment date", "Interview questions"],
@@ -381,17 +373,6 @@ export const en: SiteContent = {
       title: "Popular visa destinations",
       subtitle: "Requirements and prep — separately for every destination.",
       all: "All destinations",
-    },
-    how: {
-      eyebrow: "How it works",
-      title: "A clear plan in three steps",
-      subtitle: "Questions → analysis → your plan.",
-      steps: [
-        { title: "Answer a few questions", desc: "About your destination and situation." },
-        { title: "AI analyses", desc: "Your strengths and gaps are identified." },
-        { title: "Get your plan", desc: "What to do next — in order." },
-      ],
-      cta: "Learn more",
     },
     cta: {
       title: "Start preparing today",

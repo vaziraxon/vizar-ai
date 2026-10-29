@@ -360,14 +360,6 @@ export const uz: SiteContent = {
       ],
     },
     more: { pricing: "Tariflarni solishtirish", faq: "Barcha savollar" },
-    bento: {
-      eyebrow: "Imkoniyatlar",
-      title: "Butun tayyorgarlik — bitta oynada",
-      subtitle: "Baho, hujjatlar, suhbat va ariza holati — bir-biriga bog‘langan.",
-      languagesTitle: "Uch tilda",
-      languagesText: "Interfeys o‘zbek, rus va ingliz tillarida ishlaydi.",
-      alertsText: "Muddat va o‘zgarishlarni o‘tkazib yubormang",
-    },
     marquee: {
       label: "Tayyorgarlikda nimalar muhim",
       items: ["Pasport muddati", "Fotosurat talablari", "Bank ko‘chirmasi", "Ish joyidan ma’lumotnoma", "Mehmonxona broni", "Aviachipta broni", "Tibbiy sug‘urta", "Taklifnoma", "Uchrashuv sanasi", "Suhbat savollari"],
@@ -383,17 +375,6 @@ export const uz: SiteContent = {
       title: "Mashhur viza yo‘nalishlari",
       subtitle: "Talablar va tayyorgarlik — har bir yo‘nalish uchun alohida.",
       all: "Barcha yo‘nalishlar",
-    },
-    how: {
-      eyebrow: "Qanday ishlaydi",
-      title: "Uch qadamda aniq reja",
-      subtitle: "Savollar → tahlil → shaxsiy reja.",
-      steps: [
-        { title: "Ma’lumotlaringizni kiriting", desc: "Yo‘nalish va holatingiz haqida qisqa savollar." },
-        { title: "AI tahlil qiladi", desc: "Kuchli va zaif tomonlaringiz aniqlanadi." },
-        { title: "Rejangizni oling", desc: "Nima qilish kerakligi — tartib bilan." },
-      ],
-      cta: "Batafsil",
     },
     cta: {
       title: "Tayyorgarlikni bugun boshlang",
