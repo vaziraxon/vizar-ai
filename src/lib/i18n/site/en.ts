@@ -347,7 +347,7 @@ export const en: SiteContent = {
         { title: "Consultation time confirmed", time: "2 days ago", tone: "info" },
       ],
     },
-    more: { pricing: "Compare plans", faq: "All questions" },
+    more: { faq: "All questions" },
     destinations: {
       eyebrow: "Destinations",
       title: "Popular visa destinations",
