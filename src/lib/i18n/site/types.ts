@@ -108,6 +108,37 @@ export interface SiteContent {
       pause: string;
       play: string;
       samples: Three<{ persona: string; quote: string }>;
+      /** Customers write their own review — free, signed-in, one per account */
+      write: string;
+      empty: string;
+      /** "{n}" → number of published reviews */
+      count: string;
+      form: {
+        title: string;
+        note: string;
+        loading: string;
+        signInTitle: string;
+        signInText: string;
+        signIn: string;
+        register: string;
+        name: string;
+        nameHint: string;
+        destination: string;
+        tool: string;
+        rating: string;
+        quote: string;
+        quoteHint: string;
+        choose: string;
+        consent: string;
+        submit: string;
+        save: string;
+        remove: string;
+        close: string;
+        sent: string;
+        hidden: string;
+        removed: string;
+        errors: { signin: string; confirm: string; links: string; invalid: string; failed: string };
+      };
     };
     tour: {
       label: string;

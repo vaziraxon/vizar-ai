@@ -229,6 +229,7 @@ export default async function TestimonialsAdminPage({ searchParams }: { searchPa
                         {r.consent_given ? `Rozilik: ${formatDate(r.consent_at)}` : "Rozilik yo‘q"}
                       </Pill>
                       {r.locale ? <Pill>{r.locale.toUpperCase()}</Pill> : null}
+                      {r.user_id ? <Pill tone="blue">Mijoz o‘zi yozgan</Pill> : null}
                     </div>
                     <p className="mt-1 flex flex-wrap items-center gap-2 text-body-sm text-ink-600">
                       {dest ? <Flag code={dest.flag} size={16} /> : null}
@@ -303,7 +304,9 @@ export default async function TestimonialsAdminPage({ searchParams }: { searchPa
         <Notice ok={searchParams.ok} error={searchParams.error} />
         <p className="mb-6 max-w-3xl text-body-sm text-ink-600">
           Bosh sahifadagi “Mijozlarimizning real hikoyalari” karuseli shu yerdan boshqariladi. Saytda faqat <b>haqiqiy</b> va mijoz
-          <b> roziligi</b> olingan sharhlar chiqadi — matnni mijoz yozganidek kiriting. O‘zgarishlar saytda darhol yangilanadi.
+          <b> roziligi</b> olingan sharhlar chiqadi — matnni mijoz yozganidek kiriting. Ro‘yxatdan o‘tgan mijozlar sharhni saytda o‘zi
+          ham yozadi (bepul, bitta hisobdan bitta) — u darhol chiqadi; nomaqbulini “Saytdan olish” bilan yashiring. O‘zgarishlar saytda
+          darhol yangilanadi.
         </p>
         {body}
       </main>

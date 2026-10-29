@@ -16,7 +16,15 @@ export interface Testimonial {
   locale?: "uz" | "ru" | "en";
   /** Travel photo the customer chose to share */
   photo?: string;
+  /** When it was posted (ISO) */
+  date?: string;
 }
+
+/** Tools a customer can have used today — the review form offers only these. */
+export const REVIEWABLE_TOOLS = ["readiness", "tracker", "experts"] as const satisfies readonly ToolId[];
+
+/** Same spam rule as submit_my_testimonial(): no links, domains or @handles. */
+export const REVIEW_SPAM = /(https?:\/\/|www\.|t\.me\/|@[a-z0-9_]{4,}|[a-z0-9-]+\.(com|uz|ru|net|org|io|me)(\/|\s|$))/i;
 
 /**
  * Labelled sample cards appear only in test mode — local development and

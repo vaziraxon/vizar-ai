@@ -7,7 +7,7 @@ import type { Database } from "@/types/database";
 
 type PublicRow = Pick<
   Database["public"]["Tables"]["testimonials"]["Row"],
-  "id" | "name" | "avatar_url" | "destination" | "tool" | "rating" | "quote" | "locale" | "photo_url"
+  "id" | "name" | "avatar_url" | "destination" | "tool" | "rating" | "quote" | "locale" | "photo_url" | "created_at"
 >;
 
 /**
@@ -22,7 +22,7 @@ export async function getPublishedTestimonials(): Promise<Testimonial[]> {
   const supabase = createClient(env.url, env.anonKey, { auth: { persistSession: false, autoRefreshToken: false } });
   const { data, error } = await supabase
     .from("testimonials")
-    .select("id, name, avatar_url, destination, tool, rating, quote, locale, photo_url")
+    .select("id, name, avatar_url, destination, tool, rating, quote, locale, photo_url, created_at")
     .eq("published", true)
     .eq("consent_given", true)
     .order("sort_order")
@@ -45,5 +45,6 @@ export async function getPublishedTestimonials(): Promise<Testimonial[]> {
       quote: r.quote,
       locale: r.locale ?? undefined,
       photo: r.photo_url ?? undefined,
+      date: r.created_at,
     }));
 }

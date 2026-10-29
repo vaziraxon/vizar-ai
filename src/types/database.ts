@@ -551,6 +551,8 @@ export interface Database {
           published: boolean;
           sort_order: number;
           created_by: string | null;
+          /** Set when the customer wrote the review on the site (supabase/testimonials_user_reviews.sql) */
+          user_id: string | null;
           created_at: string;
           updated_at: string;
         };
