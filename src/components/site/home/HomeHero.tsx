@@ -144,7 +144,8 @@ export function HomeHero() {
           </div>
         </div>
 
-        <div className="animate-rise lg:col-span-5 lg:-mr-16 xl:-mr-28" style={delay(300)}>
+        {/* Bleeds into the page margin only where the viewport has one to spare */}
+        <div className="animate-rise lg:col-span-5 lg:-mr-2 xl:-mr-10 2xl:-mr-24" style={delay(300)}>
           <HeroGlobe />
         </div>
       </div>
