@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Flag } from "@/components/site/Flag";
 import { useSite } from "@/lib/i18n/site";
-import { DESTINATION_BY_SLUG, type DestinationSlug } from "@/lib/site/registry";
+import { DESTINATION_BY_SLUG, type DestinationSlug, type PopularCountry } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
 
 // three.js + R3F load in their own chunk, after the page is idle
@@ -44,14 +44,20 @@ function useWink(active: boolean) {
 }
 
 /**
- * Destination cards floating around the globe (positions in % of the stage),
- * kept clear of the mascot on the left.
+ * Destination and country cards floating around the globe (positions in % of
+ * the stage): on the rim of the globe, clear of the mascot on the left, so the
+ * globe and its planes stay visible; phones get fewer.
  */
-const CHIPS: { slug: DestinationSlug; className: string; tilt: number; delay: number }[] = [
+type Chip = { className: string; tilt: number; delay: number } & ({ slug: DestinationSlug } | { country: PopularCountry });
+const CHIPS: Chip[] = [
   { slug: "canada", className: "left-[30%] top-[1%]", tilt: -6, delay: 0 },
+  { slug: "japan", className: "left-[0%] top-[11%] hidden sm:inline-flex", tilt: 4, delay: 600 },
   { slug: "schengen", className: "right-[1%] top-[9%]", tilt: 6, delay: 1100 },
+  { slug: "south-korea", className: "left-[54%] -top-[4%] hidden sm:inline-flex", tilt: -4, delay: 1700 },
   { slug: "usa", className: "right-[-1%] top-[37%] hidden sm:inline-flex", tilt: 5, delay: 2200 },
+  { country: "de", className: "right-[-3%] top-[50%] hidden sm:inline-flex", tilt: -3, delay: 2800 },
   { slug: "uk", className: "right-[1%] top-[63%] hidden sm:inline-flex", tilt: -5, delay: 3300 },
+  { country: "fr", className: "left-[52%] top-[84%] hidden sm:inline-flex", tilt: 5, delay: 3900 },
   { slug: "uae", className: "right-[16%] -bottom-[1%]", tilt: 4, delay: 4400 },
 ];
 
@@ -143,9 +149,9 @@ export function HeroGlobe({ className }: { className?: string }) {
         </div>
       </div>
 
-      {CHIPS.map(({ slug, className: place, tilt, delay }) => (
+      {CHIPS.map(({ className: place, tilt, delay, ...chip }) => (
         <span
-          key={slug}
+          key={"slug" in chip ? chip.slug : chip.country}
           aria-hidden="true"
           className={cn(
             "pointer-events-none absolute inline-flex select-none items-center gap-2 rounded-2xl border border-white/90 bg-surface/80 py-1.5 pl-1.5 pr-3 shadow-float backdrop-blur-md animate-float motion-reduce:animate-none dark:border-white/10",
@@ -153,9 +159,9 @@ export function HeroGlobe({ className }: { className?: string }) {
           )}
           style={{ ["--tilt" as string]: `${tilt}deg`, transform: `rotate(${tilt}deg)`, animationDelay: `${delay}ms` }}
         >
-          <Flag code={DESTINATION_BY_SLUG[slug].flag} size={26} />
+          <Flag code={"slug" in chip ? DESTINATION_BY_SLUG[chip.slug].flag : chip.country} size={26} />
           <span className="whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.08em] text-ink-900">
-            {site.destinations[slug].name}
+            {"slug" in chip ? site.destinations[chip.slug].name : site.countries[chip.country]}
           </span>
         </span>
       ))}
