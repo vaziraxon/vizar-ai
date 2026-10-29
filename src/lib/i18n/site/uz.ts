@@ -350,12 +350,6 @@ export const uz: SiteContent = {
       ],
     },
     more: { pricing: "Tariflarni solishtirish", faq: "Barcha savollar" },
-    tools: {
-      eyebrow: "Vositalar",
-      title: "Har bir bosqich uchun alohida vosita",
-      subtitle: "Har biri bitta vazifani yaxshi bajaradi.",
-      all: "Barcha vositalar",
-    },
     destinations: {
       eyebrow: "Yo‘nalishlar",
       title: "Mashhur viza yo‘nalishlari",

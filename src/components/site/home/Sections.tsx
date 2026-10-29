@@ -2,85 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, CheckCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Flag } from "@/components/site/Flag";
 import { Accordion } from "@/components/site/Accordion";
 import { PricingPlans } from "@/components/site/PricingPlans";
-import { ArrowLink, SectionHeader, StatusPill, TicketDivider } from "@/components/site/primitives";
+import { ArrowLink, SectionHeader } from "@/components/site/primitives";
 import { useSite } from "@/lib/i18n/site";
-import { DESTINATION_BY_SLUG, POPULAR, TOOL_BY_ID, type ToolId } from "@/lib/site/registry";
-import { cn } from "@/lib/utils";
-
-/* -------------------------------------------------------------------------- */
-/* Tools — four primary tools as full cards with a clear action                */
-/* -------------------------------------------------------------------------- */
-
-const GRID_TOOLS: ToolId[] = ["readiness", "documents", "interview", "tracker"];
-
-export function ToolsGrid() {
-  const site = useSite();
-  const t = site.home.tools;
-
-  return (
-    <section aria-labelledby="tools-title" className="section">
-      <div className="container-page">
-        <SectionHeader
-          id="tools-title"
-          emoji="🧰"
-          eyebrow={t.eyebrow}
-          title={t.title}
-          subtitle={t.subtitle}
-          action={
-            <Link href="/features" className="rounded">
-              <ArrowLink>{t.all}</ArrowLink>
-            </Link>
-          }
-        />
-
-        <ul className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-5">
-          {GRID_TOOLS.map((id, i) => {
-            const tool = TOOL_BY_ID[id];
-            const copy = site.tools[id];
-            const live = tool.status !== "soon";
-            return (
-              <li
-                key={id}
-                data-reveal
-                style={{ ["--reveal-delay" as string]: `${i * 60}ms` }}
-                className="spotlight group relative flex flex-col overflow-hidden rounded-[28px] border border-surface-border bg-surface p-6 shadow-xs transition-[transform,box-shadow,border-color] duration-300 ease-premium hover:-translate-y-1 hover:border-brand-100 hover:shadow-card-hover sm:p-7"
-              >
-                <StatusPill status={tool.status} className="absolute right-5 top-5" />
-                <span
-                  aria-hidden="true"
-                  className="flex h-16 w-16 items-center justify-center rounded-[20px] bg-gradient-to-br from-brand-50 via-surface to-violet-50 text-[30px] leading-none shadow-xs ring-1 ring-brand-100 transition-transform duration-300 ease-premium group-hover:-rotate-6 group-hover:scale-105"
-                >
-                  {tool.emoji}
-                </span>
-                <h3 className="mt-6 font-display text-[22px] font-bold leading-tight tracking-[-0.02em] text-ink-950">{copy.name}</h3>
-                <p className="mt-2 text-body-sm text-ink-600">{copy.desc}</p>
-                <TicketDivider className="-mx-6 mt-6 sm:-mx-7" />
-                <ul className="mt-5 flex-1 space-y-3">
-                  {copy.benefits.map((b) => (
-                    <li key={b} className="flex gap-2.5 text-body-sm text-ink-800">
-                      <CheckCheck size={18} strokeWidth={2.2} className="mt-px shrink-0 text-violet-600 dark:text-citron-300" />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={tool.href}
-                  className={cn("btn-lg mt-7 w-full rounded-2xl", live ? "btn-charcoal" : "btn-secondary")}
-                >
-                  {live ? site.nav.getStarted : site.common.learnMore}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </section>
-  );
-}
+import { DESTINATION_BY_SLUG, POPULAR } from "@/lib/site/registry";
 
 /* -------------------------------------------------------------------------- */
 /* Destinations — photo cards                                                   */
@@ -91,7 +19,7 @@ export function DestinationsSection() {
   const d = site.home.destinations;
 
   return (
-    <section aria-labelledby="dest-title" className="section pt-0 md:pt-0 lg:pt-0">
+    <section aria-labelledby="dest-title" className="section">
       <div className="container-page">
         <SectionHeader
           id="dest-title"
