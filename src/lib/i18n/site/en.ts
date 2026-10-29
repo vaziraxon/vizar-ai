@@ -347,21 +347,7 @@ export const en: SiteContent = {
         { title: "Consultation time confirmed", time: "2 days ago", tone: "info" },
       ],
     },
-    stats: {
-      eyebrow: "The platform",
-      title: "One platform for the whole visa journey",
-      subtitle: "Facts about the product — not user counts.",
-      items: [
-        { value: "7", label: "AI tools", note: "for every stage" },
-        { value: "3", label: "languages", note: "Uzbek, Russian, English" },
-        { value: "37,000", label: "UZS", note: "from — 7-day Standard plan" },
-      ],
-    },
     more: { pricing: "Compare plans", faq: "All questions" },
-    marquee: {
-      label: "What to prepare",
-      items: ["Passport validity", "Photo requirements", "Bank statement", "Employment letter", "Hotel booking", "Flight reservation", "Travel insurance", "Invitation letter", "Appointment date", "Interview questions"],
-    },
     tools: {
       eyebrow: "Visa tools",
       title: "A dedicated tool for every stage",

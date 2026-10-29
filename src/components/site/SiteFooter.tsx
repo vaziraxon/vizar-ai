@@ -13,7 +13,8 @@ import { cn } from "@/lib/utils";
 export function SiteFooter() {
   const site = useSite();
   const { t } = useLanguage();
-  // The landing page has its own palette: violet→lime wordmark, charcoal bar
+  // The landing page has its own palette (violet→lime wordmark, charcoal bar)
+  // and a short footer: no link columns, just the legal note
   const lime = usePathname() === "/";
 
   const columns = [
@@ -47,37 +48,52 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-surface-border bg-surface">
-      <div className="container-page pb-12 pt-16 sm:pt-20">
-        {/* Brand block */}
-        <div className="mx-auto flex max-w-xl flex-col items-center text-center">
-          <Logo />
-          <p className="mt-4 text-body text-ink-600">{site.footer.tagline}</p>
-          <LanguageSelector placement="top" variant="pill" className="mt-6" />
+      {lime ? (
+        // The landing page keeps its footer short: the legal note and where to read more
+        <div className="container-page pb-10 pt-12 text-center">
+          <p className="mx-auto max-w-3xl text-caption leading-relaxed text-ink-500">{site.footer.disclaimer}</p>
+          <p className="mt-3 flex justify-center gap-5 text-caption font-medium">
+            <Link href="/trust-center" className="rounded text-ink-700 underline-offset-4 hover:text-ink-950 hover:underline">
+              {site.footer.trust}
+            </Link>
+            <Link href="/trust-center#legal-disclaimer" className="rounded text-ink-700 underline-offset-4 hover:text-ink-950 hover:underline">
+              {site.footer.legal}
+            </Link>
+          </p>
         </div>
+      ) : (
+        <div className="container-page pb-12 pt-16 sm:pt-20">
+          {/* Brand block */}
+          <div className="mx-auto flex max-w-xl flex-col items-center text-center">
+            <Logo />
+            <p className="mt-4 text-body text-ink-600">{site.footer.tagline}</p>
+            <LanguageSelector placement="top" variant="pill" className="mt-6" />
+          </div>
 
-        {/* Link groups */}
-        <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 border-t border-surface-border pt-12 sm:grid-cols-4">
-          {columns.map((col) => (
-            <nav key={col.title} aria-label={col.title}>
-              <p className="text-caption font-semibold uppercase tracking-[0.1em] text-ink-500">{col.title}</p>
-              <ul className="mt-4 space-y-2.5">
-                {col.links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="rounded text-body-sm text-ink-700 transition-colors duration-150 hover:text-brand-600"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
+          {/* Link groups */}
+          <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 border-t border-surface-border pt-12 sm:grid-cols-4">
+            {columns.map((col) => (
+              <nav key={col.title} aria-label={col.title}>
+                <p className="text-caption font-semibold uppercase tracking-[0.1em] text-ink-500">{col.title}</p>
+                <ul className="mt-4 space-y-2.5">
+                  {col.links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="rounded text-body-sm text-ink-700 transition-colors duration-150 hover:text-brand-600"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
+          </div>
+
+          <p className="mx-auto mt-14 max-w-3xl text-center text-caption leading-relaxed text-ink-500">{site.footer.disclaimer}</p>
         </div>
-
-        <p className="mx-auto mt-14 max-w-3xl text-center text-caption leading-relaxed text-ink-500">{site.footer.disclaimer}</p>
-      </div>
+      )}
 
       {/* Oversized outline wordmark */}
       <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">

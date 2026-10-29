@@ -349,21 +349,7 @@ export const uz: SiteContent = {
         { title: "Konsultatsiya vaqti tasdiqlandi", time: "2 kun oldin", tone: "info" },
       ],
     },
-    stats: {
-      eyebrow: "Platforma haqida",
-      title: "Bitta platforma — butun viza yo‘li",
-      subtitle: "Mahsulot haqidagi faktlar — foydalanuvchilar soni emas.",
-      items: [
-        { value: "7", label: "AI vositasi", note: "har bir bosqich uchun" },
-        { value: "3", label: "til", note: "o‘zbek, rus, ingliz" },
-        { value: "37 000", label: "so‘mdan", note: "7 kunlik Standard tarif" },
-      ],
-    },
     more: { pricing: "Tariflarni solishtirish", faq: "Barcha savollar" },
-    marquee: {
-      label: "Tayyorgarlikda nimalar muhim",
-      items: ["Pasport muddati", "Fotosurat talablari", "Bank ko‘chirmasi", "Ish joyidan ma’lumotnoma", "Mehmonxona broni", "Aviachipta broni", "Tibbiy sug‘urta", "Taklifnoma", "Uchrashuv sanasi", "Suhbat savollari"],
-    },
     tools: {
       eyebrow: "Vositalar",
       title: "Har bir bosqich uchun alohida vosita",
