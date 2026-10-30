@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Play } from "lucide-react";
+import { ArrowUpRight, Play, Star } from "lucide-react";
 import { HeroGlobe } from "@/components/site/home/globe/HeroGlobe";
 import { Starfield } from "@/components/site/home/Starfield";
 import { Eyebrow } from "@/components/site/primitives";
@@ -149,6 +149,17 @@ function HeroHeadline() {
                 part
               )
             )}
+            {/* Five gold stars on a deep violet plate; they pop in one by one each time this line appears */}
+            <span
+              key={Math.floor((swaps + 1) / 2)}
+              className="ml-[0.28em] inline-flex -translate-y-[0.1em] items-center gap-[0.05em] rounded-full bg-gradient-to-br from-[#1E0B4B] via-[#3B0F8C] to-[#5B21B6] px-[0.24em] py-[0.15em] align-middle shadow-[inset_0_1px_0_rgba(255,255,255,0.28),0_14px_28px_-10px_rgba(59,15,140,0.75)] ring-1 ring-white/15 dark:ring-gold-300/30"
+            >
+              {[0, 1, 2, 3, 4].map((i) => (
+                <span key={i} className="block animate-rise" style={delay(450 + i * 90)}>
+                  <Star className="block h-[0.3em] w-[0.3em] fill-gold-300 text-gold-300" strokeWidth={1.5} />
+                </span>
+              ))}
+            </span>
           </span>
         </span>
         <WordmarkLine copy={alt} underlineKey={Math.floor((swaps + 1) / 2)} underlineDelay={500} />
