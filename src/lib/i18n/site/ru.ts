@@ -241,6 +241,7 @@ export const ru: SiteContent = {
     hero: {
       eyebrow: "AI-платформа для подготовки к визе",
       headline: { line1: "Готовьтесь к визе.", line2Pre: "Начните с", line2Post: "." },
+      headlineAlt: { line1: "США, Шенген, Канада", line2Pre: "Получите визу с", line2Post: "." },
       subtitle: "Проверьте документы, оцените готовность и определите следующий шаг — в одном месте.",
       ctaPrimary: "Начать подготовку",
       ctaSecondary: "Как это работает?",

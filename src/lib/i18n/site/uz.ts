@@ -243,6 +243,7 @@ export const uz: SiteContent = {
     hero: {
       eyebrow: "Viza tayyorgarligi uchun AI platforma",
       headline: { line1: "Vizaga tayyorlaning.", line2Pre: "", line2Post: "bilan boshlang." },
+      headlineAlt: { line1: "AQSH, Shengen, Kanada", line2Pre: "", line2Post: "bilan viza oling." },
       subtitle: "Hujjatlaringizni tekshiring, tayyorgarligingizni baholang va keyingi qadamingizni — bitta joyda aniqlang.",
       ctaPrimary: "Tayyorgarlikni boshlash",
       ctaSecondary: "Qanday ishlaydi?",
