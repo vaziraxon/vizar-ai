@@ -39,7 +39,7 @@ function usePointerGlow() {
   return { section, glow };
 }
 
-const HEADLINE_SWAP_MS = 10_000;
+const HEADLINE_SWAP_MS = 5_000;
 // USA, Schengen (EU), Canada: the destinations the second headline names
 const ALT_FLAGS = ["us", "eu", "ca"] as const;
 
@@ -95,7 +95,7 @@ function WordmarkLine({
 }
 
 /**
- * The hero headline: every 10s it swaps between the main line and one naming
+ * The hero headline: every 5s it swaps between the main line and one naming
  * destinations (in red). Both share one grid cell, so the swap never moves the
  * page. Only the main line is exposed to screen readers. With reduced motion
  * the main line simply stays.
@@ -108,8 +108,16 @@ function HeroHeadline() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(() => setSwaps((n) => n + 1), HEADLINE_SWAP_MS);
-    return () => window.clearInterval(id);
+    // Chained timeouts: each line gets its full time even if a timer fires late on a busy page
+    let id = 0;
+    const next = () => {
+      id = window.setTimeout(() => {
+        setSwaps((n) => n + 1);
+        next();
+      }, HEADLINE_SWAP_MS);
+    };
+    next();
+    return () => window.clearTimeout(id);
   }, []);
 
   const layer = (visible: boolean) =>
