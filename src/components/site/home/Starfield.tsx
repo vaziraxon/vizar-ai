@@ -9,6 +9,10 @@ const COLOR_WEIGHTS = [0.5, 0.32, 0.18];
 
 type Star = { x: number; y: number; r: number; color: number; alpha: number; phase: number; speed: number; depth: number };
 type Meteor = { x: number; y: number; vx: number; vy: number; life: number; age: number; length: number };
+type Plane = { x: number; y: number; vx: number; vy: number; scale: number; alpha: number };
+
+// Top-down airliner, nose along +x, about 22px long at scale 1
+const PLANE_SHAPE = "M12 0 L3.5 1.4 L-1.5 7.5 L-3.6 7.5 L-1.4 1.6 L-6.5 1.2 L-8.6 3.6 L-10 3.6 L-8.6 0 L-10 -3.6 L-8.6 -3.6 L-6.5 -1.2 L-1.4 -1.6 L-3.6 -7.5 L-1.5 -7.5 L3.5 -1.4 Z";
 
 function pickColor() {
   const roll = Math.random();
@@ -36,10 +40,11 @@ function makeSprite(rgb: string) {
 }
 
 /**
- * Decorative star field for the hero: twinkling stars drifting slowly
- * down-right, a thin meteor every 2.5–5.5s (now and then two at once), and a
- * faint parallax toward the pointer. Pauses off screen and in background tabs;
- * static (no meteors) for reduced motion; fewer stars on phones.
+ * Decorative sky for the hero: twinkling stars drifting slowly down-right, a
+ * thin meteor every 1.2–2.8s (often two or three at once), small planes crossing
+ * behind the content with a dotted gold trail, and a faint parallax toward the
+ * pointer. Pauses off screen and in background tabs; static (no meteors or
+ * planes) for reduced motion; fewer of everything on phones.
  */
 export function Starfield({ className }: { className?: string }) {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -52,7 +57,7 @@ export function Starfield({ className }: { className?: string }) {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const phone = window.matchMedia("(max-width: 767px)").matches;
     const sprites = COLORS.map(makeSprite);
-    const count = phone ? 110 : 230;
+    const count = phone ? 170 : 340;
     const stars: Star[] = Array.from({ length: count }, () => ({
       x: Math.random(),
       y: Math.random(),
@@ -64,7 +69,27 @@ export function Starfield({ className }: { className?: string }) {
       depth: 0.25 + Math.random() * 0.75,
     }));
     const meteors: Meteor[] = [];
-    let nextMeteor = performance.now() + 1200 + Math.random() * 1800;
+    let nextMeteor = performance.now() + 600 + Math.random() * 900;
+
+    const planeShape = new Path2D(PLANE_SHAPE);
+    const planes: Plane[] = [];
+    const maxPlanes = phone ? 4 : 10;
+    let nextPlane = performance.now() + 1500 + Math.random() * 1500;
+    // Enters from either side at a gentle climb or descent; `anywhere` starts it mid-sky
+    const spawnPlane = (anywhere: boolean) => {
+      const dir = Math.random() < 0.5 ? 1 : -1;
+      const speed = (phone ? 34 : 48) + Math.random() * 46;
+      const tilt = (Math.random() - 0.5) * 0.36;
+      planes.push({
+        x: anywhere ? w * Math.random() : dir > 0 ? -40 : w + 40,
+        y: h * (0.06 + Math.random() * 0.74),
+        vx: dir * speed * Math.cos(tilt),
+        vy: speed * Math.sin(tilt),
+        scale: 0.9 + Math.random() * 0.7,
+        alpha: 0.55 + Math.random() * 0.35,
+      });
+    };
+    let seeded = false;
 
     let w = 0;
     let h = 0;
@@ -112,8 +137,9 @@ export function Starfield({ className }: { className?: string }) {
 
       if (reduced) return;
       if (now > nextMeteor) {
-        // Sometimes a second one follows a moment later from elsewhere
-        const burst = Math.random() < 0.3 ? 2 : 1;
+        // Often one or two more follow a moment later from elsewhere
+        const roll = Math.random();
+        const burst = roll < 0.12 ? 3 : roll < 0.45 ? 2 : 1;
         for (let k = 0; k < burst; k++) {
           const fromTop = Math.random() < 0.6;
           meteors.push({
@@ -126,7 +152,7 @@ export function Starfield({ className }: { className?: string }) {
             length: 120 + Math.random() * 90,
           });
         }
-        nextMeteor = now + 2500 + Math.random() * 3000;
+        nextMeteor = now + 1200 + Math.random() * 1600;
       }
       for (let i = meteors.length - 1; i >= 0; i--) {
         const m = meteors[i]!;
@@ -144,10 +170,10 @@ export function Starfield({ className }: { className?: string }) {
         const tailY = m.y - (m.vy / speed) * m.length;
         const trail = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
         trail.addColorStop(0, `rgba(255, 255, 255, ${0.95 * fade})`);
-        trail.addColorStop(0.25, `rgba(196, 181, 253, ${0.55 * fade})`);
+        trail.addColorStop(0.25, `rgba(167, 139, 250, ${0.8 * fade})`);
         trail.addColorStop(1, "rgba(236, 190, 80, 0)");
         ctx.strokeStyle = trail;
-        ctx.lineWidth = 1.4;
+        ctx.lineWidth = 1.8;
         ctx.lineCap = "round";
         ctx.beginPath();
         ctx.moveTo(m.x, m.y);
@@ -156,6 +182,50 @@ export function Starfield({ className }: { className?: string }) {
         ctx.globalAlpha = fade;
         ctx.drawImage(sprites[0]!, m.x - 5, m.y - 5, 10, 10);
         ctx.globalAlpha = 1;
+      }
+
+      // A few planes are already airborne when the page opens
+      if (!seeded && w > 0) {
+        seeded = true;
+        for (let i = 0; i < (phone ? 2 : 6); i++) spawnPlane(true);
+      }
+      if (now > nextPlane) {
+        if (planes.length < maxPlanes) spawnPlane(false);
+        nextPlane = now + 1200 + Math.random() * 1500;
+      }
+      const dark = document.documentElement.classList.contains("dark");
+      for (let i = planes.length - 1; i >= 0; i--) {
+        const p = planes[i]!;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        if (p.x < -70 || p.x > w + 70 || p.y < -70 || p.y > h + 70) {
+          planes.splice(i, 1);
+          continue;
+        }
+        const heading = Math.atan2(p.vy, p.vx);
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(heading);
+        // Dotted gold trail, fading away behind the tail
+        const tail = 90 * p.scale;
+        const wake = ctx.createLinearGradient(-10 * p.scale, 0, -tail, 0);
+        wake.addColorStop(0, `rgba(237, 185, 64, ${0.85 * p.alpha})`);
+        wake.addColorStop(1, "rgba(237, 185, 64, 0)");
+        ctx.strokeStyle = wake;
+        ctx.lineWidth = 1.5;
+        ctx.lineCap = "round";
+        ctx.setLineDash([1, 6]);
+        ctx.beginPath();
+        ctx.moveTo(-10 * p.scale, 0);
+        ctx.lineTo(-tail, 0);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        // Violet on the pastel wash, white on the night sky
+        ctx.scale(p.scale, p.scale);
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = dark ? "#FFFFFF" : "#5B21B6";
+        ctx.fill(planeShape);
+        ctx.restore();
       }
     };
 
