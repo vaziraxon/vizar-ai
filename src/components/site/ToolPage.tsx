@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight, ChevronRight, Play } from "lucide-react";
-import { CheckLine, EmojiTile, Eyebrow, PillArrow, StatusPill, VIOLET_PILL } from "@/components/site/primitives";
+import { CheckLine, EmojiTile, Eyebrow, GoldUnderline, PillArrow, StatusPill, VIOLET_PILL } from "@/components/site/primitives";
 import { HeroSky } from "@/components/site/home/HeroSky";
 import { LandingFonts } from "@/components/site/LandingFonts";
 import { ToolDemo } from "@/components/site/demos";
@@ -45,10 +45,7 @@ export function ToolPage({ id }: { id: ToolId }) {
             </div>
 
             <h1 className="luxe-firm mt-6 font-luxe text-[clamp(2.7rem,5.2vw,4.7rem)] font-semibold leading-[1.02] tracking-[-0.03em] text-ink-950">{copy.name}</h1>
-            {/* Champagne underline, drawn left → right */}
-            <svg aria-hidden="true" className="mt-3 h-3 w-44 overflow-visible" viewBox="0 0 300 24" preserveAspectRatio="none" fill="none">
-              <path d="M3 18 C 72 7, 176 3, 297 9" pathLength={1} stroke="#EDB940" strokeWidth="3" strokeLinecap="round" strokeDasharray="1" className="animate-draw" style={{ animationDelay: "500ms" }} />
-            </svg>
+            <GoldUnderline className="mt-3" />
             <p className="mt-5 max-w-xl text-body-lg text-ink-600">{copy.desc}</p>
 
             <ul className="mt-8 space-y-3">
@@ -59,13 +56,13 @@ export function ToolPage({ id }: { id: ToolId }) {
               ))}
             </ul>
 
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
                 href="/register"
                 className="btn btn-charcoal btn-sheen group h-14 w-full justify-between pl-7 pr-2 text-body hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-16px_rgba(113,56,236,0.6)] sm:w-auto sm:justify-center sm:gap-4"
               >
                 {copy.cta}
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gold-300 text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:bg-night dark:text-gold-300">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-300 text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:bg-night dark:text-gold-300">
                   <ArrowUpRight size={18} strokeWidth={2.4} className="transition-transform duration-200 group-hover:rotate-45" />
                 </span>
               </Link>
@@ -73,7 +70,7 @@ export function ToolPage({ id }: { id: ToolId }) {
                 href="/how-it-works"
                 className="btn btn-sheen h-14 w-full gap-3 border border-white/80 bg-surface/60 pl-2 pr-7 text-body text-ink-900 shadow-xs backdrop-blur hover:-translate-y-0.5 hover:bg-surface hover:shadow-card-hover dark:border-white/10 sm:w-auto"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-ink-950 shadow-card ring-1 ring-ink-900/5 dark:ring-white/10">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface text-ink-950 shadow-card ring-1 ring-ink-900/5 dark:ring-white/10">
                   <Play size={14} strokeWidth={2.4} className="ml-0.5 fill-current" />
                 </span>
                 {site.home.hero.ctaSecondary}
@@ -124,7 +121,7 @@ export function ToolPage({ id }: { id: ToolId }) {
       {/* Related */}
       <section aria-labelledby="tool-related" className="pb-12 md:pb-14 lg:pb-16">
         <div className="container-page">
-          <div data-reveal className="flex items-end justify-between gap-6">
+          <div data-reveal className="flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
             <h2 id="tool-related" className="luxe-firm font-display text-display-md text-ink-900">
               {site.toolPage.relatedTitle}
             </h2>

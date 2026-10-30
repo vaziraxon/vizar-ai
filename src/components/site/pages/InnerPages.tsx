@@ -11,7 +11,8 @@ import { Accordion } from "@/components/site/Accordion";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { LandingFonts } from "@/components/site/LandingFonts";
 import { Flag } from "@/components/site/Flag";
-import { EmojiTile, StatusPill } from "@/components/site/primitives";
+import { HeroSky } from "@/components/site/home/HeroSky";
+import { EmojiTile, GoldUnderline, PillArrow, StatusPill, VIOLET_PILL } from "@/components/site/primitives";
 import { useSite } from "@/lib/i18n/site";
 import { DESTINATION_BY_SLUG, PHOTO_CREDITS, type DestinationSlug } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
@@ -176,16 +177,17 @@ export function DestinationsIndexPage() {
   const site = useSite();
   const d = site.destinationsPage;
   return (
-    <>
-      <PageHero emoji="🌍" decor={["🗽", "🗻", "🗼"]} eyebrow={d.eyebrow} title={d.title} subtitle={d.subtitle} />
-      <section className="section pt-10 md:pt-14 lg:pt-14">
+    <div className="landing-lime bg-surface-canvas">
+      <LandingFonts />
+      <PageHero tone="lime" emoji="🌍" decor={["🗽", "🗻", "🗼"]} eyebrow={d.eyebrow} title={d.title} subtitle={d.subtitle} />
+      <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
         <div className="container-page">
           <DestinationGrid />
-          <p className="mt-8 text-body-sm text-ink-500">{site.nav.destinationsNote}</p>
+          <p className="mt-8 text-center text-body-sm text-ink-500">{site.nav.destinationsNote}</p>
         </div>
       </section>
-      <FinalCTA />
-    </>
+      <FinalCTA tone="lime" />
+    </div>
   );
 }
 
@@ -197,8 +199,10 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
   const docs = slug === "schengen" ? [...page.docs, page.schengenExtra] : page.docs;
 
   return (
-    <>
-      <section className="hero-sky-soft relative overflow-hidden">
+    <div className="landing-lime bg-surface-canvas">
+      <LandingFonts />
+      <section className="lime-wash grain relative overflow-hidden">
+        <HeroSky calm />
         <div className="container-page relative pb-12 pt-28 sm:pt-36 lg:pb-16 lg:pt-40">
           <Link
             href="/destinations"
@@ -211,14 +215,15 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
             className="mt-6 grid animate-fade-up gap-3 rounded-[32px] border border-white dark:border-white/10 bg-surface/70 p-2.5 shadow-float backdrop-blur-xl sm:p-3 lg:grid-cols-12"
             style={{ animationDelay: "60ms" }}
           >
-            <div className="flex flex-col justify-center rounded-[24px] bg-gradient-to-br from-brand-50 via-surface to-violet-50 p-6 sm:p-9 lg:col-span-6">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-body-sm font-semibold text-brand-700">📍 {copy.region}</p>
-                  <h1 className="mt-2 font-display text-display-xl font-extrabold tracking-[-0.04em] text-ink-950">{copy.name}</h1>
-                </div>
-                <Flag code={meta.flag} size={64} className="shadow-card ring-4 ring-surface" />
+            <div className="flex min-w-0 flex-col justify-center rounded-[24px] bg-gradient-to-br from-brand-50 via-surface to-violet-50 p-6 sm:p-9 lg:col-span-6">
+              <div className="flex items-center justify-between gap-4">
+                <p className="text-body-sm font-semibold text-brand-700">📍 {copy.region}</p>
+                <Flag code={meta.flag} size={56} className="shrink-0 shadow-card ring-4 ring-surface" />
               </div>
+              <h1 className="luxe-firm mt-3 break-words font-luxe text-[clamp(1.9rem,8.6vw,2.7rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-ink-950 sm:text-[3.4rem] lg:text-[clamp(2.6rem,3.9vw,3.5rem)]">
+                {copy.name}
+              </h1>
+              <GoldUnderline className="mt-3" />
               <p className="mt-5 max-w-xl text-body-lg text-ink-600">{copy.intro}</p>
               <div className="mt-6 flex flex-wrap items-center gap-2">
                 <StatusPill status={meta.available ? "available" : "soon"} />
@@ -246,13 +251,13 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
         </div>
       </section>
 
-      <section className="section pt-10 md:pt-12 lg:pt-12">
+      <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
         <div className="container-page grid gap-10 lg:grid-cols-12">
           {/* Documents — a numbered list card */}
           <div data-reveal className="lg:col-span-8">
             <div className="overflow-hidden rounded-[28px] border border-surface-border bg-surface">
               <div className="flex items-center justify-between gap-4 border-b border-surface-border px-5 py-5 sm:px-7">
-                <h2 className="flex items-center gap-3 font-display text-display-sm font-bold text-ink-950">
+                <h2 className="luxe-firm flex items-center gap-3 font-luxe text-[1.35rem] font-semibold leading-tight tracking-[-0.01em] text-ink-950 sm:text-[1.7rem]">
                   <span aria-hidden="true">📋</span>
                   {page.docsTitle}
                 </h2>
@@ -261,7 +266,9 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
               <ol>
                 {docs.map((doc, i) => (
                   <li key={doc} className="flex items-center gap-4 border-b border-surface-border px-5 py-4 last:border-b-0 sm:px-7">
-                    <span className="w-7 shrink-0 text-body-sm font-medium tabular-nums text-ink-400">1.{i + 1}</span>
+                    <span className="w-8 shrink-0 font-luxe-italic text-[1.35rem] font-semibold italic leading-none text-violet-600 [-webkit-text-stroke:0.35px_currentColor] dark:text-citron-300">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                     <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-[17px] leading-none">
                       {DOC_EMOJI[i] ?? "📄"}
                     </span>
@@ -275,11 +282,11 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
 
           {/* Side rail */}
           <aside data-reveal className="lg:col-span-4">
-            <div className="sticky top-28 rounded-[28px] bg-gradient-to-br from-brand-600 to-violet-600 p-7 text-white shadow-float">
+            <div className="sticky top-28 rounded-[28px] bg-gradient-to-br from-[#5B21B6] to-[#7138EC] p-7 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_24px_48px_-20px_rgba(91,33,182,0.75)]">
               <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-[24px] leading-none">✈️</span>
-              <p className="mt-5 font-display text-display-sm font-bold">{page.ctaTitle}</p>
+              <p className="luxe-firm mt-5 font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em]">{page.ctaTitle}</p>
               <p className="mt-2 text-body-sm text-white/80">{page.ctaText}</p>
-              <Link href="/register" className="btn btn-lg group mt-6 w-full bg-surface text-brand-700 hover:bg-brand-50">
+              <Link href="/register" className="btn btn-sheen btn-lg group mt-6 w-full bg-gold-300 text-night hover:bg-gold-200">
                 {site.home.hero.ctaPrimary}
                 <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
@@ -288,18 +295,24 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
         </div>
       </section>
 
-      <section aria-labelledby="other-dest" className="pb-section-y-sm md:pb-section-y-md">
+      <section aria-labelledby="other-dest" className="pb-12 md:pb-14 lg:pb-16">
         <div className="container-page">
-          <h2 id="other-dest" data-reveal className="font-display text-display-md text-ink-900">
-            {page.otherTitle}
-          </h2>
+          <div data-reveal className="flex flex-wrap items-end justify-between gap-5">
+            <h2 id="other-dest" className="luxe-firm font-display text-display-md text-ink-900">
+              {page.otherTitle}
+            </h2>
+            <Link href="/destinations" className={cn(VIOLET_PILL, "shrink-0")}>
+              {site.home.destinations.all}
+              <PillArrow />
+            </Link>
+          </div>
           <div className="mt-8">
-            <DestinationGrid exclude={slug} />
+            <DestinationGrid exclude={slug} limit={4} />
           </div>
         </div>
       </section>
 
-      <FinalCTA />
-    </>
+      <FinalCTA tone="lime" />
+    </div>
   );
 }
