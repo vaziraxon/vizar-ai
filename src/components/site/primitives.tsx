@@ -18,6 +18,15 @@ export function PillArrow() {
   );
 }
 
+/** Short champagne underline for a title in the landing look, drawn left → right. */
+export function GoldUnderline({ className }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" className={cn("h-3 w-44 overflow-visible", className)} viewBox="0 0 300 24" preserveAspectRatio="none" fill="none">
+      <path d="M3 18 C 72 7, 176 3, 297 9" pathLength={1} stroke="#EDB940" strokeWidth="3" strokeLinecap="round" strokeDasharray="1" className="animate-draw" style={{ animationDelay: "500ms" }} />
+    </svg>
+  );
+}
+
 /** Honest availability label: available · beta · coming soon. Text-first, no fill. */
 export function StatusPill({ status, className }: { status: ToolStatus; className?: string }) {
   const site = useSite();

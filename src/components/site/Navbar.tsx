@@ -10,7 +10,7 @@ import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { ButtonLink } from "@/components/ui/Button";
 import { Flag } from "@/components/site/Flag";
 import { useSite } from "@/lib/i18n/site";
-import { DESTINATIONS, TOOLS, TOOL_BY_ID, type DestinationSlug, type ToolMeta } from "@/lib/site/registry";
+import { DESTINATIONS, TOOLS, TOOL_BY_ID, hasLandingLook, type DestinationSlug, type ToolMeta } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
 
 type MenuId = "tools" | "destinations";
@@ -200,8 +200,8 @@ export function Navbar() {
   };
   const close = () => setMenu(null);
 
-  // The landing look (glass bar, violet sign-in): home and the tool pages
-  const lime = pathname === "/" || TOOL_ROUTES.has(pathname);
+  // The landing look: glass bar, violet sign-in
+  const lime = hasLandingLook(pathname);
   // The current page is a deeper gold than an open or hovered item, on every page and theme
   const activeFill =
     "bg-gold-300 text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_8px_20px_-10px_rgba(180,130,20,0.7)]";

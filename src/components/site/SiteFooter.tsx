@@ -7,18 +7,15 @@ import { Logo } from "@/components/ui/Logo";
 import { LanguageSelector } from "@/components/ui/LanguageSelector";
 import { useSite } from "@/lib/i18n/site";
 import { useLanguage } from "@/lib/language-context";
-import { DESTINATIONS, TOOLS } from "@/lib/site/registry";
+import { DESTINATIONS, TOOLS, hasLandingLook } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
-
-const TOOL_ROUTES = new Set(TOOLS.map((t) => t.href).concat("/features"));
 
 export function SiteFooter() {
   const site = useSite();
   const { t } = useLanguage();
-  // The landing look on home and the tool pages: violet→lime wordmark, charcoal
-  // bar and a short footer (no link columns, just the legal note)
-  const pathname = usePathname();
-  const lime = pathname === "/" || TOOL_ROUTES.has(pathname);
+  // The landing look: violet→lime wordmark, charcoal bar and a short footer
+  // (no link columns, just the legal note)
+  const lime = hasLandingLook(usePathname());
 
   const columns = [
     {
