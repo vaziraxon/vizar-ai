@@ -44,9 +44,10 @@ function makeSprite(rgb: string) {
  * thin meteor every 1.2–2.8s (often two or three at once), small planes crossing
  * behind the content with a dotted gold trail, and a faint parallax toward the
  * pointer. Pauses off screen and in background tabs; static (no meteors or
- * planes) for reduced motion; fewer of everything on phones.
+ * planes) for reduced motion; fewer of everything on phones. `calm` halves the
+ * planes, for pages with more small text for them to cross.
  */
-export function Starfield({ className }: { className?: string }) {
+export function Starfield({ className, calm = false }: { className?: string; calm?: boolean }) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -73,7 +74,7 @@ export function Starfield({ className }: { className?: string }) {
 
     const planeShape = new Path2D(PLANE_SHAPE);
     const planes: Plane[] = [];
-    const maxPlanes = phone ? 4 : 10;
+    const maxPlanes = calm ? (phone ? 2 : 5) : phone ? 4 : 10;
     let nextPlane = performance.now() + 1500 + Math.random() * 1500;
     // Enters from either side at a gentle climb or descent; `anywhere` starts it mid-sky
     const spawnPlane = (anywhere: boolean) => {
@@ -187,7 +188,7 @@ export function Starfield({ className }: { className?: string }) {
       // A few planes are already airborne when the page opens
       if (!seeded && w > 0) {
         seeded = true;
-        for (let i = 0; i < (phone ? 2 : 6); i++) spawnPlane(true);
+        for (let i = 0; i < (calm ? (phone ? 1 : 3) : phone ? 2 : 6); i++) spawnPlane(true);
       }
       if (now > nextPlane) {
         if (planes.length < maxPlanes) spawnPlane(false);
@@ -269,7 +270,7 @@ export function Starfield({ className }: { className?: string }) {
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("pointermove", onPointer);
     };
-  }, []);
+  }, [calm]);
 
   return <canvas ref={ref} aria-hidden="true" className={cn("pointer-events-none absolute inset-0 h-full w-full", className)} />;
 }

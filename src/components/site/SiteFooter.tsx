@@ -10,12 +10,15 @@ import { useLanguage } from "@/lib/language-context";
 import { DESTINATIONS, TOOLS } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
 
+const TOOL_ROUTES = new Set(TOOLS.map((t) => t.href).concat("/features"));
+
 export function SiteFooter() {
   const site = useSite();
   const { t } = useLanguage();
-  // The landing page has its own palette (violet→lime wordmark, charcoal bar)
-  // and a short footer: no link columns, just the legal note
-  const lime = usePathname() === "/";
+  // The landing look on home and the tool pages: violet→lime wordmark, charcoal
+  // bar and a short footer (no link columns, just the legal note)
+  const pathname = usePathname();
+  const lime = pathname === "/" || TOOL_ROUTES.has(pathname);
 
   const columns = [
     {
@@ -49,7 +52,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-surface-border bg-surface">
       {lime ? (
-        // The landing page keeps its footer short: the legal note and where to read more
+        // Short footer: the legal note and where to read more
         <div className="container-page pb-1 pt-8 text-center">
           <p className="mx-auto max-w-3xl text-caption leading-relaxed text-ink-500">{site.footer.disclaimer}</p>
           <p className="mt-3 flex justify-center gap-5 text-caption font-medium">
@@ -100,7 +103,7 @@ export function SiteFooter() {
         <p
           className={cn(
             "container-page -mb-[0.2em] text-center font-display font-extrabold leading-none tracking-[-0.06em]",
-            // Smaller on the landing page, which is kept short
+            // Smaller with the short footer
             lime ? "text-[clamp(3.5rem,11vw,9rem)]" : "text-[clamp(4.5rem,17vw,15rem)]",
             lime
               ? "bg-gradient-to-r from-[#e9e4fd] to-[#ecf5c8] bg-clip-text text-transparent dark:from-white/[0.035] dark:to-citron-300/[0.06]"
