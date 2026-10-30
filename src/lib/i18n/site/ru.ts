@@ -5,7 +5,7 @@ export const ru: SiteContent = {
     home: "Главная",
     tools: "Инструменты",
     destinations: "Направления",
-    howItWorks: "Как это работает",
+    howItWorks: "Как работает",
     library: "Визовая база",
     pricing: "Цены",
     signIn: "Войти",

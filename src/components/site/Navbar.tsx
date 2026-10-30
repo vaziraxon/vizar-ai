@@ -211,7 +211,7 @@ export function Navbar() {
   // hovered or pressed item lights up soft gold; the current page keeps its fill.
   const itemClass = (key: string) =>
     cn(
-      "flex h-11 items-center gap-1 whitespace-nowrap rounded-pill px-3 text-body-sm font-medium transition-[background-color,color,box-shadow] duration-200 xl:px-4",
+      "flex h-11 items-center gap-1 whitespace-nowrap rounded-pill px-2.5 text-[13px] font-medium transition-[background-color,color,box-shadow] duration-200 xl:px-4 xl:text-body-sm",
       activeKey === key
         ? cn(activeFill, "font-semibold")
         : menu === key

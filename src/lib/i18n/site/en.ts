@@ -241,7 +241,7 @@ export const en: SiteContent = {
     hero: {
       eyebrow: "The AI platform for visa preparation",
       headline: { line1: "Prepare for your visa.", line2Pre: "Start with", line2Post: "." },
-      headlineAlt: { line1: "USA, Schengen, Canada", line2Pre: "Get your visa with", line2Post: "." },
+      headlineAlt: { line1: "USA, Schengen, Canada", line2Pre: "Your visa with", line2Post: "." },
       subtitle: "Check your documents, assess your readiness and find your next step — all in one place.",
       ctaPrimary: "Start preparing",
       ctaSecondary: "How it works",
