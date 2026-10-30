@@ -71,7 +71,7 @@ export interface SiteContent {
       eyebrow: string;
       /** Line 1, then the italic line 2 wrapped around the VIZAR wordmark */
       headline: { line1: string; line2Pre: string; line2Post: string };
-      /** Swaps with `headline` every 10s; line 1 names destinations and is set in red */
+      /** Swaps with `headline` every 5s; line 1 names destinations and is set in red */
       headlineAlt: { line1: string; line2Pre: string; line2Post: string };
       subtitle: string;
       ctaPrimary: string;
