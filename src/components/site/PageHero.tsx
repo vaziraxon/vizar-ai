@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { HeroSky } from "@/components/site/home/HeroSky";
 import { EmojiSticker } from "@/components/site/primitives";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +15,7 @@ export function PageHero({
   children,
   align = "center",
   decor = ["✈️", "🌍", "✨"],
+  tone = "classic",
   className,
 }: {
   eyebrow?: ReactNode;
@@ -24,11 +26,15 @@ export function PageHero({
   align?: "center" | "left";
   /** Three decorative floating emoji around a centred header (desktop only) */
   decor?: [string, string, string];
+  /** `lime`: the landing look, for pages inside `.landing-lime` (sky, Bodoni title) */
+  tone?: "classic" | "lime";
   className?: string;
 }) {
   const centered = align === "center";
+  const lime = tone === "lime";
   return (
-    <section className={cn("hero-sky-soft grain relative overflow-hidden", className)}>
+    <section className={cn(lime ? "lime-wash" : "hero-sky-soft", "grain relative overflow-hidden", className)}>
+      {lime && <HeroSky calm />}
       <div className={cn("container-page relative pb-14 pt-28 sm:pb-16 sm:pt-36 lg:pt-40", centered && "text-center")}>
         {centered && (
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden lg:block">
@@ -52,7 +58,16 @@ export function PageHero({
           {eyebrow && (
             <p className={cn("text-body-sm font-semibold text-brand-700", emoji ? "mt-6" : "")}>{eyebrow}</p>
           )}
-          <h1 className="mt-3 font-display text-display-xl font-extrabold tracking-[-0.04em] text-ink-950">{title}</h1>
+          <h1
+            className={cn(
+              "mt-3 text-ink-950",
+              lime
+                ? "luxe-firm font-luxe text-[clamp(2.7rem,5.2vw,4.7rem)] font-semibold leading-[1.02] tracking-[-0.03em]"
+                : "font-display text-display-xl font-extrabold tracking-[-0.04em]"
+            )}
+          >
+            {title}
+          </h1>
           {subtitle && <p className={cn("mt-4 max-w-2xl text-body-lg text-ink-600", centered && "mx-auto")}>{subtitle}</p>}
         </div>
         {children && (

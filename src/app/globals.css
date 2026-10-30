@@ -261,7 +261,7 @@ p {
   }
 
   /* Landing palette ----------------------------------------------------------
-     The home page only (HomePage wraps itself in .landing-lime): periwinkle
+     The home page and the tool pages (each wraps itself in .landing-lime): periwinkle
      violet melting into lime. Inside the scope the canvas turns a soft citron
      cream, brand tints (50–200) turn lime and brand text shades (700–900)
      turn deep violet — pale lime in dark mode. Inner pages keep the violet
@@ -294,7 +294,7 @@ p {
     --spot: rgba(217, 242, 107, 0.1);
   }
 
-  /* Landing headings in Bodoni Moda (a route-only font, see app/(site)/page.tsx;
+  /* Landing headings in Bodoni Moda (a route-only font, see LandingFonts;
      Cyrillic falls through to Playfair). Section titles from shared
      components pick it up here, so inner pages keep Manrope. */
   .landing-lime {
@@ -317,6 +317,11 @@ p {
     font-weight: 600;
     line-height: 1.08;
     letter-spacing: -0.02em;
+  }
+  /* Bodoni's hairlines all but vanish on small text and the pastel wash; a stroke
+     that scales with the type firms them up and keeps the contrast */
+  .luxe-firm {
+    -webkit-text-stroke: 0.009em currentColor;
   }
 
   /* The landing wash: violet top-left → mint → lime bottom-right. The mint

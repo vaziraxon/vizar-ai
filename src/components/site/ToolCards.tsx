@@ -38,7 +38,7 @@ function ToolIndexCard({ id }: { id: ToolId }) {
         </span>
         <ArrowRight
           size={20}
-          className="shrink-0 text-ink-400 transition-[transform,color] duration-200 group-hover:translate-x-0.5 group-hover:text-brand-600"
+          className="shrink-0 text-ink-400 transition-[transform,color] duration-200 group-hover:translate-x-0.5 group-hover:text-violet-600 dark:group-hover:text-violet-400"
         />
       </Link>
     </li>
@@ -89,7 +89,7 @@ export function ToolLinkList({ ids, className }: { ids: ToolId[]; className?: st
               </span>
               <ArrowRight
                 size={16}
-                className="shrink-0 text-ink-300 transition-[transform,color] duration-200 group-hover:translate-x-0.5 group-hover:text-brand-600"
+                className="shrink-0 text-ink-300 transition-[transform,color] duration-200 group-hover:translate-x-0.5 group-hover:text-violet-600 dark:group-hover:text-violet-400"
               />
             </Link>
           </li>

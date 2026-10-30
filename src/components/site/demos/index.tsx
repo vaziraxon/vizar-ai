@@ -37,7 +37,7 @@ export function Ring({ value, size = 112, stroke = 10 }: { value: number; size?:
           strokeLinecap="round"
           strokeDasharray={c}
           strokeDashoffset={c * (1 - value / 100)}
-          className="ring-draw stroke-brand-600"
+          className="ring-draw stroke-violet-600"
           style={{ ["--ring-circumference" as string]: `${c}px` }}
         />
       </svg>
@@ -80,7 +80,7 @@ function ReadinessDemo() {
                 <span className="font-medium text-ink-700">{c.label}</span>
                 <span className="font-semibold text-ink-900">{c.value}</span>
               </div>
-              <ProgressBar value={c.value} label={c.label} tone={c.value < 75 ? "violet" : "blue"} className="mt-1.5" />
+              <ProgressBar value={c.value} label={c.label} tone={c.value < 75 ? "gold" : "violet"} className="mt-1.5" />
             </div>
           ))}
         </div>
@@ -90,7 +90,7 @@ function ReadinessDemo() {
           <span className={cn(label, "block")}>{d.nextLabel}</span>
           <span className="mt-0.5 block text-body-sm font-semibold text-ink-900">{d.nextText}</span>
         </span>
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-white">
           <ArrowRight size={15} />
         </span>
       </div>
@@ -104,7 +104,7 @@ function DocumentsDemo() {
   const d = site.demos.documents;
   return (
     <Frame title={site.tools.documents.tagline}>
-      <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-surface-strong bg-surface-tint/60 px-4 py-7 text-center transition-colors hover:border-brand-300 hover:bg-brand-50/40">
+      <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-surface-strong bg-surface-tint/60 px-4 py-7 text-center transition-colors hover:border-violet-300 hover:bg-brand-50/40">
         <span className="icon-tile">
           <UploadCloud size={19} strokeWidth={1.8} />
         </span>
@@ -154,11 +154,11 @@ function ChecklistDemo() {
         <span className="font-semibold text-ink-900">
           {done.size}/{all.length} {d.progress}
         </span>
-        <span className="font-semibold text-brand-600">{percent}%</span>
+        <span className="font-semibold text-violet-600 dark:text-violet-400">{percent}%</span>
       </div>
       <div className="mt-2 h-2 overflow-hidden rounded-full bg-surface-muted">
         <div
-          className="h-full rounded-full bg-brand-600 transition-[width] duration-300 ease-premium"
+          className="h-full rounded-full bg-violet-600 transition-[width] duration-300 ease-premium"
           style={{ width: `${percent}%` }}
         />
       </div>
@@ -177,8 +177,8 @@ function ChecklistDemo() {
                     <input type="checkbox" className="peer sr-only" checked={checked} onChange={() => toggle(item)} />
                     <span
                       className={cn(
-                        "flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition-colors duration-150 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-500 peer-focus-visible:ring-offset-2",
-                        checked ? "border-ink-900 bg-brand-600 text-white" : "border-surface-strong bg-surface"
+                        "flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition-colors duration-150 peer-focus-visible:ring-2 peer-focus-visible:ring-violet-500 peer-focus-visible:ring-offset-2",
+                        checked ? "border-violet-600 bg-violet-600 text-white" : "border-surface-strong bg-surface"
                       )}
                     >
                       {checked && <Check size={13} strokeWidth={3} />}
@@ -215,12 +215,12 @@ function InterviewDemo() {
         </span>
         <div className="flex gap-1">
           {d.questions.map((_, i) => (
-            <span key={i} className={cn("h-1.5 w-6 rounded-full transition-colors", i <= q ? "bg-brand-600" : "bg-surface-muted")} />
+            <span key={i} className={cn("h-1.5 w-6 rounded-full transition-colors", i <= q ? "bg-violet-600" : "bg-surface-muted")} />
           ))}
         </div>
       </div>
       <div className="mt-5 flex items-start gap-3">
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-violet-600 text-white">
           <UserRound size={16} />
         </span>
         <p key={q} className="animate-fade-up rounded-xl rounded-tl-md bg-surface-tint px-4 py-3 text-body font-medium text-ink-900">
@@ -284,14 +284,14 @@ function TrackerDemo() {
               {i < d.stages.length - 1 && (
                 <span
                   aria-hidden="true"
-                  className={cn("absolute left-[15px] top-8 h-[calc(100%-24px)] w-px", done ? "bg-brand-600" : "bg-surface-border")}
+                  className={cn("absolute left-[15px] top-8 h-[calc(100%-24px)] w-px", done ? "bg-violet-600" : "bg-surface-border")}
                 />
               )}
               <span
                 className={cn(
                   "relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-caption font-bold",
-                  done && "bg-brand-600 text-white",
-                  isCurrent && "bg-brand-600 text-white ring-4 ring-brand-100",
+                  done && "bg-violet-600 text-white",
+                  isCurrent && "bg-violet-600 text-white ring-4 ring-brand-100",
                   !done && !isCurrent && "border border-surface-strong bg-surface text-ink-500"
                 )}
               >
@@ -340,7 +340,7 @@ function RejectionDemo() {
             className={cn(
               "flex items-center justify-between gap-3 rounded-xl border px-4 py-3 text-left text-body-sm font-medium transition-[border-color,background-color] duration-150",
               selected === i
-                ? "border-brand-600 bg-brand-50/60 text-ink-900"
+                ? "border-violet-600 bg-brand-50/60 text-ink-900"
                 : "border-surface-border text-ink-700 hover:border-surface-strong"
             )}
           >
@@ -348,10 +348,10 @@ function RejectionDemo() {
             <span
               className={cn(
                 "flex h-4 w-4 shrink-0 items-center justify-center rounded-full border",
-                selected === i ? "border-brand-600" : "border-surface-strong"
+                selected === i ? "border-violet-600" : "border-surface-strong"
               )}
             >
-              {selected === i && <span className="h-2 w-2 rounded-full bg-brand-600" />}
+              {selected === i && <span className="h-2 w-2 rounded-full bg-violet-600" />}
             </span>
           </button>
         ))}
@@ -361,7 +361,7 @@ function RejectionDemo() {
         <ul className="mt-3 space-y-2.5">
           {d.reasons[selected]!.actions.map((a) => (
             <li key={a} className="flex items-start gap-2.5 text-body-sm text-ink-900">
-              <ArrowRight size={15} className="mt-0.5 shrink-0 text-brand-600" />
+              <ArrowRight size={15} className="mt-0.5 shrink-0 text-violet-600 dark:text-violet-400" />
               {a}
             </li>
           ))}
@@ -418,14 +418,14 @@ function ExpertsDemo() {
             onClick={() => setSlot(i)}
             className={cn(
               "rounded-xl border py-2.5 text-body-sm font-semibold transition-[border-color,background-color,color] duration-150",
-              slot === i ? "border-brand-600 bg-brand-600 text-white" : "border-surface-border text-ink-700 hover:border-surface-strong"
+              slot === i ? "border-violet-600 bg-violet-600 text-white" : "border-surface-border text-ink-700 hover:border-surface-strong"
             )}
           >
             {s}
           </button>
         ))}
       </div>
-      <Link href="/register" className="btn-primary btn-md mt-6 w-full">
+      <Link href="/register" className="btn-charcoal btn-sheen btn-md mt-6 w-full">
         {d.cta}
         <ArrowRight size={16} />
       </Link>
@@ -445,14 +445,14 @@ function RoadmapDemo() {
             {i < steps.length - 1 && (
               <span
                 aria-hidden="true"
-                className={cn("absolute left-[7px] top-5 h-[calc(100%-12px)] w-px", step.state === "done" ? "bg-brand-600" : "bg-surface-border")}
+                className={cn("absolute left-[7px] top-5 h-[calc(100%-12px)] w-px", step.state === "done" ? "bg-violet-600" : "bg-surface-border")}
               />
             )}
             <span
               className={cn(
                 "relative z-10 mt-[3px] flex h-[15px] w-[15px] shrink-0 items-center justify-center rounded-full",
-                step.state === "done" && "bg-brand-600 text-white",
-                step.state === "current" && "bg-brand-600 ring-4 ring-brand-100",
+                step.state === "done" && "bg-violet-600 text-white",
+                step.state === "current" && "bg-violet-600 ring-4 ring-brand-100",
                 step.state === "todo" && "border border-surface-strong bg-surface"
               )}
             >

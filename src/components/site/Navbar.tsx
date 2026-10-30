@@ -200,8 +200,8 @@ export function Navbar() {
   };
   const close = () => setMenu(null);
 
-  // The landing page has its own palette (glass bar, lime accents)
-  const lime = pathname === "/";
+  // The landing look (glass bar, violet sign-in): home and the tool pages
+  const lime = pathname === "/" || TOOL_ROUTES.has(pathname);
   // The current page is a deeper gold than an open or hovered item, on every page and theme
   const activeFill =
     "bg-gold-300 text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_8px_20px_-10px_rgba(180,130,20,0.7)]";

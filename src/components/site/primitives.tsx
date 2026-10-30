@@ -1,10 +1,22 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { Check, Clock3 } from "lucide-react";
+import { ArrowRight, Check, Clock3 } from "lucide-react";
 import type { ToolStatus } from "@/lib/site/registry";
 import { useSite } from "@/lib/i18n/site";
 import { cn } from "@/lib/utils";
+
+// Violet pill with a soft glow, in step with the navbar sign-in button (landing look)
+export const VIOLET_PILL =
+  "group inline-flex h-12 items-center gap-3 whitespace-nowrap rounded-pill bg-gradient-to-r from-[#7138EC] to-violet-600 pl-6 pr-1.5 text-body-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_14px_30px_-12px_rgba(113,56,236,0.8)] transition-[transform,box-shadow] duration-200 hover:-translate-y-px hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_18px_36px_-12px_rgba(113,56,236,0.95)] active:translate-y-0";
+
+export function PillArrow() {
+  return (
+    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 ring-1 ring-white/25 transition-colors duration-200 group-hover:bg-lemon-300 group-hover:text-night">
+      <ArrowRight size={16} strokeWidth={2.2} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+    </span>
+  );
+}
 
 /** Honest availability label: available · beta · coming soon. Text-first, no fill. */
 export function StatusPill({ status, className }: { status: ToolStatus; className?: string }) {
@@ -219,10 +231,10 @@ export function SectionHeader({
   );
 }
 
-export function CheckLine({ children, className }: { children: ReactNode; className?: string }) {
+export function CheckLine({ children, className, iconClassName }: { children: ReactNode; className?: string; iconClassName?: string }) {
   return (
     <li className={cn("flex items-start gap-3 text-body-sm text-ink-700", className)}>
-      <Check size={16} strokeWidth={2.4} className="mt-[3px] shrink-0 text-brand-600" />
+      <Check size={16} strokeWidth={2.4} className={cn("mt-[3px] shrink-0 text-brand-600", iconClassName)} />
       <span>{children}</span>
     </li>
   );
@@ -233,15 +245,15 @@ export function CheckLine({ children, className }: { children: ReactNode; classN
 export function ProgressBar({
   value,
   label,
-  tone = "blue",
+  tone = "violet",
   className,
 }: {
   value: number;
   label?: string;
-  tone?: "blue" | "violet" | "ink";
+  tone?: "violet" | "gold" | "ink";
   className?: string;
 }) {
-  const fill = { blue: "bg-brand-600", violet: "bg-violet-500", ink: "bg-night" }[tone];
+  const fill = { violet: "bg-violet-600", gold: "bg-gold-400", ink: "bg-night" }[tone];
   const a11y = label
     ? { role: "progressbar" as const, "aria-label": label, "aria-valuenow": value, "aria-valuemin": 0, "aria-valuemax": 100 }
     : { "aria-hidden": true as const };

@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ChevronRight } from "lucide-react";
-import { ButtonLink } from "@/components/ui/Button";
-import { ArrowLink, CheckLine, EmojiTile, Eyebrow, StatusPill } from "@/components/site/primitives";
+import { ArrowUpRight, ChevronRight, Play } from "lucide-react";
+import { CheckLine, EmojiTile, Eyebrow, PillArrow, StatusPill, VIOLET_PILL } from "@/components/site/primitives";
+import { HeroSky } from "@/components/site/home/HeroSky";
+import { LandingFonts } from "@/components/site/LandingFonts";
 import { ToolDemo } from "@/components/site/demos";
 import { ToolLinkList } from "@/components/site/ToolCards";
 import { FinalCTA } from "@/components/site/FinalCTA";
@@ -11,7 +12,7 @@ import { useSite } from "@/lib/i18n/site";
 import { TOOLS, TOOL_BY_ID, type ToolId } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
 
-/** Shared template for every public tool page (/visa-readiness, /tracker, …). */
+/** Shared template for every public tool page (/visa-readiness, /tracker, …), in the landing look. */
 export function ToolPage({ id }: { id: ToolId }) {
   const site = useSite();
   const tool = TOOL_BY_ID[id];
@@ -21,16 +22,18 @@ export function ToolPage({ id }: { id: ToolId }) {
     .map((t) => t.id);
 
   return (
-    <>
+    <div className="landing-lime bg-surface-canvas">
+      <LandingFonts />
       {/* Hero */}
-      <section className="hero-backdrop relative overflow-hidden">
-        <div className="container-page relative grid items-center gap-14 pb-20 pt-28 sm:pt-36 lg:grid-cols-12 lg:gap-12 lg:pb-28 lg:pt-40">
+      <section className="lime-wash grain relative overflow-hidden">
+        <HeroSky calm />
+        <div className="container-page relative grid items-center gap-14 pb-16 pt-28 sm:pt-36 lg:grid-cols-12 lg:gap-12 lg:pb-20 lg:pt-40">
           <div className="animate-fade-up lg:col-span-6">
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-body-sm text-ink-500">
               <Link href="/features" className="rounded transition-colors duration-200 hover:text-ink-900">
                 {site.toolPage.breadcrumb}
               </Link>
-              <ChevronRight size={14} className="text-ink-300" />
+              <ChevronRight size={14} className="text-ink-500" />
               <span className="text-ink-800" aria-current="page">
                 {copy.tagline}
               </span>
@@ -41,25 +44,40 @@ export function ToolPage({ id }: { id: ToolId }) {
               <StatusPill status={tool.status} />
             </div>
 
-            <h1 className="mt-6 font-display text-display-xl text-ink-900">{copy.name}</h1>
+            <h1 className="luxe-firm mt-6 font-luxe text-[clamp(2.7rem,5.2vw,4.7rem)] font-semibold leading-[1.02] tracking-[-0.03em] text-ink-950">{copy.name}</h1>
+            {/* Champagne underline, drawn left → right */}
+            <svg aria-hidden="true" className="mt-3 h-3 w-44 overflow-visible" viewBox="0 0 300 24" preserveAspectRatio="none" fill="none">
+              <path d="M3 18 C 72 7, 176 3, 297 9" pathLength={1} stroke="#EDB940" strokeWidth="3" strokeLinecap="round" strokeDasharray="1" className="animate-draw" style={{ animationDelay: "500ms" }} />
+            </svg>
             <p className="mt-5 max-w-xl text-body-lg text-ink-600">{copy.desc}</p>
 
             <ul className="mt-8 space-y-3">
               {copy.benefits.map((b) => (
-                <CheckLine key={b} className="text-body">
+                <CheckLine key={b} className="text-body" iconClassName="text-violet-600 dark:text-citron-300">
                   {b}
                 </CheckLine>
               ))}
             </ul>
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/register" size="lg" className="group">
+              <Link
+                href="/register"
+                className="btn btn-charcoal btn-sheen group h-14 w-full justify-between pl-7 pr-2 text-body hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-16px_rgba(113,56,236,0.6)] sm:w-auto sm:justify-center sm:gap-4"
+              >
                 {copy.cta}
-                <ArrowRight size={17} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-              </ButtonLink>
-              <ButtonLink href="/how-it-works" variant="secondary" size="lg">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gold-300 text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:bg-night dark:text-gold-300">
+                  <ArrowUpRight size={18} strokeWidth={2.4} className="transition-transform duration-200 group-hover:rotate-45" />
+                </span>
+              </Link>
+              <Link
+                href="/how-it-works"
+                className="btn btn-sheen h-14 w-full gap-3 border border-white/80 bg-surface/60 pl-2 pr-7 text-body text-ink-900 shadow-xs backdrop-blur hover:-translate-y-0.5 hover:bg-surface hover:shadow-card-hover dark:border-white/10 sm:w-auto"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-ink-950 shadow-card ring-1 ring-ink-900/5 dark:ring-white/10">
+                  <Play size={14} strokeWidth={2.4} className="ml-0.5 fill-current" />
+                </span>
                 {site.home.hero.ctaSecondary}
-              </ButtonLink>
+              </Link>
             </div>
 
             <p
@@ -81,21 +99,21 @@ export function ToolPage({ id }: { id: ToolId }) {
       </section>
 
       {/* How it works — numbered timeline */}
-      <section aria-labelledby="tool-how" className="section">
+      <section aria-labelledby="tool-how" className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
         <div className="container-page grid gap-12 lg:grid-cols-12">
           <div data-reveal className="lg:col-span-4">
             <Eyebrow emoji={tool.emoji}>{copy.tagline}</Eyebrow>
-            <h2 id="tool-how" className="mt-4 font-display text-display-lg text-ink-900">
+            <h2 id="tool-how" className="luxe-firm mt-4 font-display text-display-lg text-ink-900">
               {site.toolPage.howTitle}
             </h2>
           </div>
           <ol data-reveal className="border-t border-surface-border lg:col-span-8">
             {copy.steps.map((step, i) => (
               <li key={step.title} className="grid gap-2 border-b border-surface-border py-7 sm:grid-cols-12 sm:gap-6">
-                <span className="font-display text-body-sm font-semibold text-ink-400 sm:col-span-1">
+                <span className="font-luxe-italic text-[1.6rem] font-medium italic leading-none text-violet-600 dark:text-citron-300 sm:col-span-1">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="font-display text-display-sm text-ink-900 sm:col-span-4">{step.title}</h3>
+                <h3 className="luxe-firm font-luxe text-[1.55rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950 sm:col-span-4">{step.title}</h3>
                 <p className="text-body text-ink-600 sm:col-span-7">{step.desc}</p>
               </li>
             ))}
@@ -104,14 +122,15 @@ export function ToolPage({ id }: { id: ToolId }) {
       </section>
 
       {/* Related */}
-      <section aria-labelledby="tool-related" className="pb-section-y-sm md:pb-section-y-md">
+      <section aria-labelledby="tool-related" className="pb-12 md:pb-14 lg:pb-16">
         <div className="container-page">
           <div data-reveal className="flex items-end justify-between gap-6">
-            <h2 id="tool-related" className="font-display text-display-md text-ink-900">
+            <h2 id="tool-related" className="luxe-firm font-display text-display-md text-ink-900">
               {site.toolPage.relatedTitle}
             </h2>
-            <Link href="/features" className="shrink-0 rounded">
-              <ArrowLink>{site.nav.allTools}</ArrowLink>
+            <Link href="/features" className={cn(VIOLET_PILL, "shrink-0")}>
+              {site.nav.allTools}
+              <PillArrow />
             </Link>
           </div>
           <div data-reveal className="mt-8">
@@ -120,7 +139,7 @@ export function ToolPage({ id }: { id: ToolId }) {
         </div>
       </section>
 
-      <FinalCTA title={site.toolPage.ctaTitle} subtitle={site.toolPage.ctaText} />
-    </>
+      <FinalCTA title={site.toolPage.ctaTitle} subtitle={site.toolPage.ctaText} tone="lime" />
+    </div>
   );
 }

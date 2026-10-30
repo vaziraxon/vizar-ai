@@ -9,6 +9,7 @@ import { DestinationGrid } from "@/components/site/DestinationCards";
 import { PricingPlans } from "@/components/site/PricingPlans";
 import { Accordion } from "@/components/site/Accordion";
 import { FinalCTA } from "@/components/site/FinalCTA";
+import { LandingFonts } from "@/components/site/LandingFonts";
 import { Flag } from "@/components/site/Flag";
 import { EmojiTile, StatusPill } from "@/components/site/primitives";
 import { useSite } from "@/lib/i18n/site";
@@ -23,15 +24,16 @@ const DOC_EMOJI = ["🛂", "📸", "📝", "🏦", "🧳", "💼", "🩺"];
 export function FeaturesPage() {
   const site = useSite();
   return (
-    <>
-      <PageHero emoji="🧰" decor={["🎯", "📄", "🎤"]} eyebrow={site.toolsPage.eyebrow} title={site.toolsPage.title} subtitle={site.toolsPage.subtitle} />
-      <section className="section pt-12 md:pt-16 lg:pt-16">
+    <div className="landing-lime bg-surface-canvas">
+      <LandingFonts />
+      <PageHero tone="lime" emoji="🧰" decor={["🎯", "📄", "🎤"]} eyebrow={site.toolsPage.eyebrow} title={site.toolsPage.title} subtitle={site.toolsPage.subtitle} />
+      <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
         <div className="container-page">
           <ToolIndex />
         </div>
       </section>
-      <FinalCTA />
-    </>
+      <FinalCTA tone="lime" />
+    </div>
   );
 }
 
