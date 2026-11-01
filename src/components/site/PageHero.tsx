@@ -43,7 +43,7 @@ export function PageHero({
             <EmojiSticker emoji={decor[2]} size="sm" tilt={-6} delay={2200} className="absolute bottom-10 right-[11%]" />
           </div>
         )}
-        <div className={cn("animate-fade-up", centered ? "mx-auto max-w-2xl" : "max-w-3xl")}>
+        <div className={cn("animate-fade-up", centered ? (lime ? "mx-auto max-w-3xl" : "mx-auto max-w-2xl") : "max-w-3xl")}>
           {emoji && (
             <span
               aria-hidden="true"
@@ -62,7 +62,7 @@ export function PageHero({
             className={cn(
               "mt-3 text-ink-950",
               lime
-                ? "luxe-firm font-luxe text-[clamp(2.7rem,5.2vw,4.7rem)] font-semibold leading-[1.02] tracking-[-0.03em]"
+                ? "luxe-firm font-luxe [text-wrap:balance] text-[clamp(2.7rem,5.2vw,4.7rem)] font-semibold leading-[1.02] tracking-[-0.03em]"
                 : "font-display text-display-xl font-extrabold tracking-[-0.04em]"
             )}
           >

@@ -91,11 +91,12 @@ export const DESTINATION_BY_SLUG = Object.fromEntries(
   DESTINATIONS.map((d) => [d.slug, d])
 ) as Record<DestinationSlug, DestinationMeta>;
 
-/** Pages in the landing look (glass navbar, short footer): home, the tools and the destinations. */
+/** Pages in the landing look (glass navbar, short footer): home, the tools, how it works and the destinations. */
 export function hasLandingLook(pathname: string) {
   return (
     pathname === "/" ||
     pathname === "/features" ||
+    pathname === "/how-it-works" ||
     pathname.startsWith("/destinations") ||
     TOOLS.some((t) => t.href === pathname)
   );
