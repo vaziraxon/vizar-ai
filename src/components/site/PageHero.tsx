@@ -4,7 +4,7 @@ import { EmojiSticker } from "@/components/site/primitives";
 import { cn } from "@/lib/utils";
 
 /**
- * Header band for inner public pages: a soft sky wash, a large emoji tile as
+ * Header band for inner public pages: the landing sky, a large emoji tile as
  * the page's mascot, a small label, the title and supporting copy.
  */
 export function PageHero({
@@ -15,7 +15,6 @@ export function PageHero({
   children,
   align = "center",
   decor = ["✈️", "🌍", "✨"],
-  tone = "classic",
   className,
 }: {
   eyebrow?: ReactNode;
@@ -26,15 +25,12 @@ export function PageHero({
   align?: "center" | "left";
   /** Three decorative floating emoji around a centred header (desktop only) */
   decor?: [string, string, string];
-  /** `lime`: the landing look, for pages inside `.landing-lime` (sky, Bodoni title) */
-  tone?: "classic" | "lime";
   className?: string;
 }) {
   const centered = align === "center";
-  const lime = tone === "lime";
   return (
-    <section className={cn(lime ? "lime-wash" : "hero-sky-soft", "grain relative overflow-hidden", className)}>
-      {lime && <HeroSky calm />}
+    <section className={cn("lime-wash grain relative overflow-hidden", className)}>
+      <HeroSky calm />
       <div className={cn("container-page relative pb-14 pt-28 sm:pb-16 sm:pt-36 lg:pt-40", centered && "text-center")}>
         {centered && (
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden lg:block">
@@ -43,7 +39,7 @@ export function PageHero({
             <EmojiSticker emoji={decor[2]} size="sm" tilt={-6} delay={2200} className="absolute bottom-10 right-[11%]" />
           </div>
         )}
-        <div className={cn("animate-fade-up", centered ? (lime ? "mx-auto max-w-3xl" : "mx-auto max-w-2xl") : "max-w-3xl")}>
+        <div className={cn("animate-fade-up", centered ? "mx-auto max-w-3xl" : "max-w-3xl")}>
           {emoji && (
             <span
               aria-hidden="true"
@@ -58,14 +54,7 @@ export function PageHero({
           {eyebrow && (
             <p className={cn("text-body-sm font-semibold text-brand-700", emoji ? "mt-6" : "")}>{eyebrow}</p>
           )}
-          <h1
-            className={cn(
-              "mt-3 text-ink-950",
-              lime
-                ? "luxe-firm font-luxe [text-wrap:balance] text-[clamp(2.7rem,5.2vw,4.7rem)] font-semibold leading-[1.02] tracking-[-0.03em]"
-                : "font-display text-display-xl font-extrabold tracking-[-0.04em]"
-            )}
-          >
+          <h1 className="luxe-firm mt-3 font-luxe [overflow-wrap:anywhere] [text-wrap:balance] text-[clamp(2.7rem,5.2vw,4.7rem)] font-semibold leading-[1.02] tracking-[-0.03em] text-ink-950">
             {title}
           </h1>
           {subtitle && <p className={cn("mt-4 max-w-2xl text-body-lg text-ink-600", centered && "mx-auto")}>{subtitle}</p>}

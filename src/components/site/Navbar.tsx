@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, ArrowUpRight, ChevronDown, ChevronRight, Menu, X } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { LanguageSelector } from "@/components/ui/LanguageSelector";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
@@ -11,7 +11,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Flag } from "@/components/site/Flag";
 import { useSite } from "@/lib/i18n/site";
 import { chapterSlugEmoji } from "@/lib/knowledge/visuals";
-import { DESTINATIONS, TOOLS, TOOL_BY_ID, hasLandingLook, type DestinationSlug, type ToolMeta } from "@/lib/site/registry";
+import { DESTINATIONS, TOOLS, TOOL_BY_ID, type DestinationSlug, type ToolMeta } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
 
 type MenuId = "tools" | "destinations" | "library";
@@ -233,8 +233,6 @@ export function Navbar() {
   };
   const close = () => setMenu(null);
 
-  // The landing look: glass bar, violet sign-in
-  const lime = hasLandingLook(pathname);
   // The current page is a deeper gold than an open or hovered item, on every page and theme
   const activeFill =
     "bg-gold-300 text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_8px_20px_-10px_rgba(180,130,20,0.7)]";
@@ -305,9 +303,8 @@ export function Navbar() {
             scrolled
               ? "lg:max-w-[1240px] lg:border-white/80 dark:border-white/10 lg:bg-surface/75 lg:pl-5 lg:pr-2.5 lg:shadow-float xl:pl-5 xl:pr-2.5 lg:backdrop-blur-xl lg:backdrop-saturate-150"
               : "lg:border-transparent",
-            // Landing: a touch more glass once the page scrolls
+            // A touch more glass once the page scrolls
             scrolled &&
-              lime &&
               "lg:bg-surface/60 lg:shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_24px_48px_-24px_rgba(16,24,40,0.28)] lg:backdrop-blur-2xl lg:backdrop-saturate-[1.8] dark:lg:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_48px_-24px_rgba(0,0,0,0.6)]"
           )}
           onMouseLeave={scheduleClose}
@@ -342,41 +339,15 @@ export function Navbar() {
 
           {/* Desktop actions */}
           <div className="hidden items-center gap-2 lg:flex">
-            {/* Highlighted entry point, like a "special event" pill (the landing
-                page keeps its header to theme · language · sign in) */}
-            {!lime && (
-              <Link
-                href="/visa-readiness"
-                title={site.nav.featuredCta}
-                className="hidden h-12 w-12 items-center justify-center gap-2 whitespace-nowrap rounded-pill border border-brand-200 bg-brand-50/90 text-body-sm font-semibold text-brand-700 shadow-xs backdrop-blur transition-colors duration-200 hover:border-brand-300 hover:bg-brand-100 xl:flex 2xl:w-auto 2xl:px-4"
-              >
-                <span aria-hidden="true" className="text-[17px] leading-none">
-                  🎯
-                </span>
-                <span className="sr-only 2xl:not-sr-only">{site.nav.featuredCta}</span>
-              </Link>
-            )}
             <ThemeToggle variant="pill" labels={{ toDark: site.nav.themeToDark, toLight: site.nav.themeToLight }} />
             <LanguageSelector variant="pill" />
-            {lime ? (
-              <Link
-                href="/login"
-                className="group flex h-12 items-center gap-2.5 whitespace-nowrap rounded-pill bg-gradient-to-r from-[#7138EC] to-violet-600 px-6 text-body-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_12px_28px_-12px_rgba(113,56,236,0.8)] transition-[transform,box-shadow] duration-200 hover:-translate-y-px hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_16px_32px_-12px_rgba(113,56,236,0.9)]"
-              >
-                {site.nav.signIn}
-                <ArrowRight size={17} strokeWidth={2.2} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-              </Link>
-            ) : (
-              <Link
-                href="/login"
-                className="group flex h-12 items-center gap-3 whitespace-nowrap rounded-pill border border-surface-border/80 bg-surface/80 pl-5 pr-1.5 text-body-sm font-semibold text-ink-900 shadow-xs backdrop-blur transition-colors duration-200 hover:bg-surface"
-              >
-                {site.nav.signIn}
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white shadow-button transition-transform duration-200 group-hover:rotate-45">
-                  <ArrowUpRight size={17} strokeWidth={2.2} />
-                </span>
-              </Link>
-            )}
+            <Link
+              href="/login"
+              className="group flex h-12 items-center gap-2.5 whitespace-nowrap rounded-pill bg-gradient-to-r from-[#7138EC] to-violet-600 px-6 text-body-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_12px_28px_-12px_rgba(113,56,236,0.8)] transition-[transform,box-shadow] duration-200 hover:-translate-y-px hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_16px_32px_-12px_rgba(113,56,236,0.9)]"
+            >
+              {site.nav.signIn}
+              <ArrowRight size={17} strokeWidth={2.2} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            </Link>
           </div>
 
           {/* Mobile: theme + menu */}
@@ -415,7 +386,7 @@ export function Navbar() {
                       visual={
                         <span
                           aria-hidden="true"
-                          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-600 text-[22px] leading-none shadow-button"
+                          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-violet-600 text-[22px] leading-none shadow-button"
                         >
                           {FEATURED_TOOL.emoji}
                         </span>
@@ -453,7 +424,7 @@ export function Navbar() {
                   <Link
                     href={menu === "tools" ? "/features" : menu === "library" ? "/knowledge-base" : "/destinations"}
                     onClick={close}
-                    className="inline-flex shrink-0 items-center gap-2 text-body-sm font-semibold text-brand-700 hover:text-brand-600"
+                    className="inline-flex shrink-0 items-center gap-2 text-body-sm font-semibold text-brand-700 hover:text-violet-600 dark:hover:text-violet-400"
                   >
                     <span aria-hidden="true">{menu === "tools" ? "🧰" : menu === "library" ? "📚" : "🌍"}</span>
                     {menu === "tools" ? site.nav.allTools : menu === "library" ? site.nav.libraryAll : site.nav.allDestinations}
@@ -540,7 +511,7 @@ export function Navbar() {
             <ButtonLink href="/login" variant="secondary" size="lg" tabIndex={mobileTab}>
               {site.nav.signIn}
             </ButtonLink>
-            <ButtonLink href="/register" size="lg" tabIndex={mobileTab}>
+            <ButtonLink href="/register" variant="dark" size="lg" tabIndex={mobileTab}>
               {site.nav.getStarted}
             </ButtonLink>
           </div>

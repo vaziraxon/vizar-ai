@@ -261,11 +261,10 @@ p {
   }
 
   /* Landing palette ----------------------------------------------------------
-     The home page and the tool pages (each wraps itself in .landing-lime): periwinkle
-     violet melting into lime. Inside the scope the canvas turns a soft citron
-     cream, brand tints (50–200) turn lime and brand text shades (700–900)
-     turn deep violet — pale lime in dark mode. Inner pages keep the violet
-     interior. */
+     Every public page (MarketingShell sets .landing-lime): periwinkle violet
+     melting into lime. Inside the scope the canvas turns a soft citron cream,
+     brand tints (50–200) turn lime and brand text shades (700–900) turn deep
+     violet — pale lime in dark mode. The dashboard keeps the violet interior. */
   :root:not(.dark) .landing-lime {
     --surface-canvas: 250 251 242;
     --surface-tint: 245 247 231;
@@ -294,9 +293,8 @@ p {
     --spot: rgba(217, 242, 107, 0.1);
   }
 
-  /* Landing headings in Bodoni Moda (a route-only font, see LandingFonts;
-     Cyrillic falls through to Playfair). Section titles from shared
-     components pick it up here, so inner pages keep Manrope. */
+  /* Public-site headings in Bodoni Moda (see LandingFonts; Cyrillic falls
+     through to Playfair). Section titles pick it up here. */
   .landing-lime {
     --font-luxe: var(--font-bodoni, Georgia), var(--font-serif-cyr, Georgia), Georgia, serif;
     --font-luxe-italic: var(--font-bodoni, Georgia), var(--font-accent, Georgia), Georgia, serif;

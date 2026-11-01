@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ArrowUpRight, ChevronRight, Play } from "lucide-react";
 import { CheckLine, EmojiTile, Eyebrow, GoldUnderline, PillArrow, StatusPill, VIOLET_PILL } from "@/components/site/primitives";
 import { HeroSky } from "@/components/site/home/HeroSky";
-import { LandingFonts } from "@/components/site/LandingFonts";
 import { ToolDemo } from "@/components/site/demos";
 import { ToolLinkList } from "@/components/site/ToolCards";
 import { FinalCTA } from "@/components/site/FinalCTA";
@@ -12,7 +11,7 @@ import { useSite } from "@/lib/i18n/site";
 import { TOOLS, TOOL_BY_ID, type ToolId } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
 
-/** Shared template for every public tool page (/visa-readiness, /tracker, …), in the landing look. */
+/** Shared template for every public tool page (/visa-readiness, /tracker, …). */
 export function ToolPage({ id }: { id: ToolId }) {
   const site = useSite();
   const tool = TOOL_BY_ID[id];
@@ -22,8 +21,7 @@ export function ToolPage({ id }: { id: ToolId }) {
     .map((t) => t.id);
 
   return (
-    <div className="landing-lime bg-surface-canvas">
-      <LandingFonts />
+    <>
       {/* Hero */}
       <section className="lime-wash grain relative overflow-hidden">
         <HeroSky calm />
@@ -136,7 +134,7 @@ export function ToolPage({ id }: { id: ToolId }) {
         </div>
       </section>
 
-      <FinalCTA title={site.toolPage.ctaTitle} subtitle={site.toolPage.ctaText} tone="lime" />
-    </div>
+      <FinalCTA title={site.toolPage.ctaTitle} subtitle={site.toolPage.ctaText} />
+    </>
   );
 }

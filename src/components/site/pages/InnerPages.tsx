@@ -9,7 +9,6 @@ import { DestinationGrid } from "@/components/site/DestinationCards";
 import { PricingPlans } from "@/components/site/PricingPlans";
 import { Accordion } from "@/components/site/Accordion";
 import { FinalCTA } from "@/components/site/FinalCTA";
-import { LandingFonts } from "@/components/site/LandingFonts";
 import { Flag } from "@/components/site/Flag";
 import { HeroSky } from "@/components/site/home/HeroSky";
 import { EmojiTile, GoldUnderline, PillArrow, StatusPill, VIOLET_PILL } from "@/components/site/primitives";
@@ -26,16 +25,15 @@ const DOC_EMOJI = ["🛂", "📸", "📝", "🏦", "🧳", "💼", "🩺"];
 export function FeaturesPage() {
   const site = useSite();
   return (
-    <div className="landing-lime bg-surface-canvas">
-      <LandingFonts />
-      <PageHero tone="lime" emoji="🧰" decor={["🎯", "📄", "🎤"]} eyebrow={site.toolsPage.eyebrow} title={site.toolsPage.title} subtitle={site.toolsPage.subtitle} />
+    <>
+      <PageHero emoji="🧰" decor={["🎯", "📄", "🎤"]} eyebrow={site.toolsPage.eyebrow} title={site.toolsPage.title} subtitle={site.toolsPage.subtitle} />
       <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
         <div className="container-page">
           <ToolIndex />
         </div>
       </section>
-      <FinalCTA tone="lime" />
-    </div>
+      <FinalCTA />
+    </>
   );
 }
 
@@ -45,9 +43,8 @@ export function HowItWorksPage() {
   const site = useSite();
   const how = site.howPage;
   return (
-    <div className="landing-lime bg-surface-canvas">
-      <LandingFonts />
-      <PageHero tone="lime" emoji="🚀" decor={["📝", "🤖", "🗂️"]} eyebrow={how.eyebrow} title={how.title} subtitle={how.subtitle} />
+    <>
+      <PageHero emoji="🚀" decor={["📝", "🤖", "🗂️"]} eyebrow={how.eyebrow} title={how.title} subtitle={how.subtitle} />
 
       {/* Steps — a long-form sequence with a rail on the left */}
       <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
@@ -121,8 +118,8 @@ export function HowItWorksPage() {
         </div>
       </section>
 
-      <FinalCTA tone="lime" />
-    </div>
+      <FinalCTA />
+    </>
   );
 }
 
@@ -134,16 +131,16 @@ export function PricingPage() {
   return (
     <>
       <PageHero emoji="💎" decor={["📄", "⭐", "👑"]} eyebrow={p.eyebrow} title={p.title} subtitle={p.subtitle} />
-      <section className="pb-section-y-sm pt-10 md:pb-section-y-md md:pt-14">
+      <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
         <div className="container-page">
           <PricingPlans />
           <p className="mt-8 text-center text-body-sm text-ink-600">💳 {p.note}</p>
         </div>
       </section>
 
-      <section aria-labelledby="pricing-faq" className="pb-section-y-sm md:pb-section-y-md">
-        <div className="container-page grid max-w-5xl gap-10 lg:grid-cols-12">
-          <h2 id="pricing-faq" data-reveal className="font-display text-display-md text-ink-900 lg:col-span-4">
+      <section aria-labelledby="pricing-faq" className="pb-12 md:pb-14 lg:pb-16">
+        <div className="container-page grid max-w-5xl gap-8 lg:grid-cols-12 lg:gap-10">
+          <h2 id="pricing-faq" data-reveal className="luxe-firm font-display text-ink-900 lg:col-span-4">
             {p.faqTitle}
           </h2>
           <div data-reveal className="lg:col-span-8">
@@ -163,7 +160,7 @@ export function FaqPage() {
   return (
     <>
       <PageHero emoji="💬" decor={["❓", "💡", "✅"]} eyebrow={site.faq.eyebrow} title={site.faq.title} subtitle={site.faq.subtitle} />
-      <section className="section pt-10 md:pt-14 lg:pt-14">
+      <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
         <div data-reveal className="container-page max-w-3xl">
           <Accordion items={site.faq.items} />
         </div>
@@ -179,17 +176,16 @@ export function DestinationsIndexPage() {
   const site = useSite();
   const d = site.destinationsPage;
   return (
-    <div className="landing-lime bg-surface-canvas">
-      <LandingFonts />
-      <PageHero tone="lime" emoji="🌍" decor={["🗽", "🗻", "🗼"]} eyebrow={d.eyebrow} title={d.title} subtitle={d.subtitle} />
+    <>
+      <PageHero emoji="🌍" decor={["🗽", "🗻", "🗼"]} eyebrow={d.eyebrow} title={d.title} subtitle={d.subtitle} />
       <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
         <div className="container-page">
           <DestinationGrid />
           <p className="mt-8 text-center text-body-sm text-ink-500">{site.nav.destinationsNote}</p>
         </div>
       </section>
-      <FinalCTA tone="lime" />
-    </div>
+      <FinalCTA />
+    </>
   );
 }
 
@@ -201,8 +197,7 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
   const docs = slug === "schengen" ? [...page.docs, page.schengenExtra] : page.docs;
 
   return (
-    <div className="landing-lime bg-surface-canvas">
-      <LandingFonts />
+    <>
       <section className="lime-wash grain relative overflow-hidden">
         <HeroSky calm />
         <div className="container-page relative pb-12 pt-28 sm:pt-36 lg:pb-16 lg:pt-40">
@@ -314,7 +309,7 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
         </div>
       </section>
 
-      <FinalCTA tone="lime" />
-    </div>
+      <FinalCTA />
+    </>
   );
 }
