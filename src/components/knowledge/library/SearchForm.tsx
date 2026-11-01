@@ -2,7 +2,6 @@
 
 import { Search } from "lucide-react";
 import { useL } from "@/components/i18n/L";
-import { buttonClasses } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 /** Plain GET form — works without JavaScript and keeps the query in the URL. */
@@ -25,7 +24,7 @@ export function SearchForm({ defaultValue = "", className }: { defaultValue?: st
         placeholder={l("Masalan: Germaniya, 90/180, bank ko‘chirmasi")}
         className="h-14 w-full rounded-pill border border-surface-border bg-surface pl-11 pr-[7.5rem] text-body text-ink-900 shadow-card outline-none transition-colors placeholder:text-ink-400 focus:border-brand-400"
       />
-      <button type="submit" className={buttonClasses({ size: "md", className: "absolute right-1.5 top-1/2 -translate-y-1/2" })}>
+      <button type="submit" className="btn-charcoal btn-md absolute right-1.5 top-1/2 -translate-y-1/2">
         {l("Qidirish")}
       </button>
     </form>

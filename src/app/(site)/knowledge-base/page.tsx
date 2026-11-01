@@ -7,9 +7,9 @@ import { Plural, type PluralWord } from "@/components/i18n/Plural";
 import { SearchForm } from "@/components/knowledge/library/SearchForm";
 import { CountryFlag, CoverArt } from "@/components/knowledge/library/visuals";
 import { AccessCard, LibraryError, LibraryTabs, Paywall, SectionRow, SrLabel, TranslationNote, chapterEmoji } from "@/components/knowledge/library/ui";
+import { HeroSky } from "@/components/site/home/HeroSky";
 import { Marquee } from "@/components/site/Marquee";
 import { EmojiSticker } from "@/components/site/primitives";
-import { buttonClasses } from "@/components/ui/Button";
 import { getRequestLanguage } from "@/lib/i18n/request-language";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import {
@@ -22,6 +22,8 @@ import {
   type OutlineChapter,
 } from "@/lib/knowledge/library";
 import { libraryHref } from "@/lib/knowledge/offline";
+import { GOLD_FOIL, VIOLET_LEMON_STAGE } from "@/components/site/landing-styles";
+import { cn } from "@/lib/utils";
 import { REGION_VISUALS, chapterCover, sectionCountry, sectionEmoji, topicEmoji } from "@/lib/knowledge/visuals";
 
 export const dynamic = "force-dynamic";
@@ -61,7 +63,7 @@ function SectionHeading({ id, emoji, eyebrow, title, subtitle, action }: { id: s
         <p className="eyebrow">
           <span aria-hidden="true">{emoji}</span> <L>{eyebrow}</L>
         </p>
-        <h2 id={id} className="mt-4 font-display text-display-md font-extrabold tracking-[-0.03em] text-ink-950">
+        <h2 id={id} className="luxe-firm mt-4 font-display text-ink-950">
           {title}
         </h2>
         {subtitle ? (
@@ -108,7 +110,7 @@ function TopicList({
               </span>
               {chapter.label} · {sections.length} <Plural n={sections.length} word="bo‘lim" />
             </span>
-            <span id={`${id}-title`} className="mt-1.5 block font-display text-display-sm font-extrabold tracking-[-0.02em] text-ink-950">
+            <span id={`${id}-title`} className="mt-1.5 block luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
               <L>{title}</L>
             </span>
             <span className="mt-1.5 block text-body-sm text-ink-600">
@@ -209,13 +211,14 @@ export default async function KnowledgeBasePage() {
   return (
     <>
       {/* Hero: copy + search on the left, a travel-photo collage on the right */}
-      <section className="hero-sky grain relative overflow-hidden">
+      <section className="lime-wash grain relative overflow-hidden">
+        <HeroSky calm />
         <div className="container-page relative grid gap-10 pb-12 pt-28 sm:pt-36 lg:grid-cols-12 lg:items-center lg:gap-12 lg:pb-16 lg:pt-40">
           <div className="animate-fade-up lg:col-span-6">
             <p className="eyebrow">
               <span aria-hidden="true">📚</span> <L>Premium kutubxona</L>
             </p>
-            <h1 className="mt-4 font-display text-display-lg font-extrabold tracking-[-0.04em] text-ink-950 sm:text-display-xl">
+            <h1 className="mt-4 luxe-firm font-luxe [text-wrap:balance] text-[clamp(2.4rem,4.6vw,4.2rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-ink-950">
               <L>Viza ma’lumotlar bazasi</L>
             </h1>
             <p className="mt-4 max-w-xl text-body-lg text-ink-700">
@@ -229,7 +232,7 @@ export default async function KnowledgeBasePage() {
                 <li key={s.q}>
                   <Link
                     href={`/knowledge-base/search?q=${encodeURIComponent(s.q)}`}
-                    className="inline-flex items-center gap-2 rounded-pill border border-white/80 bg-surface/80 px-3 py-1.5 text-body-sm font-medium text-ink-800 backdrop-blur transition-colors hover:border-brand-300 hover:text-brand-700 dark:border-white/10"
+                    className="inline-flex items-center gap-2 rounded-pill border border-white/80 bg-surface/80 px-3 py-1.5 text-body-sm font-medium text-ink-800 backdrop-blur transition-colors hover:border-violet-300 hover:text-violet-700 dark:border-white/10 dark:hover:text-violet-300"
                   >
                     {s.flag ? <CountryFlag code={s.flag} size="xs" /> : <span aria-hidden="true">{s.emoji}</span>}
                     <L>{s.q}</L>
@@ -244,7 +247,7 @@ export default async function KnowledgeBasePage() {
                     <span aria-hidden="true">{f.emoji}</span>
                     <Plural n={f.value} word={f.label} />
                   </dt>
-                  <dd className="font-accent text-[30px] italic leading-none text-ink-950 tabular-nums">{f.value}</dd>
+                  <dd className="font-luxe-italic text-[30px] font-semibold italic leading-none text-violet-600 [-webkit-text-stroke:0.35px_currentColor] dark:text-citron-300">{f.value}</dd>
                 </div>
               ))}
             </dl>
@@ -304,19 +307,20 @@ export default async function KnowledgeBasePage() {
 
       <LibraryTabs active="home" />
 
-      <div className="container-page space-y-24 py-14 sm:py-20">
+      <div className="container-page space-y-14 pb-12 pt-8 md:pb-14 md:pt-10 lg:space-y-16 lg:pb-16">
         {/* Chapters */}
         <section id="boblar" aria-labelledby="boblar-title" className="scroll-mt-40">
           <SectionHeading id="boblar-title" emoji="📚" eyebrow="Kitob" title={<L>To‘qqiz bob</L>} />
-          <ol className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <ol className={cn("mt-8 grid gap-4 rounded-[36px] p-3 sm:grid-cols-2 sm:gap-5 sm:p-5 lg:grid-cols-3", VIOLET_LEMON_STAGE)}>
             {chapters.map((c, i) => {
               const cover = chapterCover(c);
               return (
                 <li key={c.slug}>
                   <Link
                     href={`/knowledge-base/book/${c.slug}`}
-                    className="group flex h-full flex-col overflow-hidden rounded-[28px] border border-surface-border bg-surface transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-violet-200 hover:shadow-float"
+                    className={cn("group flex h-full flex-col overflow-hidden rounded-[26px] p-1.5", GOLD_FOIL)}
                   >
+                    <span className="flex h-full flex-col overflow-hidden rounded-[21px] bg-surface">
                     <CoverArt
                       cover={cover}
                       alt={chapterHeading(c)}
@@ -330,13 +334,14 @@ export default async function KnowledgeBasePage() {
                       </span>
                     </CoverArt>
                     <span className="flex flex-1 flex-col p-5">
-                      <span className="font-display text-[19px] font-bold leading-snug text-ink-950 group-hover:text-brand-700">{chapterHeading(c)}</span>
+                      <span className="luxe-firm font-luxe text-[1.25rem] font-semibold leading-tight text-[1.4rem] text-ink-950 group-hover:text-brand-700">{chapterHeading(c)}</span>
                       <span className="mt-auto flex items-center justify-between pt-4 text-caption text-ink-500">
                         <span>
                           📄 {c.sections.length} <Plural n={c.sections.length} word="bo‘lim" /> · ⏱ ~{readingMinutes(c.chars)} <L>daq</L>
                         </span>
                         <ArrowRight size={16} aria-hidden="true" className="text-ink-300 transition-transform group-hover:translate-x-0.5 group-hover:text-violet-600" />
                       </span>
+                    </span>
                     </span>
                   </Link>
                 </li>
@@ -349,7 +354,7 @@ export default async function KnowledgeBasePage() {
                 <li key={c.slug}>
                   <Link
                     href={`/knowledge-base/book/${c.slug}`}
-                    className="inline-flex items-center gap-2 rounded-pill border border-surface-border bg-surface px-3.5 py-2 text-body-sm font-medium text-ink-800 transition-colors hover:border-brand-300 hover:text-brand-700"
+                    className="inline-flex items-center gap-2 rounded-pill border border-surface-border bg-surface px-3.5 py-2 text-body-sm font-medium text-ink-800 transition-colors hover:border-violet-300 hover:text-violet-700 dark:hover:text-violet-300"
                   >
                     <span aria-hidden="true">{chapterEmoji(c)}</span>
                     {c.label}
@@ -386,7 +391,7 @@ export default async function KnowledgeBasePage() {
                           {list.filter((c) => c.code !== "EU").length} <Plural n={list.filter((c) => c.code !== "EU").length} word="davlat" />
                         </span>
                       </span>
-                      <h3 className="mt-3 font-display text-display-sm font-extrabold tracking-[-0.02em]">
+                      <h3 className="mt-3 luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em]">
                         <L>{region.title}</L>
                       </h3>
                       <p className="mt-1 text-body-sm text-white/80">
@@ -430,19 +435,19 @@ export default async function KnowledgeBasePage() {
         {/* The AI consultant lives on its own page; this only points to it */}
         <section className="relative overflow-hidden rounded-[32px] bg-night-950 px-6 py-10 text-white sm:px-10 sm:py-12">
           <span aria-hidden="true" className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-violet-600/40 blur-3xl" />
-          <span aria-hidden="true" className="absolute -bottom-28 left-10 h-72 w-72 rounded-full bg-brand-600/30 blur-3xl" />
+          <span aria-hidden="true" className="absolute -bottom-28 left-10 h-72 w-72 rounded-full bg-citron-300/20 blur-3xl" />
           <div className="relative grid gap-8 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-8">
               <p className="inline-flex items-center gap-2 rounded-pill border border-white/15 bg-white/10 px-3 py-1 text-[13px] font-medium">
                 <span aria-hidden="true">🤖</span> <L>AI maslahatchi</L>
               </p>
-              <h2 className="mt-4 font-display text-display-md font-extrabold tracking-[-0.03em]">
+              <h2 className="luxe-firm mt-4 font-display">
                 <L>Savolingiz bormi? AI maslahatchidan so‘rang</L>
               </h2>
               <p className="mt-3 max-w-2xl text-body text-white/75">
                 <L>Maslahatchi shu kitob asosida javob beradi va har bir javob ostida bob hamda manbani ko‘rsatadi.</L>
               </p>
-              <Link href="/dashboard/assistant" className={buttonClasses({ size: "lg", className: "mt-6 bg-white text-brand-deep hover:bg-brand-50" })}>
+              <Link href="/dashboard/assistant" className="btn btn-sheen btn-lg mt-6 bg-gold-300 text-night hover:bg-gold-200">
                 <L>Savol berish</L>
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>

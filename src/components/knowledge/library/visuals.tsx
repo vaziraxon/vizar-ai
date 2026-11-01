@@ -33,7 +33,7 @@ export function CountryFlag({ code, size = "md", className }: { code: string; si
 
 /**
  * Card / header artwork: a real travel photo, or — for the thematic
- * chapters — a soft gradient with three large emoji.
+ * chapters — the soft violet→lemon wash with three large emoji.
  */
 export function CoverArt({
   cover,
@@ -66,7 +66,7 @@ export function CoverArt({
         </>
       ) : (
         <span aria-hidden="true" className="absolute inset-0">
-          <span className={cn("absolute inset-0 bg-gradient-to-br dark:opacity-30", cover.gradient)} />
+          <span className="absolute inset-0 bg-gradient-to-br from-violet-100 via-surface to-lemon-200 dark:from-violet-100/60 dark:via-surface/40 dark:to-lemon-300/[0.06]" />
           {/* Dotted paper texture + a soft light behind the main emoji */}
           <span className="absolute inset-0 opacity-60 [background-image:radial-gradient(rgba(255,255,255,0.9)_1px,transparent_1.5px)] [background-size:16px_16px] dark:opacity-10" />
           <span className="absolute left-1/2 top-1/2 h-[58%] w-[42%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/70 blur-xl dark:bg-white/10" />

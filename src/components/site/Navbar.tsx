@@ -10,10 +10,11 @@ import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { ButtonLink } from "@/components/ui/Button";
 import { Flag } from "@/components/site/Flag";
 import { useSite } from "@/lib/i18n/site";
+import { chapterSlugEmoji } from "@/lib/knowledge/visuals";
 import { DESTINATIONS, TOOLS, TOOL_BY_ID, hasLandingLook, type DestinationSlug, type ToolMeta } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
 
-type MenuId = "tools" | "destinations";
+type MenuId = "tools" | "destinations" | "library";
 
 const TOOL_ROUTES = new Set(TOOLS.map((t) => t.href).concat("/features"));
 const FEATURED_TOOL = TOOL_BY_ID.readiness;
@@ -93,6 +94,38 @@ function DestinationRow({ slug, onNavigate, tabIndex }: { slug: DestinationSlug;
           )}
         </span>
         <span className="block truncate text-caption text-ink-500">{copy.region}</span>
+      </span>
+    </Link>
+  );
+}
+
+function ChapterRow({ index, onNavigate, tabIndex }: { index: number; onNavigate?: () => void; tabIndex?: number }) {
+  const site = useSite();
+  const pathname = usePathname();
+  const slug = `bob-${index + 1}`;
+  const href = `/knowledge-base/book/${slug}`;
+  const selected = pathname === href || pathname.startsWith(`${href}/`);
+  const chapter = site.nav.libraryChapters[index]!;
+  return (
+    <Link
+      href={href}
+      onClick={onNavigate}
+      tabIndex={tabIndex}
+      aria-current={selected ? "page" : undefined}
+      className={cn(
+        "group flex items-center gap-3 rounded-2xl px-3 py-2.5 transition-colors duration-150",
+        selected ? "bg-gold-200/70 dark:bg-gold-300/30" : "hover:bg-gold-200/50 dark:hover:bg-gold-300/20"
+      )}
+    >
+      <span
+        aria-hidden="true"
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-100 bg-brand-50/60 text-[18px] leading-none transition-colors duration-150 group-hover:border-brand-200 group-hover:bg-surface"
+      >
+        {chapterSlugEmoji(slug)}
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-[10.5px] font-semibold uppercase tracking-[0.1em] text-ink-500">{chapter.label}</span>
+        <span className="line-clamp-2 text-body-sm font-semibold leading-snug text-ink-900">{chapter.title}</span>
       </span>
     </Link>
   );
@@ -211,13 +244,47 @@ export function Navbar() {
   // hovered or pressed item lights up soft gold; the current page keeps its fill.
   const itemClass = (key: string) =>
     cn(
-      "flex h-11 items-center gap-1 whitespace-nowrap rounded-pill px-2.5 text-[13px] font-medium transition-[background-color,color,box-shadow] duration-200 xl:px-4 xl:text-body-sm",
+      "flex h-11 items-center gap-1 whitespace-nowrap rounded-pill px-2.5 text-[13px] font-medium transition-[background-color,color,box-shadow] duration-200 xl:px-3 xl:text-body-sm min-[1400px]:px-4",
       activeKey === key
         ? cn(activeFill, "font-semibold")
         : menu === key
           ? "bg-gold-200 text-night shadow-xs"
           : "text-ink-700 hover:bg-gold-200/70 hover:text-night active:bg-gold-200 active:text-night"
     );
+
+  const menuButton = (id: MenuId, label: string) => (
+    <button
+      key={id}
+      type="button"
+      aria-expanded={menu === id}
+      aria-haspopup="true"
+      aria-controls={`menu-${id}`}
+      onMouseEnter={() => openMenu(id)}
+      onClick={() => (menu === id ? close() : openMenu(id))}
+      className={cn(itemClass(id), "group")}
+    >
+      {label}
+      <ChevronDown
+        size={14}
+        className={cn(
+          "transition-transform duration-200",
+          activeKey === id || menu === id ? "text-night/70" : "text-ink-400 group-hover:text-night/70",
+          menu === id && "rotate-180"
+        )}
+      />
+    </button>
+  );
+  const navLink = (key: string, href: string, label: string) => (
+    <Link
+      key={key}
+      href={href}
+      onMouseEnter={scheduleClose}
+      aria-current={activeKey === key ? "page" : undefined}
+      className={itemClass(key)}
+    >
+      {label}
+    </Link>
+  );
 
   const solid = scrolled || mobileOpen;
   const mobileTab = mobileOpen ? 0 : -1;
@@ -234,7 +301,7 @@ export function Navbar() {
       >
         <div
           className={cn(
-            "relative mx-auto flex h-16 max-w-[1240px] items-center justify-between gap-4 px-5 transition-[max-width,background-color,border-color,box-shadow,padding] duration-300 ease-premium sm:px-6 lg:h-[72px] lg:gap-3 lg:rounded-[26px] lg:border lg:px-6 xl:gap-4 xl:px-8",
+            "relative mx-auto flex h-16 max-w-[1240px] items-center justify-between gap-4 px-5 transition-[max-width,background-color,border-color,box-shadow,padding] duration-300 ease-premium sm:px-6 lg:h-[72px] lg:gap-2 lg:rounded-[26px] lg:border lg:px-4 xl:gap-4 xl:px-8",
             scrolled
               ? "lg:max-w-[1240px] lg:border-white/80 dark:border-white/10 lg:bg-surface/75 lg:pl-5 lg:pr-2.5 lg:shadow-float xl:pl-5 xl:pr-2.5 lg:backdrop-blur-xl lg:backdrop-saturate-150"
               : "lg:border-transparent",
@@ -265,43 +332,11 @@ export function Navbar() {
               >
                 {site.nav.home}
               </Link>
-              {(["tools", "destinations"] as MenuId[]).map((id) => (
-                <button
-                  key={id}
-                  type="button"
-                  aria-expanded={menu === id}
-                  aria-haspopup="true"
-                  aria-controls={`menu-${id}`}
-                  onMouseEnter={() => openMenu(id)}
-                  onClick={() => (menu === id ? close() : openMenu(id))}
-                  className={cn(itemClass(id), "group")}
-                >
-                  {id === "tools" ? site.nav.tools : site.nav.destinations}
-                  <ChevronDown
-                    size={14}
-                    className={cn(
-                      "transition-transform duration-200",
-                      activeKey === id || menu === id ? "text-night/70" : "text-ink-400 group-hover:text-night/70",
-                      menu === id && "rotate-180"
-                    )}
-                  />
-                </button>
-              ))}
-              {[
-                { key: "how", href: "/how-it-works", label: site.nav.howItWorks },
-                { key: "library", href: "/knowledge-base", label: site.nav.library },
-                { key: "pricing", href: "/pricing", label: site.nav.pricing },
-              ].map((item) => (
-                <Link
-                  key={item.key}
-                  href={item.href}
-                  onMouseEnter={scheduleClose}
-                  aria-current={activeKey === item.key ? "page" : undefined}
-                  className={itemClass(item.key)}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {menuButton("tools", site.nav.tools)}
+              {menuButton("destinations", site.nav.destinations)}
+              {navLink("how", "/how-it-works", site.nav.howItWorks)}
+              {menuButton("library", site.nav.library)}
+              {navLink("pricing", "/pricing", site.nav.pricing)}
             </div>
           </nav>
 
@@ -364,7 +399,10 @@ export function Navbar() {
             <div
               id={`menu-${menu}`}
               onMouseEnter={() => clearTimeout(closeTimer.current)}
-              className="absolute left-1/2 top-[68px] z-50 hidden w-[680px] -translate-x-1/2 pt-2 lg:block"
+              className={cn(
+                "absolute left-1/2 top-[68px] z-50 hidden -translate-x-1/2 pt-2 lg:block",
+                menu === "library" ? "w-[min(940px,calc(100vw-40px))]" : "w-[680px]"
+              )}
             >
               <div key={menu} className="animate-menu-in rounded-[24px] border border-surface-border bg-surface p-3 shadow-float">
                 {menu === "tools" ? (
@@ -389,6 +427,12 @@ export function Navbar() {
                       ))}
                     </div>
                   </>
+                ) : menu === "library" ? (
+                  <div className="grid grid-cols-3 gap-0.5">
+                    {site.nav.libraryChapters.map((_, i) => (
+                      <ChapterRow key={i} index={i} onNavigate={close} />
+                    ))}
+                  </div>
                 ) : (
                   <>
                     <FeaturedRow
@@ -407,16 +451,16 @@ export function Navbar() {
                 )}
                 <div className="mt-2 flex items-center justify-between gap-4 border-t border-surface-border px-3 pb-1 pt-3">
                   <Link
-                    href={menu === "tools" ? "/features" : "/destinations"}
+                    href={menu === "tools" ? "/features" : menu === "library" ? "/knowledge-base" : "/destinations"}
                     onClick={close}
                     className="inline-flex shrink-0 items-center gap-2 text-body-sm font-semibold text-brand-700 hover:text-brand-600"
                   >
-                    <span aria-hidden="true">{menu === "tools" ? "🧰" : "🌍"}</span>
-                    {menu === "tools" ? site.nav.allTools : site.nav.allDestinations}
+                    <span aria-hidden="true">{menu === "tools" ? "🧰" : menu === "library" ? "📚" : "🌍"}</span>
+                    {menu === "tools" ? site.nav.allTools : menu === "library" ? site.nav.libraryAll : site.nav.allDestinations}
                     <ArrowRight size={14} />
                   </Link>
-                  {menu === "destinations" && (
-                    <p className="truncate text-caption text-ink-500">{site.nav.destinationsNote}</p>
+                  {menu !== "tools" && (
+                    <p className="truncate text-caption text-ink-500">{menu === "library" ? site.nav.libraryNote : site.nav.destinationsNote}</p>
                   )}
                 </div>
               </div>
@@ -472,6 +516,13 @@ export function Navbar() {
           <div className="-mx-3 mt-2 grid gap-0.5 sm:grid-cols-2">
             {DESTINATIONS.map((d) => (
               <DestinationRow key={d.slug} slug={d.slug} tabIndex={mobileTab} />
+            ))}
+          </div>
+
+          <p className="mt-8 text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">{site.nav.library}</p>
+          <div className="-mx-3 mt-2 grid gap-0.5 sm:grid-cols-2">
+            {site.nav.libraryChapters.map((_, i) => (
+              <ChapterRow key={i} index={i} tabIndex={mobileTab} />
             ))}
           </div>
 

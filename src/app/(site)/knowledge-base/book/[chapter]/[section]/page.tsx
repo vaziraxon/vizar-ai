@@ -19,6 +19,7 @@ import {
 import { libraryHref } from "@/lib/knowledge/offline";
 import { chapterCover, sectionEmoji } from "@/lib/knowledge/visuals";
 import { cn } from "@/lib/utils";
+import { HeroSky } from "@/components/site/home/HeroSky";
 
 export const dynamic = "force-dynamic";
 
@@ -64,7 +65,8 @@ export default async function SectionPage({ params }: Params) {
 
   return (
     <>
-      <section className="hero-sky-soft grain relative overflow-hidden">
+      <section className="lime-wash grain relative overflow-hidden">
+        <HeroSky calm />
         <div className="container-page relative pb-8 pt-28 sm:pb-10 sm:pt-36 lg:pt-40">
           <nav aria-label="Breadcrumb">
             <ol className="flex flex-wrap items-center gap-1.5 text-body-sm text-ink-500">
@@ -87,10 +89,10 @@ export default async function SectionPage({ params }: Params) {
                 <span aria-hidden="true">{section.isIntro ? emoji : sectionEmoji(section.sectionTitleSrc)}</span>
                 {section.sectionNumber ? `${section.chapterLabel} · ${section.sectionNumber}` : section.chapterLabel}
               </p>
-              <h1 className="mt-4 font-display text-display-md font-extrabold tracking-[-0.03em] text-ink-950 sm:text-display-lg">{title}</h1>
+              <h1 className="luxe-firm mt-4 font-luxe [overflow-wrap:anywhere] [text-wrap:balance] text-[clamp(2.1rem,3.8vw,3.4rem)] font-semibold leading-[1.08] tracking-[-0.025em] text-ink-950">{title}</h1>
               <ul className="mt-5 flex flex-wrap gap-2 text-body-sm font-medium text-ink-700">
                 <li className="inline-flex items-center gap-1.5 rounded-pill border border-white/80 bg-surface/80 px-3 py-1.5 backdrop-blur dark:border-white/10">
-                  <Clock size={14} aria-hidden="true" className="text-brand-600" />~{readingMinutes(section.chars)} <L>daqiqalik o‘qish</L>
+                  <Clock size={14} aria-hidden="true" className="text-violet-600 dark:text-citron-300" />~{readingMinutes(section.chars)} <L>daqiqalik o‘qish</L>
                 </li>
                 <li className="inline-flex items-center gap-1.5 rounded-pill border border-white/80 bg-surface/80 px-3 py-1.5 backdrop-blur dark:border-white/10">
                   <span aria-hidden="true">{emoji}</span>
@@ -121,7 +123,7 @@ export default async function SectionPage({ params }: Params) {
       </section>
       <LibraryTabs />
 
-      <div className="container-page grid gap-10 py-10 sm:py-14 lg:grid-cols-12">
+      <div className="container-page grid gap-10 pb-12 pt-8 md:pb-14 md:pt-10 lg:grid-cols-12 lg:pb-16">
         <article className="min-w-0 lg:col-span-8">
           {lang !== "uz" && bodyLang === "uz" ? (
             <p className="mb-4 flex items-start gap-2 rounded-2xl border border-violet-200 bg-violet-50/70 px-4 py-3 text-body-sm text-ink-700 dark:border-violet-400/20 dark:bg-violet-400/10">
@@ -191,7 +193,7 @@ export default async function SectionPage({ params }: Params) {
             <div className="rounded-[28px] border border-surface-border bg-surface p-4 lg:sticky lg:top-40 lg:max-h-[calc(100vh-11rem)] lg:overflow-y-auto">
               <Link href={`/knowledge-base/book/${chapter.slug}`} className="block px-2 pb-3 pt-1">
                 <span className="text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">{chapter.label}</span>
-                <span className="mt-1 block font-display text-body font-bold text-ink-950 hover:text-brand-700">{chapterHeading(chapter)}</span>
+                <span className="mt-1 block luxe-firm font-luxe text-[1.25rem] font-semibold leading-tight text-ink-950 hover:text-brand-700">{chapterHeading(chapter)}</span>
               </Link>
               <ol className="space-y-0.5 border-t border-surface-border pt-2">
                 {chapter.sections.map((s) => {

@@ -7,6 +7,7 @@ import { Plural } from "@/components/i18n/Plural";
 import { LibraryDate } from "@/components/knowledge/library/LibraryDate";
 import { PlanStrip } from "@/components/knowledge/library/PlanStrip";
 import { CountryFlag } from "@/components/knowledge/library/visuals";
+import { HeroSky } from "@/components/site/home/HeroSky";
 import { EmojiSticker } from "@/components/site/primitives";
 import { buttonClasses } from "@/components/ui/Button";
 import type { LibraryViewer, SubscriptionPlan } from "@/lib/knowledge/access";
@@ -58,7 +59,7 @@ export function LibraryHero({
             <ol className={cn("flex flex-wrap items-center gap-1 text-body-sm", onPhoto ? "text-white/70" : "text-ink-500")}>
               {breadcrumb.map((b, i) => (
                 <li key={b.href} className="flex items-center gap-1">
-                  {i > 0 ? <ChevronRight size={14} aria-hidden="true" className={onPhoto ? "text-white/40" : "text-ink-300"} /> : null}
+                  {i > 0 ? <ChevronRight size={14} aria-hidden="true" className={onPhoto ? "text-white/50" : "text-ink-500"} /> : null}
                   <Link href={b.href} className={cn("rounded transition-colors", onPhoto ? "hover:text-white" : "hover:text-brand-700")}>
                     {b.label}
                   </Link>
@@ -74,7 +75,7 @@ export function LibraryHero({
             ) : null}
             <h1
               className={cn(
-                "mt-4 font-display text-display-lg font-extrabold tracking-[-0.035em] sm:text-display-xl",
+                "mt-4 luxe-firm font-luxe [overflow-wrap:anywhere] [text-wrap:balance] text-[clamp(2.4rem,4.6vw,4.2rem)] font-semibold leading-[1.04] tracking-[-0.03em]",
                 onPhoto ? "text-white" : "text-ink-950"
               )}
             >
@@ -88,11 +89,12 @@ export function LibraryHero({
     </>
   );
 
-  // Photo headers sit in a rounded panel on the light sky, so the floating
+  // Photo headers sit in a rounded panel on the sky, so the floating
   // navbar always stays on a light background.
   if (photo) {
     return (
-      <section className="hero-sky-soft grain relative overflow-hidden">
+      <section className="lime-wash grain relative overflow-hidden">
+        <HeroSky calm />
         <div className="container-page relative pb-8 pt-24 sm:pb-10 sm:pt-28 lg:pt-32">
           <div className="relative overflow-hidden rounded-[32px] bg-night-950 px-5 pb-8 pt-7 text-white shadow-float sm:rounded-[40px] sm:px-10 sm:pb-12 sm:pt-10">
             <Image src={photo} alt={photoAlt} fill priority sizes="(min-width: 1280px) 1200px, 100vw" className="object-cover" />
@@ -106,11 +108,12 @@ export function LibraryHero({
   }
 
   return (
-    <section className="hero-sky-soft grain relative overflow-hidden">
+    <section className="lime-wash grain relative overflow-hidden">
+      <HeroSky calm />
       {stickers ? (
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden xl:block">
           <EmojiSticker emoji={stickers[0]} tilt={-10} className="absolute right-[38%] top-[132px]" />
-          <EmojiSticker emoji={stickers[1]} size="lg" tilt={8} delay={900} className="absolute bottom-10 right-[44%]" />
+          <EmojiSticker emoji={stickers[1]} size="sm" tilt={8} delay={900} className="absolute right-[50%] top-[104px]" />
           <EmojiSticker emoji={stickers[2]} size="sm" tilt={-4} delay={1800} className="absolute bottom-20 right-[33%]" />
         </div>
       ) : null}
@@ -147,7 +150,7 @@ export function AccessCard({ viewer, next }: { viewer: LibraryViewer; next: stri
   if (viewer.hasAccess) {
     const plan = viewer.subscription?.plan;
     return (
-      <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-brand-600 via-violet-600 to-violet-700 p-[1.5px] shadow-float">
+      <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-violet-600 via-violet-500 to-gold-300 p-[1.5px] shadow-float">
         <div className="relative rounded-[26.5px] bg-surface/95 p-5 backdrop-blur dark:bg-night-950/90">
           <div className="flex items-center gap-3">
             <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-100 to-violet-100 text-[24px] dark:from-white/10 dark:to-white/5">
@@ -201,7 +204,7 @@ export function AccessCard({ viewer, next }: { viewer: LibraryViewer; next: stri
 function UnlockButtons({ viewer, next, size = "md" }: { viewer: LibraryViewer; next: string; size?: "md" | "lg" }) {
   return (
     <>
-      <Link href="/pricing" className={buttonClasses({ size })}>
+      <Link href="/pricing" className={cn("btn-charcoal btn-sheen", size === "lg" ? "btn-lg" : "btn-md")}>
         <Sparkles size={16} aria-hidden="true" />
         <L>Obunani faollashtirish</L>
       </Link>
@@ -218,7 +221,7 @@ function UnlockButtons({ viewer, next, size = "md" }: { viewer: LibraryViewer; n
 /** Replaces locked content: what is behind it, the plans and how to open it. */
 export function Paywall({ viewer, next, title, children }: { viewer: LibraryViewer; next: string; title: ReactNode; children?: ReactNode }) {
   return (
-    <div className="hero-backdrop relative overflow-hidden rounded-[32px] border border-violet-200/70 px-5 py-8 text-center sm:px-10 sm:py-12 dark:border-white/10">
+    <div className="lime-wash grain relative overflow-hidden rounded-[32px] px-5 py-8 text-center shadow-float sm:px-10 sm:py-12">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden md:block">
         <EmojiSticker emoji="📚" size="sm" tilt={-10} className="absolute left-[6%] top-8" />
         <EmojiSticker emoji="🌍" size="sm" tilt={8} delay={900} className="absolute right-[7%] top-10" />
@@ -227,7 +230,7 @@ export function Paywall({ viewer, next, title, children }: { viewer: LibraryView
       <span aria-hidden="true" className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-[22px] bg-surface text-[30px] shadow-float ring-1 ring-white">
         🔐
       </span>
-      <p className="relative mx-auto mt-5 max-w-xl font-display text-display-sm font-extrabold tracking-[-0.02em] text-ink-950">{title}</p>
+      <p className="relative mx-auto mt-5 max-w-xl luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950 sm:text-[2.1rem]">{title}</p>
       <p className="relative mx-auto mt-2 max-w-xl text-body text-ink-600">
         {viewer.user ? (
           <L>Hisobingizda faol obuna yo‘q. Obunani faollashtiring — to‘liq matn obuna muddati davomida ochiq bo‘ladi va muddat tugaganda avtomatik yopiladi.</L>
@@ -309,7 +312,7 @@ export function LibraryTabs({ active }: { active?: "home" | "search" }) {
                 aria-current={current ? "page" : undefined}
                 className={cn(
                   "inline-flex items-center gap-1.5 rounded-pill px-3.5 py-2 text-body-sm font-semibold transition-colors",
-                  current ? "bg-gradient-to-r from-brand-600 to-violet-600 text-white shadow-button" : "text-ink-700 hover:bg-surface hover:text-brand-700"
+                  current ? "bg-gold-300 text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_8px_20px_-10px_rgba(180,130,20,0.7)]" : "text-ink-700 hover:bg-gold-200/70 hover:text-night active:bg-gold-200 active:text-night"
                 )}
               >
                 <span aria-hidden="true">{t.emoji}</span>
@@ -356,7 +359,7 @@ export function SectionRow({
           </span>
         ) : null}
         <span className="w-11 shrink-0 text-body-sm font-semibold tabular-nums text-brand-700">{number ?? "•"}</span>
-        <span className="min-w-0 flex-1 text-body font-medium text-ink-900 group-hover:text-brand-700">{title}</span>
+        <span className="min-w-0 flex-1 text-body font-medium text-ink-900 [overflow-wrap:anywhere] group-hover:text-brand-700">{title}</span>
         {minutes ? (
           <span className="hidden shrink-0 text-caption text-ink-500 sm:inline">
             ⏱ {minutes} <L>daq</L>
@@ -365,7 +368,7 @@ export function SectionRow({
         {locked ? (
           <LockIcon />
         ) : (
-          <ArrowRight size={15} aria-hidden="true" className="shrink-0 text-ink-300 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-600" />
+          <ArrowRight size={15} aria-hidden="true" className="shrink-0 text-ink-300 transition-transform group-hover:translate-x-0.5 group-hover:text-violet-600 dark:group-hover:text-violet-400" />
         )}
       </Link>
     </li>
@@ -378,7 +381,7 @@ export function LibraryError() {
       <p aria-hidden="true" className="text-[40px]">
         🛠️
       </p>
-      <p className="mt-3 font-display text-display-sm font-bold text-ink-950">
+      <p className="mt-3 luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
         <L>Kutubxona hozir ochilmadi</L>
       </p>
       <p className="mt-2 text-body text-ink-600">

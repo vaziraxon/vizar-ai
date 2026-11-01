@@ -16,6 +16,10 @@ export interface SiteContent {
     howItWorks: string;
     /** /knowledge-base — the premium visa library */
     library: string;
+    /** Its menu: the nine book chapters in order, as titled in the library. The menu is on every page, so it can't read them from the database. */
+    libraryChapters: { label: string; title: string }[];
+    libraryAll: string;
+    libraryNote: string;
     pricing: string;
     signIn: string;
     getStarted: string;

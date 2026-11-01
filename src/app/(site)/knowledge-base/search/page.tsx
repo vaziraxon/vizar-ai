@@ -101,7 +101,7 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
       </LibraryHero>
       <LibraryTabs active="search" />
 
-      <div className="container-page py-12 sm:py-16">
+      <div className="container-page pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
         {failure === "limit" ? (
           <p className="text-body text-ink-700">
             <L>Juda ko‘p so‘rov. Birozdan keyin qayta urinib ko‘ring.</L>
@@ -121,7 +121,7 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
         ) : (
           <div className="grid gap-10 lg:grid-cols-12">
             <section aria-labelledby="hits-book" className="min-w-0 lg:col-span-8">
-              <h2 id="hits-book" className="flex items-center gap-2 font-display text-display-sm font-bold text-ink-950">
+              <h2 id="hits-book" className="flex items-center gap-2 luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
                 <span aria-hidden="true" className="emoji-tile">
                   📚
                 </span>
@@ -144,7 +144,7 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
                           {hit.section_number ? ` · ${hit.section_number}` : ""}
                           {!full ? <LockIcon /> : null}
                         </span>
-                        <span className="mt-1 block font-display text-body-lg font-bold text-ink-950 group-hover:text-brand-700">
+                        <span className="mt-1 block luxe-firm font-luxe text-[1.25rem] font-semibold leading-tight text-ink-950 group-hover:text-brand-700">
                           {sectionTitles.get(`${hit.chapter_slug}/${hit.section_slug}`) ?? hit.section_title}
                         </span>
                         {hit.content ? (
@@ -161,7 +161,7 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
 
             {result.rules.length ? (
               <section aria-labelledby="hits-rules" className="lg:col-span-4">
-                <h2 id="hits-rules" className="flex items-center gap-2 font-display text-display-sm font-bold text-ink-950">
+                <h2 id="hits-rules" className="flex items-center gap-2 luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
                   <span aria-hidden="true" className="emoji-tile">
                     🌍
                   </span>

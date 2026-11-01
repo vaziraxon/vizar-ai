@@ -9,26 +9,24 @@
 import type { Region } from "./library";
 
 export interface Cover {
-  /** Photo in /public/images, or none for an illustrated (gradient + emoji) cover */
+  /** Photo in /public/images, or none for an illustrated (wash + emoji) cover */
   photo?: string;
   /** Three emoji for the illustrated cover / stickers */
   emojis: [string, string, string];
-  /** Tailwind gradient classes for the illustrated cover */
-  gradient: string;
 }
 
 const PASSPORTS = "/images/travel/passports.webp";
 
 export const CHAPTER_COVERS: Record<number, Cover> = {
-  1: { photo: PASSPORTS, emojis: ["🛂", "🌍", "✈️"], gradient: "from-sky-100 via-indigo-50 to-violet-100" },
-  2: { emojis: ["📑", "🏦", "✍️"], gradient: "from-amber-100 via-orange-50 to-rose-100" },
-  3: { emojis: ["🗂️", "📅", "🏛️"], gradient: "from-sky-100 via-cyan-50 to-indigo-100" },
-  4: { emojis: ["🎙️", "💬", "✅"], gradient: "from-emerald-100 via-teal-50 to-sky-100" },
-  5: { photo: "/images/destinations/schengen.webp", emojis: ["🏛️", "🥐", "🚆"], gradient: "from-blue-100 to-indigo-100" },
-  6: { photo: "/images/destinations/gb.webp", emojis: ["🏰", "☕", "🚌"], gradient: "from-rose-100 to-violet-100" },
-  7: { photo: "/images/destinations/us.webp", emojis: ["🗽", "🍁", "🦘"], gradient: "from-red-100 to-blue-100" },
-  8: { photo: "/images/destinations/jp.webp", emojis: ["🏯", "🌸", "🕌"], gradient: "from-pink-100 to-amber-100" },
-  9: { emojis: ["🤖", "✨", "📊"], gradient: "from-violet-200 via-indigo-100 to-sky-100" },
+  1: { photo: PASSPORTS, emojis: ["🛂", "🌍", "✈️"] },
+  2: { emojis: ["📑", "🏦", "✍️"] },
+  3: { emojis: ["🗂️", "📅", "🏛️"] },
+  4: { emojis: ["🎙️", "💬", "✅"] },
+  5: { photo: "/images/destinations/schengen.webp", emojis: ["🏛️", "🥐", "🚆"] },
+  6: { photo: "/images/destinations/gb.webp", emojis: ["🏰", "☕", "🚌"] },
+  7: { photo: "/images/destinations/us.webp", emojis: ["🗽", "🍁", "🦘"] },
+  8: { photo: "/images/destinations/jp.webp", emojis: ["🏯", "🌸", "🕌"] },
+  9: { emojis: ["🤖", "✨", "📊"] },
 };
 
 const KIND_EMOJI: Record<string, string> = {
@@ -56,7 +54,6 @@ export function chapterCover(chapter: { kind: string; number: number | null }): 
   return (
     (chapter.number && CHAPTER_COVERS[chapter.number]) || {
       emojis: [chapterEmoji(chapter), "📚", "✨"],
-      gradient: "from-violet-100 via-surface to-sky-100",
     }
   );
 }
