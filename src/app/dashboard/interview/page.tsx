@@ -2,15 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mic, MicOff, Send, ArrowRight, Clock, Loader2, Printer, Volume2, RotateCcw } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Clock, Loader2, Mic, MicOff, Printer, RotateCcw, Search, Send, Volume2 } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { ScoreRing } from "@/components/dashboard/ScoreRing";
 import { ProgressBar } from "@/components/dashboard/ProgressBar";
 import { Button } from "@/components/ui/Button";
-import { Flag } from "@/components/site/Flag";
+import { CountryFlag } from "@/components/knowledge/library/visuals";
 import { useDateLocale, useL } from "@/components/i18n/L";
 import { useLanguage } from "@/lib/language-context";
-import { matchDestination } from "@/lib/site/destination-match";
 import { useLocalState } from "@/lib/dashboard/use-local-state";
 import {
   evaluateAnswer,
@@ -18,15 +17,48 @@ import {
   type AnswerEval,
   type InterviewSession,
 } from "@/lib/dashboard/interview-eval";
+import { INTERVIEW_SESSION_HISTORY } from "@/data/mockData";
 import {
-  INTERVIEW_COUNTRY_QUESTION_SETS,
-  INTERVIEW_DIFFICULTIES,
-  INTERVIEW_SESSION_HISTORY,
-} from "@/data/mockData";
+  PLAYBOOK_COUNTRIES,
+  PLAYBOOK_LEVELS,
+  type PlaybookEntry,
+  type PlaybookLang,
+  type PlaybookLevel,
+} from "@/data/interview-playbook";
 import { cn } from "@/lib/utils";
 
-const COUNTRIES = Object.keys(INTERVIEW_COUNTRY_QUESTION_SETS);
-const DIFFICULTY_EMOJI: Record<string, string> = { Oson: "🌱", "O'rtacha": "⚖️", Qiyin: "🔥" };
+const SESSION_SIZES = [5, 10, 20];
+const PRACTICE_LANGS: { key: PlaybookLang; label: string }[] = [
+  { key: "uz", label: "O‘zbekcha" },
+  { key: "ru", label: "Русский" },
+  { key: "en", label: "English" },
+];
+
+const shuffled = <T,>(list: T[]) => {
+  const copy = [...list];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j]!, copy[i]!];
+  }
+  return copy;
+};
+
+/** A sample answer with its [placeholders] marked, since those are what the applicant must replace. */
+function SampleText({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(/(\[[^\]]*\])/).map((part, i) =>
+        part.startsWith("[") ? (
+          <mark key={i} className="rounded bg-amber-400/20 px-1 text-inherit dark:bg-amber-300/20">
+            {part}
+          </mark>
+        ) : (
+          part
+        )
+      )}
+    </>
+  );
+}
 const SPEECH_LANG: Record<string, string> = { uz: "uz-UZ", ru: "ru-RU", en: "en-US" };
 
 // Minimal typing for the Web Speech API (not in the TS DOM lib)
@@ -66,8 +98,16 @@ export default function AiInterviewPage() {
   const l = useL();
   const locale = useDateLocale();
   const { language } = useLanguage();
-  const [country, setCountry] = useState(COUNTRIES[0]!);
-  const [difficulty, setDifficulty] = useState(INTERVIEW_DIFFICULTIES[1]!);
+  const [countryCode, setCountryCode] = useState(PLAYBOOK_COUNTRIES[0]!.code);
+  const [level, setLevel] = useState<PlaybookLevel>("medium");
+  const [practiceLang, setPracticeLang] = useState<PlaybookLang | null>(null);
+  const [sessionSize, setSessionSize] = useState(10);
+  const [countrySearch, setCountrySearch] = useState("");
+  const [questions, setQuestions] = useState<PlaybookEntry[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [loadError, setLoadError] = useState(false);
+  const [browsing, setBrowsing] = useState(false);
+  const [browseSearch, setBrowseSearch] = useState("");
   const [started, setStarted] = useState(false);
   const [current, setCurrent] = useState(0);
   const [answer, setAnswer] = useState("");
@@ -81,7 +121,12 @@ export default function AiInterviewPage() {
   const [history, setHistory] = useLocalState<InterviewSession[]>(INTERVIEW_HISTORY_KEY, []);
   const recognitionRef = useRef<Recognition | null>(null);
 
-  const questions = INTERVIEW_COUNTRY_QUESTION_SETS[country]!;
+  const lang: PlaybookLang = practiceLang ?? language;
+  const appLang = language as PlaybookLang;
+  const country = PLAYBOOK_COUNTRIES.find((c) => c.code === countryCode)!;
+  const levelMeta = PLAYBOOK_LEVELS.find((x) => x.key === level)!;
+  const countryName = country.name[appLang];
+  const difficulty = levelMeta.label;
   const question = questions[current];
   const feedback = evals[current];
 
@@ -108,8 +153,8 @@ export default function AiInterviewPage() {
   function speakQuestion() {
     if (!question || typeof window === "undefined" || !window.speechSynthesis) return;
     window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(l(question.question));
-    u.lang = SPEECH_LANG[language] ?? "en-US";
+    const u = new SpeechSynthesisUtterance(question.question[lang]);
+    u.lang = SPEECH_LANG[lang] ?? "en-US";
     u.rate = 0.95;
     window.speechSynthesis.speak(u);
   }
@@ -122,7 +167,7 @@ export default function AiInterviewPage() {
     const Ctor = recognitionCtor();
     if (!Ctor) return;
     const rec = new Ctor();
-    rec.lang = SPEECH_LANG[language] ?? "en-US";
+    rec.lang = SPEECH_LANG[lang] ?? "en-US";
     rec.interimResults = false;
     rec.continuous = true;
     rec.onresult = (e) => {
@@ -145,7 +190,7 @@ export default function AiInterviewPage() {
     recognitionRef.current?.stop();
     setAnalyzing(true);
     setTimeout(() => {
-      const result = evaluateAnswer(answer, question.question);
+      const result = evaluateAnswer(answer, question.question[lang], question.answer[lang]);
       setEvals((prev) => {
         const next = [...prev];
         next[current] = result;
@@ -160,7 +205,7 @@ export default function AiInterviewPage() {
     if (current === questions.length - 1) {
       const answered = evals.filter(Boolean);
       const score = answered.length ? Math.round(answered.reduce((s, e) => s + e.overall, 0) / answered.length) : 0;
-      setHistory((prev) => [{ at: new Date().toISOString(), country, difficulty, score }, ...prev].slice(0, 12));
+      setHistory((prev) => [{ at: new Date().toISOString(), country: country.name.uz, difficulty, score }, ...prev].slice(0, 12));
       setFinished(true);
       return;
     }
@@ -168,6 +213,38 @@ export default function AiInterviewPage() {
     setAnswer("");
     setShowFeedback(false);
     setSeconds(0);
+  }
+
+  /** Questions for the chosen country and level; they come from the app itself, with no paid API behind them. */
+  async function loadQuestions() {
+    setLoading(true);
+    setLoadError(false);
+    try {
+      const res = await fetch(`/api/interview/questions?country=${countryCode}&level=${level}`);
+      if (!res.ok) throw new Error("load failed");
+      const data = (await res.json()) as { questions: PlaybookEntry[] };
+      return data.questions;
+    } catch {
+      setLoadError(true);
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function startPractice() {
+    const all = await loadQuestions();
+    if (!all) return;
+    setQuestions(shuffled(all).slice(0, sessionSize));
+    setStarted(true);
+  }
+
+  async function openBrowse() {
+    const all = await loadQuestions();
+    if (!all) return;
+    setQuestions(all);
+    setBrowseSearch("");
+    setBrowsing(true);
   }
 
   function restart() {
@@ -180,8 +257,71 @@ export default function AiInterviewPage() {
     setSeconds(0);
   }
 
+  /* ------------------------------------------------------------ Browse */
+  if (browsing) {
+    const term = browseSearch.trim().toLowerCase();
+    const visible = term
+      ? questions.filter((q) => `${q.question[lang]} ${q.answer[lang]}`.toLowerCase().includes(term))
+      : questions;
+    return (
+      <DashboardShell
+        title="AI Interview Simulator"
+        subtitle={l("{country} — {difficulty} daraja intervyu mashqi.", { country: countryName, difficulty: l(difficulty) })}
+      >
+        <div className="card mx-auto max-w-2xl rounded-[28px] p-6 sm:p-8">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <button type="button" onClick={() => setBrowsing(false)} className="inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand-700 hover:text-brand-600">
+              <ArrowLeft size={15} /> {l("Mashqqa qaytish")}
+            </button>
+            <span className="rounded-pill bg-surface-tint px-3 py-1 text-caption font-semibold text-ink-700">{l("{n} ta savol-javob", { n: visible.length })}</span>
+          </div>
+          <label className="relative mt-4 block">
+            <span className="sr-only">{l("Savol yoki javob bo'yicha qidiring")}</span>
+            <Search size={16} aria-hidden="true" className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-400" />
+            <input
+              type="search"
+              value={browseSearch}
+              onChange={(e) => setBrowseSearch(e.target.value)}
+              placeholder={l("Savol yoki javob bo'yicha qidiring")}
+              className="h-11 w-full rounded-pill border border-surface-border bg-surface pl-10 pr-4 text-body-sm text-ink-900 outline-none transition-colors placeholder:text-ink-400 focus:border-brand-400"
+            />
+          </label>
+          <p className="mt-3 text-caption text-ink-500">{l("Javobni ko'rish uchun savolni bosing.")}</p>
+          <ul className="mt-3 space-y-2">
+            {visible.map((q) => (
+              <li key={q.id} className="overflow-hidden rounded-2xl border border-surface-border bg-surface">
+                <details className="group">
+                  <summary className="cursor-pointer list-none px-4 py-3 text-body-sm font-semibold text-ink-900 transition-colors hover:bg-surface-tint">{q.question[lang]}</summary>
+                  <div className="border-t border-surface-border px-4 py-3 text-body-sm text-ink-700">
+                    <p>
+                      <SampleText text={q.answer[lang]} />
+                    </p>
+                    {appLang === "uz" && <p className="mt-2 text-caption text-ink-500">💡 {q.note}</p>}
+                  </div>
+                </details>
+              </li>
+            ))}
+          </ul>
+          {visible.length === 0 && <p className="mt-4 text-center text-body-sm text-ink-500">{l("Hech narsa topilmadi.")}</p>}
+          <p className="mt-5 text-caption text-ink-400">
+            {l("Savollar konsullikning rasmiy savollari emas, javoblar viza yoki mamlakatga kirishni kafolatlamaydi. Namuna javoblarni o'z haqiqiy ma'lumotingizga moslashtiring.")}
+          </p>
+        </div>
+      </DashboardShell>
+    );
+  }
+
   /* ------------------------------------------------------------- Setup */
   if (!started) {
+    const term = countrySearch.trim().toLowerCase();
+    const countries = term
+      ? PLAYBOOK_COUNTRIES.filter((c) => Object.values(c.name).some((name) => name.toLowerCase().includes(term)))
+      : PLAYBOOK_COUNTRIES;
+    const pill = (active: boolean) =>
+      cn(
+        "rounded-pill border px-4 py-2 text-body-sm font-semibold transition-colors",
+        active ? "border-brand-500 bg-brand-50 text-brand-700" : "border-surface-border bg-surface text-ink-700 hover:bg-surface-tint"
+      );
     return (
       <DashboardShell title="AI Interview Simulator" subtitle="Mashqni boshlashdan oldin davlat va qiyinlik darajasini tanlang.">
         <div className="card mx-auto max-w-2xl space-y-6 overflow-hidden rounded-[28px] p-6 sm:p-8">
@@ -195,59 +335,96 @@ export default function AiInterviewPage() {
 
           <div>
             <p className="mb-2 text-body-sm font-medium text-ink-700">{l("Davlat")}</p>
-            <div className="flex flex-wrap gap-2">
-              {COUNTRIES.map((c) => {
-                const visual = matchDestination(c);
-                return (
-                  <button
-                    key={c}
-                    type="button"
-                    onClick={() => setCountry(c)}
-                    aria-pressed={country === c}
-                    className={cn(
-                      "inline-flex items-center gap-2 rounded-pill border py-1.5 pl-1.5 pr-4 text-body-sm font-semibold transition-colors",
-                      country === c ? "border-brand-500 bg-brand-50 text-brand-700" : "border-surface-border bg-surface text-ink-700 hover:bg-surface-tint"
-                    )}
-                  >
-                    {visual ? <Flag code={visual.flag} size={26} /> : <span aria-hidden="true">🌍</span>}
-                    {l(c)}
-                  </button>
-                );
-              })}
+            <label className="relative block">
+              <span className="sr-only">{l("Davlatni qidiring")}</span>
+              <Search size={16} aria-hidden="true" className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-400" />
+              <input
+                type="search"
+                value={countrySearch}
+                onChange={(e) => setCountrySearch(e.target.value)}
+                placeholder={l("Davlatni qidiring")}
+                className="h-11 w-full rounded-pill border border-surface-border bg-surface pl-10 pr-4 text-body-sm text-ink-900 outline-none transition-colors placeholder:text-ink-400 focus:border-brand-400"
+              />
+            </label>
+            <div className="mt-2 grid max-h-56 grid-cols-1 gap-1.5 overflow-y-auto pr-1 sm:grid-cols-2">
+              {countries.map((c) => (
+                <button
+                  key={c.code}
+                  type="button"
+                  onClick={() => setCountryCode(c.code)}
+                  aria-pressed={countryCode === c.code}
+                  className={cn(
+                    "flex min-w-0 items-center gap-2.5 rounded-2xl border px-3 py-2 text-left transition-colors",
+                    countryCode === c.code ? "border-brand-500 bg-brand-50" : "border-surface-border bg-surface hover:bg-surface-tint"
+                  )}
+                >
+                  <CountryFlag code={c.code} size="sm" />
+                  <span className="min-w-0">
+                    <span className={cn("block truncate text-body-sm font-semibold", countryCode === c.code ? "text-brand-700" : "text-ink-800")}>{c.name[appLang]}</span>
+                    <span className="block truncate text-caption text-ink-500">{c.visa}</span>
+                  </span>
+                </button>
+              ))}
+              {countries.length === 0 && <p className="py-3 text-center text-body-sm text-ink-500 sm:col-span-2">{l("Hech narsa topilmadi.")}</p>}
             </div>
           </div>
 
           <div>
             <p className="mb-2 text-body-sm font-medium text-ink-700">{l("Qiyinlik darajasi")}</p>
             <div className="flex flex-wrap gap-2">
-              {INTERVIEW_DIFFICULTIES.map((d) => (
-                <button
-                  key={d}
-                  type="button"
-                  onClick={() => setDifficulty(d)}
-                  aria-pressed={difficulty === d}
-                  className={cn(
-                    "rounded-pill border px-4 py-2 text-body-sm font-semibold transition-colors",
-                    difficulty === d ? "border-brand-500 bg-brand-50 text-brand-700" : "border-surface-border bg-surface text-ink-700 hover:bg-surface-tint"
-                  )}
-                >
-                  <span aria-hidden="true">{DIFFICULTY_EMOJI[d] ?? "•"}</span> {l(d)}
+              {PLAYBOOK_LEVELS.map((d) => (
+                <button key={d.key} type="button" onClick={() => setLevel(d.key)} aria-pressed={level === d.key} className={pill(level === d.key)}>
+                  <span aria-hidden="true">{d.emoji}</span> {l(d.label)} · {d.count}
                 </button>
               ))}
             </div>
           </div>
 
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div>
+              <p className="mb-2 text-body-sm font-medium text-ink-700">{l("Mashq tili")}</p>
+              <div className="flex flex-wrap gap-2">
+                {PRACTICE_LANGS.map((p) => (
+                  <button key={p.key} type="button" onClick={() => setPracticeLang(p.key)} aria-pressed={lang === p.key} className={pill(lang === p.key)}>
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="mb-2 text-body-sm font-medium text-ink-700">{l("Savollar soni")}</p>
+              <div className="flex flex-wrap gap-2">
+                {SESSION_SIZES.map((n) => (
+                  <button key={n} type="button" onClick={() => setSessionSize(n)} aria-pressed={sessionSize === n} className={pill(sessionSize === n)}>
+                    {n}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <div className="grid gap-2 text-caption text-ink-600 sm:grid-cols-3">
-            <p className="rounded-2xl bg-surface-tint px-3 py-2.5">📝 {l("{n} ta savol", { n: questions.length })}</p>
+            <p className="rounded-2xl bg-surface-tint px-3 py-2.5">📝 {l("{n} ta savol", { n: sessionSize })}</p>
             <p className="rounded-2xl bg-surface-tint px-3 py-2.5">
               {voiceSupported ? "🎙️" : "⌨️"} {voiceSupported ? l("Ovozli javob mavjud") : l("Matnli javob")}
             </p>
             <p className="rounded-2xl bg-surface-tint px-3 py-2.5">💾 {l("Natija saqlanadi")}</p>
           </div>
 
-          <Button size="md" className="w-full" onClick={() => setStarted(true)}>
-            {l("Mashqni boshlash")} <ArrowRight size={16} />
-          </Button>
+          {loadError && <p role="alert" className="rounded-2xl bg-red-500/10 px-4 py-2.5 text-body-sm text-red-600 dark:text-red-300">{l("Savollar yuklanmadi. Qayta urinib ko'ring.")}</p>}
+
+          <div className="grid gap-2 sm:grid-cols-2">
+            <Button size="md" className="w-full" disabled={loading} onClick={() => void startPractice()}>
+              {loading ? <Loader2 size={16} className="animate-spin" /> : null}
+              {l("Mashqni boshlash")} <ArrowRight size={16} />
+            </Button>
+            <Button size="md" variant="secondary" className="w-full" disabled={loading} onClick={() => void openBrowse()}>
+              <BookOpen size={16} /> {l("Barcha savollarni ko'rish")}
+            </Button>
+          </div>
+          <p className="text-caption text-ink-400">
+            {l("Savollar konsullikning rasmiy savollari emas, javoblar viza yoki mamlakatga kirishni kafolatlamaydi. Namuna javoblarni o'z haqiqiy ma'lumotingizga moslashtiring.")}
+          </p>
 
           <div className="border-t border-surface-border pt-5">
             <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-900">
@@ -262,7 +439,7 @@ export default function AiInterviewPage() {
               {(history.length
                 ? history.map((s) => ({
                     key: s.at,
-                    label: `${new Date(s.at).toLocaleDateString(locale, { day: "numeric", month: "short" })} · ${l(s.country)} · ${l(s.difficulty)}`,
+                    label: `${new Date(s.at).toLocaleDateString(locale, { day: "numeric", month: "short" })} · ${PLAYBOOK_COUNTRIES.find((c) => c.name.uz === s.country)?.name[appLang] ?? l(s.country)} · ${l(s.difficulty)}`,
                     score: s.score,
                   }))
                 : INTERVIEW_SESSION_HISTORY.map((s) => ({ key: s.date, label: l(s.date), score: s.score }))
@@ -298,13 +475,13 @@ export default function AiInterviewPage() {
     const tips = Array.from(new Set(answered.flatMap((x) => x.e!.tips))).slice(0, 3);
 
     return (
-      <DashboardShell title="AI Interview — natija" subtitle="Javoblaringiz asosidagi qoidaga asoslangan baho.">
+      <DashboardShell title="AI Interview — natija" subtitle="Javobingiz va namuna asosidagi qoidaga asoslangan baho.">
         <div id="interview-report" className="card mx-auto max-w-2xl rounded-[28px] p-8 text-center">
           <div className="flex justify-center">
             <ScoreRing score={score} size={130} strokeWidth={10} label="/ 100" />
           </div>
           <p className="mt-4 text-body font-semibold text-ink-900">
-            {l("Intervyu tayyorgarligi — {country}, {difficulty} daraja", { country: l(country), difficulty: l(difficulty) })}
+            {l("Intervyu tayyorgarligi — {country}, {difficulty} daraja", { country: countryName, difficulty: l(difficulty) })}
           </p>
           <div className="mt-6 grid gap-4 text-left sm:grid-cols-2">
             <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4">
@@ -312,7 +489,7 @@ export default function AiInterviewPage() {
                 <span aria-hidden="true">💪</span> {l("Kuchli javoblar")}
               </p>
               <ul className="space-y-1.5 text-body-sm text-ink-600">
-                {strong.length ? strong.map((x) => <li key={x.q.id}>{l(x.q.question)}</li>) : <li>—</li>}
+                {strong.length ? strong.map((x) => <li key={x.q.id}>{x.q.question[lang]}</li>) : <li>—</li>}
               </ul>
             </div>
             <div className="rounded-2xl border border-red-500/20 bg-red-500/5 p-4">
@@ -320,7 +497,7 @@ export default function AiInterviewPage() {
                 <span aria-hidden="true">⚠️</span> {l("Zaif javoblar")}
               </p>
               <ul className="space-y-1.5 text-body-sm text-ink-600">
-                {weak.length ? weak.map((x) => <li key={x.q.id}>{l(x.q.question)}</li>) : <li>—</li>}
+                {weak.length ? weak.map((x) => <li key={x.q.id}>{x.q.question[lang]}</li>) : <li>—</li>}
               </ul>
             </div>
           </div>
@@ -355,7 +532,7 @@ export default function AiInterviewPage() {
   return (
     <DashboardShell
       title="AI Interview Simulator"
-      subtitle={l("{country} — {difficulty} daraja intervyu mashqi.", { country: l(country), difficulty: l(difficulty) })}
+      subtitle={l("{country} — {difficulty} daraja intervyu mashqi.", { country: countryName, difficulty: l(difficulty) })}
     >
       <div className="card mx-auto max-w-2xl rounded-[28px] p-6 sm:p-8">
         <div className="flex items-center justify-between gap-3 text-caption text-ink-400">
@@ -387,7 +564,7 @@ export default function AiInterviewPage() {
             🤖
           </span>
           <div className="min-w-0 flex-1 rounded-2xl rounded-tl-md bg-surface-tint px-4 py-3">
-            <p className="text-body font-medium text-ink-900">{l(question!.question)}</p>
+            <p className="text-body font-medium text-ink-900">{question!.question[lang]}</p>
             <button
               type="button"
               onClick={speakQuestion}
@@ -500,7 +677,21 @@ export default function AiInterviewPage() {
                   </li>
                 ))}
               </ul>
+              <div className="mt-4 rounded-2xl border border-violet-200 bg-violet-50/60 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+                <p className="text-caption font-semibold text-violet-800 dark:text-violet-300">📘 {l("Namuna javob")}</p>
+                <p className="mt-1 text-body-sm text-ink-800">
+                  <SampleText text={question!.answer[lang]} />
+                </p>
+                {appLang === "uz" && (
+                  <p className="mt-2 text-caption text-ink-600">
+                    <span className="font-semibold">{l("Izoh")}:</span> {question!.note}
+                  </p>
+                )}
+              </div>
               <p className="mt-3 text-caption text-ink-400">{l("Qoidaga asoslangan tahlil — haqiqiy AI yoki konsullik qarori emas.")}</p>
+              <p className="mt-1 text-caption text-ink-400">
+                {l("Savollar konsullikning rasmiy savollari emas, javoblar viza yoki mamlakatga kirishni kafolatlamaydi. Namuna javoblarni o'z haqiqiy ma'lumotingizga moslashtiring.")}
+              </p>
             </motion.div>
           )}
         </AnimatePresence>

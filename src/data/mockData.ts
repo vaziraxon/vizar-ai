@@ -51,7 +51,6 @@ import type {
   SidebarNavItem,
   DocumentItem,
   ReadinessCategory,
-  InterviewQuestion,
   Specialist,
   ApplicationRecord,
   RecommendationTask,
@@ -207,14 +206,6 @@ export const READINESS_PRIORITY_TASKS = [
 ];
 
 // --- AI Interview ------------------------------------------------------------
-
-export const INTERVIEW_QUESTIONS: InterviewQuestion[] = [
-  { id: 1, question: "Safaringizning asosiy maqsadi nima?" },
-  { id: 2, question: "Safar xarajatlarini kim qoplaydi?" },
-  { id: 3, question: "O'zbekistonga qaytishingizni qanday asoslay olasiz?" },
-  { id: 4, question: "Qayerda yashaysiz?" },
-  { id: 5, question: "Ushbu davlatda tanishlaringiz bormi?" },
-];
 
 // --- Specialists -------------------------------------------------------------
 
@@ -741,24 +732,6 @@ export const CATEGORY_WEIGHTS = [
 // --- AI Interview enhancement -----------------------------------------------
 
 export const INTERVIEW_DIFFICULTIES = ["Oson", "O'rtacha", "Qiyin"];
-
-export const INTERVIEW_COUNTRY_QUESTION_SETS: Record<string, InterviewQuestion[]> = {
-  "Janubiy Koreya": INTERVIEW_QUESTIONS,
-  AQSH: [
-    { id: 1, question: "Nima uchun aynan AQSHga sayohat qilmoqchisiz?" },
-    { id: 2, question: "AQSHda qarindoshlaringiz yoki tanishlaringiz bormi?" },
-    { id: 3, question: "O'zbekistonda sizni bog'lab turadigan narsalar nima?" },
-    { id: 4, question: "Safar uchun mablag'ni qanday jamg'ardingiz?" },
-    { id: 5, question: "Safaringiz necha kun davom etadi?" },
-  ],
-  Germaniya: [
-    { id: 1, question: "Nima uchun Germaniyani tanladingiz?" },
-    { id: 2, question: "O'qish/ish rejalaringiz qanday?" },
-    { id: 3, question: "Nemis tilini bilasizmi?" },
-    { id: 4, question: "Germaniyada turar joyingiz bormi?" },
-    { id: 5, question: "Safar tugagach qaytish rejangiz qanday?" },
-  ],
-};
 
 export const INTERVIEW_SESSION_HISTORY = [
   { date: "3 hafta oldin", score: 52 },
