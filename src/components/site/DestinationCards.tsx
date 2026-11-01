@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { Flag } from "@/components/site/Flag";
 import { useSite } from "@/lib/i18n/site";
+import { GOLD_FOIL, VIOLET_LEMON_STAGE } from "@/components/site/landing-styles";
 import { DESTINATIONS, type DestinationSlug, type FlagCode } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
 
@@ -14,7 +15,8 @@ export function DestinationStage({ children, className }: { children: ReactNode;
   return (
     <div
       className={cn(
-        "relative mx-auto max-w-[1080px] rounded-[36px] bg-gradient-to-br from-violet-100/80 via-surface/70 to-lemon-200/50 p-3 ring-1 ring-violet-200/70 sm:p-5 dark:from-violet-100/60 dark:via-surface/40 dark:to-lemon-300/[0.06] dark:ring-white/10",
+        "relative mx-auto max-w-[1080px] rounded-[36px] p-3 sm:p-5",
+        VIOLET_LEMON_STAGE,
         className
       )}
     >
@@ -23,7 +25,7 @@ export function DestinationStage({ children, className }: { children: ReactNode;
   );
 }
 
-/** Photo card in a gold-foil frame: a lemon→gold gradient with a bright top edge and a warm shadow. */
+/** Photo card in a gold-foil frame. */
 export function DestinationCard({
   index,
   href,
@@ -45,7 +47,7 @@ export function DestinationCard({
     <li data-reveal style={{ ["--reveal-delay" as string]: `${(index % 4) * 50}ms` }}>
       <Link
         href={href}
-        className="group block rounded-[24px] bg-gradient-to-br from-lemon-200 via-lemon-300 to-gold-400 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_22px_44px_-14px_rgba(222,186,10,0.7),0_6px_16px_-6px_rgba(222,186,10,0.45)] transition-[transform,box-shadow] duration-300 ease-premium hover:-translate-y-1 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_30px_56px_-14px_rgba(222,186,10,0.85),0_8px_20px_-6px_rgba(222,186,10,0.55)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_18px_40px_-16px_rgba(247,227,90,0.4)] dark:hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_26px_52px_-16px_rgba(247,227,90,0.55)]"
+        className={cn("group block rounded-[24px] p-1.5", GOLD_FOIL)}
       >
         <span className="relative block aspect-[5/6] overflow-hidden rounded-[19px] bg-surface-muted ring-1 ring-black/5">
           <Image

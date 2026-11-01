@@ -120,9 +120,9 @@ export default async function CountryPage({ params }: Params) {
       />
       <LibraryTabs />
 
-      <div className="container-page grid gap-10 py-12 sm:py-16 lg:grid-cols-12">
+      <div className="container-page grid gap-10 pb-12 pt-8 md:pb-14 md:pt-10 lg:grid-cols-12 lg:pb-16">
         <div className="min-w-0 space-y-6 lg:col-span-8">
-          <h2 className="flex items-center gap-3 font-display text-display-sm font-bold text-ink-950">
+          <h2 className="flex items-center gap-3 luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
             <span aria-hidden="true" className="emoji-tile">
               🛂
             </span>
@@ -138,7 +138,7 @@ export default async function CountryPage({ params }: Params) {
                 {rules.map((rule) => (
                   <li key={rule.id} className="overflow-hidden rounded-[24px] border border-surface-border bg-surface">
                     <div className="flex flex-wrap items-center justify-between gap-3 border-b border-surface-border bg-surface-tint/60 px-5 py-4 sm:px-6">
-                      <h3 className="flex items-center gap-3 font-display text-body-lg font-bold text-ink-950">
+                      <h3 className="flex items-center gap-3 luxe-firm font-luxe text-[1.25rem] font-semibold leading-tight text-ink-950">
                         <span aria-hidden="true" className="emoji-tile h-9 w-9 text-[17px]">
                           {topicEmoji(rule.topicSrc)}
                         </span>
@@ -206,7 +206,7 @@ export default async function CountryPage({ params }: Params) {
 
         <aside className="space-y-8 lg:col-span-4">
           <div>
-            <h2 className="flex items-center gap-2 font-display text-display-sm font-bold text-ink-950">
+            <h2 className="flex items-center gap-2 luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
               <span aria-hidden="true">📖</span>
               <L>Kitobda</L>
             </h2>
@@ -236,7 +236,7 @@ export default async function CountryPage({ params }: Params) {
 
           {neighbours.length ? (
             <div>
-              <h2 className="flex items-center gap-2 font-display text-body-lg font-bold text-ink-950">
+              <h2 className="flex items-center gap-2 luxe-firm font-luxe text-[1.25rem] font-semibold leading-tight text-ink-950">
                 <span aria-hidden="true">{visual.emoji}</span>
                 <L>Shu hududdagi davlatlar</L>
               </h2>

@@ -101,8 +101,8 @@ export default async function ChapterPage({ params }: Params) {
       />
       <LibraryTabs />
 
-      <div className="container-page py-12 sm:py-16">
-        <ol className="grid gap-x-4 rounded-[28px] border border-surface-border bg-surface p-2 sm:p-3 lg:grid-cols-2">
+      <div className="container-page pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
+        <ol className="grid grid-cols-1 gap-x-4 rounded-[28px] border border-surface-border bg-surface p-2 sm:p-3 lg:grid-cols-2">
           {chapter.sections.map((s) => (
             <SectionRow
               key={s.slug}

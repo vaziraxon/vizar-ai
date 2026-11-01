@@ -14,6 +14,7 @@ import { Flag } from "@/components/site/Flag";
 import { HeroSky } from "@/components/site/home/HeroSky";
 import { EmojiTile, GoldUnderline, PillArrow, StatusPill, VIOLET_PILL } from "@/components/site/primitives";
 import { useSite } from "@/lib/i18n/site";
+import { VIOLET_LEMON_STAGE } from "@/components/site/landing-styles";
 import { DESTINATION_BY_SLUG, PHOTO_CREDITS, type DestinationSlug } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
 
@@ -103,7 +104,7 @@ export function HowItWorksPage() {
             ))}
           </div>
 
-          <div data-reveal className="mt-12 grid gap-8 rounded-[36px] bg-gradient-to-br from-violet-100/80 via-surface/70 to-lemon-200/50 p-7 ring-1 ring-violet-200/70 sm:p-10 lg:grid-cols-12 dark:from-violet-100/60 dark:via-surface/40 dark:to-lemon-300/[0.06] dark:ring-white/10">
+          <div data-reveal className={cn("mt-12 grid gap-8 rounded-[36px] p-7 sm:p-10 lg:grid-cols-12", VIOLET_LEMON_STAGE)}>
             <h2 className="luxe-firm font-display text-display-md text-ink-900 lg:col-span-4">{how.honestyTitle}</h2>
             <ul className="space-y-5 lg:col-span-8">
               {how.honesty.map((h) => (

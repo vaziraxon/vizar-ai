@@ -27,7 +27,7 @@ export function PlanStrip({ className }: { className?: string }) {
               )}
             >
               {popular ? (
-                <span className="absolute -top-2.5 right-3 rounded-pill bg-gradient-to-r from-brand-600 to-violet-600 px-2 py-0.5 text-[11px] font-semibold text-white">
+                <span className="absolute -top-2.5 right-3 rounded-pill bg-gradient-to-r from-[#5B21B6] to-[#7138EC] px-2 py-0.5 text-[11px] font-semibold text-white">
                   ✨ {site.pricing.popular}
                 </span>
               ) : null}
@@ -37,7 +37,7 @@ export function PlanStrip({ className }: { className?: string }) {
                 </span>
                 {plan.name}
               </span>
-              <span className="mt-2 font-accent text-[22px] italic leading-none text-ink-950">{plan.price}</span>
+              <span className="mt-2 font-luxe-italic text-[22px] font-semibold italic leading-none text-ink-950">{plan.price}</span>
               <span className="mt-1 text-caption text-ink-500">{plan.period}</span>
               <span className="mt-3 text-caption font-semibold text-brand-700 group-hover:underline">{l("Kutubxona ochiladi")} →</span>
             </Link>
