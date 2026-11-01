@@ -44,36 +44,37 @@ export function HowItWorksPage() {
   const site = useSite();
   const how = site.howPage;
   return (
-    <>
-      <PageHero emoji="🚀" decor={["📝", "🤖", "🗂️"]} eyebrow={how.eyebrow} title={how.title} subtitle={how.subtitle} />
+    <div className="landing-lime bg-surface-canvas">
+      <LandingFonts />
+      <PageHero tone="lime" emoji="🚀" decor={["📝", "🤖", "🗂️"]} eyebrow={how.eyebrow} title={how.title} subtitle={how.subtitle} />
 
       {/* Steps — a long-form sequence with a rail on the left */}
-      <section className="section pt-10 md:pt-14 lg:pt-14">
+      <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
         <div className="container-page">
           <ol className="border-t border-surface-border">
             {how.steps.map((step, i) => (
-              <li key={step.title} data-reveal className="grid gap-6 border-b border-surface-border py-10 lg:grid-cols-12 lg:gap-10 lg:py-14">
+              <li key={step.title} data-reveal className="grid gap-6 border-b border-surface-border py-8 lg:grid-cols-12 lg:gap-10 lg:py-10">
                 <div className="lg:col-span-2">
                   <span className="flex items-center gap-3">
                     <EmojiTile emoji={["📝", "🤖", "🗂️"][i]!} size="lg" />
-                    <span className="font-display text-[28px] font-bold leading-none tracking-[-0.04em] text-violet-300">
+                    <span className="font-luxe-italic text-[2rem] font-semibold italic leading-none text-violet-600 [-webkit-text-stroke:0.35px_currentColor] dark:text-citron-300">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                   </span>
                   <div className="mt-4 flex gap-1" aria-hidden="true">
                     {[0, 1, 2].map((seg) => (
-                      <span key={seg} className={cn("h-1 w-6 rounded-full", seg <= i ? "bg-brand-600" : "bg-surface-muted")} />
+                      <span key={seg} className={cn("h-1 w-6 rounded-full", seg <= i ? "bg-violet-600 dark:bg-citron-300" : "bg-surface-muted")} />
                     ))}
                   </div>
                 </div>
                 <div className="lg:col-span-5">
-                  <h2 className="font-display text-display-md text-ink-900">{step.title}</h2>
+                  <h2 className="luxe-firm font-luxe text-[clamp(1.75rem,2.7vw,2.35rem)] font-semibold leading-[1.12] tracking-[-0.015em] text-ink-950">{step.title}</h2>
                   <p className="mt-3 text-body-lg text-ink-600">{step.desc}</p>
                 </div>
                 <ul className="space-y-3 lg:col-span-4 lg:col-start-9 lg:pt-2">
                   {step.points.map((point) => (
                     <li key={point} className="flex items-start gap-3 text-body text-ink-800">
-                      <Check size={16} strokeWidth={2.4} className="mt-1 shrink-0 text-brand-600" />
+                      <Check size={16} strokeWidth={2.4} className="mt-1 shrink-0 text-violet-600 dark:text-citron-300" />
                       {point}
                     </li>
                   ))}
@@ -85,15 +86,15 @@ export function HowItWorksPage() {
       </section>
 
       {/* Outcomes — three columns of text divided by rules */}
-      <section aria-labelledby="outcomes-title" className="pb-section-y-sm md:pb-section-y-md">
+      <section aria-labelledby="outcomes-title" className="pb-12 md:pb-14 lg:pb-16">
         <div className="container-page">
-          <h2 id="outcomes-title" data-reveal className="font-display text-display-lg text-ink-900">
+          <h2 id="outcomes-title" data-reveal className="luxe-firm font-display text-display-lg text-ink-900">
             {how.outcomesTitle}
           </h2>
-          <div data-reveal className="mt-10 grid gap-8 border-t border-surface-border pt-8 md:grid-cols-3 md:gap-0">
+          <div data-reveal className="mt-8 grid gap-8 border-t border-surface-border pt-8 md:grid-cols-3 md:gap-0">
             {how.outcomes.map((o, i) => (
               <div key={o.title} className={cn("md:px-8", i === 0 && "md:pl-0", i > 0 && "md:border-l md:border-surface-border")}>
-                <h3 className="flex items-center gap-2.5 font-display text-display-sm text-ink-900">
+                <h3 className="luxe-firm flex items-center gap-2.5 font-luxe text-[1.55rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
                   <span aria-hidden="true">{["🧭", "🗂️", "💪"][i]}</span>
                   {o.title}
                 </h3>
@@ -102,8 +103,8 @@ export function HowItWorksPage() {
             ))}
           </div>
 
-          <div data-reveal className="mt-20 grid gap-8 rounded-2xl bg-surface-tint p-7 sm:p-10 lg:grid-cols-12">
-            <h2 className="font-display text-display-md text-ink-900 lg:col-span-4">{how.honestyTitle}</h2>
+          <div data-reveal className="mt-12 grid gap-8 rounded-[36px] bg-gradient-to-br from-violet-100/80 via-surface/70 to-lemon-200/50 p-7 ring-1 ring-violet-200/70 sm:p-10 lg:grid-cols-12 dark:from-violet-100/60 dark:via-surface/40 dark:to-lemon-300/[0.06] dark:ring-white/10">
+            <h2 className="luxe-firm font-display text-display-md text-ink-900 lg:col-span-4">{how.honestyTitle}</h2>
             <ul className="space-y-5 lg:col-span-8">
               {how.honesty.map((h) => (
                 <li key={h.title} className="flex gap-4">
@@ -119,8 +120,8 @@ export function HowItWorksPage() {
         </div>
       </section>
 
-      <FinalCTA />
-    </>
+      <FinalCTA tone="lime" />
+    </div>
   );
 }
 
