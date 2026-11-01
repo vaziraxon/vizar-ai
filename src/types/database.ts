@@ -574,6 +574,25 @@ export interface Database {
         Update: Partial<Database["public"]["Tables"]["testimonials"]["Insert"]>;
         Relationships: [];
       };
+      interview_questions: {
+        Row: {
+          id: string;
+          country_code: string;
+          level: "easy" | "medium" | "hard";
+          sort_order: number;
+          question_uz: string;
+          question_ru: string;
+          question_en: string;
+          answer_uz: string;
+          answer_ru: string;
+          answer_en: string;
+          note: string;
+        };
+        /** Read-only for the app: rows are loaded with scripts/interview-playbook/import.mjs. */
+        Insert: never;
+        Update: never;
+        Relationships: [];
+      };
       testimonial_consents: {
         Row: { testimonial_id: string; note: string; recorded_by: string | null; recorded_at: string };
         Insert: { testimonial_id: string; note: string };

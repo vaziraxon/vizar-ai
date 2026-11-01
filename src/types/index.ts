@@ -119,11 +119,6 @@ export interface ReadinessCategory {
 
 export type RiskLevel = "Past" | "O'rta" | "Yuqori";
 
-export interface InterviewQuestion {
-  id: number;
-  question: string;
-}
-
 export interface InterviewFeedback {
   accuracy: number;
   confidence: number;
