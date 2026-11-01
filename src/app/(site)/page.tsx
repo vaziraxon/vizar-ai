@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { LandingFonts } from "@/components/site/LandingFonts";
 import { HomePage } from "@/components/site/pages/HomePage";
 import { getPublishedTestimonials } from "@/lib/data/testimonials";
 import { SITE_CONTENT } from "@/lib/i18n/site";
@@ -37,7 +36,6 @@ export default async function Home() {
   const testimonials = await getPublishedTestimonials();
   return (
     <>
-      <LandingFonts />
       <HomePage testimonials={testimonials} />
       <script
         type="application/ld+json"

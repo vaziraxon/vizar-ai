@@ -1,4 +1,4 @@
-// Display serif for the landing look (self-hosted): Bodoni Moda, with upright
+// Display serif of the public site (self-hosted): Bodoni Moda, with upright
 // Playfair Display for Cyrillic headings, which Bodoni lacks
 import "@/app/(site)/landing-fonts.css";
 
@@ -9,7 +9,7 @@ const PRELOAD_FONTS = [
   "/fonts/playfair-display-italic-500-latin.2ca66e76.woff2",
 ];
 
-/** Render on pages that use the landing look (inside or next to `.landing-lime`). */
+/** Rendered once, by MarketingShell. */
 export function LandingFonts() {
   return (
     <>

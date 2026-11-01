@@ -1,20 +1,8 @@
-"use client";
-
-import { useState } from "react";
-import {
-  Lock,
-  Database,
-  UserCheck,
-  FileText,
-  Bot,
-  Users,
-  ScrollText,
-  Route,
-  ChevronDown,
-  ShieldAlert,
-} from "lucide-react";
+import { Lock, Database, UserCheck, FileText, Bot, Users, ScrollText, Route, ShieldAlert } from "lucide-react";
+import { Accordion } from "@/components/site/Accordion";
+import { FinalCTA } from "@/components/site/FinalCTA";
+import { PageHero } from "@/components/site/PageHero";
 import { TRUST_FAQ } from "@/data/mockData";
-import { cn } from "@/lib/utils";
 
 const PRINCIPLES = [
   {
@@ -69,62 +57,50 @@ const SECURITY_ROADMAP = [
 ];
 
 export default function TrustCenterPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-
   return (
-    <div className="pb-16">
-      <section className="hero-backdrop relative overflow-hidden">
-        <div className="container-page relative pb-14 pt-32 text-center sm:pb-20 sm:pt-40">
-          <span className="eyebrow"><ShieldAlert size={13} /> Trust Center</span>
-          <h1 className="mx-auto mt-4 max-w-3xl font-display text-display-xl text-ink-900 dark:text-white">
-            Xavfsizlik va ishonch markazi
-          </h1>
-          <p className="mx-auto mt-5 max-w-xl text-body-lg text-ink-600 dark:text-white/60">
-            Ma&apos;lumotlaringizga qanday munosabatda bo&apos;lishimiz haqida shaffof ma&apos;lumot.
-          </p>
+    <>
+      <PageHero
+        emoji="🛡️"
+        decor={["🔒", "🤖", "📜"]}
+        eyebrow="Trust Center"
+        title="Xavfsizlik va ishonch markazi"
+        subtitle="Ma'lumotlaringizga qanday munosabatda bo'lishimiz haqida shaffof ma'lumot."
+      />
+
+      <div className="container-page space-y-5 pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {PRINCIPLES.map((p) => (
+            <div key={p.title} className="rounded-[24px] border border-surface-border bg-surface p-6 shadow-card sm:last:col-span-2 lg:last:col-span-3">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-50 text-violet-600 dark:text-violet-400">
+                <p.icon size={19} />
+              </span>
+              <p className="luxe-firm font-luxe text-[1.3rem] font-semibold leading-tight tracking-[-0.01em] mt-4 text-ink-950">{p.title}</p>
+              <p className="mt-1.5 text-body-sm text-ink-600">{p.description}</p>
+            </div>
+          ))}
         </div>
-      </section>
 
-      <div className="container-page grid gap-5 pb-16 pt-12 sm:grid-cols-2 lg:grid-cols-3">
-        {PRINCIPLES.map((p) => (
-          <div key={p.title} className="card p-6 dark:border-white/10 dark:bg-navy-800">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/15 dark:text-brand-300">
-              <p.icon size={19} />
-            </span>
-            <p className="mt-4 font-display text-body font-semibold text-ink-900 dark:text-white">
-              {p.title}
-            </p>
-            <p className="mt-1.5 text-body-sm text-ink-600 dark:text-white/60">
-              {p.description}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <div className="container-page pb-16">
-        <div className="card p-6 dark:border-white/10 dark:bg-navy-800">
-          <p className="mb-4 flex items-center gap-2 font-display text-body font-semibold text-ink-900 dark:text-white">
-            <Route size={18} className="text-brand-600" /> Xavfsizlik yo&apos;l xaritasi
+        <div className="rounded-[24px] border border-surface-border bg-surface p-6 shadow-card">
+          <p className="luxe-firm font-luxe text-[1.3rem] font-semibold leading-tight tracking-[-0.01em] mb-4 flex items-center gap-2 text-ink-950">
+            <Route size={18} className="text-violet-600 dark:text-citron-300" /> Xavfsizlik yo&apos;l xaritasi
           </p>
           <ul className="space-y-2.5">
             {SECURITY_ROADMAP.map((item) => (
-              <li key={item} className="flex items-start gap-2 text-body-sm text-ink-600 dark:text-white/60">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
+              <li key={item} className="flex items-start gap-2 text-body-sm text-ink-600">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500" />
                 {item}
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-caption text-ink-400 dark:text-white/40">
+          <p className="mt-4 text-caption text-ink-500">
             Eslatma: kompaniyamiz hozircha ISO, SOC 2, GDPR yoki davlat
             tomonidan tasdiqlangan sertifikatlarga ega emas. Yuqoridagilar
             kelajakdagi maqsadlar sifatida belgilangan.
           </p>
         </div>
-      </div>
 
-      <div id="legal-disclaimer" className="container-page pb-16 scroll-mt-24">
-        <div className="card border-amber-200 bg-amber-50/60 p-6 dark:border-amber-400/20 dark:bg-amber-400/10">
-          <p className="flex items-center gap-2 font-display text-body font-semibold text-amber-900 dark:text-amber-200">
+        <div id="legal-disclaimer" className="scroll-mt-24 rounded-[24px] border border-amber-200 bg-amber-50/60 p-6 dark:border-amber-400/20 dark:bg-amber-400/10">
+          <p className="luxe-firm font-luxe text-[1.3rem] font-semibold leading-tight tracking-[-0.01em] flex items-center gap-2 text-amber-900 dark:text-amber-200">
             <ScrollText size={18} /> Huquqiy ogohlantirish
           </p>
           <p className="mt-2 text-body-sm text-amber-900 dark:text-amber-200">
@@ -134,47 +110,14 @@ export default function TrustCenterPage() {
             talqin qilinmasligi kerak.
           </p>
         </div>
-      </div>
 
-      <div className="container-page pb-24">
-        <h2 className="mb-6 text-center font-display text-display-sm text-ink-900 dark:text-white">
-          Ko&apos;p so&apos;raladigan savollar
-        </h2>
-        <div className="mx-auto max-w-2xl space-y-3">
-          {TRUST_FAQ.map((item, i) => {
-            const isOpen = openFaq === i;
-            return (
-              <div
-                key={item.question}
-                className="overflow-hidden rounded-2xl border border-surface-border bg-white dark:border-white/10 dark:bg-navy-800"
-              >
-                <button
-                  type="button"
-                  onClick={() => setOpenFaq(isOpen ? null : i)}
-                  aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
-                >
-                  <span className="text-body-sm font-semibold text-ink-900 dark:text-white">
-                    {item.question}
-                  </span>
-                  <ChevronDown
-                    size={18}
-                    className={cn(
-                      "shrink-0 text-brand-600 transition-transform duration-300",
-                      isOpen && "rotate-180"
-                    )}
-                  />
-                </button>
-                {isOpen && (
-                  <p className="px-5 pb-5 text-body-sm text-ink-600 dark:text-white/60">
-                    {item.answer}
-                  </p>
-                )}
-              </div>
-            );
-          })}
+        <div className="pt-7">
+          <h2 className="luxe-firm mb-6 text-center font-display text-ink-950">Ko&apos;p so&apos;raladigan savollar</h2>
+          <Accordion items={TRUST_FAQ.map((item) => ({ q: item.question, a: item.answer }))} className="mx-auto max-w-2xl" />
         </div>
       </div>
-    </div>
+
+      <FinalCTA />
+    </>
   );
 }

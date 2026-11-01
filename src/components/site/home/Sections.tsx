@@ -63,7 +63,7 @@ export function FaqSection() {
         <SectionHeader id="faq-title" align="center" emoji="💬" eyebrow={site.faq.eyebrow} title={site.faq.title} subtitle={site.faq.subtitle} />
         {/* Compact violet question cards, a little narrower than the heading */}
         <div data-reveal className="mx-auto mt-9 max-w-2xl">
-          <Accordion items={site.faq.items.slice(0, 4)} defaultOpen={null} tone="violet" />
+          <Accordion items={site.faq.items.slice(0, 4)} defaultOpen={null} />
         </div>
         <div className="mt-8 text-center">
           <Link href="/faq" className={VIOLET_PILL}>

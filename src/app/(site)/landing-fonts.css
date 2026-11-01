@@ -1,5 +1,5 @@
 /*
- * Landing-only display serif (imported by app/(site)/page.tsx): Bodoni Moda,
+ * Display serif of the public site (imported by LandingFonts): Bodoni Moda,
  * plus upright Playfair Display for Cyrillic headings, which Bodoni lacks.
  * Self-hosted for the same reason as app/fonts.css.
  */

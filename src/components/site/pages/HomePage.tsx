@@ -8,18 +8,16 @@ import type { Testimonial } from "@/lib/site/testimonials";
 
 /**
  * Homepage rhythm: violet→lime hero with the mascot → customer stories →
- * destinations → FAQ → CTA (the footer is trimmed here too).
- * `.landing-lime` swaps in the landing palette and the Bodoni headings (see
- * globals.css and app/(site)/landing-fonts.css).
+ * destinations → FAQ → CTA.
  */
 export function HomePage({ testimonials }: { testimonials: Testimonial[] }) {
   return (
-    <div className="landing-lime bg-surface-canvas">
+    <>
       <HomeHero />
       <Testimonials items={testimonials} />
       <DestinationsSection />
       <FaqSection />
-      <FinalCTA tone="lime" />
-    </div>
+      <FinalCTA />
+    </>
   );
 }

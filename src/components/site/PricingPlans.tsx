@@ -30,34 +30,21 @@ const PLANS: {
   check: string;
 }[] = [
   { id: "standard", href: "/register", icon: FileText, accent: "from-violet-500 to-violet-700", price: "text-violet-700 dark:text-violet-300", check: "bg-violet-600" },
-  { id: "premium", href: "/register", icon: Gauge, accent: "from-brand-500 to-brand-700", price: "text-brand-400", check: "bg-brand-500" },
-  { id: "pro", href: "/register", icon: Headphones, accent: "from-brand-500 to-brand-700", price: "text-brand-600 dark:text-brand-400", check: "bg-brand-600" },
+  // Citron fills carry night icons: white on citron is unreadable
+  { id: "premium", href: "/register", icon: Gauge, accent: "from-citron-200 to-citron-400 text-night", price: "text-citron-300", check: "bg-citron-300 text-night" },
+  { id: "pro", href: "/register", icon: Headphones, accent: "from-[#4A4D57] to-charcoal-deep", price: "text-ink-950", check: "bg-charcoal dark:bg-citron-300 dark:text-night" },
   { id: "vip", href: "/experts", icon: Crown, accent: "from-amber-400 to-orange-600", price: "text-orange-600 dark:text-orange-400", check: "bg-orange-500" },
 ];
 
-// Landing palette: the two blue plans turn lime (featured) and charcoal.
-// Lime fills carry night icons — white on lime is unreadable.
-const LIME_PLANS: Partial<Record<PlanId, { accent: string; price: string; check: string }>> = {
-  premium: { accent: "from-citron-200 to-citron-400 text-night", price: "text-citron-300", check: "bg-citron-300 text-night" },
-  pro: {
-    accent: "from-[#4A4D57] to-charcoal-deep",
-    price: "text-ink-950",
-    check: "bg-charcoal dark:bg-citron-300 dark:text-night",
-  },
-};
-
-/** The four B2C plans with their published prices, plus the B2B strip.
- *  `tone="lime"` recolours them for the landing page. */
-export function PricingPlans({ showB2B = true, tone = "classic" }: { showB2B?: boolean; tone?: "classic" | "lime" }) {
+/** The four B2C plans with their published prices, plus the B2B strip. */
+export function PricingPlans() {
   const site = useSite();
   const p = site.pricing;
-  const lime = tone === "lime";
 
   return (
     <div>
       <div className="grid grid-cols-1 items-stretch gap-5 pt-5 sm:grid-cols-2 xl:grid-cols-4">
-        {PLANS.map((base, i) => {
-          const plan = lime ? { ...base, ...LIME_PLANS[base.id] } : base;
+        {PLANS.map((plan, i) => {
           const copy = p.plans[plan.id];
           const featured = plan.id === "premium";
           const Icon = plan.icon;
@@ -69,23 +56,13 @@ export function PricingPlans({ showB2B = true, tone = "classic" }: { showB2B?: b
               className={cn(
                 "spotlight relative flex flex-col rounded-[28px] border px-6 pt-9 text-center transition-[transform,box-shadow] duration-300 ease-premium hover:-translate-y-1",
                 featured
-                  ? cn(
-                      "spotlight-dark bg-night-950 text-white",
-                      lime
-                        ? "border-citron-300/40 shadow-[0_0_0_1px_rgba(217,242,107,0.28),0_24px_60px_-20px_rgba(124,58,237,0.6)]"
-                        : "border-brand-500/60 shadow-[0_0_0_1px_rgba(59,123,246,0.35),0_24px_60px_-20px_rgba(37,99,235,0.65)]"
-                    )
+                  ? "spotlight-dark border-citron-300/40 bg-night-950 text-white shadow-[0_0_0_1px_rgba(217,242,107,0.28),0_24px_60px_-20px_rgba(124,58,237,0.6)]"
                   : "border-surface-border bg-surface shadow-card hover:shadow-card-hover"
               )}
             >
               {featured && (
-                <span
-                  className={cn(
-                    "absolute -top-4 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-pill px-4 py-1.5 text-body-sm font-bold uppercase tracking-[0.06em] shadow-button",
-                    lime ? "bg-citron-300 text-night" : "bg-gradient-to-r from-brand-600 to-violet-600 text-white"
-                  )}
-                >
-                  <Star size={14} className={lime ? "fill-night" : "fill-white"} /> {p.popular}
+                <span className="absolute -top-4 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-pill bg-citron-300 px-4 py-1.5 text-body-sm font-bold uppercase tracking-[0.06em] text-night shadow-button">
+                  <Star size={14} className="fill-night" /> {p.popular}
                 </span>
               )}
 
@@ -93,8 +70,7 @@ export function PricingPlans({ showB2B = true, tone = "classic" }: { showB2B?: b
               <span
                 aria-hidden="true"
                 className={cn(
-                  "mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br text-white ring-4",
-                  lime ? "shadow-[0_14px_30px_-12px_rgba(76,29,149,0.45)]" : "shadow-[0_14px_30px_-12px_rgba(37,99,235,0.6)]",
+                  "mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br text-white shadow-[0_14px_30px_-12px_rgba(76,29,149,0.45)] ring-4",
                   plan.accent,
                   featured ? "ring-white/10" : "ring-surface"
                 )}
@@ -102,20 +78,20 @@ export function PricingPlans({ showB2B = true, tone = "classic" }: { showB2B?: b
                 <Icon size={34} strokeWidth={2.1} />
               </span>
 
-              <p className={cn("mt-5 font-display text-[22px] font-extrabold uppercase tracking-[0.02em]", featured ? "text-white" : "text-ink-950")}>
+              <p className={cn("luxe-firm mt-5 font-luxe text-[22px] font-semibold uppercase tracking-[0.06em]", featured ? "text-white" : "text-ink-950")}>
                 {copy.name}
               </p>
               <span aria-hidden="true" className="mx-auto mt-2 flex items-center gap-1">
-                <span className={cn("h-px w-5", featured ? (lime ? "bg-citron-300/60" : "bg-brand-400/60") : lime ? "bg-violet-300" : "bg-brand-300")} />
-                <span className={cn("h-1.5 w-1.5 rounded-full", featured ? (lime ? "bg-citron-300" : "bg-brand-400") : lime ? "bg-violet-600" : "bg-brand-600")} />
-                <span className={cn("h-px w-5", featured ? (lime ? "bg-citron-300/60" : "bg-brand-400/60") : lime ? "bg-violet-300" : "bg-brand-300")} />
+                <span className={cn("h-px w-5", featured ? "bg-citron-300/60" : "bg-violet-300")} />
+                <span className={cn("h-1.5 w-1.5 rounded-full", featured ? "bg-citron-300" : "bg-violet-600")} />
+                <span className={cn("h-px w-5", featured ? "bg-citron-300/60" : "bg-violet-300")} />
               </span>
 
               <p
                 className={cn(
-                  "mt-3 font-display font-extrabold leading-none tracking-[-0.03em] tabular-nums",
+                  "luxe-firm mt-3 font-luxe font-semibold leading-none tracking-[-0.02em]",
                   plan.price,
-                  plan.id === "vip" ? "text-[clamp(1.9rem,3vw,2.4rem)]" : "text-[44px]"
+                  plan.id === "vip" ? "text-[1.7rem] [overflow-wrap:anywhere] sm:text-[1.8rem]" : "text-[44px]"
                 )}
               >
                 {copy.price}
@@ -151,9 +127,7 @@ export function PricingPlans({ showB2B = true, tone = "classic" }: { showB2B?: b
                 className={cn(
                   "group mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-2xl text-body-sm font-bold transition-colors",
                   featured
-                    ? lime
-                      ? "bg-citron-300 text-night hover:bg-citron-200"
-                      : "bg-white text-brand-deep hover:bg-[#eff5ff]"
+                    ? "bg-citron-300 text-night hover:bg-citron-200"
                     : plan.id === "vip"
                       ? "bg-orange-500/10 text-orange-700 hover:bg-orange-500/15 dark:text-orange-300"
                       : "bg-surface-tint text-ink-900 hover:bg-surface-muted"
@@ -170,7 +144,7 @@ export function PricingPlans({ showB2B = true, tone = "classic" }: { showB2B?: b
         })}
       </div>
 
-      {showB2B && <B2BStrip tone={tone} />}
+      <B2BStrip />
     </div>
   );
 }
@@ -178,24 +152,17 @@ export function PricingPlans({ showB2B = true, tone = "classic" }: { showB2B?: b
 const B2B_ICONS = [Building2, GraduationCap, NotebookTabs];
 
 /** Next stage — B2B SaaS for agencies, education centres and consultants. */
-export function B2BStrip({ tone = "classic" }: { tone?: "classic" | "lime" }) {
+function B2BStrip() {
   const site = useSite();
   const b = site.pricing.b2b;
-  const lime = tone === "lime";
   return (
     <div data-reveal className="card mt-6 flex flex-col gap-5 rounded-[24px] p-5 sm:p-6 lg:flex-row lg:items-center">
       <div className="flex shrink-0 items-center gap-4">
-        <span
-          aria-hidden="true"
-          className={cn(
-            "flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br text-white shadow-button",
-            lime ? "from-violet-500 to-violet-700" : "from-brand-500 to-violet-600"
-          )}
-        >
+        <span aria-hidden="true" className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-violet-700 text-white shadow-button">
           <Briefcase size={24} />
         </span>
         <div>
-          <p className="font-display text-body-lg font-bold text-ink-950">{b.label}</p>
+          <p className="luxe-firm font-luxe text-[1.3rem] font-semibold leading-tight tracking-[-0.01em] text-ink-950">{b.label}</p>
           <span className="mt-1 inline-flex rounded-pill bg-surface-tint px-2.5 py-0.5 text-caption font-semibold text-ink-600">⏳ {b.soon}</span>
         </div>
       </div>
@@ -204,7 +171,7 @@ export function B2BStrip({ tone = "classic" }: { tone?: "classic" | "lime" }) {
           const Icon = B2B_ICONS[i] ?? Building2;
           return (
             <li key={item} className="flex items-center gap-3 rounded-2xl bg-surface-tint px-4 py-3 text-body-sm font-semibold text-ink-900">
-              <Icon size={20} className={cn("shrink-0", lime ? "text-violet-600 dark:text-citron-300" : "text-brand-600")} />
+              <Icon size={20} className="shrink-0 text-violet-600 dark:text-citron-300" />
               {item}
             </li>
           );
