@@ -16,7 +16,8 @@ import { cn } from "@/lib/utils";
 
 type MenuId = "tools" | "destinations" | "library";
 
-const TOOL_ROUTES = new Set(TOOLS.map((t) => t.href).concat("/features"));
+const SCHENGEN_CALC = "/schengen-calculator";
+const TOOL_ROUTES = new Set(TOOLS.map((t) => t.href).concat("/features", SCHENGEN_CALC));
 const FEATURED_TOOL = TOOL_BY_ID.readiness;
 const FEATURED_DESTINATION: DestinationSlug = "schengen";
 
@@ -61,6 +62,36 @@ function ToolRow({ tool, onNavigate, tabIndex }: { tool: ToolMeta; onNavigate?: 
           )}
         </span>
         <span className="block truncate text-caption text-ink-500">{copy.menu}</span>
+      </span>
+    </Link>
+  );
+}
+
+/** The free 90/180 calculator: a working page, not one of the app's tools. */
+function CalculatorRow({ onNavigate, tabIndex }: { onNavigate?: () => void; tabIndex?: number }) {
+  const site = useSite();
+  const pathname = usePathname();
+  const selected = pathname === SCHENGEN_CALC;
+  return (
+    <Link
+      href={SCHENGEN_CALC}
+      onClick={onNavigate}
+      tabIndex={tabIndex}
+      aria-current={selected ? "page" : undefined}
+      className={cn(
+        "group flex items-center gap-3.5 rounded-2xl px-3 py-2.5 transition-colors duration-150",
+        selected ? "bg-gold-200/70 dark:bg-gold-300/30" : "hover:bg-gold-200/50 dark:hover:bg-gold-300/20"
+      )}
+    >
+      <span
+        aria-hidden="true"
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-100 bg-brand-50/60 text-[18px] leading-none"
+      >
+        🧮
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-body-sm font-semibold text-ink-900">{site.schengenCalc.title}</span>
+        <span className="block truncate text-caption text-ink-500">{site.schengenCalc.menu}</span>
       </span>
     </Link>
   );
@@ -396,6 +427,7 @@ export function Navbar() {
                       {TOOLS.filter((t) => t.id !== FEATURED_TOOL.id).map((tool) => (
                         <ToolRow key={tool.id} tool={tool} onNavigate={close} />
                       ))}
+                      <CalculatorRow onNavigate={close} />
                     </div>
                   </>
                 ) : menu === "library" ? (
@@ -481,6 +513,7 @@ export function Navbar() {
             {TOOLS.map((tool) => (
               <ToolRow key={tool.id} tool={tool} tabIndex={mobileTab} />
             ))}
+            <CalculatorRow tabIndex={mobileTab} />
           </div>
 
           <p className="mt-8 text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">{site.nav.destinations}</p>

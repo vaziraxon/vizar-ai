@@ -227,6 +227,37 @@ export interface SiteContent {
     rejection: { prompt: string; actionsTitle: string; reasons: { label: string; actions: string[] }[] };
     experts: { topicLabel: string; topics: string[]; slotLabel: string; slots: string[]; cta: string; note: string; role: string };
   };
+  /** /schengen-calculator — {placeholders} are filled in by the page */
+  schengenCalc: {
+    menu: string;
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    tripsTitle: string;
+    tripsHint: string;
+    entry: string;
+    exit: string;
+    addTrip: string;
+    removeTrip: string;
+    checkOn: string;
+    resultTitle: string;
+    usedLabel: string;
+    leftLabel: string;
+    period: string;
+    ok: string;
+    overstay: string;
+    planTitle: string;
+    planEntry: string;
+    planResult: string;
+    planNone: string;
+    invalid: string;
+    ruleTitle: string;
+    ruleText: string;
+    disclaimer: string;
+    official: string;
+    /** Link on the Schengen destination page */
+    destinationLink: string;
+  };
   footer: {
     tagline: string;
     product: string;
