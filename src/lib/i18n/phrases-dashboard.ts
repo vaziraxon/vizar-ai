@@ -852,4 +852,14 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Viza tahlili natijasi": { ru: "Результат анализа визы", en: "Visa assessment result" },
   "Viza tahlili yakunlandi": { ru: "Анализ визы завершён", en: "Visa assessment complete" },
   "Natija Hisobotlar bo'limida saqlandi.": { ru: "Результат сохранён в разделе «Отчёты».", en: "The result is saved in Reports." },
+
+  /* ------------------------------------------------------ Recommendations */
+  "Viza tahlilidagi javoblaringizdan tuzilgan keyingi qadamlar.": { ru: "Следующие шаги, составленные по вашим ответам в анализе визы.", en: "Next steps built from your visa assessment answers." },
+  "Hali tavsiya yo'q": { ru: "Рекомендаций пока нет", en: "No recommendations yet" },
+  "Viza tahlilini yakunlang — javoblaringizdan keyingi qadamlar shu yerda paydo bo'ladi.": { ru: "Завершите анализ визы — здесь появятся следующие шаги по вашим ответам.", en: "Finish the visa assessment and the next steps from your answers will appear here." },
+  "Bajarilganlar ({n})": { ru: "Выполнено ({n})", en: "Done ({n})" },
+  "Qayerdan keladi": { ru: "Откуда этот список", en: "Where this list comes from" },
+  "Bu ro'yxat viza tahlilidagi javoblaringizdan tuziladi. Har bir yangi tahlil o'z qadamlarini qo'shadi.": { ru: "Список составляется по вашим ответам в анализе визы. Каждый новый анализ добавляет свои шаги.", en: "This list is built from your visa assessment answers. Each new assessment adds its own steps." },
+  "Ochish": { ru: "Открыть", en: "Open" },
+  "Holatni o'zgartirish": { ru: "Изменить статус", en: "Change status" },
 };

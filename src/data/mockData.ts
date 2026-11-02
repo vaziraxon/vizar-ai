@@ -176,8 +176,6 @@ export const REQUIRED_DOCUMENT_TITLES = DOCUMENTS.filter((d) => d.id !== "extra"
 
 // --- Visa Readiness Score --------------------------------------------------
 
-export const READINESS_MISSING_DOCS = ["Taklifnoma", "Mehmonxona bron"];
-
 // --- AI Interview ------------------------------------------------------------
 
 // --- Specialists -------------------------------------------------------------
