@@ -12,12 +12,14 @@ import { DOCUMENTS } from "@/data/mockData";
 import Link from "next/link";
 import { L } from "@/components/i18n/L";
 
+const SUBTITLE = "Hujjatlaringizni bir joyda saqlang. Sayt ularning mazmunini tekshirmaydi — har birini talab bilan o'zingiz solishtiring.";
+
 export default async function DocumentsPage() {
   if (!isSupabaseConfigured()) {
     return (
       <DashboardShell
         title="Hujjatlar"
-        subtitle="Barcha kerakli hujjatlarni yuklang — sun'iy intellekt ularni avtomatik tahlil qiladi."
+        subtitle={SUBTITLE}
       >
         <SupabaseSetupNotice />
       </DashboardShell>
@@ -29,7 +31,7 @@ export default async function DocumentsPage() {
     return (
       <DashboardShell
         title="Hujjatlar"
-        subtitle="Barcha kerakli hujjatlarni yuklang — sun'iy intellekt ularni avtomatik tahlil qiladi."
+        subtitle={SUBTITLE}
       >
         <ErrorState description={appResult.error} />
       </DashboardShell>
@@ -40,7 +42,7 @@ export default async function DocumentsPage() {
     return (
       <DashboardShell
         title="Hujjatlar"
-        subtitle="Barcha kerakli hujjatlarni yuklang — sun'iy intellekt ularni avtomatik tahlil qiladi."
+        subtitle={SUBTITLE}
       >
         <EmptyState
           icon={FileSearch2}
@@ -65,7 +67,7 @@ export default async function DocumentsPage() {
     return (
       <DashboardShell
         title="Hujjatlar"
-        subtitle="Barcha kerakli hujjatlarni yuklang — sun'iy intellekt ularni avtomatik tahlil qiladi."
+        subtitle={SUBTITLE}
       >
         <ErrorState description={docsResult.error} />
       </DashboardShell>
@@ -94,9 +96,11 @@ export default async function DocumentsPage() {
             <RealDocumentCard
               key={docSlot.id}
               applicationId={application.id}
+              slotId={docSlot.id}
               documentType={docSlot.title}
-              icon={docSlot.icon}
               existingDoc={existing}
+              optional={docSlot.optional}
+              check={docSlot.check}
             />
           );
         })}

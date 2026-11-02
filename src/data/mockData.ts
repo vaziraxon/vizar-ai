@@ -149,30 +149,32 @@ export const SIDEBAR_LOGOUT: SidebarNavItem = {
 // --- Documents -------------------------------------------------------------
 
 export const DOCUMENTS: DocumentItem[] = [
-  { id: "passport", icon: FileText, title: "Passport", status: "Tasdiqlandi" },
+  { id: "passport", icon: FileText, title: "Passport", status: "Tasdiqlandi", check: "Safar tugaganidan keyin ham amal qilishi kerak" },
   {
     id: "bank",
     icon: Landmark,
     title: "Bank statement",
     status: "Kamchilik bor",
     note: "Bank ma'lumotnomasida hisob egasining to'liq ismi ko'rsatilmagan.",
+    check: "So'nggi oylar harakati bilan",
   },
-  { id: "employment", icon: Briefcase, title: "Ish joyidan ma'lumotnoma", status: "Tasdiqlandi" },
-  { id: "invitation", icon: MailCheck, title: "Taklifnoma", status: "Yuklanmagan" },
-  { id: "hotel", icon: Hotel, title: "Mehmonxona bron", status: "Yuklanmagan" },
-  { id: "flight", icon: Plane, title: "Aviachipta bron", status: "AI tahlil qilmoqda" },
+  { id: "employment", icon: Briefcase, title: "Ish joyidan ma'lumotnoma", status: "Tasdiqlandi", check: "Lavozim va maosh ko'rsatilgan" },
+  { id: "invitation", icon: MailCheck, title: "Taklifnoma", status: "Yuklanmagan", optional: true },
+  { id: "hotel", icon: Hotel, title: "Mehmonxona bron", status: "Yuklanmagan", check: "Barcha tunlar uchun" },
+  { id: "flight", icon: Plane, title: "Aviachipta bron", status: "AI tahlil qilmoqda", check: "Borish va qaytish" },
   {
     id: "insurance",
     icon: ShieldCheck,
     title: "Sug'urta",
     status: "Yangilash kerak",
     note: "Sug'urta muddati safar sanasidan oldin tugaydi.",
+    check: "Safar muddatini to'liq qamrab olsin",
   },
-  { id: "extra", icon: FilePlus2, title: "Qo'shimcha hujjatlar", status: "Yuklanmagan" },
+  { id: "extra", icon: FilePlus2, title: "Qo'shimcha hujjatlar", status: "Yuklanmagan", optional: true },
 ];
 
-/** Every slot except the optional extras: what the readiness score counts. */
-export const REQUIRED_DOCUMENT_TITLES = DOCUMENTS.filter((d) => d.id !== "extra").map((d) => d.title);
+/** What the readiness score counts: every slot except the optional ones (an invitation isn't needed for every trip). */
+export const REQUIRED_DOCUMENT_TITLES = DOCUMENTS.filter((d) => !d.optional).map((d) => d.title);
 
 // --- Visa Readiness Score --------------------------------------------------
 

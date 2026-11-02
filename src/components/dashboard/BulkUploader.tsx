@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { CheckCircle2, FileText, ImageIcon, Loader2, UploadCloud, X, AlertTriangle } from "lucide-react";
 import { useL } from "@/components/i18n/L";
 import { validateFile, MAX_FILE_SIZE_BYTES } from "@/lib/document-constraints";
-import { guessDocumentType, runDemoAnalysis, uploadDocumentFile } from "@/lib/documents/upload-client";
+import { guessDocumentType, uploadDocumentFile } from "@/lib/documents/upload-client";
 import { cn } from "@/lib/utils";
 
 type ItemState = "ready" | "invalid" | "uploading" | "done" | "error";
@@ -74,7 +74,6 @@ export function BulkUploader({
     const pending = queue.filter((q) => q.state === "ready" || q.state === "error");
     if (!pending.length) return;
     setRunning(true);
-    const analyses: Promise<void>[] = [];
     for (const item of pending) {
       update(item.key, { state: "uploading", progress: 5, error: undefined });
       if (sandbox || !applicationId) {
@@ -94,12 +93,10 @@ export function BulkUploader({
       });
       if (result.ok) {
         update(item.key, { state: "done", progress: 100 });
-        analyses.push(runDemoAnalysis(result.documentId, item.type));
       } else {
         update(item.key, { state: "error", error: result.error });
       }
     }
-    await Promise.all(analyses);
     setRunning(false);
     if (!sandbox) router.refresh();
   }
