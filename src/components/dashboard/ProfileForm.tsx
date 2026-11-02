@@ -124,19 +124,6 @@ export function ProfileForm({
         </div>
       </div>
 
-      <div className="card rounded-[24px] p-6">
-        <p className={sectionTitle}>
-          <span aria-hidden="true">🛂</span> {l("Passport ma'lumotlari (namuna)")}
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <TextField id="passportNo" label="Passport raqami" placeholder="AA1234567" />
-          <TextField id="passportExpiry" label="Amal qilish muddati" type="date" />
-        </div>
-        <p className="mt-2 text-caption text-ink-400 dark:text-white/40">
-          {l("Bu maydonlar hech qayerda saqlanmaydi — demo ko'rinish uchun qo'yilgan. Haqiqiy passport ma'lumotlarini kiritmang.")}
-        </p>
-      </div>
-
       {error && <p className="text-body-sm font-medium text-red-600">{l(error)}</p>}
 
       <div className="flex items-center gap-3">

@@ -905,4 +905,8 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Aloqa 100 belgidan oshmasin.": { ru: "Контакт — не больше 100 символов.", en: "Contact details can be at most 100 characters." },
   "Qulay vaqt 100 belgidan oshmasin.": { ru: "Удобное время — не больше 100 символов.", en: "Preferred time can be at most 100 characters." },
   "Savol 1000 belgidan oshmasin.": { ru: "Вопрос — не больше 1000 символов.", en: "The question can be at most 1000 characters." },
+
+  /* --------------------------------------------------- Small honesty fixes */
+  "Rad javobi sabablarini tanlang — har biri uchun nima qilish kerakligini qoidalar asosida ko'rsatamiz.": { ru: "Выберите причины отказа — для каждой покажем, что делать, по заданным правилам.", en: "Choose the refusal reasons and we'll show what to do for each, using fixed rules." },
+  "Chop etish yoki PDF": { ru: "Печать или PDF", en: "Print or save as PDF" },
 };

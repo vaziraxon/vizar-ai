@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Loader2, RotateCcw, ArrowRight, Check } from "lucide-react";
+import { Sparkles, RotateCcw, ArrowRight, Check } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { SelectField } from "@/components/forms/SelectField";
 import { TextField } from "@/components/forms/TextField";
@@ -31,7 +31,6 @@ export default function RefusalAnalysisPage() {
   const [refusalDate, setRefusalDate] = useState("");
   const [reasons, setReasons] = useState<RefusalReasonId[]>([]);
   const [note, setNote] = useState("");
-  const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState("");
   const [saved, setSaved] = useLocalState<RefusalSaved | null>(REFUSAL_KEY, null);
 
@@ -46,11 +45,8 @@ export default function RefusalAnalysisPage() {
       return;
     }
     setError("");
-    setAnalyzing(true);
-    setTimeout(() => {
-      setSaved({ country, visaType, date: refusalDate, reasons, note: note.trim(), at: new Date().toISOString() });
-      setAnalyzing(false);
-    }, 700);
+    // Rule-based (lib/dashboard/refusal-rules), so the result is ready at once.
+    setSaved({ country, visaType, date: refusalDate, reasons, note: note.trim(), at: new Date().toISOString() });
   }
 
   function startOver() {
@@ -72,7 +68,7 @@ export default function RefusalAnalysisPage() {
   const visual = result ? matchDestination(result.country) : null;
 
   return (
-    <DashboardShell title="Rad javobini tahlil qilish" subtitle="Oldingi rad javobingiz sabablarini AI yordamida tahlil qiling.">
+    <DashboardShell title="Rad javobini tahlil qilish" subtitle="Rad javobi sabablarini tanlang — har biri uchun nima qilish kerakligini qoidalar asosida ko'rsatamiz.">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <form onSubmit={handleSubmit} className="card space-y-4 rounded-[28px] p-6 sm:p-7">
           <p className="flex items-center gap-2.5 font-display text-body-lg font-bold text-ink-950">
@@ -142,8 +138,8 @@ export default function RefusalAnalysisPage() {
 
           {error && <p className="text-body-sm font-medium text-red-600">{error}</p>}
 
-          <Button type="submit" size="md" className="w-full" disabled={analyzing}>
-            {analyzing ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
+          <Button type="submit" size="md" className="w-full">
+            <Sparkles size={16} />
             {l("Tahlil qilish")}
           </Button>
         </form>
