@@ -26,6 +26,21 @@ const DAY = 86_400_000;
 /** Below this, appointment slots and processing times become the urgent question. */
 export const SOON_DAYS = 30;
 
+/**
+ * Where a saved task (a recommendation title) can be worked on in the app.
+ * Booking an appointment and gathering sponsor papers happen elsewhere. The last
+ * two are the fixed demo titles the assessment saved before it had real rules.
+ */
+export const TASK_HREF: Record<string, string> = {
+  "Safar sanasini yangilang": "/assessment",
+  "Yetishmayotgan hujjatlarni tayyorlang": "/dashboard/checklist",
+  "Avvalgi rad javobini tahlil qiling": "/dashboard/rejection-analysis",
+  "Mablag' talabini tekshiring": "/knowledge-base",
+  "Suhbat mashqini bajaring": "/dashboard/interview",
+  "Bank statementni tekshirib chiqing": "/dashboard/documents",
+  "AI Interview simulyatorida mashq qiling": "/dashboard/interview",
+};
+
 const text = (value: unknown) => (typeof value === "string" ? value.trim() : "");
 
 function travelFinding(travelDate: string, today: Date): AssessmentFinding | null {

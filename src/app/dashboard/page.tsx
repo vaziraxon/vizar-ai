@@ -17,6 +17,7 @@ import { listMyRecommendations } from "@/lib/data/recommendations";
 import { getUpcomingConsultation } from "@/lib/data/consultations";
 import { displayApplicationStatus } from "@/lib/status-map";
 import { filledSlots } from "@/lib/dashboard/readiness";
+import { openFirst } from "@/lib/dashboard/recommendations";
 import { REQUIRED_DOCUMENT_TITLES } from "@/data/mockData";
 import {
   CURRENT_USER,
@@ -46,7 +47,7 @@ export default async function DashboardPage() {
       ? await Promise.all([
           listDocumentsForApplication(application.id),
           listMyNotifications(),
-          listMyRecommendations(5),
+          listMyRecommendations(),
           getUpcomingConsultation(),
           getAssessmentForApplication(application.id),
         ])
@@ -73,10 +74,12 @@ export default async function DashboardPage() {
       }))
     : CURRENT_APPLICATION.progressSteps;
 
-  // Tasks: real recommendations when available, otherwise the demo list.
+  // Tasks: the user's open recommendations, most urgent first; demo mode uses samples.
   const tasks =
     live && recommendationsResult?.ok && recommendationsResult.data.length > 0
-      ? recommendationsResult.data.map((r) => ({ id: r.id, title: r.title, chip: r.priority ?? "O'rtacha" }))
+      ? openFirst(recommendationsResult.data)
+          .filter((r) => r.status !== "done")
+          .map((r) => ({ id: r.id, title: r.title, chip: r.priority ?? "O'rtacha" }))
       : live
         ? []
         : RECOMMENDATION_TASKS.filter((t) => t.status !== "Bajarildi").map((t) => ({ id: t.id, title: t.title, chip: t.status }));
