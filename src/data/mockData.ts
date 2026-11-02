@@ -290,7 +290,7 @@ export const ADMIN_NAV: SidebarNavItem[] = [
   { icon: Users, label: "Foydalanuvchilar", href: "/admin" },
   { icon: FileSearch2, label: "Arizalar", href: "/admin" },
   { icon: FolderOpen, label: "Hujjatlar", href: "/admin" },
-  { icon: UserCog, label: "Mutaxassislar", href: "/admin" },
+  { icon: UserCog, label: "Konsultatsiya so'rovlari", href: "/admin/consultations" },
   { icon: FileStack, label: "Kontent", href: "/admin" },
   { icon: BarChart3, label: "Investor analitika", href: "/investor-analytics" },
   { icon: Route, label: "Roadmap", href: "/roadmap" },

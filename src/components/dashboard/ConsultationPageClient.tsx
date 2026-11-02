@@ -1,72 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { Languages, Briefcase, CheckCircle2, Loader2, X } from "lucide-react";
-import { DashboardShell } from "@/components/dashboard/DashboardShell";
-import { Modal } from "@/components/modals/Modal";
+import { CheckCircle2, Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { SelectField } from "@/components/forms/SelectField";
+import { TextField } from "@/components/forms/TextField";
 import { InlineAlert } from "@/components/states/InlineAlert";
-import { SPECIALISTS } from "@/data/mockData";
-import type { Specialist } from "@/types";
-import { cn } from "@/lib/utils";
-import { parseDemoSlotToIso } from "@/lib/parse-demo-slot";
-import { bookConsultationAction, cancelConsultationAction } from "@/lib/actions/consultations";
+import { StatusBadge } from "@/components/dashboard/StatusBadge";
+import { requestConsultationAction, cancelConsultationAction } from "@/lib/actions/consultations";
+import { CONSULTATION_TOPICS, REQUEST_STATUS_LABEL, readRequest } from "@/lib/dashboard/consultation-request";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import type { ConsultationRow } from "@/lib/data/consultations";
 import { useDateLocale, useL } from "@/components/i18n/L";
 
-export function ConsultationPageClient({
-  upcoming,
-}: {
-  upcoming: ConsultationRow[];
-}) {
+const EMPTY = { topic: "", contact: "", preferredTime: "", message: "" };
+
+export function ConsultationPageClient({ requests }: { requests: ConsultationRow[] }) {
   const router = useRouter();
   const l = useL();
   const locale = useDateLocale();
   const configured = isSupabaseConfigured();
-  const [selected, setSelected] = useState<Specialist | null>(null);
-  const [date, setDate] = useState("");
-  const [slot, setSlot] = useState("");
-  const [confirmed, setConfirmed] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [form, setForm] = useState(EMPTY);
+  const [errors, setErrors] = useState<Partial<Record<keyof typeof EMPTY, string>>>({});
+  const [formError, setFormError] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
 
-  function openBooking(sp: Specialist) {
-    setSelected(sp);
-    setDate("");
-    setSlot("");
-    setConfirmed(false);
-    setError("");
-  }
+  const update = (key: keyof typeof EMPTY, value: string) => setForm((f) => ({ ...f, [key]: value }));
 
-  async function handleBook() {
-    if (!date || !slot || !selected) return;
-    setError("");
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    setFormError("");
+    const next: typeof errors = {};
+    if (!form.topic) next.topic = "Mavzuni tanlang.";
+    if (form.contact.trim().length < 5) next.contact = "Telegram yoki telefon raqamingizni yozing.";
+    setErrors(next);
+    if (Object.keys(next).length) return;
 
     if (!configured) {
-      setConfirmed(true);
+      setSent(true);
+      setForm(EMPTY);
       return;
     }
 
-    const iso = parseDemoSlotToIso(date, slot);
-    if (!iso) {
-      setError(l("Sana formatini aniqlab bo'lmadi."));
-      return;
-    }
-
-    setLoading(true);
-    const result = await bookConsultationAction({
-      specialistName: selected.name,
-      scheduledAt: iso,
-    });
-    setLoading(false);
-
+    setSending(true);
+    const result = await requestConsultationAction(form);
+    setSending(false);
     if (!result.ok) {
-      setError(result.error);
+      setFormError(result.error);
       return;
     }
-    setConfirmed(true);
+    setSent(true);
+    setForm(EMPTY);
     router.refresh();
   }
 
@@ -79,168 +65,120 @@ export function ConsultationPageClient({
     <>
       {!configured && (
         <div className="mb-6">
-          <InlineAlert variant="warning">
-            {l("Supabase sozlanmagan — bandlov faqat demo ko'rinishda ishlaydi va saqlanmaydi.")}
-          </InlineAlert>
+          <InlineAlert variant="warning">{l("Supabase sozlanmagan — so'rov saqlanmaydi.")}</InlineAlert>
         </div>
       )}
 
-      {upcoming.length > 0 && (
-        <div className="mb-8">
-          <p className="mb-3 text-body-sm font-semibold text-ink-900 dark:text-white">
-            {l("Band qilingan konsultatsiyalar")}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <form onSubmit={handleSubmit} noValidate className="card space-y-4 rounded-[28px] p-6 sm:p-7 lg:col-span-2">
+          <p className="flex items-center gap-2 font-display text-body-lg font-bold text-ink-950">
+            <span aria-hidden="true">🤝</span> {l("Mutaxassisga so'rov")}
           </p>
-          <div className="space-y-3">
-            {upcoming.map((c) => (
-              <div
-                key={c.id}
-                className="card flex items-center justify-between rounded-[20px] p-4"
-              >
-                <div>
-                  <p className="text-body-sm font-semibold text-ink-900 dark:text-white">
-                    {c.specialist_name}
-                  </p>
-                  <p className="text-caption text-ink-400 dark:text-white/40">
-                    {c.scheduled_at
-                      ? new Date(c.scheduled_at).toLocaleString(locale, {
-                          dateStyle: "long",
-                          timeStyle: "short",
-                        })
-                      : "—"}
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => handleCancel(c.id)}
-                  className="flex items-center gap-1 text-caption font-semibold text-red-500 hover:text-red-600"
-                >
-                  <X size={13} /> {l("Bekor qilish")}
-                </button>
-              </div>
-            ))}
+
+          {sent && (
+            <p role="status" className="flex items-start gap-2 rounded-2xl bg-success/10 px-4 py-3 text-body-sm text-ink-800">
+              <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-success" />
+              {l("So'rovingiz yuborildi. Siz yozgan aloqa orqali bog'lanamiz.")}
+            </p>
+          )}
+
+          <SelectField
+            id="topic"
+            label="Mavzu"
+            placeholder="Mavzuni tanlang"
+            options={[...CONSULTATION_TOPICS]}
+            value={form.topic}
+            onChange={(e) => update("topic", e.target.value)}
+            error={errors.topic && l(errors.topic)}
+          />
+          <TextField
+            id="contact"
+            label="Aloqa uchun Telegram yoki telefon"
+            placeholder="Masalan: @username yoki +998 90 123 45 67"
+            value={form.contact}
+            maxLength={100}
+            onChange={(e) => update("contact", e.target.value)}
+            error={errors.contact && l(errors.contact)}
+          />
+          <TextField
+            id="preferredTime"
+            label="Qulay vaqt (ixtiyoriy)"
+            placeholder="Masalan: ish kunlari 18:00 dan keyin"
+            value={form.preferredTime}
+            maxLength={100}
+            onChange={(e) => update("preferredTime", e.target.value)}
+          />
+          <div>
+            <label htmlFor="message" className="mb-2 block text-body-sm font-medium text-ink-900 dark:text-white/80">
+              {l("Savolingiz (ixtiyoriy)")}
+            </label>
+            <textarea
+              id="message"
+              rows={4}
+              maxLength={1000}
+              value={form.message}
+              onChange={(e) => update("message", e.target.value)}
+              placeholder={l("Qaysi davlat, qanday viza va nima bo'yicha yordam kerak?")}
+              className="input min-h-[110px] py-3"
+            />
           </div>
+
+          {formError && <p role="alert" className="text-body-sm font-medium text-red-600">{l(formError)}</p>}
+
+          <Button type="submit" size="md" disabled={sending}>
+            {sending ? <Loader2 size={16} className="animate-spin" /> : null}
+            {l("So'rov yuborish")}
+          </Button>
+          <p className="text-caption text-ink-500">
+            {l("Aloqa ma'lumotingizni faqat siz bilan bog'lanish uchun ishlatamiz.")}
+          </p>
+        </form>
+
+        <div className="card h-fit rounded-[24px] p-6">
+          <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-950">
+            <span aria-hidden="true">🧭</span> {l("Qanday ishlaydi")}
+          </p>
+          <ol className="space-y-2 text-body-sm text-ink-600">
+            <li>1. {l("Mavzu va aloqa usulini yozasiz.")}</li>
+            <li>2. {l("Mutaxassis siz yozgan aloqa orqali bog'lanadi.")}</li>
+            <li>3. {l("So'rov holati shu sahifada ko'rinadi.")}</li>
+          </ol>
         </div>
-      )}
-
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {SPECIALISTS.map((sp) => (
-          <div key={sp.id} className="card spotlight flex flex-col gap-4 rounded-[24px] p-6">
-            <div className="flex items-center gap-3">
-              <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-violet-600 text-body font-bold text-white shadow-button">
-                {sp.avatarInitials}
-                <span aria-hidden="true" className="absolute -bottom-1.5 -right-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-surface text-[13px] shadow-card">
-                  🤝
-                </span>
-              </span>
-              <div>
-                <p className="text-body-sm font-semibold text-ink-900 dark:text-white">
-                  {sp.name}
-                </p>
-                <p className="text-caption text-ink-400 dark:text-white/40">
-                  {l(sp.experience)}
-                </p>
-              </div>
-            </div>
-
-            <p className="flex items-center gap-1.5 text-body-sm text-ink-600 dark:text-white/60">
-              <Briefcase size={14} /> {l(sp.specialization)}
-            </p>
-            <p className="flex items-center gap-1.5 text-body-sm text-ink-600 dark:text-white/60">
-              <Languages size={14} /> {sp.languages.map((x) => l(x)).join(", ")}
-            </p>
-            {/* No star ratings: there are no real reviews to base them on. */}
-            <p className="text-caption text-ink-500 dark:text-white/40">
-              {l("Namunaviy mutaxassis va vaqt oralig'i — demo maqsadida.")}
-            </p>
-
-            <Button size="md" className="mt-auto" onClick={() => openBooking(sp)}>
-              {l("Konsultatsiya band qilish")}
-            </Button>
-          </div>
-        ))}
       </div>
 
-      <Modal
-        open={selected !== null}
-        onClose={() => setSelected(null)}
-        title={confirmed ? l("Tasdiqlandi") : l("{name} bilan konsultatsiya", { name: selected?.name ?? "" })}
-      >
-        {confirmed ? (
-          <div className="flex flex-col items-center gap-3 py-2 text-center">
-            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-success/10 text-success">
-              <CheckCircle2 size={24} />
-            </span>
-            <p className="text-body-sm text-ink-700 dark:text-white/70">
-              {l("Konsultatsiyangiz {date} kuni soat {slot} ga band qilindi (demo).", { date: l(date), slot })}
-            </p>
-            <p className="text-caption text-ink-400 dark:text-white/40">
-              {l("To'lov tizimi ulanmagan — bu faqat namunaviy tasdiqlash.")}
-            </p>
-            <Button size="sm" onClick={() => setSelected(null)}>
-              {l("Yopish")}
-            </Button>
-          </div>
-        ) : (
-          selected && (
-            <div className="space-y-4">
-              <div>
-                <label className="mb-1.5 block text-body-sm font-medium text-ink-700 dark:text-white/80">
-                  {l("Sanani tanlang")}
-                </label>
-                <div className="flex flex-wrap gap-2">
-                  {selected.availableDates.map((d) => (
-                    <button
-                      key={d}
-                      type="button"
-                      onClick={() => setDate(d)}
-                      className={cn(
-                        "rounded-pill border px-3 py-1.5 text-body-sm font-medium transition-colors",
-                        date === d
-                          ? "border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-600/30 dark:text-brand-300"
-                          : "border-surface-border text-ink-700 hover:bg-surface-muted dark:border-white/10 dark:text-white/70"
-                      )}
-                    >
-                      {l(d)}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <label className="mb-1.5 block text-body-sm font-medium text-ink-700 dark:text-white/80">
-                  {l("Vaqtni tanlang")}
-                </label>
-                <div className="flex flex-wrap gap-2">
-                  {selected.availableSlots.map((s) => (
-                    <button
-                      key={s}
-                      type="button"
-                      onClick={() => setSlot(s)}
-                      className={cn(
-                        "rounded-pill border px-3 py-1.5 text-body-sm font-medium transition-colors",
-                        slot === s
-                          ? "border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-600/30 dark:text-brand-300"
-                          : "border-surface-border text-ink-700 hover:bg-surface-muted dark:border-white/10 dark:text-white/70"
-                      )}
-                    >
-                      {s}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              {error && <p className="text-body-sm font-medium text-red-600">{error}</p>}
-              <Button
-                size="md"
-                className="w-full"
-                onClick={handleBook}
-                disabled={!date || !slot || loading}
-              >
-                {loading ? <Loader2 size={16} className="animate-spin" /> : null}
-                {l("Bandlovni tasdiqlash")}
-              </Button>
-            </div>
-          )
-        )}
-      </Modal>
+      {requests.length > 0 && (
+        <div className="mt-8">
+          <p className="mb-3 text-body-sm font-semibold text-ink-900 dark:text-white">{l("Mening so'rovlarim")}</p>
+          <ul className="space-y-3">
+            {requests.map((c) => {
+              const request = readRequest(c.notes, c.specialist_name);
+              return (
+                <li key={c.id} className="card flex flex-wrap items-center justify-between gap-3 rounded-[20px] p-4">
+                  <div className="min-w-0">
+                    <p className="text-body-sm font-semibold text-ink-900 dark:text-white">{l(request.topic)}</p>
+                    <p className="text-caption text-ink-500">
+                      {new Date(c.created_at).toLocaleDateString(locale, { dateStyle: "medium" })}
+                      {request.preferredTime ? ` · ${request.preferredTime}` : ""}
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-3">
+                    <StatusBadge status={REQUEST_STATUS_LABEL[c.status] ?? c.status} />
+                    {c.status === "booked" && (
+                      <button
+                        type="button"
+                        onClick={() => handleCancel(c.id)}
+                        className="flex items-center gap-1 text-caption font-semibold text-red-500 hover:text-red-600"
+                      >
+                        <X size={13} /> {l("Bekor qilish")}
+                      </button>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </>
   );
 }

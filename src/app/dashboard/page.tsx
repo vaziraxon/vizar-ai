@@ -14,7 +14,8 @@ import { getAssessmentForApplication, isAssessmentComplete } from "@/lib/data/as
 import { listDocumentsForApplication } from "@/lib/data/documents";
 import { listMyNotifications } from "@/lib/data/notifications";
 import { listMyRecommendations } from "@/lib/data/recommendations";
-import { getUpcomingConsultation } from "@/lib/data/consultations";
+import { getOpenConsultationRequest } from "@/lib/data/consultations";
+import { readRequest } from "@/lib/dashboard/consultation-request";
 import { displayApplicationStatus } from "@/lib/status-map";
 import { filledSlots } from "@/lib/dashboard/readiness";
 import { openFirst } from "@/lib/dashboard/recommendations";
@@ -48,7 +49,7 @@ export default async function DashboardPage() {
           listDocumentsForApplication(application.id),
           listMyNotifications(),
           listMyRecommendations(),
-          getUpcomingConsultation(),
+          getOpenConsultationRequest(),
           getAssessmentForApplication(application.id),
         ])
       : [null, null, null, null, null];
@@ -107,10 +108,8 @@ export default async function DashboardPage() {
   const consultation = live
     ? consultationResult?.ok && consultationResult.data
       ? {
-          name: consultationResult.data.specialist_name,
-          when: consultationResult.data.scheduled_at
-            ? new Date(consultationResult.data.scheduled_at).toLocaleString("uz-UZ", { dateStyle: "long", timeStyle: "short" })
-            : "—",
+          name: readRequest(consultationResult.data.notes, consultationResult.data.specialist_name).topic,
+          when: "So'rov yuborildi, javob kutilmoqda",
         }
       : null
     : { name: UPCOMING_CONSULTATION.specialistName, when: `${UPCOMING_CONSULTATION.date}, ${UPCOMING_CONSULTATION.time}` };

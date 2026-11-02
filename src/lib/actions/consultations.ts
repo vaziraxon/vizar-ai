@@ -3,15 +3,15 @@
 import { revalidatePath } from "next/cache";
 import * as consultations from "@/lib/data/consultations";
 
-export async function bookConsultationAction(input: {
-  applicationId?: string | null;
-  specialistName: string;
-  scheduledAt: string;
-  notes?: string | null;
+export async function requestConsultationAction(input: {
+  topic: string;
+  contact: string;
+  preferredTime: string;
+  message: string;
 }) {
-  const result = await consultations.bookConsultation(input);
+  const result = await consultations.requestConsultation(input);
   if (result.ok) {
-    revalidatePath("/consultation");
+    revalidatePath("/dashboard/experts");
     revalidatePath("/dashboard");
     revalidatePath("/notifications");
   }
@@ -21,7 +21,7 @@ export async function bookConsultationAction(input: {
 export async function cancelConsultationAction(consultationId: string) {
   const result = await consultations.cancelConsultation({ consultationId });
   if (result.ok) {
-    revalidatePath("/consultation");
+    revalidatePath("/dashboard/experts");
     revalidatePath("/dashboard");
   }
   return result;
