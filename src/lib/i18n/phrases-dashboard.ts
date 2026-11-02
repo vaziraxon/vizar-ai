@@ -862,4 +862,10 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Bu ro'yxat viza tahlilidagi javoblaringizdan tuziladi. Har bir yangi tahlil o'z qadamlarini qo'shadi.": { ru: "Список составляется по вашим ответам в анализе визы. Каждый новый анализ добавляет свои шаги.", en: "This list is built from your visa assessment answers. Each new assessment adds its own steps." },
   "Ochish": { ru: "Открыть", en: "Open" },
   "Holatni o'zgartirish": { ru: "Изменить статус", en: "Change status" },
+
+  /* ------------------------------------------------------------ Documents */
+  "Hujjatlaringizni bir joyda saqlang. Sayt ularning mazmunini tekshirmaydi — har birini talab bilan o'zingiz solishtiring.": { ru: "Храните документы в одном месте. Сайт не проверяет их содержание — сверьте каждый с требованием сами.", en: "Keep your documents in one place. The site doesn't check what they say, so compare each one with the requirement yourself." },
+  "Yuklandi": { ru: "Загружен", en: "Uploaded" },
+  "Tekshiring": { ru: "Проверьте", en: "Check" },
+  "Kerak bo'lsa": { ru: "Если нужно", en: "If needed" },
 };

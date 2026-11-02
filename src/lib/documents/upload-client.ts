@@ -3,29 +3,16 @@
 import { createClient } from "@/lib/supabase/client";
 import { buildStoragePath } from "@/lib/storage-path";
 import { STORAGE_BUCKET, validateFile, type AllowedMimeType } from "@/lib/document-constraints";
-import { recordUploadedDocumentAction, setDocumentAnalysisAction } from "@/lib/actions/documents";
+import { recordUploadedDocumentAction } from "@/lib/actions/documents";
 
 /**
  * Browser-side upload of one visa document — the same flow the document
  * cards always used, shared so a multi-file upload goes through the exact
  * same path: validate → Storage upload (RLS-checked path) → metadata row
- * via the existing server action → clearly-labelled demo analysis.
+ * via the existing server action. Nothing reads the file afterwards.
  *
  * Error strings are Uzbek source text (translated in the UI).
  */
-
-const DEMO_ANALYSIS: Record<string, { issue?: string; summary: string }> = {
-  Passport: { summary: "Passport ma'lumotlari to'liq va aniq ko'rinmoqda (demo)." },
-  "Bank statement": {
-    issue: "Hisob egasining to'liq ismi ko'rsatilmagan.",
-    summary: "Bank ma'lumotnomasida hisob egasining to'liq ismi ko'rsatilmagan (demo).",
-  },
-  "Ish joyidan ma'lumotnoma": { summary: "Hujjat talablarga mos keladi (demo)." },
-  "Sug'urta": {
-    issue: "Sug'urta muddati safar sanasidan oldin tugaydi.",
-    summary: "Sug'urta muddatini tekshirib chiqing (demo).",
-  },
-};
 
 export type UploadResult = { ok: true; documentId: string } | { ok: false; error: string };
 
@@ -68,15 +55,6 @@ export async function uploadDocumentFile(opts: {
 
   onProgress?.(100);
   return { ok: true, documentId: meta.data.id };
-}
-
-/** Simulated, clearly-labelled demo analysis — not a real document check. */
-export async function runDemoAnalysis(documentId: string, documentType: string) {
-  const demo = DEMO_ANALYSIS[documentType] ?? { summary: "Tahlil yakunlandi (demo)." };
-  await setDocumentAnalysisAction(documentId, demo.issue ? "issue_found" : "verified", {
-    summary: demo.summary,
-    issue: demo.issue ?? null,
-  });
 }
 
 /** Best guess of the document slot from a file name (any language). */

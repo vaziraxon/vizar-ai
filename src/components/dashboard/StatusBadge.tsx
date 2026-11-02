@@ -9,6 +9,7 @@ const STATUS_STYLES: Record<string, string> = {
   "Kamchilik bor": "bg-red-500/10 text-red-600",
   "Yangilash kerak": "bg-warning/10 text-warning",
   Yuklanmagan: "bg-surface-muted text-ink-400 dark:bg-white/10 dark:text-white/50",
+  Yuklandi: "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
   "AI tahlil qilmoqda": "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
   // Applications
   Draft: "bg-surface-muted text-ink-400 dark:bg-white/10 dark:text-white/50",

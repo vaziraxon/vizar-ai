@@ -110,6 +110,10 @@ export interface DocumentItem {
   title: string;
   status: DocStatus;
   note?: string;
+  /** Not needed for every trip, so readiness doesn't count it */
+  optional?: boolean;
+  /** What to check in the file yourself; Uzbek source text */
+  check?: string;
 }
 
 export type RiskLevel = "Past" | "O'rta" | "Yuqori";

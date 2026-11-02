@@ -13,20 +13,10 @@ export async function recordUploadedDocumentAction(input: {
 }) {
   const result = await documents.recordUploadedDocument(input);
   if (result.ok) {
-    revalidatePath("/documents");
+    revalidatePath("/dashboard/documents");
     revalidatePath("/dashboard");
     revalidatePath("/notifications");
   }
-  return result;
-}
-
-export async function setDocumentAnalysisAction(
-  documentId: string,
-  status: "uploaded" | "analyzing" | "issue_found" | "verified" | "expired",
-  analysisSummary: Record<string, unknown>
-) {
-  const result = await documents.setDocumentAnalysis(documentId, status, analysisSummary);
-  if (result.ok) revalidatePath("/documents");
   return result;
 }
 
