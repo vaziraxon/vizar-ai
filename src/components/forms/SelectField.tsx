@@ -9,11 +9,13 @@ interface SelectFieldProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label: string;
   error?: string;
   options: string[];
+  /** Shown instead of the value, e.g. a language name for "ru"; Uzbek source text */
+  optionLabels?: Record<string, string>;
   placeholder?: string;
 }
 
 export const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
-  ({ label, error, options, placeholder, id, className, ...props }, ref) => {
+  ({ label, error, options, optionLabels, placeholder, id, className, ...props }, ref) => {
     const l = useL();
     const errorId = error && id ? `${id}-error` : undefined;
     return (
@@ -47,7 +49,7 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
             )}
             {options.map((opt) => (
               <option key={opt} value={opt}>
-                {l(opt)}
+                {l(optionLabels?.[opt] ?? opt)}
               </option>
             ))}
           </select>

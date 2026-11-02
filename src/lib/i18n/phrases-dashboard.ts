@@ -909,4 +909,22 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   /* --------------------------------------------------- Small honesty fixes */
   "Rad javobi sabablarini tanlang — har biri uchun nima qilish kerakligini qoidalar asosida ko'rsatamiz.": { ru: "Выберите причины отказа — для каждой покажем, что делать, по заданным правилам.", en: "Choose the refusal reasons and we'll show what to do for each, using fixed rules." },
   "Chop etish yoki PDF": { ru: "Печать или PDF", en: "Print or save as PDF" },
+
+  /* --------------------------------------------------------------- Profile */
+  "Rasm yuklash": { ru: "Загрузить фото", en: "Upload photo" },
+  "Rasmni almashtirish": { ru: "Заменить фото", en: "Change photo" },
+  "Olib tashlash": { ru: "Удалить", en: "Remove" },
+  "JPG, PNG yoki WEBP. Rasm kvadrat qilib qirqiladi.": { ru: "JPG, PNG или WEBP. Фото обрезается до квадрата.", en: "JPG, PNG or WEBP. The photo is cropped to a square." },
+  "Faqat JPG, PNG yoki WEBP rasm yuklang.": { ru: "Загрузите фото в формате JPG, PNG или WEBP.", en: "Upload a JPG, PNG or WEBP photo." },
+  "Rasm 8 MB dan oshmasin.": { ru: "Фото должно быть не больше 8 МБ.", en: "The photo must be 8 MB or smaller." },
+  "Rasmni o'qib bo'lmadi. Boshqa rasm tanlang.": { ru: "Не удалось прочитать фото. Выберите другое.", en: "Couldn't read the photo. Choose another one." },
+  "Rasmni yuklab bo'lmadi. Qayta urinib ko'ring.": { ru: "Не удалось загрузить фото. Попробуйте ещё раз.", en: "Couldn't upload the photo. Please try again." },
+  "Rasm manzili noto'g'ri.": { ru: "Неверный адрес фото.", en: "Invalid photo address." },
+  "Shaxsiy": { ru: "Личный", en: "Personal" },
+  "Agentlik": { ru: "Агентство", en: "Agency" },
+  "Ismni kiriting.": { ru: "Введите имя.", en: "Enter your first name." },
+  "Familiyani kiriting.": { ru: "Введите фамилию.", en: "Enter your last name." },
+  "Ism 100 belgidan oshmasin.": { ru: "Имя — не больше 100 символов.", en: "First name can be at most 100 characters." },
+  "Familiya 100 belgidan oshmasin.": { ru: "Фамилия — не больше 100 символов.", en: "Last name can be at most 100 characters." },
+  "To'g'ri telefon raqami kiriting.": { ru: "Введите правильный номер телефона.", en: "Enter a valid phone number." },
 };

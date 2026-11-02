@@ -1,6 +1,7 @@
 import "server-only";
 import { getAuthedContext, genericDbError, type DataResult } from "./_shared";
 import { profileUpdateSchema } from "@/lib/validation/schemas";
+import { getSupabaseEnv } from "@/lib/supabase/config";
 import type { Database } from "@/types/database";
 
 export type Profile = Database["public"]["Tables"]["profiles"]["Row"];
@@ -45,6 +46,33 @@ export async function updateMyProfile(
   const { data, error } = await ctx.supabase
     .from("profiles")
     .update(update)
+    .eq("id", ctx.userId)
+    .select("*")
+    .single();
+
+  if (error) return genericDbError();
+  return { ok: true, data };
+}
+
+/**
+ * Points the profile at a photo the user uploaded to their own folder of the
+ * "avatars" bucket (src/lib/profile/avatar.ts), or clears it with null. Any
+ * other URL is refused, so a profile can't point at someone else's file.
+ */
+export async function updateMyAvatar(url: string | null): Promise<DataResult<Profile>> {
+  const ctx = await getAuthedContext();
+  if (!ctx.ok) return ctx;
+
+  if (url !== null) {
+    const base = `${getSupabaseEnv()?.url}/storage/v1/object/public/avatars/${ctx.userId}/`;
+    if (!url.startsWith(base) || !/^avatar-\d{10,16}\.jpg$/.test(url.slice(base.length))) {
+      return { ok: false, reason: "db_error", error: "Rasm manzili noto'g'ri." };
+    }
+  }
+
+  const { data, error } = await ctx.supabase
+    .from("profiles")
+    .update({ avatar_url: url })
     .eq("id", ctx.userId)
     .select("*")
     .single();

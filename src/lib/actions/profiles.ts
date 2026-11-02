@@ -18,6 +18,15 @@ export async function updateMyProfileAction(input: {
   return result;
 }
 
+export async function setMyAvatarAction(url: string | null) {
+  const result = await profiles.updateMyAvatar(url);
+  if (result.ok) {
+    revalidatePath("/profile");
+    revalidatePath("/dashboard");
+  }
+  return result;
+}
+
 export async function markOnboardingCompleteAction() {
   return profiles.markOnboardingComplete();
 }

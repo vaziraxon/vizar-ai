@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, Bell, Search, ChevronDown, UserRound, Settings, LogOut } from "lucide-react";
 import { LanguageSelector } from "@/components/ui/LanguageSelector";
 import { LogoMark } from "@/components/ui/Logo";
@@ -9,6 +10,7 @@ import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { DemoModeBadge } from "@/components/dashboard/DemoModeBadge";
 import { logoutAction } from "@/lib/actions/auth";
 import { useLanguage } from "@/lib/language-context";
+import { useMyAvatar } from "@/lib/profile/use-my-avatar";
 import { cn } from "@/lib/utils";
 import { useDateLocale } from "@/components/i18n/L";
 
@@ -20,6 +22,7 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
   const locale = useDateLocale();
   const [today, setToday] = useState("");
   const [profileOpen, setProfileOpen] = useState(false);
+  const avatarUrl = useMyAvatar();
 
   // Rendered after mount so the server and client never disagree on the date
   useEffect(() => {
@@ -102,7 +105,11 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
             className="flex items-center gap-1.5 rounded-pill p-1 pr-1.5 transition-colors hover:bg-surface-tint dark:hover:bg-white/10"
           >
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-violet-600 text-white shadow-button">
-              <UserRound size={16} strokeWidth={2} />
+              {avatarUrl ? (
+                <Image src={avatarUrl} alt="" width={32} height={32} className="h-8 w-8 rounded-full object-cover" />
+              ) : (
+                <UserRound size={16} strokeWidth={2} />
+              )}
             </span>
             <ChevronDown
               size={14}

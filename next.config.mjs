@@ -13,7 +13,11 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: supabaseHost
-      ? [{ protocol: "https", hostname: supabaseHost, pathname: "/storage/v1/object/public/testimonials/**" }]
+      ? [
+          { protocol: "https", hostname: supabaseHost, pathname: "/storage/v1/object/public/testimonials/**" },
+          // Profile photos (supabase/avatars.sql)
+          { protocol: "https", hostname: supabaseHost, pathname: "/storage/v1/object/public/avatars/**" },
+        ]
       : [],
   },
   experimental: {

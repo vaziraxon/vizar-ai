@@ -69,8 +69,8 @@ export const consultationCancelSchema = z.object({
 });
 
 export const profileUpdateSchema = z.object({
-  firstName: z.string().trim().min(1).max(100).optional(),
-  lastName: z.string().trim().min(1).max(100).optional(),
+  firstName: z.string().trim().min(1, "Ismni kiriting.").max(100, "Ism 100 belgidan oshmasin.").optional(),
+  lastName: z.string().trim().min(1, "Familiyani kiriting.").max(100, "Familiya 100 belgidan oshmasin.").optional(),
   phone: z
     .string()
     .trim()
