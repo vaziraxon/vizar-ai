@@ -61,13 +61,12 @@ export function ApplicationsTable({ applications }: { applications: VisaApplicat
     <>
       {/* Desktop table */}
       <div className="hidden overflow-x-auto rounded-2xl border border-surface-border dark:border-white/10 lg:block">
-        <table className="w-full min-w-[720px] text-left text-body-sm">
+        <table className="w-full min-w-[600px] text-left text-body-sm">
           <thead className="bg-surface-tint text-caption font-semibold uppercase tracking-wide text-ink-400 dark:bg-white/5 dark:text-white/40">
             <tr>
               <th className="px-5 py-3">{l("Davlat")}</th>
               <th className="px-5 py-3">{l("Viza turi")}</th>
               <th className="px-5 py-3">{l("Yaratilgan sana")}</th>
-              <th className="px-5 py-3">{l("Tayyorgarlik")}</th>
               <th className="px-5 py-3">{l("Holat")}</th>
               <th className="px-5 py-3 text-right">{l("Amallar")}</th>
             </tr>
@@ -81,9 +80,6 @@ export function ApplicationsTable({ applications }: { applications: VisaApplicat
                 <td className="px-5 py-3.5 text-ink-600 dark:text-white/60">{l(app.visa_type)}</td>
                 <td className="px-5 py-3.5 text-ink-600 dark:text-white/60">
                   {formatDate(app.created_at, locale)}
-                </td>
-                <td className="px-5 py-3.5 font-semibold text-ink-900 dark:text-white">
-                  {app.readiness_score !== null ? `${app.readiness_score}/100` : "—"}
                 </td>
                 <td className="px-5 py-3.5">
                   <StatusBadge status={displayApplicationStatus(app.status)} />
@@ -139,10 +135,7 @@ export function ApplicationsTable({ applications }: { applications: VisaApplicat
             <p className="mt-2 text-caption text-ink-400 dark:text-white/40">
               {formatDate(app.created_at, locale)}
             </p>
-            <div className="mt-3 flex items-center justify-between">
-              <span className="text-body-sm font-semibold text-ink-900 dark:text-white">
-                {app.readiness_score !== null ? `${app.readiness_score}/100` : "—"}
-              </span>
+            <div className="mt-3">
               <StatusBadge status={displayApplicationStatus(app.status)} />
             </div>
             <Link

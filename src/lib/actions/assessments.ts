@@ -17,7 +17,9 @@ export async function completeAssessmentAction(input: {
 }) {
   const result = await assessments.completeAssessment(input);
   if (result.ok) {
-    revalidatePath("/readiness-score");
+    revalidatePath("/dashboard/readiness");
+    revalidatePath("/dashboard/tracker");
+    revalidatePath("/reports");
     revalidatePath("/dashboard");
     revalidatePath("/recommendations");
     revalidatePath("/notifications");

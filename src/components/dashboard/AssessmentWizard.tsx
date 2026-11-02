@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, Loader2, Sparkles, History } from "lucide-react";
@@ -15,6 +16,8 @@ import {
   completeAssessmentAction,
 } from "@/lib/actions/assessments";
 import { upsertReportAction } from "@/lib/actions/reports";
+import { reviewAssessment, type AssessmentFinding } from "@/lib/dashboard/assessment-review";
+import { AssessmentFindings } from "@/components/dashboard/AssessmentFindings";
 import { useL } from "@/components/i18n/L";
 
 // Same order as DOC_LABELS
@@ -99,6 +102,7 @@ export function AssessmentWizard({
   const [submitting, setSubmitting] = useState(false);
   const [savingStep, setSavingStep] = useState(false);
   const [formError, setFormError] = useState("");
+  const [findings, setFindings] = useState<AssessmentFinding[] | null>(null);
 
   function update<K extends keyof AssessmentForm>(key: K, value: AssessmentForm[K]) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -177,7 +181,8 @@ export function AssessmentWizard({
     setFormError("");
 
     if (!configured || !applicationId) {
-      setTimeout(() => router.push("/dashboard/readiness"), 800);
+      setFindings(reviewAssessment(form as unknown as Record<string, unknown>, new Date()));
+      setSubmitting(false);
       return;
     }
 
@@ -195,16 +200,37 @@ export function AssessmentWizard({
     await upsertReportAction({
       applicationId,
       reportType: "readiness",
-      title: "Visa Readiness hisoboti",
+      title: "Viza tahlili natijasi",
       reportData: {
-        score: result.data.score,
-        riskLevel: result.data.riskLevel,
         generatedAt: new Date().toISOString(),
+        findings: result.data.findings,
       },
     });
 
-    router.push("/dashboard/readiness");
+    setFindings(result.data.findings);
+    setSubmitting(false);
     router.refresh();
+  }
+
+  if (findings) {
+    return (
+      <div className="card mx-auto max-w-2xl rounded-[28px] p-6 sm:p-8">
+        <p className="text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">✅ {l("Tahlil yakunlandi")}</p>
+        <h2 className="mt-2 font-display text-display-sm font-bold text-ink-950">{l("Javoblaringiz bo'yicha keyingi qadamlar")}</h2>
+        <p className="mt-2 text-body-sm text-ink-600">
+          {l("Har bir band siz bergan javobdan kelib chiqadi. Bu ball ham, viza qarori bashorati ham emas.")}
+        </p>
+        <AssessmentFindings findings={findings} className="mt-6" />
+        <div className="mt-8 flex flex-wrap gap-3 border-t border-surface-border pt-6">
+          <Link href="/dashboard/readiness" className="btn-primary btn-md">
+            {l("Tayyorgarlik balimni ko'rish")} <ArrowRight size={16} />
+          </Link>
+          <Link href="/dashboard/documents" className="btn-secondary btn-md">
+            {l("Hujjat yuklash")}
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -436,7 +462,7 @@ export function AssessmentWizard({
       </div>
 
       <p className="mt-4 text-center text-caption text-ink-400 dark:text-white/40">
-        {l("Ushbu baho faqat tayyorgarlik ko'rsatkichi — u viza tasdiqlanish ehtimolini bildirmaydi va uni kafolatlamaydi.")}
+        {l("Natija javoblaringizdan qoidalar asosida tuziladi, AI emas. Viza tasdiqlanishini kafolatlamaydi.")}
       </p>
     </div>
   );

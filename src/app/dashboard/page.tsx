@@ -10,7 +10,7 @@ import { EmptyState } from "@/components/states/EmptyState";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getMyProfile } from "@/lib/data/profiles";
 import { getLatestApplication } from "@/lib/data/applications";
-import { getAssessmentForApplication } from "@/lib/data/assessments";
+import { getAssessmentForApplication, isAssessmentComplete } from "@/lib/data/assessments";
 import { listDocumentsForApplication } from "@/lib/data/documents";
 import { listMyNotifications } from "@/lib/data/notifications";
 import { listMyRecommendations } from "@/lib/data/recommendations";
@@ -161,7 +161,7 @@ export default async function DashboardPage() {
             readiness: live
               ? {
                   hasApplication: true,
-                  assessmentDone: assessmentResult?.ok ? assessmentResult.data?.score != null : false,
+                  assessmentDone: assessmentResult?.ok ? isAssessmentComplete(assessmentResult.data) : false,
                   docsUploaded: uploadedCount,
                   docsTotal: totalSlots,
                 }
