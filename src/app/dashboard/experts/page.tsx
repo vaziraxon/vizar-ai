@@ -5,31 +5,27 @@ import { listMyConsultations } from "@/lib/data/consultations";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import type { ConsultationRow } from "@/lib/data/consultations";
 
-export default async function ConsultationPage() {
-  const configured = isSupabaseConfigured();
-  let upcoming: ConsultationRow[] = [];
+const TITLE = "Konsultatsiya";
+const SUBTITLE = "Mutaxassisga so'rov qoldiring — siz yozgan aloqa orqali bog'lanamiz.";
 
-  if (configured) {
+export default async function ConsultationPage() {
+  let requests: ConsultationRow[] = [];
+
+  if (isSupabaseConfigured()) {
     const result = await listMyConsultations();
     if (!result.ok) {
       return (
-        <DashboardShell
-          title="Konsultatsiya"
-          subtitle="Tajribali mutaxassis bilan konsultatsiya band qiling."
-        >
+        <DashboardShell title={TITLE} subtitle={SUBTITLE}>
           <ErrorState description={result.error} />
         </DashboardShell>
       );
     }
-    upcoming = result.data.filter((c) => c.status === "booked");
+    requests = result.data;
   }
 
   return (
-    <DashboardShell
-      title="Konsultatsiya"
-      subtitle="Tajribali mutaxassis bilan konsultatsiya band qiling."
-    >
-      <ConsultationPageClient upcoming={upcoming} />
+    <DashboardShell title={TITLE} subtitle={SUBTITLE}>
+      <ConsultationPageClient requests={requests} />
     </DashboardShell>
   );
 }

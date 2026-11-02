@@ -346,12 +346,12 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
                 🤝
               </span>
               <div className="min-w-0">
-                <p className="truncate text-body-sm font-semibold text-ink-900">{data.consultation.name ?? "—"}</p>
+                <p className="truncate text-body-sm font-semibold text-ink-900">{l(data.consultation.name ?? "—")}</p>
                 <p className="text-caption text-ink-500">{l(data.consultation.when)}</p>
               </div>
             </div>
           ) : (
-            <p className="mt-4 text-body-sm text-ink-600">{l("Rejalashtirilgan konsultatsiya yo'q.")}</p>
+            <p className="mt-4 text-body-sm text-ink-600">{l("Ochiq konsultatsiya so'rovi yo'q.")}</p>
           )}
           <Link
             href="/dashboard/experts"

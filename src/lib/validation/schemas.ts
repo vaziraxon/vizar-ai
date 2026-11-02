@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { CONSULTATION_TOPICS } from "@/lib/dashboard/consultation-request";
 
 /**
  * Every Server Action / Route Handler that writes to the database
@@ -52,14 +53,15 @@ export const notificationMarkReadSchema = z.object({
   notificationId: z.string().uuid(),
 });
 
-export const consultationBookingSchema = z.object({
-  applicationId: z.string().uuid().optional().nullable(),
-  specialistName: z.string().trim().min(2).max(150),
-  scheduledAt: z
+export const consultationRequestSchema = z.object({
+  topic: z.enum(CONSULTATION_TOPICS, { errorMap: () => ({ message: "Mavzuni tanlang." }) }),
+  contact: z
     .string()
-    .refine((v) => !Number.isNaN(Date.parse(v)), "Sana noto'g'ri formatda.")
-    .refine((v) => new Date(v).getTime() > Date.now(), "O'tmishdagi sanani tanlab bo'lmaydi."),
-  notes: z.string().trim().max(1000).optional().nullable(),
+    .trim()
+    .min(5, "Telegram yoki telefon raqamingizni yozing.")
+    .max(100, "Aloqa 100 belgidan oshmasin."),
+  preferredTime: z.string().trim().max(100, "Qulay vaqt 100 belgidan oshmasin.").default(""),
+  message: z.string().trim().max(1000, "Savol 1000 belgidan oshmasin.").default(""),
 });
 
 export const consultationCancelSchema = z.object({
