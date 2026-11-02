@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, BookOpen, Clock, Loader2, Mic, MicOff, Printer, RotateCcw, Search, Send, Volume2 } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { InterviewBookLinks } from "@/components/dashboard/InterviewBookLinks";
 import { ScoreRing } from "@/components/dashboard/ScoreRing";
 import { ProgressBar } from "@/components/dashboard/ProgressBar";
 import { Button } from "@/components/ui/Button";
@@ -131,6 +132,12 @@ export default function AiInterviewPage() {
   const feedback = evals[current];
 
   useEffect(() => setVoiceSupported(recognitionCtor() !== null), []);
+
+  // ?country=us from the assistant's "practise for this country" link
+  useEffect(() => {
+    const code = new URLSearchParams(window.location.search).get("country");
+    if (code && PLAYBOOK_COUNTRIES.some((c) => c.code === code)) setCountryCode(code);
+  }, []);
 
   useEffect(() => {
     if (!started || finished || showFeedback) return;
@@ -426,6 +433,8 @@ export default function AiInterviewPage() {
             {l("Savollar konsullikning rasmiy savollari emas, javoblar viza yoki mamlakatga kirishni kafolatlamaydi. Namuna javoblarni o'z haqiqiy ma'lumotingizga moslashtiring.")}
           </p>
 
+          <InterviewBookLinks countryCode={countryCode} countryName={country.name[appLang]} />
+
           <div className="border-t border-surface-border pt-5">
             <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-900">
               <span aria-hidden="true">🕒</span> {l("Mashqlar tarixi")}
@@ -509,6 +518,9 @@ export default function AiInterviewPage() {
             ))}
           </ul>
           <p className="mt-4 text-caption text-ink-400">{l("Qoidaga asoslangan tahlil — haqiqiy AI yoki konsullik qarori emas.")}</p>
+          <div className="mt-6">
+            <InterviewBookLinks countryCode={countryCode} countryName={country.name[appLang]} />
+          </div>
           <div className="mt-6 flex flex-col justify-center gap-2 sm:flex-row">
             <Button size="md" onClick={restart}>
               <RotateCcw size={16} /> {l("Qayta mashq qilish")}
