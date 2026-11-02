@@ -1,4 +1,5 @@
 import type { DestinationSlug, PopularCountry, ToolId } from "@/lib/site/registry";
+import type { HeadTop, PhotoBackground, PhotoGlasses } from "@/lib/site/visa-photo";
 
 type Three<T> = [T, T, T];
 type Step = { title: string; desc: string };
@@ -257,6 +258,63 @@ export interface SiteContent {
     official: string;
     /** Link on the Schengen destination page */
     destinationLink: string;
+  };
+  /** /visa-photo — {placeholders} are filled in by the page */
+  visaPhoto: {
+    menu: string;
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    countryLabel: string;
+    upload: string;
+    replace: string;
+    uploadHint: string;
+    loadError: string;
+    editorHint: string;
+    /** aria-label of the frame */
+    editorLabel: string;
+    zoom: string;
+    rotate: string;
+    reset: string;
+    legendTop: Record<HeadTop, string>;
+    legendChin: string;
+    legendEyes: string;
+    approxGuide: string;
+    checksTitle: string;
+    checkCovered: string;
+    checkUncovered: string;
+    checkSharp: string;
+    checkBlurry: string;
+    checkBackground: string;
+    checkBackgroundWarn: string;
+    checkManual: string;
+    downloadPhoto: string;
+    downloadDigital: string;
+    downloadSheet: string;
+    printHint: string;
+    requirementsTitle: string;
+    sizeValue: string;
+    inchValue: string;
+    rows: { size: string; head: string; eyes: string; digital: string; background: string; glasses: string; recent: string };
+    headValue: string;
+    headTo: Record<HeadTop, string>;
+    approx: string;
+    eyesValue: string;
+    digitalValue: string;
+    background: Record<PhotoBackground, string>;
+    glasses: Record<PhotoGlasses, string>;
+    recentValue: string;
+    notStated: string;
+    sourcesTitle: string;
+    ukNote: string;
+    tipsTitle: string;
+    tips: string[];
+    privacy: string;
+    disclaimer: string;
+    /** Link on the destination pages that have a photo size */
+    destinationLink: string;
+    /** Decimal separator for sizes like 50,8 mm */
+    decimal: string;
   };
   footer: {
     tagline: string;

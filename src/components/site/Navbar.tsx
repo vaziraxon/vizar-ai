@@ -17,7 +17,8 @@ import { cn } from "@/lib/utils";
 type MenuId = "tools" | "destinations" | "library";
 
 const SCHENGEN_CALC = "/schengen-calculator";
-const TOOL_ROUTES = new Set(TOOLS.map((t) => t.href).concat("/features", SCHENGEN_CALC));
+const VISA_PHOTO = "/visa-photo";
+const TOOL_ROUTES = new Set(TOOLS.map((t) => t.href).concat("/features", SCHENGEN_CALC, VISA_PHOTO));
 const FEATURED_TOOL = TOOL_BY_ID.readiness;
 const FEATURED_DESTINATION: DestinationSlug = "schengen";
 
@@ -67,14 +68,37 @@ function ToolRow({ tool, onNavigate, tabIndex }: { tool: ToolMeta; onNavigate?: 
   );
 }
 
-/** The free 90/180 calculator: a working page, not one of the app's tools. */
-function CalculatorRow({ onNavigate, tabIndex }: { onNavigate?: () => void; tabIndex?: number }) {
+/** The free public tools (90/180 calculator, visa photo): working pages, not the app's tools. */
+function FreeToolRows({ onNavigate, tabIndex }: { onNavigate?: () => void; tabIndex?: number }) {
   const site = useSite();
+  return (
+    <>
+      <FreeToolRow href={SCHENGEN_CALC} emoji="🧮" title={site.schengenCalc.title} menu={site.schengenCalc.menu} onNavigate={onNavigate} tabIndex={tabIndex} />
+      <FreeToolRow href={VISA_PHOTO} emoji="📸" title={site.visaPhoto.title} menu={site.visaPhoto.menu} onNavigate={onNavigate} tabIndex={tabIndex} />
+    </>
+  );
+}
+
+function FreeToolRow({
+  href,
+  emoji,
+  title,
+  menu,
+  onNavigate,
+  tabIndex,
+}: {
+  href: string;
+  emoji: string;
+  title: string;
+  menu: string;
+  onNavigate?: () => void;
+  tabIndex?: number;
+}) {
   const pathname = usePathname();
-  const selected = pathname === SCHENGEN_CALC;
+  const selected = pathname === href;
   return (
     <Link
-      href={SCHENGEN_CALC}
+      href={href}
       onClick={onNavigate}
       tabIndex={tabIndex}
       aria-current={selected ? "page" : undefined}
@@ -87,11 +111,11 @@ function CalculatorRow({ onNavigate, tabIndex }: { onNavigate?: () => void; tabI
         aria-hidden="true"
         className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-100 bg-brand-50/60 text-[18px] leading-none"
       >
-        🧮
+        {emoji}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-body-sm font-semibold text-ink-900">{site.schengenCalc.title}</span>
-        <span className="block truncate text-caption text-ink-500">{site.schengenCalc.menu}</span>
+        <span className="block truncate text-body-sm font-semibold text-ink-900">{title}</span>
+        <span className="block truncate text-caption text-ink-500">{menu}</span>
       </span>
     </Link>
   );
@@ -427,7 +451,7 @@ export function Navbar() {
                       {TOOLS.filter((t) => t.id !== FEATURED_TOOL.id).map((tool) => (
                         <ToolRow key={tool.id} tool={tool} onNavigate={close} />
                       ))}
-                      <CalculatorRow onNavigate={close} />
+                      <FreeToolRows onNavigate={close} />
                     </div>
                   </>
                 ) : menu === "library" ? (
@@ -513,7 +537,7 @@ export function Navbar() {
             {TOOLS.map((tool) => (
               <ToolRow key={tool.id} tool={tool} tabIndex={mobileTab} />
             ))}
-            <CalculatorRow tabIndex={mobileTab} />
+            <FreeToolRows tabIndex={mobileTab} />
           </div>
 
           <p className="mt-8 text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">{site.nav.destinations}</p>

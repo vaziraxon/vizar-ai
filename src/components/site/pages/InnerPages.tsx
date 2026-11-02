@@ -15,6 +15,7 @@ import { EmojiTile, GoldUnderline, PillArrow, StatusPill, VIOLET_PILL } from "@/
 import { useSite } from "@/lib/i18n/site";
 import { VIOLET_LEMON_STAGE } from "@/components/site/landing-styles";
 import { DESTINATION_BY_SLUG, PHOTO_CREDITS, type DestinationSlug } from "@/lib/site/registry";
+import { PHOTO_SPEC_BY_ID } from "@/lib/site/visa-photo";
 import { cn } from "@/lib/utils";
 
 // Same order as destinationsPage.docs in every language, then the Schengen extra.
@@ -299,6 +300,21 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
                 <span className="min-w-0 flex-1">
                   <span className="block text-body-sm font-semibold text-ink-900">{site.schengenCalc.title}</span>
                   <span className="block text-caption text-ink-500">{site.schengenCalc.destinationLink}</span>
+                </span>
+                <ArrowRight size={16} className="shrink-0 text-ink-400" />
+              </Link>
+            )}
+            {slug in PHOTO_SPEC_BY_ID && (
+              <Link
+                href="/visa-photo"
+                className="mt-4 flex items-center gap-3 rounded-[24px] border border-surface-border bg-surface p-4 transition-colors hover:bg-surface-tint"
+              >
+                <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-[20px] leading-none">
+                  📸
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-body-sm font-semibold text-ink-900">{site.visaPhoto.title}</span>
+                  <span className="block text-caption text-ink-500">{site.visaPhoto.destinationLink}</span>
                 </span>
                 <ArrowRight size={16} className="shrink-0 text-ink-400" />
               </Link>
