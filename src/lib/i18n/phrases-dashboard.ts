@@ -909,4 +909,13 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   /* --------------------------------------------------- Small honesty fixes */
   "Rad javobi sabablarini tanlang — har biri uchun nima qilish kerakligini qoidalar asosida ko'rsatamiz.": { ru: "Выберите причины отказа — для каждой покажем, что делать, по заданным правилам.", en: "Choose the refusal reasons and we'll show what to do for each, using fixed rules." },
   "Chop etish yoki PDF": { ru: "Печать или PDF", en: "Print or save as PDF" },
+
+  /* ------------------------------------------------------ Account deletion */
+  "Hisob o'chirilganda arizalar, hujjatlar, tahlillar, tavsiyalar va so'rovlaringiz butunlay o'chadi. Buni qaytarib bo'lmaydi.": { ru: "При удалении аккаунта ваши заявки, документы, анализы, рекомендации и запросы удаляются навсегда. Это нельзя отменить.", en: "Deleting your account permanently removes your applications, documents, assessments, recommendations and requests. This can't be undone." },
+  "Tasdiqlash uchun hisobingiz emailini yozing": { ru: "Для подтверждения введите email аккаунта", en: "To confirm, type your account email" },
+  "Hisobni butunlay o'chirish": { ru: "Удалить аккаунт навсегда", en: "Delete account permanently" },
+  "Email mos kelmadi.": { ru: "Email не совпадает.", en: "That email doesn't match." },
+  "Hisobni o'chirib bo'lmadi. Keyinroq qayta urinib ko'ring.": { ru: "Не удалось удалить аккаунт. Попробуйте позже.", en: "Couldn't delete the account. Please try again later." },
+  "Avval tizimga kiring.": { ru: "Сначала войдите в аккаунт.", en: "Please sign in first." },
+  "Supabase sozlanmagan.": { ru: "Supabase не настроен.", en: "Supabase isn't configured." },
 };
