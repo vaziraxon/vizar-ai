@@ -112,11 +112,6 @@ export interface DocumentItem {
   note?: string;
 }
 
-export interface ReadinessCategory {
-  label: string;
-  score: number;
-}
-
 export type RiskLevel = "Past" | "O'rta" | "Yuqori";
 
 export interface InterviewFeedback {

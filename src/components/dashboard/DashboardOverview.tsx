@@ -8,6 +8,8 @@ import { Flag } from "@/components/site/Flag";
 import { EmojiSticker } from "@/components/site/primitives";
 import { ChecklistMini, TripCountdown } from "@/components/dashboard/OverviewWidgets";
 import { useL } from "@/components/i18n/L";
+import type { ServerReadinessFacts } from "@/lib/dashboard/readiness";
+import { useReadiness } from "@/lib/dashboard/use-readiness";
 import { matchDestination } from "@/lib/site/destination-match";
 import { cn } from "@/lib/utils";
 
@@ -15,7 +17,9 @@ export interface OverviewData {
   destination: string;
   visaType: string;
   status: string;
-  score: number;
+  /** The user's progress; null in demo mode, which shows demoScore instead */
+  readiness: ServerReadinessFacts | null;
+  demoScore: number;
   steps: { label: string; done: boolean }[];
   tasks: { id: string; title: string; chip: string }[];
   nextAction: string;
@@ -75,9 +79,13 @@ function TileEmoji({ emoji }: { emoji: string }) {
   );
 }
 
+const NO_READINESS_FACTS: ServerReadinessFacts = { hasApplication: false, assessmentDone: false, docsUploaded: 0, docsTotal: 0 };
+
 export function DashboardOverview({ data }: { data: OverviewData }) {
   const l = useL();
   const visual = matchDestination(data.destination);
+  const readiness = useReadiness(data.readiness ?? NO_READINESS_FACTS);
+  const score = data.readiness ? readiness.score : data.demoScore;
 
   return (
     <div className="space-y-5">
@@ -107,11 +115,11 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
             </div>
 
             <div className="mt-7 grid gap-6 sm:grid-cols-[auto_1fr] sm:items-center">
-              <ScoreRing score={data.score} size={120} strokeWidth={10} />
+              <ScoreRing score={score} size={120} strokeWidth={10} />
               <div>
                 <p className="text-body font-semibold text-ink-900">{l("Tayyorgarlik darajasi")}</p>
                 <p className="mt-1 max-w-md text-body-sm text-ink-600">
-                  {l("Javoblaringiz va hujjatlaringiz asosida hisoblangan dastlabki ko'rsatkich — viza kafolati emas.")}
+                  {l("Hujjatlaringiz, checklist va mashqlaringiz asosida hisoblangan ko'rsatkich — viza kafolati emas.")}
                 </p>
                 <div className="mt-4 flex flex-wrap items-center gap-3">
                   {visual && (

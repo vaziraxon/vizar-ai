@@ -50,7 +50,6 @@ import {
 import type {
   SidebarNavItem,
   DocumentItem,
-  ReadinessCategory,
   Specialist,
   ApplicationRecord,
   RecommendationTask,
@@ -172,38 +171,12 @@ export const DOCUMENTS: DocumentItem[] = [
   { id: "extra", icon: FilePlus2, title: "Qo'shimcha hujjatlar", status: "Yuklanmagan" },
 ];
 
+/** Every slot except the optional extras: what the readiness score counts. */
+export const REQUIRED_DOCUMENT_TITLES = DOCUMENTS.filter((d) => d.id !== "extra").map((d) => d.title);
+
 // --- Visa Readiness Score --------------------------------------------------
 
-export const READINESS_OVERALL = 82;
-
-export const READINESS_CATEGORIES: ReadinessCategory[] = [
-  { label: "Shaxsiy profil", score: 95 },
-  { label: "Hujjatlar tayyorligi", score: 78 },
-  { label: "Moliyaviy holat", score: 72 },
-  { label: "Safar maqsadi", score: 88 },
-  { label: "Intervyuga tayyorgarlik", score: 70 },
-  { label: "Oldingi viza tarixi", score: 85 },
-];
-
-export const READINESS_STRENGTHS = [
-  "Safar maqsadi aniq va izchil bayon qilingan",
-  "Oldingi viza tarixida muammo qayd etilmagan",
-  "Shaxsiy profil ma'lumotlari to'liq",
-];
-
-export const READINESS_WEAKNESSES = [
-  "Moliyaviy hujjatlarda kamchiliklar mavjud",
-  "Intervyuga tayyorgarlik darajasi past",
-  "Ba'zi hujjatlar hali yuklanmagan",
-];
-
 export const READINESS_MISSING_DOCS = ["Taklifnoma", "Mehmonxona bron"];
-
-export const READINESS_PRIORITY_TASKS = [
-  "Bank statementni to'g'rilab qayta yuklang",
-  "Mehmonxona bron hujjatini qo'shing",
-  "AI Interview simulyatorida kamida 3 ta mashq bajaring",
-];
 
 // --- AI Interview ------------------------------------------------------------
 
@@ -369,15 +342,6 @@ export const VISA_TYPE_OPTIONS = [
 // ==========================================================================
 
 // --- Dashboard analytics (Recharts data) ----------------------------------
-
-export const READINESS_TREND: TrendPoint[] = [
-  { label: "1-hafta", value: 48 },
-  { label: "2-hafta", value: 55 },
-  { label: "3-hafta", value: 61 },
-  { label: "4-hafta", value: 68 },
-  { label: "5-hafta", value: 74 },
-  { label: "6-hafta", value: 82 },
-];
 
 export const DOC_COMPLETION_DATA: CategoryDatum[] = [
   { label: "Yuklangan", value: 6 },
@@ -688,46 +652,6 @@ export const DOC_AI_SUMMARY: Record<string, string> = {
   employment: "Hujjat talablarga mos, qo'shimcha tuzatish shart emas.",
   insurance: "Sug'urta muddati safar sanasi bilan mos emas — yangilangan sug'urta yuklang.",
 };
-
-// --- Readiness score advanced ------------------------------------------------
-
-export const SCORE_HISTORY: TrendPoint[] = READINESS_TREND;
-
-export const WHAT_CHANGED_SINCE_LAST = [
-  "Bank statement yuklandi (+5 ball)",
-  "AI Interview mashqi yakunlandi (+8 ball)",
-  "Taklifnoma hali yuklanmagan (o'zgarishsiz)",
-];
-
-export const IMPROVED_PROFILE_CATEGORIES: ReadinessCategory[] = [
-  { label: "Shaxsiy profil", score: 97 },
-  { label: "Hujjatlar tayyorligi", score: 92 },
-  { label: "Moliyaviy holat", score: 88 },
-  { label: "Safar maqsadi", score: 90 },
-  { label: "Intervyuga tayyorgarlik", score: 85 },
-  { label: "Oldingi viza tarixi", score: 85 },
-];
-
-export const ACTION_IMPACTS = [
-  { id: "a1", label: "Bank mablag'ini tasdiqlovchi hujjat qo'shish", points: 6 },
-  { id: "a2", label: "Mehmonxona bron hujjatini yuklash", points: 4 },
-  { id: "a3", label: "AI Interview simulyatorida 2 ta qo'shimcha mashq", points: 5 },
-  { id: "a4", label: "Taklifnoma qo'shish", points: 3 },
-];
-
-export const RISK_DRIVERS = [
-  "Moliyaviy hujjatlarda kamchilik",
-  "Ba'zi hujjatlar hali yuklanmagan",
-  "Intervyuga tayyorgarlik darajasi past",
-];
-
-export const CATEGORY_WEIGHTS = [
-  { label: "Hujjatlar tayyorligi", weight: "30%" },
-  { label: "Moliyaviy holat", weight: "25%" },
-  { label: "Safar maqsadi", weight: "20%" },
-  { label: "Intervyuga tayyorgarlik", weight: "15%" },
-  { label: "Oldingi viza tarixi", weight: "10%" },
-];
 
 // --- AI Interview enhancement -----------------------------------------------
 
