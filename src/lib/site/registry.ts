@@ -44,12 +44,12 @@ export interface ToolMeta {
 }
 
 export const TOOLS: ToolMeta[] = [
-  { id: "readiness", href: "/visa-readiness", appHref: "/dashboard/readiness", icon: Gauge, emoji: "🎯", status: "beta" },
-  { id: "documents", href: "/document-checker", appHref: "/dashboard/documents", icon: ScanSearch, emoji: "📄", status: "soon" },
-  { id: "checklist", href: "/checklist", appHref: "/dashboard/checklist", icon: ListChecks, emoji: "✅", status: "soon" },
-  { id: "interview", href: "/interview", appHref: "/dashboard/interview", icon: MessagesSquare, emoji: "🎤", status: "soon" },
+  { id: "readiness", href: "/visa-readiness", appHref: "/dashboard/readiness", icon: Gauge, emoji: "🎯", status: "available" },
+  { id: "documents", href: "/document-checker", appHref: "/dashboard/documents", icon: ScanSearch, emoji: "📄", status: "beta" },
+  { id: "checklist", href: "/checklist", appHref: "/dashboard/checklist", icon: ListChecks, emoji: "✅", status: "available" },
+  { id: "interview", href: "/interview", appHref: "/dashboard/interview", icon: MessagesSquare, emoji: "🎤", status: "available" },
   { id: "tracker", href: "/tracker", appHref: "/dashboard/tracker", icon: Route, emoji: "📍", status: "available" },
-  { id: "rejection", href: "/rejection-analysis", appHref: "/dashboard/rejection-analysis", icon: FileSearch, emoji: "🔍", status: "soon" },
+  { id: "rejection", href: "/rejection-analysis", appHref: "/dashboard/rejection-analysis", icon: FileSearch, emoji: "🔍", status: "available" },
   { id: "experts", href: "/experts", appHref: "/dashboard/experts", icon: UserCheck, emoji: "🤝", status: "beta" },
 ];
 
