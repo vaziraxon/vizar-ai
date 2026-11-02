@@ -6,6 +6,8 @@ import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { Modal } from "@/components/modals/Modal";
 import { EmptyState } from "@/components/states/EmptyState";
 import type { ReportRow } from "@/lib/data/reports";
+import { AssessmentFindings } from "@/components/dashboard/AssessmentFindings";
+import type { AssessmentFinding } from "@/lib/dashboard/assessment-review";
 import { useDateLocale, useL } from "@/components/i18n/L";
 
 const TYPE_ICON: Record<string, typeof Gauge> = {
@@ -23,6 +25,12 @@ const TYPE_LABEL: Record<string, string> = {
   refusal: "Rad etilish tahlili hisoboti",
   summary: "To'liq ariza xulosasi",
 };
+
+/** Reports saved by the visa assessment carry its findings; older ones only raw data. */
+function findingsOf(data: unknown): AssessmentFinding[] | null {
+  const findings = data && typeof data === "object" ? (data as { findings?: unknown }).findings : null;
+  return Array.isArray(findings) ? (findings as AssessmentFinding[]) : null;
+}
 
 export function ReportsGrid({ reports }: { reports: ReportRow[] }) {
   const [selected, setSelected] = useState<ReportRow | null>(null);
@@ -89,7 +97,7 @@ export function ReportsGrid({ reports }: { reports: ReportRow[] }) {
           <div>
             <div
               id="report-print-area"
-              className="rounded-xl border border-surface-border bg-white p-5 text-ink-900 dark:border-white/10"
+              className="rounded-xl border border-surface-border bg-surface p-5 text-ink-900 dark:border-white/10"
             >
               <div className="mb-3 flex items-center justify-between border-b border-surface-border pb-3">
                 <span className="font-display text-body font-bold text-brand-600">VIZAR AI</span>
@@ -98,9 +106,13 @@ export function ReportsGrid({ reports }: { reports: ReportRow[] }) {
                 </span>
               </div>
               <p className="text-body-sm font-semibold">{l(selected.title ?? "")}</p>
-              <pre className="mt-3 whitespace-pre-wrap break-words text-caption text-ink-600">
-                {JSON.stringify(selected.report_data, null, 2)}
-              </pre>
+              {findingsOf(selected.report_data) ? (
+                <AssessmentFindings findings={findingsOf(selected.report_data)!} className="mt-3" />
+              ) : (
+                <pre className="mt-3 whitespace-pre-wrap break-words text-caption text-ink-600">
+                  {JSON.stringify(selected.report_data, null, 2)}
+                </pre>
+              )}
               <p className="mt-4 text-caption italic text-ink-400">
                 {l("Ushbu hisobot faqat axborot va tayyorgarlik maqsadida beriladi. Viza tasdiqlanishini kafolatlamaydi.")}
               </p>

@@ -3,7 +3,7 @@ import { ReadinessView } from "@/components/dashboard/ReadinessView";
 import { ErrorState } from "@/components/states/ErrorState";
 import { REQUIRED_DOCUMENT_TITLES } from "@/data/mockData";
 import { getLatestApplication } from "@/lib/data/applications";
-import { getAssessmentForApplication } from "@/lib/data/assessments";
+import { getAssessmentForApplication, isAssessmentComplete } from "@/lib/data/assessments";
 import { listDocumentsForApplication } from "@/lib/data/documents";
 import { filledSlots } from "@/lib/dashboard/readiness";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
@@ -40,7 +40,7 @@ export default async function ReadinessScorePage() {
         );
       }
       hasApplication = true;
-      assessmentDone = assessmentResult.data?.score != null;
+      assessmentDone = isAssessmentComplete(assessmentResult.data);
       uploadedTypes = docsResult.data.map((doc) => doc.document_type);
     }
   }
