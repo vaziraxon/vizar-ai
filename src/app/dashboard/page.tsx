@@ -10,12 +10,14 @@ import { EmptyState } from "@/components/states/EmptyState";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getMyProfile } from "@/lib/data/profiles";
 import { getLatestApplication } from "@/lib/data/applications";
+import { getAssessmentForApplication } from "@/lib/data/assessments";
 import { listDocumentsForApplication } from "@/lib/data/documents";
 import { listMyNotifications } from "@/lib/data/notifications";
 import { listMyRecommendations } from "@/lib/data/recommendations";
 import { getUpcomingConsultation } from "@/lib/data/consultations";
 import { displayApplicationStatus } from "@/lib/status-map";
-import { DOCUMENTS as DOCUMENT_SLOTS } from "@/data/mockData";
+import { filledSlots } from "@/lib/dashboard/readiness";
+import { REQUIRED_DOCUMENT_TITLES } from "@/data/mockData";
 import {
   CURRENT_USER,
   CURRENT_APPLICATION,
@@ -39,26 +41,30 @@ export default async function DashboardPage() {
     ? (profileResult?.ok && profileResult.data?.first_name) || ""
     : CURRENT_USER.firstName;
 
-  const [docsResult, notificationsResult, recommendationsResult, consultationResult] =
+  const [docsResult, notificationsResult, recommendationsResult, consultationResult, assessmentResult] =
     configured && application
       ? await Promise.all([
           listDocumentsForApplication(application.id),
           listMyNotifications(),
           listMyRecommendations(5),
           getUpcomingConsultation(),
+          getAssessmentForApplication(application.id),
         ])
-      : [null, null, null, null];
+      : [null, null, null, null, null];
 
   const live = configured && application;
-  const uploadedCount = live ? (docsResult?.ok ? docsResult.data.length : 0) : CURRENT_APPLICATION.uploadedDocs;
-  const totalSlots = live ? DOCUMENT_SLOTS.length : CURRENT_APPLICATION.uploadedDocs + CURRENT_APPLICATION.missingDocs;
+  const uploadedCount = live
+    ? docsResult?.ok
+      ? filledSlots(docsResult.data.map((doc) => doc.document_type), REQUIRED_DOCUMENT_TITLES).length
+      : 0
+    : CURRENT_APPLICATION.uploadedDocs;
+  const totalSlots = live ? REQUIRED_DOCUMENT_TITLES.length : CURRENT_APPLICATION.uploadedDocs + CURRENT_APPLICATION.missingDocs;
   const missingCount = Math.max(0, totalSlots - uploadedCount);
   const docsPercent = totalSlots > 0 ? Math.min(100, Math.round((uploadedCount / totalSlots) * 100)) : 0;
 
   const destination = live ? application.destination_country : CURRENT_APPLICATION.destination;
   const visaType = live ? application.visa_type : CURRENT_APPLICATION.visaType;
   const status = live ? displayApplicationStatus(application.status) : CURRENT_APPLICATION.status;
-  const score = live ? application.readiness_score ?? 0 : CURRENT_APPLICATION.readinessScore;
 
   const steps = live
     ? APP_STEPS.map((s, i) => ({
@@ -151,7 +157,15 @@ export default async function DashboardPage() {
             destination: String(destination ?? ""),
             visaType: String(visaType ?? ""),
             status,
-            score,
+            demoScore: CURRENT_APPLICATION.readinessScore,
+            readiness: live
+              ? {
+                  hasApplication: true,
+                  assessmentDone: assessmentResult?.ok ? assessmentResult.data?.score != null : false,
+                  docsUploaded: uploadedCount,
+                  docsTotal: totalSlots,
+                }
+              : null,
             steps,
             tasks,
             nextAction,
