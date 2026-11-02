@@ -5,6 +5,7 @@ import Link from "next/link";
 import { BookOpen, ExternalLink, FlaskConical, Info, Library, Loader2, Lock, Send, ShieldAlert, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Markdown } from "@/components/knowledge/Markdown";
+import { PracticeMatches, type PracticeMatch } from "@/components/knowledge/PracticeMatches";
 import { useL } from "@/components/i18n/L";
 import type { AnswerMode, AskEvent, KbReference, KbStatus } from "@/lib/knowledge/types";
 import { cn } from "@/lib/utils";
@@ -14,6 +15,7 @@ const EXAMPLES = [
   "AQSh B-1/B-2 vizasi rad etilsa (214(b)) keyin nima qilish kerak?",
   "Bank ko‘chirmasida katta bir martalik tushum bo‘lsa, qanday izoh beriladi?",
   "Germaniya vizasi uchun O‘zbekistondan qayerga topshiriladi?",
+  "AQSh vizasi suhbatida qanday savollar beriladi?",
 ];
 
 interface Turn {
@@ -26,6 +28,8 @@ interface Turn {
   notice: string | null;
   error: string | null;
   pending: boolean;
+  /** From the interview playbook (the second book), when the question names a country or the interview */
+  practice: { country: string | null; matches: PracticeMatch[] } | null;
 }
 
 /** How the answer was produced, when it was not written by the AI model. */
@@ -183,9 +187,17 @@ export function AssistantChat() {
     const id = nextId.current++;
     setTurns((all) => [
       ...all,
-      { id, question: q, text: "", markdown: null, references: [], mode: null, notice: null, error: null, pending: true },
+      { id, question: q, text: "", markdown: null, references: [], mode: null, notice: null, error: null, pending: true, practice: null },
     ]);
     setQuestion("");
+
+    // Alongside the book search: matching questions from the interview playbook, if any.
+    fetch(`/api/interview/related?q=${encodeURIComponent(q)}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: { country: string | null; matches: PracticeMatch[] } | null) => {
+        if (data?.matches.length) update(id, () => ({ practice: data }));
+      })
+      .catch(() => undefined);
 
     try {
       const res = await fetch("/api/knowledge/ask", {
@@ -292,6 +304,7 @@ export function AssistantChat() {
             )}
             {t.mode === "preview" && !t.error ? <UnlockCard /> : null}
             {t.references.length > 0 && !t.error ? <References references={t.references} /> : null}
+            {t.practice ? <PracticeMatches matches={t.practice.matches} country={t.practice.country} /> : null}
           </div>
         </article>
       ))}

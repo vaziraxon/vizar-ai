@@ -936,4 +936,14 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Ism 100 belgidan oshmasin.": { ru: "Имя — не больше 100 символов.", en: "First name can be at most 100 characters." },
   "Familiya 100 belgidan oshmasin.": { ru: "Фамилия — не больше 100 символов.", en: "Last name can be at most 100 characters." },
   "To'g'ri telefon raqami kiriting.": { ru: "Введите правильный номер телефона.", en: "Enter a valid phone number." },
+
+  /* ------------------------------------------------- Two books, linked */
+  "AQSh vizasi suhbatida qanday savollar beriladi?": { ru: "Какие вопросы задают на собеседовании на визу США?", en: "What do they ask at a US visa interview?" },
+  "Suhbat mashqidan mos savollar": { ru: "Похожие вопросы из тренировки интервью", en: "Matching questions from interview practice" },
+  "Namuna javoblardagi [qavs] ichidagi joylarni o'z ma'lumotingiz bilan almashtiring.": { ru: "Замените места в [скобках] своими данными.", en: "Replace the [bracketed] parts of the samples with your own details." },
+  "Shu davlat bo'yicha mashq qilish": { ru: "Потренироваться по этой стране", en: "Practise for this country" },
+  "Suhbat mashqini ochish": { ru: "Открыть тренировку интервью", en: "Open interview practice" },
+  "Kitobdan o'qing": { ru: "Почитайте в книге", en: "Read in the book" },
+  "Kitobda: {country} bo'yicha qoidalar va manbalar": { ru: "В книге: правила и источники — {country}", en: "In the book: {country} rules and sources" },
+  "IV bob: Viza suhbati va rad javobi": { ru: "Глава IV: визовое собеседование и отказ", en: "Chapter IV: the visa interview and refusals" },
 };
