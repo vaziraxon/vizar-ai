@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Eye, Printer, Share2, Gauge, FolderOpen, MessagesSquare, FileWarning, FileBarChart2, FileBarChart } from "lucide-react";
+import { Eye, Printer, Gauge, FolderOpen, MessagesSquare, FileWarning, FileBarChart2, FileBarChart } from "lucide-react";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { Modal } from "@/components/modals/Modal";
 import { EmptyState } from "@/components/states/EmptyState";
@@ -123,14 +123,7 @@ export function ReportsGrid({ reports }: { reports: ReportRow[] }) {
                 onClick={() => window.print()}
                 className="flex flex-1 items-center justify-center gap-2 rounded-pill bg-brand-600 transition-colors hover:bg-brand-deep px-4 py-2.5 text-body-sm font-semibold text-white"
               >
-                <Printer size={15} /> {l("Yuklab olish (demo)")}
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelected(null)}
-                className="flex flex-1 items-center justify-center gap-2 rounded-pill border border-surface-border px-4 py-2.5 text-body-sm font-semibold text-ink-700 dark:border-white/10 dark:text-white/70"
-              >
-                <Share2 size={15} /> {l("Ulashish (demo)")}
+                <Printer size={15} /> {l("Chop etish yoki PDF")}
               </button>
             </div>
           </div>
