@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { ArrowRight, Check, Plus, Printer, RotateCcw, Trash2 } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
@@ -23,12 +24,22 @@ import { cn } from "@/lib/utils";
 
 const EMPTY: ChecklistSaved = { done: [], custom: [] };
 
+// Printing shows only the checklist sheet, not the dashboard around it.
+const PRINT_CSS = `@media print {
+  body > *:not(#checklist-print) { display: none !important; }
+  #checklist-print { display: block !important; }
+  @page { size: A4; margin: 16mm; }
+}`;
+
 export default function ChecklistPage() {
   const l = useL();
   const site = useSite();
   const [selection, setSelection] = useLocalState<ChecklistSelection>(CHECKLIST_SELECTION_KEY, DEFAULT_SELECTION);
   const [saved, setSaved] = useLocalState<ChecklistSaved>(checklistKey(selection.dest, selection.visa), EMPTY);
   const [draft, setDraft] = useState("");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   const groups = useMemo(() => buildChecklist(selection.dest, selection.visa, saved.custom), [selection, saved.custom]);
   const allIds = groups.flatMap((g) => g.items.map((i) => i.id));
@@ -67,7 +78,7 @@ export default function ChecklistPage() {
       }
       actions={
         <button type="button" onClick={() => window.print()} className="btn-secondary btn-md">
-          <Printer size={16} /> {l("Chop etish")}
+          <Printer size={16} /> {l("Chop etish / PDF")}
         </button>
       }
     >
@@ -265,6 +276,48 @@ export default function ChecklistPage() {
           </button>
         </aside>
       </div>
+
+      {/* A fixed string: as a text child, the server would escape its ">" and break hydration */}
+      <style dangerouslySetInnerHTML={{ __html: PRINT_CSS }} />
+      {mounted &&
+        createPortal(
+          <div id="checklist-print" className="hidden bg-white p-2 font-sans text-[12.5px] leading-relaxed text-black">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-black/60">VIZAR AI · vizarai.com</p>
+            <h1 className="mt-1 text-[20px] font-bold">{l("Shaxsiy checklist")}</h1>
+            <p className="mt-1">
+              {l("Yo'nalish")}: <b>{site.destinations[selection.dest].name}</b> · {l("Viza turi")}:{" "}
+              <b>{l(VISA_KINDS.find((v) => v.id === selection.visa)?.label ?? "")}</b>
+            </p>
+            <p className="text-black/70">
+              {l("Chop etilgan sana: {date}", { date: new Date().toLocaleDateString("en-CA").split("-").reverse().join(".") })} ·{" "}
+              {l("{done}/{total} hujjat tayyor", { done: done.size, total: allIds.length })}
+            </p>
+            {groups.map((group) => (
+              <section key={group.title} className="mt-4 break-inside-avoid">
+                <h2 className="border-b border-black/30 pb-1 text-[14px] font-bold">
+                  {group.emoji} {l(group.title)}
+                </h2>
+                <ul className="mt-1.5 space-y-1">
+                  {group.items.map((item) => (
+                    <li key={item.id} className="flex gap-2">
+                      <span aria-hidden="true" className="w-4 shrink-0 text-[14px] leading-tight">
+                        {done.has(item.id) ? "☑" : "☐"}
+                      </span>
+                      <span>
+                        <span className={done.has(item.id) ? "text-black/60 line-through" : undefined}>{item.custom ? item.title : l(item.title)}</span>
+                        {item.note && <span className="block text-[11px] text-black/60">{l(item.note)}</span>}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+            <p className="mt-5 border-t border-black/30 pt-2 text-[11px] text-black/70">
+              ⚠️ {l("Bu ro'yxat namuna. Rasmiy talablar o'zgarishi mumkin — har doim elchixona yoki rasmiy viza markazi saytini tekshiring.")}
+            </p>
+          </div>,
+          document.body
+        )}
     </DashboardShell>
   );
 }
