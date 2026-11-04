@@ -56,6 +56,7 @@ export const NAV_KEY_BY_HREF: Record<string, string> = {
   "/dashboard/tracker": "nav_tracker",
   "/dashboard/rejection-analysis": "nav_rejection",
   "/dashboard/experts": "nav_experts",
+  "/dashboard/tools": "nav_tools",
   "/assessment": "nav_assessment",
   "/recommendations": "recommendations",
   "/reports": "reports",
@@ -99,7 +100,8 @@ function NavLinks({
           </p>
           <ul className="space-y-0.5">
             {group.items.map((item) => {
-              const active = pathname === item.href;
+              // The tools item stays lit on each tool's own page
+              const active = pathname === item.href || (item.href === "/dashboard/tools" && pathname.startsWith("/dashboard/tools/"));
               return (
                 <li key={item.href + item.label}>
                   <Link

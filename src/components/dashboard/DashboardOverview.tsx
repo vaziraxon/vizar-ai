@@ -41,6 +41,7 @@ const TOOL_LINKS = [
   { href: "/dashboard/tracker", label: "Ariza kuzatuvi", emoji: "📍" },
   { href: "/dashboard/rejection-analysis", label: "Rad javobi tahlili", emoji: "🔍" },
   { href: "/dashboard/experts", label: "Mutaxassislar", emoji: "🤝" },
+  { href: "/dashboard/tools", label: "Yangi vositalar", emoji: "🧰" },
 ];
 
 // Step markers along the application journey
