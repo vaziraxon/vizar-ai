@@ -670,7 +670,6 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Holat bartaraf etilganini tasdiqlovchi hujjat qo'shing": { ru: "Добавьте подтверждение, что ситуация устранена", en: "Add proof that the situation was resolved" },
   "Qayta topshirishdan oldin mutaxassis bilan maslahatlashing": { ru: "Перед повторной подачей проконсультируйтесь со специалистом", en: "Talk to a specialist before reapplying" },
   "Suhbatdagi javoblar noaniq yoki hujjatlarga zid bo'lgan.": { ru: "Ответы на интервью были неясными или противоречили документам.", en: "Interview answers were unclear or contradicted the documents." },
-  "AI suhbat simulyatorida mashq qiling": { ru: "Потренируйтесь в AI-симуляторе интервью", en: "Practise in the AI interview simulator" },
   "Qisqa, aniq va ishonch bilan javob bering": { ru: "Отвечайте коротко, чётко и уверенно", en: "Answer briefly, clearly and confidently" },
   "Tahlil natijasi": { ru: "Результат анализа", en: "Analysis result" },
   "Tavsiya: hujjatlarni to'g'rilab, qayta topshirishdan oldin kamida {n} oy tayyorlaning.": { ru: "Совет: исправьте документы и готовьтесь к повторной подаче не меньше {n} мес.", en: "Tip: fix the documents and prepare for at least {n} month(s) before reapplying." },
@@ -1001,4 +1000,8 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Ishlatilgan va qolgan kunlar; chegara oshadigan kun bo'lsa — ogohlantirish.": { ru: "Использованные и оставшиеся дни; если лимит будет превышен — предупреждение.", en: "Days used and left, with a warning if any day goes over the limit." },
   "Yangi safarni rejalashtiring": { ru: "Спланируйте новую поездку", en: "Plan a new trip" },
   "Tanlangan kundan boshlab ko'pi bilan necha kun qolish mumkinligi.": { ru: "Сколько дней максимум можно провести, если въехать в выбранный день.", en: "How many days you can stay at most if you enter on a chosen day." },
+  /* ------------------------------------------------- Tools named by what they do */
+  "Suhbat mashqi — natija": { ru: "Тренировка интервью — результат", en: "Interview practice — result" },
+  "Viza tayyorgarlik bali": { ru: "Балл готовности к визе", en: "Visa readiness score" },
+  "Suhbat mashqi bo'limida tayyorlaning": { ru: "Подготовьтесь в разделе «Тренировка интервью»", en: "Prepare in the Interview practice section" },
 };

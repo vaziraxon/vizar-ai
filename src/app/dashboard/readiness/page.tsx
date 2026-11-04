@@ -8,7 +8,7 @@ import { listDocumentsForApplication } from "@/lib/data/documents";
 import { filledSlots } from "@/lib/dashboard/readiness";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 
-const TITLE = "Visa Readiness Score";
+const TITLE = "Viza tayyorgarlik bali";
 const SUBTITLE = "Yuklagan hujjatlaringiz, checklist va mashqlaringiz asosida hisoblanadi.";
 
 export default async function ReadinessScorePage() {

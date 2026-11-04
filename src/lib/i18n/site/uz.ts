@@ -57,7 +57,7 @@ export const uz: SiteContent = {
   },
   tools: {
     readiness: {
-      name: "Visa Readiness Score",
+      name: "Viza tayyorgarlik bali",
       menu: "Tayyorgarligingiz qanchalik bajarilgan",
       tagline: "Viza tayyorgarligi",
       desc: "Tayyorgarligingiz qanchalik bajarilganini bitta ballda ko‘ring.",
@@ -74,7 +74,7 @@ export const uz: SiteContent = {
       ],
     },
     documents: {
-      name: "Document Hub",
+      name: "Hujjatlar ombori",
       menu: "Hujjatlaringiz bir joyda",
       tagline: "Hujjatlar",
       desc: "Hujjatlaringizni bir joyda saqlang va har birini talab bilan solishtiring.",
@@ -91,7 +91,7 @@ export const uz: SiteContent = {
       ],
     },
     checklist: {
-      name: "Personal Checklist",
+      name: "Shaxsiy checklist",
       menu: "Sizga mos hujjatlar ro‘yxati",
       tagline: "Shaxsiy checklist",
       desc: "Davlat va viza turiga mos shaxsiy hujjatlar ro‘yxati.",
@@ -108,7 +108,7 @@ export const uz: SiteContent = {
       ],
     },
     interview: {
-      name: "Interview Simulator",
+      name: "Suhbat mashqi",
       menu: "Viza suhbatini mashq qiling",
       tagline: "Suhbat mashqi",
       desc: "52 davlat bo‘yicha 7 800 ta savol bilan viza suhbatini mashq qiling.",
@@ -125,7 +125,7 @@ export const uz: SiteContent = {
       ],
     },
     tracker: {
-      name: "Visa Status Tracker",
+      name: "Ariza kuzatuvi",
       menu: "Ariza jarayonini bir joydan kuzating",
       tagline: "Ariza kuzatuvi",
       desc: "Ariza jarayonini bir joydan kuzating.",
@@ -142,7 +142,7 @@ export const uz: SiteContent = {
       ],
     },
     rejection: {
-      name: "Rejection Analyzer",
+      name: "Rad javobi tahlili",
       menu: "Rad javobi sabablarini tushuning",
       tagline: "Rad javobi tahlili",
       desc: "Rad javobidagi sabablarni tushunishga yordam beradi.",
@@ -159,7 +159,7 @@ export const uz: SiteContent = {
       ],
     },
     experts: {
-      name: "Expert Consultation",
+      name: "Mutaxassis maslahati",
       menu: "Mutaxassis bilan maslahatlashing",
       tagline: "Mutaxassis maslahati",
       desc: "Murakkab holatlarda viza mutaxassisi bilan maslahatlashing.",
@@ -359,7 +359,7 @@ export const uz: SiteContent = {
     board: {
       label: "Kuzatuv",
       title: "Ariza holati va muhim eslatmalar — bir qarashda",
-      subtitle: "Visa Status Tracker har bir bosqichni ko‘rsatadi, Alerts esa muddat va o‘zgarishlarni o‘tkazib yubormaslikka yordam beradi.",
+      subtitle: "Ariza kuzatuvi har bir bosqichni ko‘rsatadi, bildirishnomalar esa muddat va o‘zgarishlarni o‘tkazib yubormaslikka yordam beradi.",
       alerts: [
         { title: "Pasport amal qilish muddatini tekshiring", time: "Bugun", tone: "warn" },
         { title: "Bank ko‘chirmasi yuklandi", time: "Kecha", tone: "ok" },
@@ -416,7 +416,7 @@ export const uz: SiteContent = {
   },
   toolsPage: {
     eyebrow: "Vositalar",
-    title: "Viza tayyorgarligi uchun yettita vosita",
+    title: "Viza tayyorgarligi uchun o‘n bitta vosita",
     subtitle: "Har bir bosqich uchun vosita — holati ochiq ko‘rsatilgan.",
   },
   toolPage: {
@@ -465,14 +465,14 @@ export const uz: SiteContent = {
         name: "Standard",
         price: "37 000",
         period: "so‘m / 7 kun",
-        features: ["Hujjatlar ombori", "Interview simulator", "30 ta Readiness Score", "100 ta interview simulyatsiya"],
+        features: ["Hujjatlar ombori", "Suhbat mashqi", "30 ta tayyorgarlik bali hisobi", "100 ta suhbat mashqi"],
         cta: "Tanlash",
       },
       premium: {
         name: "Premium",
         price: "127 000",
         period: "so‘m / 1 oy",
-        features: ["100 ta Readiness Score", "250 ta Interview Simulator", "Rad etilgan ariza tahlili"],
+        features: ["100 ta tayyorgarlik bali hisobi", "250 ta suhbat mashqi", "Rad etilgan ariza tahlili"],
         cta: "Tanlash",
       },
       pro: {
@@ -486,7 +486,7 @@ export const uz: SiteContent = {
         name: "VIP",
         price: "Individual",
         period: "konsullik yig‘imiga qarab",
-        features: ["Cheksiz Readiness Score", "Cheksiz Interview Simulator", "Expert bilan birga hujjat topshirish"],
+        features: ["Cheksiz tayyorgarlik bali hisobi", "Cheksiz suhbat mashqi", "Mutaxassis bilan birga hujjat topshirish"],
         cta: "Bog‘lanish",
       },
     },
@@ -495,7 +495,7 @@ export const uz: SiteContent = {
     faqTitle: "Tariflar bo‘yicha savollar",
     faq: [
       { q: "Qanday to‘lash mumkin?", a: "Onlayn to‘lov tez orada ulanadi. Hozircha ro‘yxatdan o‘tish bepul — tarifni tanlab, hisob ochishingiz mumkin." },
-      { q: "Standard va Premium farqi nima?", a: "Standard — 7 kunlik qisqa tayyorgarlik uchun. Premium — 1 oylik: ko‘proq Readiness Score va Interview Simulator hamda rad etilgan ariza tahlili bilan." },
+      { q: "Standard va Premium farqi nima?", a: "Standard — 7 kunlik qisqa tayyorgarlik uchun. Premium — 1 oylik: ko‘proq tayyorgarlik bali hisobi va suhbat mashqi hamda rad etilgan ariza tahlili bilan." },
       { q: "VIP narxi qanday belgilanadi?", a: "VIP individual: narx konsullik yig‘imi va kerakli xizmatlarga qarab alohida kelishiladi." },
       { q: "Tarif viza olishni kafolatlaydimi?", a: "Yo‘q. Hech bir tarif viza berilishini kafolatlamaydi — yakuniy qarorni tegishli davlat organi qabul qiladi." },
     ],

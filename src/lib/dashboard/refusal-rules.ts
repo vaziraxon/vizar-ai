@@ -58,7 +58,7 @@ export const REFUSAL_ADVICE: Record<RefusalReasonId, { risk: string; actions: st
   interview: {
     risk: "Suhbatdagi javoblar noaniq yoki hujjatlarga zid bo'lgan.",
     actions: [
-      "AI suhbat simulyatorida mashq qiling",
+      "Suhbat mashqi bo'limida tayyorlaning",
       "Javoblaringiz hujjatlardagi ma'lumotlarga mos bo'lsin",
       "Qisqa, aniq va ishonch bilan javob bering",
     ],

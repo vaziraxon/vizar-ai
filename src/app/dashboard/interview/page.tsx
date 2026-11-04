@@ -272,7 +272,7 @@ export default function AiInterviewPage() {
       : questions;
     return (
       <DashboardShell
-        title="AI Interview Simulator"
+        title="Suhbat mashqi"
         subtitle={l("{country} — {difficulty} daraja intervyu mashqi.", { country: countryName, difficulty: l(difficulty) })}
       >
         <div className="card mx-auto max-w-2xl rounded-[28px] p-6 sm:p-8">
@@ -330,7 +330,7 @@ export default function AiInterviewPage() {
         active ? "border-brand-500 bg-brand-50 text-brand-700" : "border-surface-border bg-surface text-ink-700 hover:bg-surface-tint"
       );
     return (
-      <DashboardShell title="AI Interview Simulator" subtitle="Mashqni boshlashdan oldin davlat va qiyinlik darajasini tanlang.">
+      <DashboardShell title="Suhbat mashqi" subtitle="Mashqni boshlashdan oldin davlat va qiyinlik darajasini tanlang.">
         <div className="card mx-auto max-w-2xl space-y-6 overflow-hidden rounded-[28px] p-6 sm:p-8">
           <div className="hero-sky-soft grain relative -mx-6 -mt-6 flex items-center gap-4 overflow-hidden px-6 py-6 sm:-mx-8 sm:-mt-8 sm:px-8">
             <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[18px] bg-surface text-[28px] shadow-float">🤖</span>
@@ -484,7 +484,7 @@ export default function AiInterviewPage() {
     const tips = Array.from(new Set(answered.flatMap((x) => x.e!.tips))).slice(0, 3);
 
     return (
-      <DashboardShell title="AI Interview — natija" subtitle="Javobingiz va namuna asosidagi qoidaga asoslangan baho.">
+      <DashboardShell title="Suhbat mashqi — natija" subtitle="Javobingiz va namuna asosidagi qoidaga asoslangan baho.">
         <div id="interview-report" className="card mx-auto max-w-2xl rounded-[28px] p-8 text-center">
           <div className="flex justify-center">
             <ScoreRing score={score} size={130} strokeWidth={10} label="/ 100" />
@@ -543,7 +543,7 @@ export default function AiInterviewPage() {
 
   return (
     <DashboardShell
-      title="AI Interview Simulator"
+      title="Suhbat mashqi"
       subtitle={l("{country} — {difficulty} daraja intervyu mashqi.", { country: countryName, difficulty: l(difficulty) })}
     >
       <div className="card mx-auto max-w-2xl rounded-[28px] p-6 sm:p-8">
