@@ -256,8 +256,8 @@ export const uz: SiteContent = {
     hero: {
       eyebrow: "Viza tayyorgarligi uchun AI platforma",
       headline: { line1: "Vizaga tayyorlaning.", line2Pre: "", line2Post: "bilan boshlang." },
-      headlineAlt: { line1: "AQSH, Shengen, Kanadaga", line2Pre: "", line2Post: "bilan viza oling." },
-      subtitle: "Hujjatlaringizni tekshiring, tayyorgarligingizni baholang va keyingi qadamingizni — bitta joyda aniqlang.",
+      headlineAlt: { line1: "AQSH, Shengen, Kanadaga", line2Pre: "", line2Post: "bilan tayyorlaning." },
+      subtitle: "Hujjatlaringizni tartibga soling, tayyorgarligingizni baholang va keyingi qadamingizni — bitta joyda aniqlang.",
       ctaPrimary: "Tayyorgarlikni boshlash",
       ctaSecondary: "Qanday ishlaydi?",
       mascotAlt: "VIZAR maskoti — sariq kostyumdagi pingvin pasport va chamadon bilan globus yonida",
@@ -375,7 +375,7 @@ export const uz: SiteContent = {
     },
     cta: {
       title: "Tayyorgarlikni bugun boshlang",
-      subtitle: "Bepul hisob oching va birinchi bahoingizni oling.",
+      subtitle: "Bepul hisob oching va birinchi bahoyingizni oling.",
       primary: "Tayyorgarlikni boshlash",
       secondary: "Narxlarni ko‘rish",
     },
@@ -519,7 +519,7 @@ export const uz: SiteContent = {
       },
       {
         q: "Qaysi vositalar hozir ishlaydi?",
-        a: "Tayyorgarlik bali, hujjatlarni yuklash (beta), shaxsiy checklist, suhbat mashqi (52 davlat bo‘yicha 7 800 savol), ariza kuzatuvi, rad javobi tahlili va mutaxassisga so‘rov (beta) ishlaydi. Shaxsiy kabinetda viza fotosurati, viza xatlari, ariza muddati va Shengen 90/180 hisob-kitobi ham bor.",
+        a: "Viza tayyorgarlik bali, hujjatlarni yuklash (beta), shaxsiy checklist, suhbat mashqi (52 davlat bo‘yicha 7 800 savol), ariza kuzatuvi, rad javobi tahlili va mutaxassisga so‘rov (beta) ishlaydi. Shaxsiy kabinetda viza fotosurati, viza xatlari, ariza muddati va Shengen 90/180 hisob-kitobi ham bor.",
       },
       {
         q: "Hujjatlarim xavfsizmi?",

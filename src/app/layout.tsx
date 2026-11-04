@@ -12,7 +12,7 @@ const PRELOAD_FONTS = ["/fonts/inter-normal-100-900-latin.1dc044f4.woff2", "/fon
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vizarai.com";
 const TITLE = "VIZAR AI — Viza olishga aqlliroq tayyorlaning";
 const DESCRIPTION =
-  "VIZAR AI — hujjatlaringizni tekshirish, shaxsiy viza rejasini tuzish va suhbatga tayyorlanishga yordam beradigan AI platforma.";
+  "VIZAR AI — vizaga tayyorlanish platformasi: tayyorgarlik bali, hujjatlar ombori, shaxsiy checklist, suhbat mashqi, viza fotosurati va xatlari, ariza muddati.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -25,9 +25,10 @@ export const metadata: Metadata = {
   keywords: [
     "viza",
     "viza tayyorgarligi",
-    "AI viza yordamchisi",
-    "hujjatlar tekshiruvi",
-    "viza suhbati",
+    "viza hujjatlari ro'yxati",
+    "viza suhbati savollari",
+    "viza fotosurati",
+    "Shengen 90/180",
     "VIZAR AI",
   ],
   openGraph: {

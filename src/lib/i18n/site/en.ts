@@ -254,8 +254,8 @@ export const en: SiteContent = {
     hero: {
       eyebrow: "The AI platform for visa preparation",
       headline: { line1: "Prepare for your visa.", line2Pre: "Start with", line2Post: "." },
-      headlineAlt: { line1: "USA, Schengen, Canada", line2Pre: "Your visa with", line2Post: "." },
-      subtitle: "Check your documents, assess your readiness and find your next step — all in one place.",
+      headlineAlt: { line1: "USA, Schengen, Canada", line2Pre: "Prepare with", line2Post: "." },
+      subtitle: "Organise your documents, assess your readiness and find your next step — all in one place.",
       ctaPrimary: "Start preparing",
       ctaSecondary: "How it works",
       mascotAlt: "The VIZAR mascot — a penguin in a yellow suit with a passport and suitcase by a globe",

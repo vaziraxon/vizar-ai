@@ -138,6 +138,7 @@ function HeroHeadline() {
             {h.line1}
           </span>
         </span>
+        {/* Lines are separate blocks: the space keeps their words apart for search engines and copy-paste */}{" "}
         {/* The underline redraws each time this line comes back */}
         <WordmarkLine
           copy={h}
@@ -146,7 +147,7 @@ function HeroHeadline() {
           className="animate-rise"
           style={delay(560)}
         />
-      </span>
+      </span>{" "}
       <span aria-hidden="true" className={layer(showAlt)}>
         <span className="block pb-[0.14em]">
           <span className="block bg-gradient-to-br from-[#9F1239] via-[#DC2626] to-[#F43F5E] bg-clip-text text-[clamp(2.6rem,5.6vw,5rem)] font-semibold leading-[1.02] tracking-[-0.03em] text-transparent dark:from-[#FB7185] dark:via-[#F87171] dark:to-[#FDA4AF]">
@@ -173,7 +174,7 @@ function HeroHeadline() {
               ))}
             </span>
           </span>
-        </span>
+        </span>{" "}
         <WordmarkLine copy={alt} underlineKey={Math.floor((swaps + 1) / 2)} underlineDelay={500} />
       </span>
     </h1>
@@ -199,12 +200,12 @@ export function HomeHero() {
 
           <HeroHeadline />
 
-          <p className="mt-9 max-w-[34rem] animate-rise text-body-lg text-ink-700" style={delay(1050)}>
+          <p className="mt-9 max-w-[34rem] animate-rise text-body-lg text-ink-700" style={delay(450)}>
             {hero.subtitle}
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <div className="animate-rise" style={delay(1180)}>
+            <div className="animate-rise" style={delay(550)}>
               <Link
                 href="/register"
                 className="btn btn-charcoal btn-sheen group h-14 w-full justify-between pl-7 pr-2 text-body hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-16px_rgba(113,56,236,0.6)] sm:w-auto sm:justify-center sm:gap-4"
@@ -215,7 +216,7 @@ export function HomeHero() {
                 </span>
               </Link>
             </div>
-            <div className="animate-rise" style={delay(1280)}>
+            <div className="animate-rise" style={delay(620)}>
               <Link
                 href="/how-it-works"
                 className="btn btn-sheen h-14 w-full gap-3 border border-white/80 bg-surface/60 pl-2 pr-7 text-body text-ink-900 shadow-xs backdrop-blur hover:-translate-y-0.5 hover:bg-surface hover:shadow-card-hover dark:border-white/10 sm:w-auto"
