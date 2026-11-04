@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, ChevronRight, Lock, UserPlus } from "lucide-react";
+import { ArrowUpRight, ChevronRight, Lock, UserPlus } from "lucide-react";
 import { CheckLine, EmojiTile, Eyebrow, GoldUnderline, PillArrow, VIOLET_PILL } from "@/components/site/primitives";
 import { HeroSky } from "@/components/site/home/HeroSky";
 import { ToolPromoDemo } from "@/components/site/demos/ToolPromoDemos";
+import { RelatedTools } from "@/components/site/ToolCards";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { useL } from "@/components/i18n/L";
 import { useSite } from "@/lib/i18n/site";
@@ -22,7 +23,6 @@ export function ToolPromo({ tool }: { tool: ToolKey }) {
   const site = useSite();
   const c = site[tool];
   const t = TOOL_PROMOS.find((x) => x.key === tool)!;
-  const related = TOOL_PROMOS.filter((x) => x.key !== tool);
 
   return (
     <>
@@ -125,31 +125,9 @@ export function ToolPromo({ tool }: { tool: ToolKey }) {
               <PillArrow />
             </Link>
           </div>
-          <ul data-reveal className="mt-8 grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-4">
-            {related.map((r) => (
-              <li key={r.key}>
-                <Link
-                  href={r.publicHref}
-                  className="spotlight group flex items-center gap-4 rounded-[20px] border border-surface-border bg-surface p-4 transition-[box-shadow,border-color] duration-200 hover:border-brand-100 hover:shadow-card-hover"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-100 bg-brand-50/60 text-[18px] leading-none"
-                  >
-                    {r.emoji}
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-body-sm font-semibold text-ink-900">{site[r.key].title}</span>
-                    <span className="block truncate text-caption text-ink-500">{site[r.key].menu}</span>
-                  </span>
-                  <ArrowRight
-                    size={16}
-                    className="shrink-0 text-ink-300 transition-[transform,color] duration-200 group-hover:translate-x-0.5 group-hover:text-violet-600 dark:group-hover:text-violet-400"
-                  />
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div data-reveal className="mt-8">
+            <RelatedTools currentHref={t.publicHref} />
+          </div>
         </div>
       </section>
 

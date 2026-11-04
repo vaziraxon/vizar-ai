@@ -74,37 +74,44 @@ export function ToolIndex() {
   );
 }
 
-/** Compact related-tools cards for tool pages. */
-export function ToolLinkList({ ids, className }: { ids: ToolId[]; className?: string }) {
+/** Three other tools for the foot of a tool page: the next ones after it, in /features order. */
+export function RelatedTools({ currentHref, className }: { currentHref: string; className?: string }) {
   const site = useSite();
+  const all = GROUPS.flatMap((g) => g.items).map((item) => {
+    if ("tool" in item) {
+      const tool = TOOL_BY_ID[item.tool];
+      return { href: tool.href, emoji: tool.emoji, name: site.tools[item.tool].name, sub: site.tools[item.tool].menu };
+    }
+    const promo = TOOL_PROMOS.find((p) => p.key === item.promo)!;
+    return { href: promo.publicHref, emoji: promo.emoji, name: site[item.promo].title, sub: site[item.promo].menu };
+  });
+  const at = all.findIndex((t) => t.href === currentHref);
+  const picks = [1, 2, 3].map((n) => all[(at + n + all.length) % all.length]!);
   return (
     <ul className={cn("grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-4", className)}>
-      {ids.map((id) => {
-        const tool = TOOL_BY_ID[id];
-        return (
-          <li key={id}>
-            <Link
-              href={tool.href}
-              className="spotlight group flex items-center gap-4 rounded-[20px] border border-surface-border bg-surface p-4 transition-[box-shadow,border-color] duration-200 hover:border-brand-100 hover:shadow-card-hover"
+      {picks.map((t) => (
+        <li key={t.href}>
+          <Link
+            href={t.href}
+            className="spotlight group flex items-center gap-4 rounded-[20px] border border-surface-border bg-surface p-4 transition-[box-shadow,border-color] duration-200 hover:border-brand-100 hover:shadow-card-hover"
+          >
+            <span
+              aria-hidden="true"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-100 bg-brand-50/60 text-[18px] leading-none"
             >
-              <span
-                aria-hidden="true"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-100 bg-brand-50/60 text-[18px] leading-none"
-              >
-                {tool.emoji}
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block truncate text-body-sm font-semibold text-ink-900">{site.tools[id].name}</span>
-                <span className="block truncate text-caption text-ink-500">{site.tools[id].menu}</span>
-              </span>
-              <ArrowRight
-                size={16}
-                className="shrink-0 text-ink-300 transition-[transform,color] duration-200 group-hover:translate-x-0.5 group-hover:text-violet-600 dark:group-hover:text-violet-400"
-              />
-            </Link>
-          </li>
-        );
-      })}
+              {t.emoji}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-body-sm font-semibold text-ink-900">{t.name}</span>
+              <span className="block truncate text-caption text-ink-500">{t.sub}</span>
+            </span>
+            <ArrowRight
+              size={16}
+              className="shrink-0 text-ink-300 transition-[transform,color] duration-200 group-hover:translate-x-0.5 group-hover:text-violet-600 dark:group-hover:text-violet-400"
+            />
+          </Link>
+        </li>
+      ))}
     </ul>
   );
 }
