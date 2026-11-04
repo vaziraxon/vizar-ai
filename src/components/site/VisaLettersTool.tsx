@@ -141,7 +141,7 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <fieldset className="border-t border-surface-border pt-5 first:border-t-0 first:pt-0">
       <legend className="mb-3 text-body-sm font-semibold text-ink-900">{title}</legend>
-      <div className="grid gap-3 sm:grid-cols-2">{children}</div>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">{children}</div>
     </fieldset>
   );
 }
@@ -332,7 +332,7 @@ export function VisaLettersTool() {
 
       <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
         <div className="container-page max-w-6xl space-y-6">
-          <div className="grid gap-3 md:grid-cols-3" role="group" aria-label={c.title}>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-3" role="group" aria-label={c.title}>
             {KINDS.map(({ kind: k, emoji }) => (
               <button
                 key={k}
@@ -352,7 +352,7 @@ export function VisaLettersTool() {
             ))}
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-start">
             <div className={cn(card, "space-y-5")}>
               <div>
                 <p className={labelCls}>{c.outLang}</p>
@@ -421,7 +421,7 @@ export function VisaLettersTool() {
                               <p className="mb-2 text-caption font-semibold text-ink-700">
                                 {fill(c.dayLabel, { n: i + 1 })} · {shortDate(iso)}
                               </p>
-                              <div className="grid gap-2 sm:grid-cols-3">
+                              <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
                                 <Field label={f.city}>{input(day?.city ?? "", (v) => setDay(i, { city: v }))}</Field>
                                 <Field label={f.stay}>{input(day?.stay ?? "", (v) => setDay(i, { stay: v }))}</Field>
                                 <Field label={f.plan}>

@@ -334,6 +334,21 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
                 <ArrowRight size={16} className="shrink-0 text-ink-400" />
               </Link>
             )}
+            {(slug === "schengen" || slug === "uk") && (
+              <Link
+                href="/visa-timing"
+                className="mt-4 flex items-center gap-3 rounded-[24px] border border-surface-border bg-surface p-4 transition-colors hover:bg-surface-tint"
+              >
+                <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-[20px] leading-none">
+                  🗓️
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-body-sm font-semibold text-ink-900">{site.visaTiming.title}</span>
+                  <span className="block text-caption text-ink-500">{site.visaTiming.destinationLink}</span>
+                </span>
+                <ArrowRight size={16} className="shrink-0 text-ink-400" />
+              </Link>
+            )}
           </aside>
         </div>
       </section>

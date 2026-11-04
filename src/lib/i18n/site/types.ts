@@ -1,6 +1,7 @@
 import type { DestinationSlug, PopularCountry, ToolId } from "@/lib/site/registry";
 import type { HeadTop, PhotoBackground, PhotoGlasses } from "@/lib/site/visa-photo";
 import type { CostItem, LetterKind, Plan, Purpose, Relation } from "@/lib/site/visa-letters";
+import type { TimingCountry, TimingStatus } from "@/lib/site/visa-timing";
 
 type Three<T> = [T, T, T];
 type Step = { title: string; desc: string };
@@ -347,6 +348,28 @@ export interface SiteContent {
     sourcesTitle: string;
     sourceEmbassy: string;
     bookLink: string;
+    /** Link on the Schengen and UK destination pages */
+    destinationLink: string;
+  };
+  /** /visa-timing — {placeholders} are filled in by the page */
+  visaTiming: {
+    menu: string;
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    countryLabel: string;
+    countries: Record<TimingCountry, { label: string; rule: string }>;
+    fields: { start: string; end: string; expiry: string };
+    results: { earliest: string; latest: string; none: string };
+    status: Record<TimingStatus, string>;
+    passport: { ok: string; bad: string; notAsked: string; rule: string };
+    reminders: { button: string; none: string; opens: string; latest: string; desc: string; note: string };
+    sourcesTitle: string;
+    sourceEu: string;
+    sourceGb: string;
+    sourceEmbassy: string;
+    disclaimer: string;
+    privacy: string;
     /** Link on the Schengen and UK destination pages */
     destinationLink: string;
   };
