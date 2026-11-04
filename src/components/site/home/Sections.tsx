@@ -4,74 +4,12 @@ import Link from "next/link";
 import { Accordion } from "@/components/site/Accordion";
 import { DestinationCard, DestinationStage } from "@/components/site/DestinationCards";
 import { PillArrow, SectionHeader, VIOLET_PILL } from "@/components/site/primitives";
-import { ToolGrid } from "@/components/site/ToolCards";
 import { useSite } from "@/lib/i18n/site";
 import { POPULAR } from "@/lib/site/registry";
 
 /* -------------------------------------------------------------------------- */
 /* Destinations — photo cards                                                   */
 /* -------------------------------------------------------------------------- */
-
-/** Every tool, so the landing page shows what the product is */
-export function ToolsSection() {
-  const site = useSite();
-  return (
-    <section aria-labelledby="tools-title" className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
-      <div className="container-page">
-        <SectionHeader
-          id="tools-title"
-          emoji="🧰"
-          eyebrow={site.toolsPage.eyebrow}
-          title={site.toolsPage.title}
-          subtitle={site.toolsPage.subtitle}
-          action={
-            <Link href="/features" className={VIOLET_PILL}>
-              {site.nav.allTools}
-              <PillArrow />
-            </Link>
-          }
-        />
-        <ToolGrid className="mt-10" />
-      </div>
-    </section>
-  );
-}
-
-/** The three steps from /how-it-works, in short */
-export function HowSection() {
-  const site = useSite();
-  const how = site.howPage;
-  return (
-    <section aria-labelledby="how-title" className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
-      <div className="container-page">
-        <SectionHeader
-          id="how-title"
-          emoji="🚀"
-          eyebrow={how.eyebrow}
-          title={how.title}
-          subtitle={how.subtitle}
-          action={
-            <Link href="/how-it-works" className={VIOLET_PILL}>
-              {site.home.hero.ctaSecondary}
-              <PillArrow />
-            </Link>
-          }
-        />
-        <ol data-reveal className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {how.steps.map((step, i) => (
-            <li key={step.title} className="rounded-[24px] border border-surface-border bg-surface p-6">
-              <span className="font-luxe-italic text-[1.8rem] font-semibold italic leading-none text-violet-600 dark:text-citron-300">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="luxe-firm mt-3 font-luxe text-[1.4rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">{step.title}</h3>
-              <p className="mt-2 text-body-sm text-ink-600">{step.desc}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
 
 export function DestinationsSection() {
   const site = useSite();

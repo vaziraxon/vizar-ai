@@ -125,8 +125,3 @@ export function RelatedTools({ currentHref, className }: { currentHref: string; 
   const at = all.findIndex((t) => t.href === currentHref);
   return <ToolEntryList entries={[1, 2, 3].map((n) => all[(at + n + all.length) % all.length]!)} className={className} />;
 }
-
-/** All tools as compact cards — the landing page's product section */
-export function ToolGrid({ className }: { className?: string }) {
-  return <ToolEntryList entries={useToolEntries()} className={className} />;
-}
