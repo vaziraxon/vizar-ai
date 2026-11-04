@@ -98,14 +98,14 @@ export function ToolsPromo() {
         <span className="inline-flex items-center gap-1.5 rounded-pill bg-white/20 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em]">
           <Sparkles size={12} aria-hidden="true" /> {l("Yangilik")}
         </span>
-        <p className="mt-3 font-display text-[1.4rem] font-bold leading-tight">{l("4 ta vosita endi kabinetingizda")}</p>
+        <p className="mt-3 font-display text-[1.4rem] font-bold leading-tight">{l("Viza foto, xatlar va ariza muddati — endi kabinetingizda")}</p>
         <p className="mt-1 text-body-sm text-white/85">{l("Viza foto, xatlar, muddat rejalashtiruvchi va Shengen kalkulyatori — hammasi bir joyda.")}</p>
         <p aria-hidden="true" className="mt-3 text-[22px] tracking-[0.3em]">
           📸📝🗓️🧮
         </p>
       </div>
       <span className="relative inline-flex shrink-0 items-center gap-1.5 self-start rounded-pill bg-white px-4 py-2 text-body-sm font-semibold text-brand-700 transition-[gap] duration-200 group-hover:gap-2.5 sm:self-center">
-        {l("Vositalarni ko'rish")} <ArrowRight size={15} aria-hidden="true" />
+        {l("Ochib ko'rish")} <ArrowRight size={15} aria-hidden="true" />
       </span>
     </Link>
   );
@@ -121,7 +121,7 @@ export function DashboardToolPage({ tool, children }: { tool: ToolKey; children:
       subtitle={<>{site[tool].subtitle}</>}
       actions={
         <Link href="/dashboard/tools" className="btn-secondary btn-md">
-          <ArrowLeft size={16} aria-hidden="true" /> {l("Barcha vositalar")}
+          <ArrowLeft size={16} aria-hidden="true" /> {l("Ro'yxatga qaytish")}
         </Link>
       }
     >
