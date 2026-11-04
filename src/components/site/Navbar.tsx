@@ -18,7 +18,8 @@ type MenuId = "tools" | "destinations" | "library";
 
 const SCHENGEN_CALC = "/schengen-calculator";
 const VISA_PHOTO = "/visa-photo";
-const TOOL_ROUTES = new Set(TOOLS.map((t) => t.href).concat("/features", SCHENGEN_CALC, VISA_PHOTO));
+const VISA_LETTERS = "/visa-letters";
+const TOOL_ROUTES = new Set(TOOLS.map((t) => t.href).concat("/features", SCHENGEN_CALC, VISA_PHOTO, VISA_LETTERS));
 const FEATURED_TOOL = TOOL_BY_ID.readiness;
 const FEATURED_DESTINATION: DestinationSlug = "schengen";
 
@@ -68,13 +69,14 @@ function ToolRow({ tool, onNavigate, tabIndex }: { tool: ToolMeta; onNavigate?: 
   );
 }
 
-/** The free public tools (90/180 calculator, visa photo): working pages, not the app's tools. */
+/** The free public tools (90/180 calculator, visa photo, visa letters): working pages, not the app's tools. */
 function FreeToolRows({ onNavigate, tabIndex }: { onNavigate?: () => void; tabIndex?: number }) {
   const site = useSite();
   return (
     <>
       <FreeToolRow href={SCHENGEN_CALC} emoji="🧮" title={site.schengenCalc.title} menu={site.schengenCalc.menu} onNavigate={onNavigate} tabIndex={tabIndex} />
       <FreeToolRow href={VISA_PHOTO} emoji="📸" title={site.visaPhoto.title} menu={site.visaPhoto.menu} onNavigate={onNavigate} tabIndex={tabIndex} />
+      <FreeToolRow href={VISA_LETTERS} emoji="📝" title={site.visaLetters.title} menu={site.visaLetters.menu} onNavigate={onNavigate} tabIndex={tabIndex} />
     </>
   );
 }
