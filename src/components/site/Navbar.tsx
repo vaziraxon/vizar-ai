@@ -70,7 +70,7 @@ function ToolRow({ tool, onNavigate, tabIndex }: { tool: ToolMeta; onNavigate?: 
   );
 }
 
-/** The free public tools (90/180 calculator, visa photo, visa letters, timing): working pages, not the app's tools. */
+/** 90/180 calculator, visa photo, visa letters, timing: promo pages here, working tools in the dashboard. */
 function FreeToolRows({ onNavigate, tabIndex }: { onNavigate?: () => void; tabIndex?: number }) {
   const site = useSite();
   return (

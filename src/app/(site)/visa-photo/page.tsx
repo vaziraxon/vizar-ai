@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { VisaPhotoTool } from "@/components/site/VisaPhotoTool";
+import { ToolPromo } from "@/components/site/ToolPromo";
 import { SITE_CONTENT } from "@/lib/i18n/site";
 
 const copy = SITE_CONTENT.uz.visaPhoto;
@@ -11,5 +11,6 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <VisaPhotoTool />;
+  // The tool itself works only in the dashboard; this page promotes it.
+  return <ToolPromo tool="visaPhoto" />;
 }
