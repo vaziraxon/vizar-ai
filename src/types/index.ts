@@ -84,11 +84,6 @@ export interface Testimonial {
   rating: number;
 }
 
-export interface FAQItem {
-  question: string;
-  answer: string;
-}
-
 // --- Stage 4 -------------------------------------------------------------
 
 export interface SidebarNavItem {
@@ -271,15 +266,6 @@ export interface ReportItem {
   description: string;
   date: string;
   status: ReportStatus;
-}
-
-export type RoadmapStage = "completed" | "in_progress" | "future";
-
-export interface RoadmapItem {
-  stage: RoadmapStage;
-  icon: LucideIcon;
-  title: string;
-  description: string;
 }
 
 export interface OnboardingStepConfig {

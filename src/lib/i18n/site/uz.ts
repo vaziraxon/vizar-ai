@@ -903,6 +903,109 @@ export const uz: SiteContent = {
     privacy: "Sanalar serverga yuborilmaydi va saqlanmaydi.",
     destinationLink: "Ariza muddatini hisoblab, kalendarga eslatma qo‘ying",
   },
+  roadmapPage: {
+    eyebrow: "Mahsulot yo‘nalishi",
+    title: "VIZAR AI rivojlanish rejasi",
+    subtitle: "Nima tayyor, nima ustida ishlayapmiz va nima rejada — ochiq ko‘rinishda.",
+    stages: { completed: "Tayyor", in_progress: "Jarayonda", future: "Rejada" },
+    items: {
+      site: { title: "Uch tilli sayt", desc: "O‘zbek, rus va ingliz tillarida, har biri o‘z manzili bilan." },
+      dashboard: { title: "Shaxsiy kabinet", desc: "Barcha vositalar va arizangiz holati bir joyda." },
+      readiness: { title: "Viza tayyorgarlik bali", desc: "Javoblaringiz, hujjatlar va checklist asosida ochiq qoidalar bilan hisoblanadi." },
+      documents: { title: "Hujjatlar ombori", desc: "Hujjatlarni yopiq omborga yuklash va har biri uchun nimani tekshirish kerakligi." },
+      checklist: { title: "Shaxsiy checklist", desc: "Davlat va viza turiga mos ro‘yxat, chop etiladigan varaq bilan." },
+      interview: { title: "Suhbat mashqi", desc: "Davlatlar va viza turlari bo‘yicha savollar bazasi bilan mashq." },
+      tracker: { title: "Ariza kuzatuvi", desc: "Ariza bosqichlarini bir joyda belgilab borish." },
+      rejection: { title: "Rad javobi tahlili", desc: "Rad sabablari va keyingi qadamlar, qoidalar asosida." },
+      experts: { title: "Mutaxassisga so‘rov", desc: "Savolingizni qoldirasiz — jamoamiz o‘qib, javob beradi." },
+      tools: { title: "To‘rt amaliy vosita", desc: "Viza fotosurati, viza xatlari, ariza muddati va Shengen 90/180 kalkulyatori." },
+      library: { title: "Viza ma’lumotlar bazasi", desc: "VIZAR AI kitobining 9 bobi va davlatlar bo‘yicha qoidalar, rasmiy manbalar bilan." },
+      account: { title: "Hisob boshqaruvi", desc: "Profil surati va hisobni butunlay o‘chirish imkoniyati." },
+      countries: { title: "Yangi davlat qo‘llanmalari", desc: "Turkiya va boshqa yo‘nalishlar bo‘yicha qo‘llanmalar." },
+      network: { title: "Mutaxassislar tarmog‘i", desc: "Platformaga ko‘proq mustaqil mutaxassislarni ulash." },
+      ai: { title: "AI yordamchi", desc: "Savollar va hujjatlar bo‘yicha AI maslahatchi — sifati va narxi imkon berganda." },
+      ocr: { title: "Hujjatlarni avtomatik o‘qish", desc: "Yuklangan hujjatlardan ma’lumotni avtomatik ajratib olish (OCR)." },
+      mobile: { title: "Mobil ilova", desc: "iOS va Android uchun ilovalar." },
+      gov: { title: "Rasmiy tizimlar bilan integratsiya", desc: "Konsullik va vizalar markazlari tizimlari bilan ulanish." },
+      crm: { title: "Agentlik CRM", desc: "Viza agentliklari uchun to‘liq boshqaruv tizimi." },
+      whiteLabel: { title: "White-label platforma", desc: "Boshqa kompaniyalar o‘z brendi ostida ishlatishi uchun." },
+      region: { title: "Mintaqaviy kengayish", desc: "Markaziy Osiyo va undan tashqarida." },
+    },
+    note: "“Rejada” bo‘limidagi bandlar — yo‘nalish, aniq sana emas va va’da ham emas.",
+  },
+  trustPage: {
+    eyebrow: "Ishonch markazi",
+    title: "Xavfsizlik va ishonch markazi",
+    subtitle: "Ma’lumotlaringiz qayerda turadi, kim ko‘radi va nimani o‘zingiz boshqarasiz — oddiy tilda.",
+    principles: {
+      privacy: {
+        title: "Ma’lumotlar maxfiyligi",
+        desc: "Ma’lumotlar Supabase bulut bazasida saqlanadi. Qatorlar darajasidagi qoidalar har bir foydalanuvchiga faqat o‘z ma’lumotlarini ko‘rsatadi. Hujjatlar yopiq omborda, har kim faqat o‘z papkasiga kira oladi. Profil surati esa havolasi bor kishiga ko‘rinadi.",
+      },
+      encryption: {
+        title: "Shifrlash",
+        desc: "Brauzeringiz va sayt orasidagi aloqa HTTPS (TLS) bilan shifrlangan. Baza va fayllar saqlashda Supabase infratuzilmasida AES-256 bilan shifrlanadi.",
+      },
+      minimal: {
+        title: "Ma’lumotlarni minimallashtirish",
+        desc: "Faqat tayyorgarlik uchun zarur ma’lumotlar so‘raladi — ortiqcha ma’lumot talab qilinmaydi.",
+      },
+      control: {
+        title: "Foydalanuvchi nazorati",
+        desc: "Profilingizni tahrirlashingiz, hujjatlarni o‘chirishingiz va sozlamalarda hisobingizni butunlay o‘chirishingiz mumkin — hisob bilan birga unga bog‘liq ma’lumotlar va yuklangan fayllar ham o‘chiriladi.",
+      },
+      documents: {
+        title: "Hujjatlar bilan ehtiyotkorlik",
+        desc: "Faqat tayyorgarlik uchun kerakli nusxalarni yuklang. Hujjatlaringiz boshqa foydalanuvchilarga ko‘rinmaydi. VIZAR elchixonaga ariza topshirmaydi.",
+      },
+      ai: {
+        title: "AI haqida halollik",
+        desc: "Hozir saytdagi ball, tavsiya va tahlillar oldindan yozilgan ochiq qoidalar asosida hisoblanadi — AI model ishlatilmaydi. AI qo‘shilsa, buni shu yerda aytamiz va u faqat tavsiya beradi.",
+      },
+      people: {
+        title: "Inson ishtiroki",
+        desc: "Mutaxassisga qoldirilgan so‘rovlarni jamoamiz a’zolari o‘qib, javob beradi.",
+      },
+    },
+    securityTitle: "Xavfsizlik: nima qilingan va nima rejada",
+    done: "Qilingan",
+    planned: "Rejada",
+    security: {
+      tls: "HTTPS va saqlashda shifrlash",
+      roles: "Rolga asoslangan kirish nazorati (admin va agentlik bo‘limlari)",
+      rateLimit: "So‘rovlar sonini cheklash — parol tanlash va spamdan himoya",
+      audit: "Muntazam mustaqil xavfsizlik auditi",
+      law: "GDPR va mahalliy qonunchilikka to‘liq moslashtirish",
+    },
+    certNote:
+      "Eslatma: kompaniyamiz hozircha ISO, SOC 2, GDPR yoki davlat tomonidan tasdiqlangan sertifikatlarga ega emas. Ular kelajakdagi maqsadlar sifatida belgilangan.",
+    legalTitle: "Huquqiy ogohlantirish",
+    legal:
+      "VIZAR AI mustaqil texnologik platforma bo‘lib, elchixona yoki konsullik vakolatxonasi emas. Platforma viza berilishini kafolatlamaydi va yuridik maslahat sifatida talqin qilinmasligi kerak.",
+    faqTitle: "Ko‘p so‘raladigan savollar",
+    faq: [
+      {
+        q: "Ma’lumotlarim qayerda saqlanadi?",
+        a: "Supabase bulut bazasida. Har bir foydalanuvchi faqat o‘z ma’lumotlari va fayllarini ko‘radi.",
+      },
+      {
+        q: "Qanday shifrlash ishlatiladi?",
+        a: "Aloqa HTTPS (TLS) bilan, baza va fayllar saqlashda AES-256 bilan shifrlanadi (Supabase infratuzilmasi).",
+      },
+      {
+        q: "Hisobimni o‘chira olamanmi?",
+        a: "Ha. Sozlamalarda hisobni butunlay o‘chirish mumkin: hisob, profil, arizalar, hujjatlar va yuklangan fayllar o‘chiriladi.",
+      },
+      {
+        q: "Ball va tavsiyalarni AI beradimi?",
+        a: "Yo‘q. Hozir ular ochiq qoidalar asosida hisoblanadi. Murakkab savollar uchun mutaxassisga so‘rov qoldirishingiz mumkin.",
+      },
+      {
+        q: "Kompaniya ISO yoki GDPR sertifikatiga egami?",
+        a: "Yo‘q, hozircha bunday sertifikatlarga ega emasmiz. Bular kelajakdagi maqsadlarimiz.",
+      },
+    ],
+  },
   footer: {
     tagline: "Viza tayyorgarligi uchun AI platforma.",
     product: "Mahsulot",

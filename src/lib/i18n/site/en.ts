@@ -901,6 +901,109 @@ export const en: SiteContent = {
     privacy: "Dates are never sent to a server or stored.",
     destinationLink: "Work out your application date and add a reminder to your calendar",
   },
+  roadmapPage: {
+    eyebrow: "Product direction",
+    title: "VIZAR AI roadmap",
+    subtitle: "What is ready, what we are working on and what is planned — in the open.",
+    stages: { completed: "Ready", in_progress: "In progress", future: "Planned" },
+    items: {
+      site: { title: "Site in three languages", desc: "Uzbek, Russian and English, each at its own address." },
+      dashboard: { title: "Personal dashboard", desc: "All the tools and your application status in one place." },
+      readiness: { title: "Visa readiness score", desc: "Worked out with open rules from your answers, documents and checklist." },
+      documents: { title: "Document hub", desc: "Upload documents to private storage and see what to check in each." },
+      checklist: { title: "Personal checklist", desc: "A list for your country and visa type, with a printable sheet." },
+      interview: { title: "Interview practice", desc: "Practise with a question bank for different countries and visa types." },
+      tracker: { title: "Application tracker", desc: "Mark your application's stages in one place." },
+      rejection: { title: "Refusal analysis", desc: "Refusal reasons and next steps, based on rules." },
+      experts: { title: "Ask a specialist", desc: "Leave your question — our team reads it and replies." },
+      tools: { title: "Four practical tools", desc: "Visa photo, visa letters, application timing and the Schengen 90/180 calculator." },
+      library: { title: "Visa knowledge base", desc: "The 9 chapters of the VIZAR AI book and rules by country, with official sources." },
+      account: { title: "Account control", desc: "A profile photo and full account deletion." },
+      countries: { title: "New country guides", desc: "Turkey and other destinations." },
+      network: { title: "Specialist network", desc: "Bringing more independent specialists onto the platform." },
+      ai: { title: "AI assistant", desc: "An AI adviser for questions and documents — once quality and cost allow." },
+      ocr: { title: "Automatic document reading", desc: "Pulling data out of uploaded documents automatically (OCR)." },
+      mobile: { title: "Mobile app", desc: "Apps for iOS and Android." },
+      gov: { title: "Official system integrations", desc: "Connecting to consulate and visa centre systems." },
+      crm: { title: "Agency CRM", desc: "A full management system for visa agencies." },
+      whiteLabel: { title: "White-label platform", desc: "For companies that want to run it under their own brand." },
+      region: { title: "Regional expansion", desc: "Central Asia and beyond." },
+    },
+    note: "Items under “Planned” are a direction, not a date or a promise.",
+  },
+  trustPage: {
+    eyebrow: "Trust Center",
+    title: "Security and trust center",
+    subtitle: "Where your data lives, who can see it and what you control — in plain words.",
+    principles: {
+      privacy: {
+        title: "Data privacy",
+        desc: "Data is stored in a Supabase cloud database. Row-level rules show each user only their own data. Documents sit in private storage, where everyone can reach only their own folder. A profile photo can be seen by anyone with its link.",
+      },
+      encryption: {
+        title: "Encryption",
+        desc: "The connection between your browser and the site is encrypted with HTTPS (TLS). The database and files are encrypted at rest with AES-256 on Supabase's infrastructure.",
+      },
+      minimal: {
+        title: "Data minimisation",
+        desc: "We only ask for what preparation needs — nothing extra.",
+      },
+      control: {
+        title: "You stay in control",
+        desc: "You can edit your profile, delete documents and delete your account entirely in settings — its data and uploaded files go with it.",
+      },
+      documents: {
+        title: "Care with documents",
+        desc: "Upload only the copies you need to prepare. Other users can't see your documents. VIZAR does not submit applications to embassies.",
+      },
+      ai: {
+        title: "Honest about AI",
+        desc: "Today the site's scores, recommendations and analyses come from open, pre-written rules — no AI model is used. If AI is added, we will say so here, and it will only advise.",
+      },
+      people: {
+        title: "People involved",
+        desc: "Requests to a specialist are read and answered by people on our team.",
+      },
+    },
+    securityTitle: "Security: what's done and what's planned",
+    done: "Done",
+    planned: "Planned",
+    security: {
+      tls: "HTTPS and encryption at rest",
+      roles: "Role-based access control (admin and agency areas)",
+      rateLimit: "Request limits — protection against password guessing and spam",
+      audit: "Regular independent security audits",
+      law: "Full GDPR and local law compliance",
+    },
+    certNote:
+      "Note: the company does not yet hold ISO, SOC 2, GDPR or government-approved certifications. They are set as future goals.",
+    legalTitle: "Legal disclaimer",
+    legal:
+      "VIZAR AI is an independent technology platform, not an embassy or consulate. The platform does not guarantee a visa and is not legal advice.",
+    faqTitle: "Frequently asked questions",
+    faq: [
+      {
+        q: "Where is my data stored?",
+        a: "In a Supabase cloud database. Each user sees only their own data and files.",
+      },
+      {
+        q: "What encryption is used?",
+        a: "HTTPS (TLS) for the connection, AES-256 at rest for the database and files (Supabase infrastructure).",
+      },
+      {
+        q: "Can I delete my account?",
+        a: "Yes. In settings you can delete your account entirely: the account, profile, applications, documents and uploaded files are removed.",
+      },
+      {
+        q: "Does AI produce the scores and recommendations?",
+        a: "No. Today they come from open rules. For a hard question you can leave a request for a specialist.",
+      },
+      {
+        q: "Does the company hold ISO or GDPR certification?",
+        a: "No, not yet. These are our future goals.",
+      },
+    ],
+  },
   footer: {
     tagline: "The AI platform for visa preparation.",
     product: "Product",

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { RoadmapPage, TrustCenterPage } from "@/components/site/pages/AboutPages";
 import { HomePage } from "@/components/site/pages/HomePage";
 import {
   DestinationPage,
@@ -78,6 +79,10 @@ export default async function Page({ params }: Props) {
           <JsonLd data={faqJsonLd(lang)} />
         </>
       );
+    case "/roadmap":
+      return <RoadmapPage />;
+    case "/trust-center":
+      return <TrustCenterPage />;
     case "/destinations":
       return <DestinationsIndexPage />;
   }
