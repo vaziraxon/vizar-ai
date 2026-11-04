@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { HOME_PATHS } from "@/lib/i18n/url-lang";
 import { createClient } from "@/lib/supabase/server";
 import { DESTINATION_BY_SLUG } from "@/lib/site/registry";
 import { REVIEW_SPAM, REVIEWABLE_TOOLS } from "@/lib/site/testimonials";
@@ -82,7 +83,8 @@ export async function submitMyReviewAction(input: MyReviewInput): Promise<MyRevi
   }
   // An editor may have hidden this review earlier — editing keeps it hidden
   const { data: row } = await supabase.from("testimonials").select("published").eq("id", id as string).maybeSingle<{ published: boolean }>();
-  revalidatePath("/");
+  // The home page in every language shows the reviews
+  HOME_PATHS.forEach((path) => revalidatePath(path));
   return { ok: true, published: row?.published ?? true };
 }
 
@@ -91,6 +93,7 @@ export async function deleteMyReviewAction(): Promise<{ ok: boolean }> {
   if (!supabase || !user) return { ok: false };
   const { error } = await supabase.from("testimonials").delete().eq("user_id", user.id);
   if (error) return { ok: false };
-  revalidatePath("/");
+  // The home page in every language shows the reviews
+  HOME_PATHS.forEach((path) => revalidatePath(path));
   return { ok: true };
 }

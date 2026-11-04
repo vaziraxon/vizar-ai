@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
 import { ToolPage } from "@/components/site/ToolPage";
-import { SITE_CONTENT } from "@/lib/i18n/site";
+import { localizedMetadata } from "@/lib/site/page-meta";
 
-const tool = SITE_CONTENT.uz.tools.rejection;
-
-export const metadata: Metadata = {
-  title: `${tool.name} — ${tool.tagline}`,
-  description: tool.desc,
-  alternates: { canonical: "/rejection-analysis" },
-};
+export const metadata: Metadata = localizedMetadata("/rejection-analysis", "uz");
 
 export default function Page() {
   return <ToolPage id="rejection" />;

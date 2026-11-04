@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import {
   AlertCircle,
   ArrowRight,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, useTransition, type FormEvent } from "react";
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { useRouter } from "next/navigation";
 import { PenLine, Star, X } from "lucide-react";
 import { deleteMyReviewAction, getMyReviewAction, submitMyReviewAction, type MyReviewState } from "@/lib/actions/my-review";

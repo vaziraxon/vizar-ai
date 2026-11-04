@@ -69,13 +69,14 @@ export default function RootLayout({
             __html: "try{if(localStorage.getItem('vizar-ai-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}",
           }}
         />
-        {/* Set <html lang> to the saved language before first paint. Reading the
+        {/* Set <html lang> to the page's language before first paint. Reading the
             cookie here on the server would make every static page dynamic, so the
-            HTML stays "uz" and this corrects it in the browser. Same choice as
-            LanguageProvider: localStorage first, then the cookie. */}
+            HTML stays "uz" and this corrects it in the browser: the /ru or /en
+            address first, then the same choice as LanguageProvider (localStorage,
+            then the cookie). */}
         <script
           dangerouslySetInnerHTML={{
-            __html: "try{var l=localStorage.getItem('vizar-ai-language')||(document.cookie.match(/(?:^|; )vizar-ai-language=([^;]*)/)||[])[1];if(l==='ru'||l==='en')document.documentElement.lang=l}catch(e){}",
+            __html: "try{var m=location.pathname.match(/^\\/(ru|en)(\\/|$)/),l=m?m[1]:localStorage.getItem('vizar-ai-language')||(document.cookie.match(/(?:^|; )vizar-ai-language=([^;]*)/)||[])[1];if(l==='ru'||l==='en')document.documentElement.lang=l}catch(e){}",
           }}
         />
       </head>

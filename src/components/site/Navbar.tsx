@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { LocalLink as Link, useSitePath } from "@/components/site/LocalLink";
 import { ArrowRight, ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { LanguageSelector } from "@/components/ui/LanguageSelector";
@@ -30,7 +29,7 @@ const FEATURED_DESTINATION: DestinationSlug = "schengen";
 
 function ToolRow({ tool, onNavigate, tabIndex }: { tool: ToolMeta; onNavigate?: () => void; tabIndex?: number }) {
   const site = useSite();
-  const pathname = usePathname();
+  const pathname = useSitePath();
   const selected = pathname === tool.href;
   const copy = site.tools[tool.id];
   return (
@@ -98,7 +97,7 @@ function FreeToolRow({
   onNavigate?: () => void;
   tabIndex?: number;
 }) {
-  const pathname = usePathname();
+  const pathname = useSitePath();
   const selected = pathname === href;
   return (
     <Link
@@ -127,7 +126,7 @@ function FreeToolRow({
 
 function DestinationRow({ slug, onNavigate, tabIndex }: { slug: DestinationSlug; onNavigate?: () => void; tabIndex?: number }) {
   const site = useSite();
-  const pathname = usePathname();
+  const pathname = useSitePath();
   const d = DESTINATIONS.find((x) => x.slug === slug)!;
   const href = `/destinations/${slug}`;
   const copy = site.destinations[slug];
@@ -160,7 +159,7 @@ function DestinationRow({ slug, onNavigate, tabIndex }: { slug: DestinationSlug;
 
 function ChapterRow({ index, onNavigate, tabIndex }: { index: number; onNavigate?: () => void; tabIndex?: number }) {
   const site = useSite();
-  const pathname = usePathname();
+  const pathname = useSitePath();
   const slug = `bob-${index + 1}`;
   const href = `/knowledge-base/book/${slug}`;
   const selected = pathname === href || pathname.startsWith(`${href}/`);
@@ -226,7 +225,7 @@ function FeaturedRow({
 
 export function Navbar() {
   const site = useSite();
-  const pathname = usePathname();
+  const pathname = useSitePath();
   const [menu, setMenu] = useState<MenuId | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);

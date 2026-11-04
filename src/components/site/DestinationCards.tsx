@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import type { ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { Flag } from "@/components/site/Flag";

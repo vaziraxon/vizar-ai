@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { ArrowRight, Check, ChevronLeft } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { ToolIndex } from "@/components/site/ToolCards";

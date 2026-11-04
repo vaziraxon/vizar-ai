@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import {
   ArrowRight,
   Briefcase,

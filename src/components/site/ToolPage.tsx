@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { ArrowUpRight, ChevronRight, Lock, UserPlus } from "lucide-react";
 import { CheckLine, EmojiTile, Eyebrow, GoldUnderline, PillArrow, StatusPill, VIOLET_PILL } from "@/components/site/primitives";
 import { HeroSky } from "@/components/site/home/HeroSky";
