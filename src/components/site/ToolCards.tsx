@@ -74,10 +74,10 @@ export function ToolIndex() {
   );
 }
 
-/** Three other tools for the foot of a tool page: the next ones after it, in /features order. */
-export function RelatedTools({ currentHref, className }: { currentHref: string; className?: string }) {
+/** Every tool as a small link card, in /features order */
+function useToolEntries() {
   const site = useSite();
-  const all = GROUPS.flatMap((g) => g.items).map((item) => {
+  return GROUPS.flatMap((g) => g.items).map((item) => {
     if ("tool" in item) {
       const tool = TOOL_BY_ID[item.tool];
       return { href: tool.href, emoji: tool.emoji, name: site.tools[item.tool].name, sub: site.tools[item.tool].menu };
@@ -85,11 +85,14 @@ export function RelatedTools({ currentHref, className }: { currentHref: string; 
     const promo = TOOL_PROMOS.find((p) => p.key === item.promo)!;
     return { href: promo.publicHref, emoji: promo.emoji, name: site[item.promo].title, sub: site[item.promo].menu };
   });
-  const at = all.findIndex((t) => t.href === currentHref);
-  const picks = [1, 2, 3].map((n) => all[(at + n + all.length) % all.length]!);
+}
+
+type ToolEntry = ReturnType<typeof useToolEntries>[number];
+
+function ToolEntryList({ entries, className }: { entries: ToolEntry[]; className?: string }) {
   return (
     <ul className={cn("grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-4", className)}>
-      {picks.map((t) => (
+      {entries.map((t) => (
         <li key={t.href}>
           <Link
             href={t.href}
@@ -114,4 +117,16 @@ export function RelatedTools({ currentHref, className }: { currentHref: string; 
       ))}
     </ul>
   );
+}
+
+/** Three other tools for the foot of a tool page: the next ones after it, in /features order. */
+export function RelatedTools({ currentHref, className }: { currentHref: string; className?: string }) {
+  const all = useToolEntries();
+  const at = all.findIndex((t) => t.href === currentHref);
+  return <ToolEntryList entries={[1, 2, 3].map((n) => all[(at + n + all.length) % all.length]!)} className={className} />;
+}
+
+/** All tools as compact cards — the landing page's product section */
+export function ToolGrid({ className }: { className?: string }) {
+  return <ToolEntryList entries={useToolEntries()} className={className} />;
 }

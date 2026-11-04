@@ -406,6 +406,8 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
   const sample = !real && cards.length > 0;
 
   const rated = items.filter((r) => r.rating);
+  // An average of one or two ratings says little; show it from three on
+  const showAverage = rated.length >= 3;
   const average = rated.length ? rated.reduce((sum, r) => sum + r.rating!, 0) / rated.length : 0;
 
   return (
@@ -421,7 +423,7 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
           </h2>
           {real ? (
             <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-body-sm text-ink-600">
-              {rated.length ? (
+              {showAverage ? (
                 <>
                   <span className="inline-flex gap-0.5" aria-hidden="true">
                     {Array.from({ length: 5 }, (_, i) => (
