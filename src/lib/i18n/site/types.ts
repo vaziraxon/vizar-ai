@@ -1,5 +1,6 @@
 import type { DestinationSlug, PopularCountry, ToolId } from "@/lib/site/registry";
 import type { HeadTop, PhotoBackground, PhotoGlasses } from "@/lib/site/visa-photo";
+import type { CostItem, LetterKind, Plan, Purpose, Relation } from "@/lib/site/visa-letters";
 
 type Three<T> = [T, T, T];
 type Step = { title: string; desc: string };
@@ -315,6 +316,39 @@ export interface SiteContent {
     destinationLink: string;
     /** Decimal separator for sizes like 50,8 mm */
     decimal: string;
+  };
+  /** /visa-letters — {placeholders} are filled in by the page */
+  visaLetters: {
+    menu: string;
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    kinds: Record<LetterKind, { label: string; desc: string }>;
+    outLang: string;
+    germanHint: string;
+    sections: { applicant: string; trip: string; programme: string; funding: string; work: string; employee: string; company: string; sponsor: string; letter: string };
+    fields: Record<"fullName" | "birthDate" | "passport" | "address" | "phone" | "email" | "homeCity" | "country" | "purpose" | "from" | "to" | "city" | "stay" | "plan" | "funding" | "fundingSelf" | "fundingSponsor" | "sponsorName" | "relation" | "position" | "employer" | "since" | "salary" | "currency" | "leaveFrom" | "leaveTo" | "returnOn" | "company" | "companyAddress" | "companyPhone" | "companyWeb" | "companyTin" | "signatory" | "signatoryTitle" | "applicantName" | "applicantBirth" | "applicantPassport" | "costs" | "place" | "date" | "noCountry", string>;
+    dayLabel: string;
+    purposes: Record<Purpose, string>;
+    plans: Record<Plan, string>;
+    relations: Record<Relation, string>;
+    costs: Record<CostItem, string>;
+    latinHint: string;
+    invalidDates: string;
+    longTrip: string;
+    gapsNote: string;
+    previewTitle: string;
+    print: string;
+    copy: string;
+    copied: string;
+    printHint: string;
+    truth: string;
+    privacy: string;
+    sourcesTitle: string;
+    sourceEmbassy: string;
+    bookLink: string;
+    /** Link on the Schengen and UK destination pages */
+    destinationLink: string;
   };
   footer: {
     tagline: string;
