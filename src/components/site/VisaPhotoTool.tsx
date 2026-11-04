@@ -296,7 +296,7 @@ export function VisaPhotoTool() {
       <PageHero emoji="📸" decor={["🛂", "🖼️", "✂️"]} eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} />
 
       <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
-        <div className="container-page grid max-w-6xl gap-6 lg:grid-cols-5">
+        <div className="container-page grid max-w-6xl grid-cols-1 gap-6 lg:grid-cols-5">
           <div className={cn(card, "lg:col-span-3")}>
             <p className={label}>{c.countryLabel}</p>
             <div className="flex flex-wrap gap-2" role="group" aria-label={c.countryLabel}>
