@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { ArrowUpRight, Play } from "lucide-react";
 import { Flag } from "@/components/site/Flag";
 import { HeroGlobe } from "@/components/site/home/globe/HeroGlobe";

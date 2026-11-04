@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { PricingPage } from "@/components/site/pages/InnerPages";
-import { SITE_CONTENT } from "@/lib/i18n/site";
+import { localizedMetadata } from "@/lib/site/page-meta";
 
-export const metadata: Metadata = {
-  title: SITE_CONTENT.uz.pricing.eyebrow,
-  description: SITE_CONTENT.uz.pricing.subtitle,
-  alternates: { canonical: "/pricing" },
-};
+export const metadata: Metadata = localizedMetadata("/pricing", "uz");
 
 export default function Page() {
   return <PricingPage />;

@@ -4,6 +4,7 @@ import { randomUUID } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { DESTINATION_BY_SLUG, TOOL_BY_ID, type DestinationSlug } from "@/lib/site/registry";
+import { HOME_PATHS } from "@/lib/i18n/url-lang";
 import {
   getTestimonialEditorContext,
   MEDIA_BUCKET,
@@ -92,7 +93,8 @@ async function removeMedia(supabase: SiteClient, urls: (string | null | undefine
 const destinationPhoto = (slug: string) => DESTINATION_BY_SLUG[slug as DestinationSlug].photo;
 
 function refresh() {
-  revalidatePath("/");
+  // The home page in every language shows the reviews
+  HOME_PATHS.forEach((path) => revalidatePath(path));
   revalidatePath(BASE);
 }
 

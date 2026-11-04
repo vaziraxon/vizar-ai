@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DestinationPage } from "@/components/site/pages/InnerPages";
-import { SITE_CONTENT } from "@/lib/i18n/site";
+import { localizedMetadata } from "@/lib/site/page-meta";
 import { DESTINATIONS, type DestinationSlug } from "@/lib/site/registry";
 
 type Params = { params: { slug: string } };
@@ -15,13 +15,7 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }: Params): Metadata {
-  if (!isSlug(params.slug)) return {};
-  const copy = SITE_CONTENT.uz.destinations[params.slug];
-  return {
-    title: `${copy.name} — viza tayyorgarligi`,
-    description: copy.intro,
-    alternates: { canonical: `/destinations/${params.slug}` },
-  };
+  return isSlug(params.slug) ? localizedMetadata(`/destinations/${params.slug}`, "uz") : {};
 }
 
 export default function Page({ params }: Params) {

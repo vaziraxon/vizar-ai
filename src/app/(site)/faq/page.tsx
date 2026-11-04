@@ -1,24 +1,8 @@
 import type { Metadata } from "next";
 import { FaqPage } from "@/components/site/pages/InnerPages";
-import { SITE_CONTENT } from "@/lib/i18n/site";
+import { faqJsonLd, localizedMetadata } from "@/lib/site/page-meta";
 
-export const metadata: Metadata = {
-  title: SITE_CONTENT.uz.faq.title,
-  description: SITE_CONTENT.uz.faq.subtitle,
-  alternates: { canonical: "/faq" },
-};
-
-function jsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: SITE_CONTENT.uz.faq.items.map((item) => ({
-      "@type": "Question",
-      name: item.q,
-      acceptedAnswer: { "@type": "Answer", text: item.a },
-    })),
-  };
-}
+export const metadata: Metadata = localizedMetadata("/faq", "uz");
 
 export default function Page() {
   return (
@@ -27,7 +11,7 @@ export default function Page() {
       <script
         type="application/ld+json"
         // Static, build-time content only — no user input reaches this.
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd()) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd("uz")) }}
       />
     </>
   );

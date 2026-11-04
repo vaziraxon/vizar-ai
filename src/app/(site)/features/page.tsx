@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { FeaturesPage } from "@/components/site/pages/InnerPages";
-import { SITE_CONTENT } from "@/lib/i18n/site";
+import { localizedMetadata } from "@/lib/site/page-meta";
 
-export const metadata: Metadata = {
-  title: SITE_CONTENT.uz.toolsPage.title,
-  description: SITE_CONTENT.uz.toolsPage.subtitle,
-  alternates: { canonical: "/features" },
-};
+export const metadata: Metadata = localizedMetadata("/features", "uz");
 
 export default function Page() {
   return <FeaturesPage />;

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { ArrowUpRight } from "lucide-react";
 import { EmojiSticker } from "@/components/site/primitives";
 import { useSite } from "@/lib/i18n/site";

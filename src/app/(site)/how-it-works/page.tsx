@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { HowItWorksPage } from "@/components/site/pages/InnerPages";
-import { SITE_CONTENT } from "@/lib/i18n/site";
+import { localizedMetadata } from "@/lib/site/page-meta";
 
-export const metadata: Metadata = {
-  title: SITE_CONTENT.uz.howPage.eyebrow,
-  description: SITE_CONTENT.uz.howPage.subtitle,
-  alternates: { canonical: "/how-it-works" },
-};
+export const metadata: Metadata = localizedMetadata("/how-it-works", "uz");
 
 export default function Page() {
   return <HowItWorksPage />;

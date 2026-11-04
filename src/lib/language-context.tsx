@@ -5,10 +5,12 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { localizedHref, splitLangPath } from "./i18n/url-lang";
 import { TRANSLATIONS, type LangCode } from "./translations";
 
 interface LanguageContextValue {
@@ -92,6 +94,43 @@ export function ServerLanguageScope({ initial, children }: { initial: LangCode; 
   const value = useMemo(
     () => ({ ...ctx, language, t: (key: string) => TRANSLATIONS[language][key] ?? TRANSLATIONS.uz[key] ?? key }),
     [ctx, language]
+  );
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+}
+
+/**
+ * For the /ru and /en public pages: the address decides the language, on the
+ * server and in the browser, whatever was saved before. The address's language
+ * is then saved as the visitor's choice, so plain links (/dashboard) keep it.
+ * Picking another language goes to the same page's address in that language.
+ */
+export function UrlLanguageScope({ lang, children }: { lang: LangCode; children: ReactNode }) {
+  const ctx = useLanguage();
+  const router = useRouter();
+  const pathname = usePathname();
+  const { ready, language, setLanguage } = ctx;
+  // Save the address's language once per language, not on every change: a
+  // switch away from it sets the new choice before the navigation lands
+  const saved = useRef<LangCode | null>(null);
+
+  useEffect(() => {
+    if (!ready || saved.current === lang) return;
+    saved.current = lang;
+    if (language !== lang) setLanguage(lang);
+  }, [ready, lang, language, setLanguage]);
+
+  const value = useMemo(
+    () => ({
+      ...ctx,
+      language: lang,
+      t: (key: string) => TRANSLATIONS[lang][key] ?? TRANSLATIONS.uz[key] ?? key,
+      setLanguage: (next: LangCode) => {
+        if (next === lang) return;
+        ctx.setLanguage(next);
+        router.push(localizedHref(splitLangPath(pathname ?? "/").path, next));
+      },
+    }),
+    [ctx, lang, router, pathname]
   );
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }

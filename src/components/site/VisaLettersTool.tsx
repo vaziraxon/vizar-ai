@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { BookOpen, Check, Copy, ExternalLink, Printer, ShieldCheck } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { FinalCTA } from "@/components/site/FinalCTA";

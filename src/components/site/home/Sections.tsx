@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { Accordion } from "@/components/site/Accordion";
 import { DestinationCard, DestinationStage } from "@/components/site/DestinationCards";
 import { PillArrow, SectionHeader, VIOLET_PILL } from "@/components/site/primitives";
