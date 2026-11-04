@@ -122,7 +122,8 @@ function Guides({ spec }: { spec: PhotoSpec }) {
   );
 }
 
-export function VisaPhotoTool() {
+/** embedded: inside the dashboard — no public hero, sign-up CTA or page margins */
+export function VisaPhotoTool({ embedded = false }: { embedded?: boolean } = {}) {
   const site = useSite();
   const c = site.visaPhoto;
   const [specId, setSpecId] = useState<PhotoSpecId>("schengen");
@@ -293,10 +294,10 @@ export function VisaPhotoTool() {
 
   return (
     <>
-      <PageHero emoji="📸" decor={["🛂", "🖼️", "✂️"]} eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} />
+      {!embedded && <PageHero emoji="📸" decor={["🛂", "🖼️", "✂️"]} eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} />}
 
-      <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
-        <div className="container-page grid max-w-6xl grid-cols-1 gap-6 lg:grid-cols-5">
+      <section className={embedded ? undefined : "pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16"}>
+        <div className={cn(!embedded && "container-page", "grid max-w-6xl grid-cols-1 gap-6 lg:grid-cols-5")}>
           <div className={cn(card, "lg:col-span-3")}>
             <p className={label}>{c.countryLabel}</p>
             <div className="flex flex-wrap gap-2" role="group" aria-label={c.countryLabel}>
@@ -532,7 +533,7 @@ export function VisaPhotoTool() {
         </div>
       </section>
 
-      <FinalCTA />
+      {!embedded && <FinalCTA />}
     </>
   );
 }

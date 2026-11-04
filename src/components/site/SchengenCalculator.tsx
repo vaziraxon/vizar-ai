@@ -22,7 +22,8 @@ const card = "rounded-[28px] border border-surface-border bg-surface p-5 shadow-
 const dateInput = "input h-11 w-full min-w-0";
 const label = "mb-1.5 block text-caption font-semibold text-ink-600";
 
-export function SchengenCalculator() {
+/** embedded: inside the dashboard — no public hero, sign-up CTA or page margins */
+export function SchengenCalculator({ embedded = false }: { embedded?: boolean } = {}) {
   const site = useSite();
   const c = site.schengenCalc;
   // Saved in this browser only, so a returning visitor keeps their trips.
@@ -41,10 +42,10 @@ export function SchengenCalculator() {
 
   return (
     <>
-      <PageHero emoji="🧮" decor={["🇪🇺", "📅", "✈️"]} eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} />
+      {!embedded && <PageHero emoji="🧮" decor={["🇪🇺", "📅", "✈️"]} eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} />}
 
-      <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
-        <div className="container-page grid max-w-6xl gap-6 lg:grid-cols-5">
+      <section className={embedded ? undefined : "pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16"}>
+        <div className={cn(!embedded && "container-page", "grid max-w-6xl gap-6 lg:grid-cols-5")}>
           <div className={cn(card, "lg:col-span-3")}>
             <h2 className="luxe-firm flex items-center gap-3 font-luxe text-[1.35rem] font-semibold tracking-[-0.01em] text-ink-950 sm:text-[1.6rem]">
               <span aria-hidden="true">🧳</span> {c.tripsTitle}
@@ -177,7 +178,7 @@ export function SchengenCalculator() {
         </div>
       </section>
 
-      <FinalCTA />
+      {!embedded && <FinalCTA />}
     </>
   );
 }

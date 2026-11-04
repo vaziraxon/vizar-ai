@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, FileSearch2 } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { ToolsPromo } from "@/components/dashboard/ToolsHub";
 import { DashboardOverview } from "@/components/dashboard/DashboardOverview";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { L } from "@/components/i18n/L";
@@ -181,6 +182,8 @@ export default async function DashboardPage() {
           }}
         />
       )}
+
+      <ToolsPromo />
     </DashboardShell>
   );
 }

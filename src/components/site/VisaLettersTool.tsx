@@ -240,7 +240,8 @@ function Paper({ blocks }: { blocks: Block[] }) {
   );
 }
 
-export function VisaLettersTool() {
+/** embedded: inside the dashboard — no public hero, sign-up CTA or page margins */
+export function VisaLettersTool({ embedded = false }: { embedded?: boolean } = {}) {
   const site = useSite();
   const c = site.visaLetters;
   const f = c.fields;
@@ -328,10 +329,10 @@ export function VisaLettersTool() {
 
   return (
     <>
-      <PageHero emoji="📝" decor={["✉️", "🏢", "🤝"]} eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} />
+      {!embedded && <PageHero emoji="📝" decor={["✉️", "🏢", "🤝"]} eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} />}
 
-      <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
-        <div className="container-page max-w-6xl space-y-6">
+      <section className={embedded ? undefined : "pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16"}>
+        <div className={cn(!embedded && "container-page", "max-w-6xl space-y-6")}>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-3" role="group" aria-label={c.title}>
             {KINDS.map(({ kind: k, emoji }) => (
               <button
@@ -634,7 +635,7 @@ export function VisaLettersTool() {
         </div>
       </section>
 
-      <FinalCTA />
+      {!embedded && <FinalCTA />}
 
       {/* A fixed string: as a text child, the server would escape its ">" and break hydration */}
       <style dangerouslySetInnerHTML={{ __html: PRINT_CSS }} />

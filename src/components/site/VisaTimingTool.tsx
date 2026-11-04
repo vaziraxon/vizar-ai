@@ -52,7 +52,8 @@ function save(blob: Blob, name: string) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-export function VisaTimingTool() {
+/** embedded: inside the dashboard — no public hero, sign-up CTA or page margins */
+export function VisaTimingTool({ embedded = false }: { embedded?: boolean } = {}) {
   const site = useSite();
   const c = site.visaTiming;
   const [country, setCountry] = useState<TimingCountry>("schengen");
@@ -81,10 +82,10 @@ export function VisaTimingTool() {
 
   return (
     <>
-      <PageHero emoji="🗓️" decor={["✈️", "⏳", "📅"]} eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} />
+      {!embedded && <PageHero emoji="🗓️" decor={["✈️", "⏳", "📅"]} eyebrow={c.eyebrow} title={c.title} subtitle={c.subtitle} />}
 
-      <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
-        <div className="container-page grid max-w-6xl grid-cols-1 gap-6 lg:grid-cols-5">
+      <section className={embedded ? undefined : "pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16"}>
+        <div className={cn(!embedded && "container-page", "grid max-w-6xl grid-cols-1 gap-6 lg:grid-cols-5")}>
           <div className={cn(card, "space-y-5 lg:col-span-2")}>
             <div>
               <p className={labelCls}>{c.countryLabel}</p>
@@ -196,7 +197,7 @@ export function VisaTimingTool() {
         </div>
       </section>
 
-      <FinalCTA />
+      {!embedded && <FinalCTA />}
     </>
   );
 }
