@@ -414,7 +414,7 @@ export const en: SiteContent = {
   },
   toolsPage: {
     eyebrow: "Visa tools",
-    title: "Seven tools for visa preparation",
+    title: "Eleven tools for visa preparation",
     subtitle: "A tool for every stage — with its status shown openly.",
   },
   toolPage: {

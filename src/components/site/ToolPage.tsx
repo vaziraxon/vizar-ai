@@ -55,8 +55,9 @@ export function ToolPage({ id }: { id: ToolId }) {
             </ul>
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              {/* Into the tool's dashboard section; signed out, the middleware asks to log in first */}
               <Link
-                href="/register"
+                href={tool.appHref}
                 className="btn btn-charcoal btn-sheen group h-14 w-full justify-between pl-7 pr-2 text-body hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-16px_rgba(113,56,236,0.6)] sm:w-auto sm:justify-center sm:gap-4"
               >
                 {copy.cta}
