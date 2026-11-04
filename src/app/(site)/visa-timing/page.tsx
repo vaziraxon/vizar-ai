@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { VisaTimingTool } from "@/components/site/VisaTimingTool";
+import { ToolPromo } from "@/components/site/ToolPromo";
 import { SITE_CONTENT } from "@/lib/i18n/site";
 
 const copy = SITE_CONTENT.uz.visaTiming;
@@ -11,5 +11,6 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <VisaTimingTool />;
+  // The tool itself works only in the dashboard; this page promotes it.
+  return <ToolPromo tool="visaTiming" />;
 }

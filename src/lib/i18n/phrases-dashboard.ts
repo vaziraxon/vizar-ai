@@ -974,4 +974,10 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Barcha safarlaringizni kiriting": { ru: "Введите все свои поездки", en: "Enter all your trips" },
   "Qolgan kunlar va yangi safar uchun eng uzoq muddat": { ru: "Оставшиеся дни и самый долгий срок для новой поездки", en: "Days left and the longest possible new trip" },
   "Safarlar shu brauzerda saqlanadi": { ru: "Поездки сохраняются в этом браузере", en: "Trips are saved in this browser" },
+  /* ------------------------------------------------- Tool promo pages */
+  "Bu funksiya shaxsiy kabinetda ishlaydi": { ru: "Эта функция работает в личном кабинете", en: "This works in your personal account" },
+  "Kabinetingizda oching va hoziroq foydalaning": { ru: "Откройте в кабинете и пользуйтесь сразу", en: "Open it in your account and start right away" },
+  "Ro'yxatdan o'ting yoki kiring — {name} shu zahoti ochiladi.": { ru: "Зарегистрируйтесь или войдите — «{name}» откроется сразу.", en: "Sign up or sign in — {name} opens right away." },
+  "Kabinetda ochish": { ru: "Открыть в кабинете", en: "Open in my account" },
+  "Ro'yxatdan o'tish": { ru: "Регистрация", en: "Sign up" },
 };

@@ -6,49 +6,8 @@ import { ArrowLeft, ArrowRight, Check, Sparkles } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { useL } from "@/components/i18n/L";
 import { useSite } from "@/lib/i18n/site";
+import { TOOL_PROMOS, type ToolKey } from "@/lib/dashboard/tool-promos";
 import { cn } from "@/lib/utils";
-
-/** The free public tools, offered inside the dashboard. Taglines and points are Uzbek source for the phrase table. */
-type ToolKey = "visaPhoto" | "visaLetters" | "visaTiming" | "schengenCalc";
-
-const DASHBOARD_TOOLS: { key: ToolKey; href: string; emoji: string; tint: string; tagline: string; points: [string, string, string] }[] = [
-  {
-    key: "visaPhoto",
-    href: "/dashboard/tools/photo",
-    emoji: "📸",
-    tint: "from-brand-500 to-violet-600",
-    tagline: "Rasmingizni bir daqiqada viza o'lchamiga keltiring",
-    points: [
-      "Shengen, AQSH, Kanada, Yaponiya va Koreya o'lchamlari",
-      "10×15 varaqda 8 tagacha rasm — chop etish arzonroq",
-      "Rasm serverga yuklanmaydi",
-    ],
-  },
-  {
-    key: "visaLetters",
-    href: "/dashboard/tools/letters",
-    emoji: "📝",
-    tint: "from-violet-500 to-fuchsia-500",
-    tagline: "Qo'shimcha xat, ma'lumotnoma va homiylik xati — bir necha daqiqada",
-    points: ["Ingliz, nemis yoki rus tilida", "Germaniya elchixonasi ro'yxatidagi maydonlar bilan", "Chop eting yoki PDF qilib saqlang"],
-  },
-  {
-    key: "visaTiming",
-    href: "/dashboard/tools/timing",
-    emoji: "🗓️",
-    tint: "from-emerald-500 to-teal-600",
-    tagline: "Ariza topshirish muddatini o'tkazib yubormang",
-    points: ["Qachondan topshirish mumkinligi va oxirgi tavsiya etilgan kun", "Pasport muddatini tekshirish", "Eslatmalar kalendaringizga"],
-  },
-  {
-    key: "schengenCalc",
-    href: "/dashboard/tools/schengen",
-    emoji: "🧮",
-    tint: "from-amber-400 to-orange-500",
-    tagline: "Shengen hududida qancha kun qolganini aniq biling",
-    points: ["Barcha safarlaringizni kiriting", "Qolgan kunlar va yangi safar uchun eng uzoq muddat", "Safarlar shu brauzerda saqlanadi"],
-  },
-];
 
 /** /dashboard/tools: one promo card per tool */
 export function ToolCards() {
@@ -56,7 +15,7 @@ export function ToolCards() {
   const site = useSite();
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-      {DASHBOARD_TOOLS.map((t) => (
+      {TOOL_PROMOS.map((t) => (
         <Link key={t.key} href={t.href} className="card group overflow-hidden rounded-[28px] transition-shadow duration-200 hover:shadow-float">
           <div className={cn("relative overflow-hidden bg-gradient-to-br px-6 pb-5 pt-6 text-white", t.tint)}>
             <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-10 h-32 w-32 rounded-full bg-white/20 blur-2xl" />
