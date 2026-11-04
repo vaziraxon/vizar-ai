@@ -1,24 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, ChevronRight, Play } from "lucide-react";
+import { ArrowUpRight, ChevronRight, Lock, UserPlus } from "lucide-react";
 import { CheckLine, EmojiTile, Eyebrow, GoldUnderline, PillArrow, StatusPill, VIOLET_PILL } from "@/components/site/primitives";
 import { HeroSky } from "@/components/site/home/HeroSky";
 import { ToolDemo } from "@/components/site/demos";
-import { ToolLinkList } from "@/components/site/ToolCards";
+import { RelatedTools } from "@/components/site/ToolCards";
+import { useL } from "@/components/i18n/L";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { useSite } from "@/lib/i18n/site";
-import { TOOLS, TOOL_BY_ID, type ToolId } from "@/lib/site/registry";
+import { TOOL_BY_ID, type ToolId } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
 
 /** Shared template for every public tool page (/visa-readiness, /tracker, …). */
 export function ToolPage({ id }: { id: ToolId }) {
   const site = useSite();
+  const l = useL();
   const tool = TOOL_BY_ID[id];
   const copy = site.tools[id];
-  const related = TOOLS.filter((t) => t.id !== id)
-    .slice(0, 3)
-    .map((t) => t.id);
 
   return (
     <>
@@ -39,7 +38,11 @@ export function ToolPage({ id }: { id: ToolId }) {
 
             <div className="mt-8 flex items-center gap-3">
               <EmojiTile emoji={tool.emoji} size="lg" />
-              <StatusPill status={tool.status} />
+              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-pill border border-surface-border bg-surface px-2 py-[3px] text-[11px] font-medium leading-none text-violet-700">
+                <Lock size={11} strokeWidth={2.2} /> {l("Shaxsiy kabinetda")}
+              </span>
+              {/* Beta stays visible: it tells the visitor the tool is simplified */}
+              {tool.status !== "available" && <StatusPill status={tool.status} />}
             </div>
 
             <h1 className="luxe-firm mt-6 font-luxe text-[clamp(2.7rem,5.2vw,4.7rem)] font-semibold leading-[1.02] tracking-[-0.03em] text-ink-950">{copy.name}</h1>
@@ -60,19 +63,19 @@ export function ToolPage({ id }: { id: ToolId }) {
                 href={tool.appHref}
                 className="btn btn-charcoal btn-sheen group h-14 w-full justify-between pl-7 pr-2 text-body hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-16px_rgba(113,56,236,0.6)] sm:w-auto sm:justify-center sm:gap-4"
               >
-                {copy.cta}
+                {l("Kabinetda ochish")}
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-300 text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:bg-night dark:text-gold-300">
                   <ArrowUpRight size={18} strokeWidth={2.4} className="transition-transform duration-200 group-hover:rotate-45" />
                 </span>
               </Link>
               <Link
-                href="/how-it-works"
+                href="/register"
                 className="btn btn-sheen h-14 w-full gap-3 border border-white/80 bg-surface/60 pl-2 pr-7 text-body text-ink-900 shadow-xs backdrop-blur hover:-translate-y-0.5 hover:bg-surface hover:shadow-card-hover dark:border-white/10 sm:w-auto"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface text-ink-950 shadow-card ring-1 ring-ink-900/5 dark:ring-white/10">
-                  <Play size={14} strokeWidth={2.4} className="ml-0.5 fill-current" />
+                  <UserPlus size={16} strokeWidth={2.2} />
                 </span>
-                {site.home.hero.ctaSecondary}
+                {l("Ro'yxatdan o'tish")}
               </Link>
             </div>
 
@@ -130,7 +133,7 @@ export function ToolPage({ id }: { id: ToolId }) {
             </Link>
           </div>
           <div data-reveal className="mt-8">
-            <ToolLinkList ids={related} />
+            <RelatedTools currentHref={tool.href} />
           </div>
         </div>
       </section>

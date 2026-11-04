@@ -1004,4 +1004,6 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Suhbat mashqi — natija": { ru: "Тренировка интервью — результат", en: "Interview practice — result" },
   "Viza tayyorgarlik bali": { ru: "Балл готовности к визе", en: "Visa readiness score" },
   "Suhbat mashqi bo'limida tayyorlaning": { ru: "Подготовьтесь в разделе «Тренировка интервью»", en: "Prepare in the Interview practice section" },
+  /* ------------------------------------------------- Tool pages */
+  "Shaxsiy kabinetda": { ru: "В личном кабинете", en: "In your account" },
 };
