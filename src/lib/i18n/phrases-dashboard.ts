@@ -946,4 +946,7 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Kitobdan o'qing": { ru: "Почитайте в книге", en: "Read in the book" },
   "Kitobda: {country} bo'yicha qoidalar va manbalar": { ru: "В книге: правила и источники — {country}", en: "In the book: {country} rules and sources" },
   "IV bob: Viza suhbati va rad javobi": { ru: "Глава IV: визовое собеседование и отказ", en: "Chapter IV: the visa interview and refusals" },
+  /* ------------------------------------------------- Checklist print */
+  "Chop etish / PDF": { ru: "Печать / PDF", en: "Print / PDF" },
+  "Chop etilgan sana: {date}": { ru: "Дата печати: {date}", en: "Printed on {date}" },
 };
