@@ -61,6 +61,12 @@ const CHIPS: Chip[] = [
   { slug: "uae", className: "right-[16%] -bottom-[1%]", tilt: 4, delay: 4400 },
 ];
 
+/** Data saver or a 2G link: keep the static globe rather than download three.js. */
+function savingData() {
+  const link = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+  return Boolean(link?.saveData) || /2g$/.test(link?.effectiveType ?? "");
+}
+
 function webglAvailable() {
   try {
     const canvas = document.createElement("canvas");
@@ -73,28 +79,35 @@ function webglAvailable() {
 /**
  * The hero's right side: the VIZAR penguin standing in front of an
  * interactive 3D globe (lazy, client-only) over a static CSS globe that shows
- * first and stays as the fallback when WebGL is missing. Rendering pauses
- * while the stage is off screen. The mascot floats and winks now and then.
+ * first and stays as the fallback when WebGL is missing or data is being
+ * saved. Rendering pauses while the stage is off screen. The mascot floats
+ * and winks now and then; the wink frame, like the 3D globe, waits until the
+ * page is idle so it stays off the first load.
  */
 export function HeroGlobe({ className }: { className?: string }) {
   const site = useSite();
   const stage = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
+  const [deferred, setDeferred] = useState(false);
   const [ready, setReady] = useState(false);
   const [active, setActive] = useState(true);
   const [env, setEnv] = useState({ reducedMotion: false, compact: false });
-  const winking = useWink(active);
+  const winking = useWink(active && deferred);
 
   useEffect(() => {
     const el = stage.current;
-    if (!el || !webglAvailable()) return;
+    if (!el) return;
+    const with3D = webglAvailable() && !savingData();
     setEnv({
       reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
       compact: window.matchMedia("(max-width: 767px)").matches,
     });
     const io = new IntersectionObserver(([entry]) => setActive(Boolean(entry?.isIntersecting)), { rootMargin: "120px" });
     io.observe(el);
-    const start = () => setMounted(true);
+    const start = () => {
+      setMounted(with3D);
+      setDeferred(true);
+    };
     const idle = window.requestIdleCallback?.(start, { timeout: 1500 });
     const timer = idle === undefined ? window.setTimeout(start, 500) : undefined;
     return () => {
@@ -136,16 +149,18 @@ export function HeroGlobe({ className }: { className?: string }) {
             sizes="(min-width: 1024px) 340px, 56vw"
             className="h-auto w-full select-none"
           />
-          <Image
-            src={MASCOT.wink}
-            width={MASCOT.width}
-            height={MASCOT.height}
-            alt=""
-            aria-hidden="true"
-            loading="eager"
-            sizes="(min-width: 1024px) 340px, 56vw"
-            className={cn("absolute inset-0 h-full w-full select-none transition-opacity duration-100", winking ? "opacity-100" : "opacity-0")}
-          />
+          {deferred && (
+            <Image
+              src={MASCOT.wink}
+              width={MASCOT.width}
+              height={MASCOT.height}
+              alt=""
+              aria-hidden="true"
+              loading="eager"
+              sizes="(min-width: 1024px) 340px, 56vw"
+              className={cn("absolute inset-0 h-full w-full select-none transition-opacity duration-100", winking ? "opacity-100" : "opacity-0")}
+            />
+          )}
         </div>
       </div>
 
