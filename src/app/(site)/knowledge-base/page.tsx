@@ -432,20 +432,20 @@ export default async function KnowledgeBasePage() {
 
         {locked ? <Paywall viewer={viewer} next="/knowledge-base" title={<L>Kutubxonaning to‘liq matnini oching</L>} /> : null}
 
-        {/* The AI consultant lives on its own page; this only points to it */}
+        {/* Answers from the book live on their own page; this only points to it */}
         <section className="relative overflow-hidden rounded-[32px] bg-night-950 px-6 py-10 text-white sm:px-10 sm:py-12">
           <span aria-hidden="true" className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-violet-600/40 blur-3xl" />
           <span aria-hidden="true" className="absolute -bottom-28 left-10 h-72 w-72 rounded-full bg-citron-300/20 blur-3xl" />
           <div className="relative grid gap-8 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-8">
               <p className="inline-flex items-center gap-2 rounded-pill border border-white/15 bg-white/10 px-3 py-1 text-[13px] font-medium">
-                <span aria-hidden="true">🤖</span> <L>AI maslahatchi</L>
+                <span aria-hidden="true">📚</span> <L>Kitobdan javob</L>
               </p>
               <h2 className="luxe-firm mt-4 font-display">
-                <L>Savolingiz bormi? AI maslahatchidan so‘rang</L>
+                <L>Savolingiz bormi? Javobni kitobdan toping</L>
               </h2>
               <p className="mt-3 max-w-2xl text-body text-white/75">
-                <L>Maslahatchi shu kitob asosida javob beradi va har bir javob ostida bob hamda manbani ko‘rsatadi.</L>
+                <L>Savolingizga mos bo‘limlar shu kitobdan topiladi, har biri ostida bob va manba ko‘rsatiladi.</L>
               </p>
               <Link href="/dashboard/assistant" className="btn btn-sheen btn-lg mt-6 bg-gold-300 text-night hover:bg-gold-200">
                 <L>Savol berish</L>

@@ -260,9 +260,9 @@ export function AssistantChat() {
 
       {turns.length === 0 ? (
         <div className="rounded-[28px] border border-surface-border bg-surface p-6 sm:p-8">
-          <p className="font-display text-display-sm text-ink-950">{l("Kitobga asoslangan viza maslahatchisi")}</p>
+          <p className="font-display text-display-sm text-ink-950">{l("Kitobdan javob toping")}</p>
           <p className="mt-2 max-w-2xl text-body text-ink-600">
-            {l("Savolingizga VIZAR AI kitobidagi bo‘limlar va mamlakatlar bo‘yicha rasmiy manbalar asosida javob beriladi. Har bir javob ostida qaysi bob va manbaga tayanilgani ko‘rsatiladi.")}
+            {l("Savolingizni yozing — VIZAR AI kitobidagi mos bo‘limlar va mamlakatlar bo‘yicha rasmiy manbalar ko‘rsatiladi. Har bir natija ostida bob va manba yozilgan.")}
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             {EXAMPLES.map((ex) => (

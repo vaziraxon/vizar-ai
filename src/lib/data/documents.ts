@@ -76,30 +76,9 @@ export async function recordUploadedDocument(
     user_id: ctx.userId,
     type: "missing_document",
     title: "Hujjat yuklandi",
-    message: `${parsed.data.documentType} hujjati muvaffaqiyatli yuklandi va demo tahlildan o'tmoqda.`,
+    message: `${parsed.data.documentType} hujjati yuklandi.`,
   });
 
-  return { ok: true, data };
-}
-
-/** Marks a document with a (simulated) analysis result. */
-export async function setDocumentAnalysis(
-  documentId: string,
-  status: DocumentRow["status"],
-  analysisSummary: Record<string, unknown>
-): Promise<DataResult<DocumentRow>> {
-  const ctx = await getAuthedContext();
-  if (!ctx.ok) return ctx;
-
-  const { data, error } = await ctx.supabase
-    .from("documents")
-    .update({ status, analysis_summary: analysisSummary })
-    .eq("id", documentId)
-    .eq("user_id", ctx.userId)
-    .select("*")
-    .single();
-
-  if (error) return genericDbError();
   return { ok: true, data };
 }
 

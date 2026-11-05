@@ -6,6 +6,7 @@ import { PageHero } from "@/components/site/PageHero";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { Flag } from "@/components/site/Flag";
 import { Button, buttonClasses } from "@/components/ui/Button";
+import { useL } from "@/components/i18n/L";
 import { useSite } from "@/lib/i18n/site";
 import { DESTINATIONS } from "@/lib/site/registry";
 import {
@@ -125,6 +126,7 @@ function Guides({ spec }: { spec: PhotoSpec }) {
 /** embedded: inside the dashboard — no public hero, sign-up CTA or page margins */
 export function VisaPhotoTool({ embedded = false }: { embedded?: boolean } = {}) {
   const site = useSite();
+  const l = useL();
   const c = site.visaPhoto;
   const [specId, setSpecId] = useState<PhotoSpecId>("schengen");
   const spec = PHOTO_SPEC_BY_ID[specId];
@@ -508,7 +510,7 @@ export function VisaPhotoTool({ embedded = false }: { embedded?: boolean } = {})
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-body-sm font-semibold text-brand-700 underline-offset-2 hover:underline"
                   >
-                    {s.label} <ExternalLink size={13} aria-hidden="true" />
+                    {l(s.label)} <ExternalLink size={13} aria-hidden="true" />
                   </a>
                 </li>
               ))}

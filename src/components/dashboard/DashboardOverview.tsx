@@ -45,7 +45,7 @@ const TOOL_LINKS = [
 ];
 
 // Step markers along the application journey
-const STEP_EMOJI = ["👤", "📂", "🤖", "🎤", "🏁"];
+const STEP_EMOJI = ["👤", "📂", "🧭", "🎤", "🏁"];
 // Task bullets — matched loosely by topic, otherwise a pin
 const TASK_EMOJI: [RegExp, string][] = [
   [/bank|statement|ko.chirma/i, "🏦"],

@@ -5,7 +5,7 @@ import { AssistantChat } from "@/components/knowledge/AssistantChat";
 
 export default function AssistantPage() {
   return (
-    <DashboardShell title="AI viza maslahatchisi" subtitle="Kitob va rasmiy manbalarga tayangan javoblar.">
+    <DashboardShell title="Kitobdan javob" subtitle="Savolingizga mos kitob bo‘limlari va rasmiy manbalar.">
       <div className="mx-auto max-w-3xl">
         <AssistantChat />
       </div>
