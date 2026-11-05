@@ -270,6 +270,7 @@ export const RECOMMENDATION_TASKS: RecommendationTask[] = [
 
 export const ADMIN_NAV: SidebarNavItem[] = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
+  { icon: Users, label: "Foydalanuvchilar", href: "/admin/users" },
   { icon: BookOpen, label: "Kitob (bilimlar bazasi)", href: "/admin/knowledge" },
   { icon: MessageSquareQuote, label: "Mijozlar sharhlari", href: "/admin/testimonials" },
   { icon: UserCog, label: "Konsultatsiya so'rovlari", href: "/admin/consultations" },
