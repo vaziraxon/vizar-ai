@@ -100,11 +100,11 @@ test("empty search results give a helpful message", () => {
   assert.match(mockAnswer(empty).markdown, /mos bo‘lim topilmadi/);
 });
 
-test("references link into the /knowledge-base library", () => {
+test("references link into the library in the dashboard", () => {
   const refs = buildReferences(result);
-  assert.equal(refs[0].href, "/knowledge-base/book/bob-1/1-1");
-  assert.equal(refs[4].href, "/knowledge-base/countries/ae");
-  assert.equal(libraryHref.country("DE"), "/knowledge-base/countries/de");
+  assert.equal(refs[0].href, "/dashboard/library/book/bob-1/1-1");
+  assert.equal(refs[4].href, "/dashboard/library/countries/ae");
+  assert.equal(libraryHref.country("DE"), "/dashboard/library/countries/de");
 });
 
 test("previewAnswer (no subscription) never contains full passages or rule texts", () => {

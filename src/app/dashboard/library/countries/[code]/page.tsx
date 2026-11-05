@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LocalLink as Link } from "@/components/site/LocalLink";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExternalLink, ShieldAlert, ShieldCheck } from "lucide-react";
 import { L } from "@/components/i18n/L";
@@ -9,7 +9,6 @@ import { LibraryDate } from "@/components/knowledge/library/LibraryDate";
 import { CountryFlag } from "@/components/knowledge/library/visuals";
 import { AccessCard, AiTranslatedBadge, LibraryError, LibraryHero, LibraryTabs, LockIcon, Paywall, SectionRow } from "@/components/knowledge/library/ui";
 import { getRequestLanguage } from "@/lib/i18n/request-language";
-import { languageAlternates } from "@/lib/site/page-meta";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import { REGIONS, getCountries, getCountryRules, getCountrySections, type CountryRule } from "@/lib/knowledge/library";
 import { libraryHref } from "@/lib/knowledge/offline";
@@ -37,7 +36,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title: title[lang],
     description: `${country.name}: ${country.topicLabels.join(", ")}.`,
-    alternates: languageAlternates(libraryHref.country(country.code), "uz"),
   };
 }
 
@@ -86,8 +84,8 @@ export default async function CountryPage({ params }: Params) {
       <LibraryHero
         photo={countryPhoto(code, country.region)}
         breadcrumb={[
-          { href: "/knowledge-base", label: <L>Kutubxona</L> },
-          { href: "/knowledge-base#davlatlar", label: <L>Davlatlar</L> },
+          { href: "/dashboard/library", label: <L>Kutubxona</L> },
+          { href: "/dashboard/library#davlatlar", label: <L>Davlatlar</L> },
         ]}
         eyebrow={
           region ? (
@@ -257,7 +255,7 @@ export default async function CountryPage({ params }: Params) {
             </div>
           ) : null}
 
-          <Link href="/knowledge-base#davlatlar" className="inline-flex text-body-sm font-semibold text-brand-700 hover:underline">
+          <Link href="/dashboard/library#davlatlar" className="inline-flex text-body-sm font-semibold text-brand-700 hover:underline">
             ← <L>Barcha davlatlar</L>
           </Link>
         </aside>

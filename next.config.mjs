@@ -40,6 +40,9 @@ const nextConfig = {
       { source: "/applications", destination: "/dashboard/tracker", permanent: false },
       { source: "/refusal-analysis", destination: "/dashboard/rejection-analysis", permanent: false },
       { source: "/consultation", destination: "/dashboard/experts", permanent: false },
+      // The library is read in the dashboard now; /knowledge-base itself is its promo page
+      { source: "/knowledge-base/:path+", destination: "/dashboard/library/:path+", permanent: false },
+      { source: "/:lang(ru|en)/knowledge-base/:path+", destination: "/dashboard/library/:path+", permanent: false },
     ];
   },
 };

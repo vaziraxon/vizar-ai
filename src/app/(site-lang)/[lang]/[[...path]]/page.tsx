@@ -10,6 +10,7 @@ import {
   HowItWorksPage,
   PricingPage,
 } from "@/components/site/pages/InnerPages";
+import { LibraryPromo } from "@/components/site/LibraryPromo";
 import { ToolPage } from "@/components/site/ToolPage";
 import { ToolPromo } from "@/components/site/ToolPromo";
 import { TOOL_PROMOS } from "@/lib/dashboard/tool-promos";
@@ -83,6 +84,8 @@ export default async function Page({ params }: Props) {
       return <RoadmapPage />;
     case "/trust-center":
       return <TrustCenterPage />;
+    case "/knowledge-base":
+      return <LibraryPromo />;
     case "/destinations":
       return <DestinationsIndexPage />;
   }

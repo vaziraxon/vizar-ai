@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LocalLink as Link } from "@/components/site/LocalLink";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 import { L } from "@/components/i18n/L";
@@ -7,7 +7,6 @@ import { Markdown } from "@/components/knowledge/Markdown";
 import { CoverArt } from "@/components/knowledge/library/visuals";
 import { AiTranslatedBadge, LibraryError, LibraryTabs, LockIcon, Paywall, SrLabel, chapterEmoji } from "@/components/knowledge/library/ui";
 import { getRequestLanguage } from "@/lib/i18n/request-language";
-import { languageAlternates } from "@/lib/site/page-meta";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import {
   chapterHeading,
@@ -34,7 +33,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title: `${sectionLabel({ number: section.sectionNumber, title: section.sectionTitle })} — ${section.chapterLabel}`,
     description: section.preview,
-    alternates: languageAlternates(libraryHref.section(section.chapterSlug, section.sectionSlug), "uz"),
   };
 }
 
@@ -66,19 +64,19 @@ export default async function SectionPage({ params }: Params) {
 
   return (
     <>
-      <section className="lime-wash grain relative overflow-hidden">
+      <section className="lime-wash grain relative overflow-hidden rounded-[32px]">
         <HeroSky calm />
         <div className="container-page relative pb-8 pt-28 sm:pb-10 sm:pt-36 lg:pt-40">
           <nav aria-label="Breadcrumb">
             <ol className="flex flex-wrap items-center gap-1.5 text-body-sm text-ink-500">
               <li>
-                <Link href="/knowledge-base" className="hover:text-brand-700">
+                <Link href="/dashboard/library" className="hover:text-brand-700">
                   <L>Kutubxona</L>
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
               <li>
-                <Link href={`/knowledge-base/book/${section.chapterSlug}`} className="hover:text-brand-700">
+                <Link href={`/dashboard/library/book/${section.chapterSlug}`} className="hover:text-brand-700">
                   {section.chapterLabel}
                 </Link>
               </li>
@@ -105,7 +103,7 @@ export default async function SectionPage({ params }: Params) {
               </ul>
             </div>
             {chapter ? (
-              <Link href={`/knowledge-base/book/${chapter.slug}`} className="group hidden lg:col-span-4 lg:block">
+              <Link href={`/dashboard/library/book/${chapter.slug}`} className="group hidden lg:col-span-4 lg:block">
                 <CoverArt
                   cover={chapterCover(chapter)}
                   alt={chapterHeading(chapter)}
@@ -191,8 +189,8 @@ export default async function SectionPage({ params }: Params) {
 
         {chapter ? (
           <aside className="lg:col-span-4">
-            <div className="rounded-[28px] border border-surface-border bg-surface p-4 lg:sticky lg:top-40 lg:max-h-[calc(100vh-11rem)] lg:overflow-y-auto">
-              <Link href={`/knowledge-base/book/${chapter.slug}`} className="block px-2 pb-3 pt-1">
+            <div className="rounded-[28px] border border-surface-border bg-surface p-4 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
+              <Link href={`/dashboard/library/book/${chapter.slug}`} className="block px-2 pb-3 pt-1">
                 <span className="text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">{chapter.label}</span>
                 <span className="mt-1 block luxe-firm font-luxe text-[1.25rem] font-semibold leading-tight text-ink-950 hover:text-brand-700">{chapterHeading(chapter)}</span>
               </Link>

@@ -7,8 +7,8 @@ import type { LangCode } from "@/lib/translations";
 
 /**
  * Public pages that have Russian and English copy, so they also live at
- * /ru… and /en…. The knowledge base picks its language from a cookie and
- * stays out.
+ * /ru… and /en…. /knowledge-base is the library's promo page; the library
+ * itself is in the dashboard.
  */
 export const LOCALIZED_PATHS: string[] = [
   "/",
@@ -18,6 +18,7 @@ export const LOCALIZED_PATHS: string[] = [
   "/faq",
   "/roadmap",
   "/trust-center",
+  "/knowledge-base",
   "/destinations",
   ...TOOLS.map((t) => t.href),
   ...TOOL_PROMOS.map((t) => t.publicHref),
@@ -26,12 +27,6 @@ export const LOCALIZED_PATHS: string[] = [
 
 const LOCALIZED = new Set(LOCALIZED_PATHS);
 export const isLocalizedPath = (path: string) => LOCALIZED.has(path);
-
-/** The knowledge base: its pages come from the database, so they are matched by prefix. */
-const isLibraryPath = (path: string) => path === "/knowledge-base" || path.startsWith("/knowledge-base/");
-
-/** Whether a path also has /ru and /en addresses: the pages above and the knowledge base */
-export const hasLocalizedAddress = (path: string) => isLocalizedPath(path) || isLibraryPath(path);
 
 /** Canonical address of a page in one language, with hreflang links to all three */
 export function languageAlternates(path: string, lang: LangCode): NonNullable<Metadata["alternates"]> {
@@ -64,6 +59,21 @@ const HOME: Record<LangCode, { title: string; description: string }> = {
   },
 };
 
+const LIBRARY: Record<LangCode, { title: string; description: string }> = {
+  uz: {
+    title: "Viza ma’lumotlar bazasi",
+    description: "VIZAR AI kitobining 9 bobi va davlatlar bo‘yicha viza qoidalari, rasmiy manbalar bilan — ro‘yxatdan o‘tgach shaxsiy kabinetda bepul.",
+  },
+  ru: {
+    title: "Визовая база знаний",
+    description: "9 глав книги VIZAR AI и визовые правила по странам с официальными источниками — бесплатно в личном кабинете после регистрации.",
+  },
+  en: {
+    title: "Visa knowledge base",
+    description: "The 9 chapters of the VIZAR AI book and visa rules by country, with official sources — free in your account once you sign up.",
+  },
+};
+
 const DESTINATION_SUFFIX: Record<LangCode, string> = { uz: "viza tayyorgarligi", ru: "подготовка к визе", en: "visa preparation" };
 const OG_LOCALE: Record<LangCode, string> = { uz: "uz_UZ", ru: "ru_RU", en: "en_US" };
 
@@ -86,6 +96,8 @@ function pageCopy(path: string, lang: LangCode): { title: string; description: s
       return { title: site.footer.roadmap, description: site.roadmapPage.subtitle };
     case "/trust-center":
       return { title: site.trustPage.title, description: site.trustPage.subtitle };
+    case "/knowledge-base":
+      return LIBRARY[lang];
     case "/destinations":
       return { title: site.destinationsPage.title, description: site.destinationsPage.subtitle };
   }

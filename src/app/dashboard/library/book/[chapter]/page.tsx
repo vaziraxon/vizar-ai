@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LocalLink as Link } from "@/components/site/LocalLink";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { L } from "@/components/i18n/L";
@@ -7,7 +7,6 @@ import { Plural } from "@/components/i18n/Plural";
 import { CoverArt } from "@/components/knowledge/library/visuals";
 import { AccessCard, LibraryError, LibraryHero, LibraryTabs, Paywall, SectionRow, SrLabel, chapterEmoji } from "@/components/knowledge/library/ui";
 import { getRequestLanguage } from "@/lib/i18n/request-language";
-import { languageAlternates } from "@/lib/site/page-meta";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import { chapterHeading, getCountries, getOutline, readingMinutes, type LibraryCountry, type OutlineChapter } from "@/lib/knowledge/library";
 import { libraryHref } from "@/lib/knowledge/offline";
@@ -30,7 +29,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       .slice(0, 6)
       .map((s) => s.title)
       .join(" · "),
-    alternates: languageAlternates(`/knowledge-base/book/${chapter.slug}`, "uz"),
   };
 }
 
@@ -38,7 +36,7 @@ function ChapterLink({ chapter, direction }: { chapter: OutlineChapter; directio
   const next = direction === "next";
   return (
     <Link
-      href={`/knowledge-base/book/${chapter.slug}`}
+      href={`/dashboard/library/book/${chapter.slug}`}
       className={cn(
         "group flex items-center gap-4 overflow-hidden rounded-[22px] border border-surface-border bg-surface p-2 pr-5 transition-[border-color,box-shadow] duration-200 hover:border-violet-200 hover:shadow-card-hover",
         next && "flex-row-reverse pl-5 pr-2 text-right"
@@ -77,14 +75,14 @@ export default async function ChapterPage({ params }: Params) {
   if (!chapter) notFound();
   const prev = outline[index - 1];
   const next = outline[index + 1];
-  const here = `/knowledge-base/book/${chapter.slug}`;
+  const here = `/dashboard/library/book/${chapter.slug}`;
   const locked = !viewer.hasAccess;
   const cover = chapterCover(chapter);
 
   return (
     <>
       <LibraryHero
-        breadcrumb={[{ href: "/knowledge-base", label: <L>Kutubxona</L> }]}
+        breadcrumb={[{ href: "/dashboard/library", label: <L>Kutubxona</L> }]}
         photo={cover.photo}
         stickers={cover.photo ? undefined : cover.emojis}
         eyebrow={

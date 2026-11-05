@@ -9,10 +9,10 @@ import type { KbChunkHit, KbReference, KbRuleHit, KbSearchResult } from "./types
 
 const sectionName = (hit: KbChunkHit) => (hit.section_number ? `${hit.section_number}. ${hit.section_title}` : hit.section_title);
 
-/** Library pages (src/app/(site)/knowledge-base). */
+/** Library pages (src/app/dashboard/library). */
 export const libraryHref = {
-  section: (chapterSlug: string, sectionSlug: string) => `/knowledge-base/book/${chapterSlug}/${sectionSlug}`,
-  country: (code: string) => `/knowledge-base/countries/${code.toLowerCase()}`,
+  section: (chapterSlug: string, sectionSlug: string) => `/dashboard/library/book/${chapterSlug}/${sectionSlug}`,
+  country: (code: string) => `/dashboard/library/countries/${code.toLowerCase()}`,
 };
 
 /** Numbered references in retrieval order: book passages first, then country rules. */

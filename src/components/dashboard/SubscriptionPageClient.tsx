@@ -92,7 +92,7 @@ export function SubscriptionPageClient({
               {l("{date} gacha ochiq", { date: date(active.expiresAt) })}
             </p>
           </div>
-          <Link href="/knowledge-base" className="btn-primary btn-md">
+          <Link href="/dashboard/library" className="btn-primary btn-md">
             <BookOpen size={16} /> {l("Kitobni ochish")}
           </Link>
         </div>

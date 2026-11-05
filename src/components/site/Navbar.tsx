@@ -161,7 +161,7 @@ function ChapterRow({ index, onNavigate, tabIndex }: { index: number; onNavigate
   const site = useSite();
   const pathname = useSitePath();
   const slug = `bob-${index + 1}`;
-  const href = `/knowledge-base/book/${slug}`;
+  const href = `/dashboard/library/book/${slug}`;
   const selected = pathname === href || pathname.startsWith(`${href}/`);
   const chapter = site.nav.libraryChapters[index]!;
   return (

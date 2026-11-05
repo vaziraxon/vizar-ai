@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LocalLink as Link } from "@/components/site/LocalLink";
+import Link from "next/link";
 import { headers } from "next/headers";
 import { L } from "@/components/i18n/L";
 import { SearchForm } from "@/components/knowledge/library/SearchForm";
@@ -38,7 +38,7 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
   const q = (raw ?? "").trim().slice(0, 200);
   const viewer = await getLibraryViewer();
   const lang = getRequestLanguage();
-  const here = q ? `/knowledge-base/search?q=${encodeURIComponent(q)}` : "/knowledge-base/search";
+  const here = q ? `/dashboard/library/search?q=${encodeURIComponent(q)}` : "/dashboard/library/search";
 
   // Labels in the page language (only needed when it isn't Uzbek).
   const [outline, countries] =
@@ -83,7 +83,7 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
   return (
     <>
       <LibraryHero
-        breadcrumb={[{ href: "/knowledge-base", label: <L>Kutubxona</L> }]}
+        breadcrumb={[{ href: "/dashboard/library", label: <L>Kutubxona</L> }]}
         eyebrow={
           <>
             <span aria-hidden="true">🔎</span> <L>Qidiruv</L>
