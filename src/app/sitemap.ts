@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { URL_LANGS, localizedHref } from "@/lib/i18n/url-lang";
-import { LOCALIZED_PATHS, isLocalizedPath } from "@/lib/site/page-meta";
+import { LOCALIZED_PATHS, hasLocalizedAddress } from "@/lib/site/page-meta";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vizarai.com";
 
@@ -25,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: path === "/" ? ("weekly" as const) : ("monthly" as const),
       priority: path === "/" ? 1 : path.startsWith("/knowledge-base/book/") ? 0.5 : 0.7,
     };
-    if (!isLocalizedPath(path)) return [{ url: absolute(path), ...entry }];
+    if (!hasLocalizedAddress(path)) return [{ url: absolute(path), ...entry }];
     const languages = {
       uz: absolute(path),
       ...Object.fromEntries(URL_LANGS.map((lang) => [lang, absolute(localizedHref(path, lang))])),

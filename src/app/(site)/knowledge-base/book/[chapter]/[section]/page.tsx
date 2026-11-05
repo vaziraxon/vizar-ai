@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 import { L } from "@/components/i18n/L";
@@ -7,6 +7,7 @@ import { Markdown } from "@/components/knowledge/Markdown";
 import { CoverArt } from "@/components/knowledge/library/visuals";
 import { AiTranslatedBadge, LibraryError, LibraryTabs, LockIcon, Paywall, SrLabel, chapterEmoji } from "@/components/knowledge/library/ui";
 import { getRequestLanguage } from "@/lib/i18n/request-language";
+import { languageAlternates } from "@/lib/site/page-meta";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import {
   chapterHeading,
@@ -33,7 +34,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title: `${sectionLabel({ number: section.sectionNumber, title: section.sectionTitle })} — ${section.chapterLabel}`,
     description: section.preview,
-    alternates: { canonical: libraryHref.section(section.chapterSlug, section.sectionSlug) },
+    alternates: languageAlternates(libraryHref.section(section.chapterSlug, section.sectionSlug), "uz"),
   };
 }
 

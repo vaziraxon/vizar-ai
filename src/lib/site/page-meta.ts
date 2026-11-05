@@ -27,6 +27,25 @@ export const LOCALIZED_PATHS: string[] = [
 const LOCALIZED = new Set(LOCALIZED_PATHS);
 export const isLocalizedPath = (path: string) => LOCALIZED.has(path);
 
+/** The knowledge base: its pages come from the database, so they are matched by prefix. */
+const isLibraryPath = (path: string) => path === "/knowledge-base" || path.startsWith("/knowledge-base/");
+
+/** Whether a path also has /ru and /en addresses: the pages above and the knowledge base */
+export const hasLocalizedAddress = (path: string) => isLocalizedPath(path) || isLibraryPath(path);
+
+/** Canonical address of a page in one language, with hreflang links to all three */
+export function languageAlternates(path: string, lang: LangCode): NonNullable<Metadata["alternates"]> {
+  return {
+    canonical: localizedHref(path, lang),
+    languages: {
+      uz: localizedHref(path, "uz"),
+      ru: localizedHref(path, "ru"),
+      en: localizedHref(path, "en"),
+      "x-default": path,
+    },
+  };
+}
+
 const HOME: Record<LangCode, { title: string; description: string }> = {
   uz: {
     title: "VIZAR AI — Viza olishga aqlliroq tayyorlaning",
@@ -96,15 +115,7 @@ export function localizedMetadata(path: string, lang: LangCode): Metadata {
     // The home title already names the brand, so the "· VIZAR AI" template is skipped
     title: path === "/" ? { absolute: title } : title,
     description,
-    alternates: {
-      canonical: url,
-      languages: {
-        uz: localizedHref(path, "uz"),
-        ru: localizedHref(path, "ru"),
-        en: localizedHref(path, "en"),
-        "x-default": path,
-      },
-    },
+    alternates: languageAlternates(path, lang),
     openGraph: {
       type: "website",
       url,

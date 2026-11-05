@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { ArrowRight } from "lucide-react";
 import { L } from "@/components/i18n/L";
 import { Plural, type PluralWord } from "@/components/i18n/Plural";
@@ -11,6 +11,7 @@ import { HeroSky } from "@/components/site/home/HeroSky";
 import { Marquee } from "@/components/site/Marquee";
 import { EmojiSticker } from "@/components/site/primitives";
 import { getRequestLanguage } from "@/lib/i18n/request-language";
+import { languageAlternates } from "@/lib/site/page-meta";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import {
   REGIONS,
@@ -45,7 +46,7 @@ const META = {
 };
 
 export function generateMetadata(): Metadata {
-  return { ...META[getRequestLanguage()], alternates: { canonical: "/knowledge-base" } };
+  return { ...META[getRequestLanguage()], alternates: languageAlternates("/knowledge-base", "uz") };
 }
 
 const QUICK_SEARCHES: { q: string; flag?: string; emoji?: string }[] = [

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { headers } from "next/headers";
 import { L } from "@/components/i18n/L";
 import { SearchForm } from "@/components/knowledge/library/SearchForm";

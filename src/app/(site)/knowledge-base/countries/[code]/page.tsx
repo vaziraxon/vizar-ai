@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { notFound } from "next/navigation";
 import { ExternalLink, ShieldAlert, ShieldCheck } from "lucide-react";
 import { L } from "@/components/i18n/L";
@@ -9,6 +9,7 @@ import { LibraryDate } from "@/components/knowledge/library/LibraryDate";
 import { CountryFlag } from "@/components/knowledge/library/visuals";
 import { AccessCard, AiTranslatedBadge, LibraryError, LibraryHero, LibraryTabs, LockIcon, Paywall, SectionRow } from "@/components/knowledge/library/ui";
 import { getRequestLanguage } from "@/lib/i18n/request-language";
+import { languageAlternates } from "@/lib/site/page-meta";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import { REGIONS, getCountries, getCountryRules, getCountrySections, type CountryRule } from "@/lib/knowledge/library";
 import { libraryHref } from "@/lib/knowledge/offline";
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title: title[lang],
     description: `${country.name}: ${country.topicLabels.join(", ")}.`,
-    alternates: { canonical: libraryHref.country(country.code) },
+    alternates: languageAlternates(libraryHref.country(country.code), "uz"),
   };
 }
 

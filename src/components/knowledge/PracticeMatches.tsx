@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { ArrowRight } from "lucide-react";
 import { useL } from "@/components/i18n/L";
 import { PLAYBOOK_COUNTRIES, PLAYBOOK_LEVELS, type PlaybookLang } from "@/data/interview-playbook";
