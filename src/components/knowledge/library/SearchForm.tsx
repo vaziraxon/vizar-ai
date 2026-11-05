@@ -2,16 +2,13 @@
 
 import { Search } from "lucide-react";
 import { useL } from "@/components/i18n/L";
-import { useUrlLang } from "@/components/site/LocalLink";
-import { localizedHref } from "@/lib/i18n/url-lang";
 import { cn } from "@/lib/utils";
 
 /** Plain GET form — works without JavaScript and keeps the query in the URL. */
 export function SearchForm({ defaultValue = "", className }: { defaultValue?: string; className?: string }) {
   const l = useL();
-  const lang = useUrlLang();
   return (
-    <form action={localizedHref("/knowledge-base/search", lang)} method="get" role="search" className={cn("relative", className)}>
+    <form action="/dashboard/library/search" method="get" role="search" className={cn("relative", className)}>
       <label htmlFor="kb-library-q" className="sr-only">
         {l("Kutubxonadan qidirish")}
       </label>

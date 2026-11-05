@@ -123,7 +123,7 @@ export const SIDEBAR_NAV: SidebarNavItem[] = [
   { icon: ListChecks, label: "Checklist", href: "/dashboard/checklist" },
   { icon: MessagesSquare, label: "Suhbat mashqi", href: "/dashboard/interview" },
   { icon: BookOpen, label: "Kitobdan javob", href: "/dashboard/assistant" },
-  { icon: Library, label: "Viza bazasi", href: "/knowledge-base" },
+  { icon: Library, label: "Viza bazasi", href: "/dashboard/library" },
   { icon: Route, label: "Ariza kuzatuvi", href: "/dashboard/tracker" },
   { icon: FileWarning, label: "Rad javobi tahlili", href: "/dashboard/rejection-analysis" },
   { icon: UserCog, label: "Mutaxassislar", href: "/dashboard/experts" },
@@ -135,7 +135,6 @@ export const SIDEBAR_NAV: SidebarNavItem[] = [
   { icon: Sparkles, label: "Tavsiyalar", href: "/recommendations" },
   { icon: FileBarChart2, label: "Hisobotlar", href: "/reports" },
   { icon: Bell, label: "Bildirishnomalar", href: "/notifications" },
-  { icon: Crown, label: "Obuna", href: "/dashboard/subscription" },
   { icon: UserRound, label: "Profil", href: "/profile" },
   { icon: Settings, label: "Sozlamalar", href: "/settings" },
 ];

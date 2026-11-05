@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { forwardRef, type ComponentProps } from "react";
 import { localizedHref, splitLangPath } from "@/lib/i18n/url-lang";
-import { hasLocalizedAddress } from "@/lib/site/page-meta";
+import { isLocalizedPath } from "@/lib/site/page-meta";
 
 /** The language in the address: "ru" on /ru/…, "en" on /en/…, otherwise Uzbek */
 export function useUrlLang() {
@@ -26,7 +26,7 @@ export const LocalLink = forwardRef<HTMLAnchorElement, ComponentProps<typeof Lin
   let target = href;
   if (lang !== "uz" && typeof href === "string") {
     const [, path = "", suffix = ""] = /^([^?#]*)(.*)$/.exec(href) ?? [];
-    if (hasLocalizedAddress(path)) target = localizedHref(path, lang) + suffix;
+    if (isLocalizedPath(path)) target = localizedHref(path, lang) + suffix;
   }
   return <Link ref={ref} href={target} {...rest} />;
 });

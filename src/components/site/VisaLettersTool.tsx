@@ -40,7 +40,7 @@ import {
 import { cn } from "@/lib/utils";
 
 const EMBASSY_URL = "https://taschkent.diplo.de/uz-uz/service/05-visaeinreise/2435518-2435518";
-const BOOK_URL = "/knowledge-base/book/bob-2";
+const BOOK_URL = "/dashboard/library/book/bob-2";
 const OUT_LANG_NAMES: Record<OutLang, string> = { en: "English", de: "Deutsch", ru: "Русский" };
 const KINDS: { kind: LetterKind; emoji: string }[] = [
   { kind: "cover", emoji: "✉️" },

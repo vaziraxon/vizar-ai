@@ -760,6 +760,23 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Hammasi yuklandi": { ru: "Всё загружено", en: "All uploaded" },
   /* ------------------------------------------------- AI knowledge assistant */
   "Kitobdan javob": { ru: "Ответы из книги", en: "Answers from the book" },
+  /* ------- Library promo (/knowledge-base) and the library in the dashboard */
+  "VIZAR AI kitobi va davlatlar bo‘yicha viza qoidalari — rasmiy manbalar bilan. Ro‘yxatdan o‘tgach, shaxsiy kabinetda o‘qiysiz.": { ru: "Книга VIZAR AI и визовые правила по странам — с официальными источниками. После регистрации читайте в личном кабинете.", en: "The VIZAR AI book and visa rules by country — with official sources. Sign up and read it in your account." },
+  "9 bob: viza turlari, hujjatlar, suhbat, rad javobi va boshqalar": { ru: "9 глав: типы виз, документы, собеседование, отказ и другое", en: "9 chapters: visa types, documents, the interview, refusals and more" },
+  "Davlatlar bo‘yicha qoidalar va rasmiy manbalarga havolalar": { ru: "Правила по странам и ссылки на официальные источники", en: "Rules by country with links to official sources" },
+  "Kitob ichidan qidiruv va «Kitobdan javob» bo‘limi": { ru: "Поиск по книге и раздел «Ответы из книги»", en: "Search inside the book and the “Answers from the book” section" },
+  "Kabinetda o‘qish": { ru: "Читать в кабинете", en: "Read in my account" },
+  "Hozircha bepul — faqat ro‘yxatdan o‘tish kerak.": { ru: "Пока бесплатно — нужна только регистрация.", en: "Free for now — you only need to sign up." },
+  "Ichida nima bor": { ru: "Что внутри", en: "What’s inside" },
+  "Ro‘yxatdan o‘ting": { ru: "Зарегистрируйтесь", en: "Sign up" },
+  "Elektron pochta bilan bir daqiqada — hozircha to‘lov shart emas.": { ru: "За минуту по электронной почте — платить пока не нужно.", en: "A minute with your email — no payment needed for now." },
+  "Kabinetda «Viza bazasi»ni oching": { ru: "Откройте «Визовую базу» в кабинете", en: "Open “Visa library” in your account" },
+  "Boblar, davlatlar va qidiruv — hammasi bir joyda.": { ru: "Главы, страны и поиск — всё в одном месте.", en: "Chapters, countries and search — all in one place." },
+  "O‘qing va tekshiring": { ru: "Читайте и сверяйте", en: "Read and check" },
+  "Har bo‘lim ostida rasmiy manbalar ko‘rsatilgan — talablarni elchixona saytida solishtiring.": { ru: "Под каждым разделом указаны официальные источники — сверяйте требования на сайте посольства.", en: "Every section lists its official sources — check the requirements on the embassy’s site." },
+  "VIZAR AI kitobi va davlatlar bo‘yicha qoidalar — rasmiy manbalar bilan.": { ru: "Книга VIZAR AI и правила по странам — с официальными источниками.", en: "The VIZAR AI book and rules by country — with official sources." },
+  "Hozircha barcha bo‘limlar ro‘yxatdan o‘tganlarga bepul ochiq.": { ru: "Пока все разделы бесплатно открыты для зарегистрированных.", en: "For now every section is free for everyone who signs up." },
+
   /* ------- Subscription requests (/dashboard/subscription) */
   Obuna: { ru: "Подписка", en: "Subscription" },
   "Kitobning to'liq matniga obuna: tarifni tanlang — jamoamiz siz bilan bog'lanadi.": { ru: "Подписка на полный текст книги: выберите тариф — наша команда свяжется с вами.", en: "A subscription to the full book: pick a plan and our team will contact you." },

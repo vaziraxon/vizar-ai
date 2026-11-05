@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
-import { LocalLink as Link } from "@/components/site/LocalLink";
+import Link from "next/link";
 import { ArrowRight, ChevronRight, Lock, LogIn, Sparkles } from "lucide-react";
 import { L } from "@/components/i18n/L";
 import { Plural } from "@/components/i18n/Plural";
@@ -93,7 +93,7 @@ export function LibraryHero({
   // navbar always stays on a light background.
   if (photo) {
     return (
-      <section className="lime-wash grain relative overflow-hidden">
+      <section className="lime-wash grain relative overflow-hidden rounded-[32px]">
         <HeroSky calm />
         <div className="container-page relative pb-8 pt-24 sm:pb-10 sm:pt-28 lg:pt-32">
           <div className="relative overflow-hidden rounded-[32px] bg-night-950 px-5 pb-8 pt-7 text-white shadow-float sm:rounded-[40px] sm:px-10 sm:pb-12 sm:pt-10">
@@ -108,7 +108,7 @@ export function LibraryHero({
   }
 
   return (
-    <section className="lime-wash grain relative overflow-hidden">
+    <section className="lime-wash grain relative overflow-hidden rounded-[32px]">
       <HeroSky calm />
       {stickers ? (
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden xl:block">
@@ -166,7 +166,7 @@ export function AccessCard({ viewer, next }: { viewer: LibraryViewer; next: stri
                     {PLAN_LABEL[viewer.subscription.plan]} · <L>Amal qilish muddati</L>: <LibraryDate iso={viewer.subscription.expiresAt} />
                   </>
                 ) : (
-                  <L>Tahririyat a’zosi sifatida barcha bo‘limlar ochiq.</L>
+                  <L>Hozircha barcha bo‘limlar ro‘yxatdan o‘tganlarga bepul ochiq.</L>
                 )}
               </p>
             </div>
@@ -292,14 +292,14 @@ export function SrLabel({ id, text }: { id: string; text: string }) {
 /** Sub-navigation between the library's parts. */
 export function LibraryTabs({ active }: { active?: "home" | "search" }) {
   const tabs = [
-    { href: "/knowledge-base#boblar", label: "Boblar", emoji: "📚" },
-    { href: "/knowledge-base#davlatlar", label: "Davlatlar", emoji: "🌍" },
-    { href: "/knowledge-base#viza-turlari", label: "Viza turlari", emoji: "🛂" },
-    { href: "/knowledge-base#hujjatlar", label: "Hujjatlar", emoji: "📑" },
-    { href: "/knowledge-base/search", label: "Qidiruv", emoji: "🔎", key: "search" as const },
+    { href: "/dashboard/library#boblar", label: "Boblar", emoji: "📚" },
+    { href: "/dashboard/library#davlatlar", label: "Davlatlar", emoji: "🌍" },
+    { href: "/dashboard/library#viza-turlari", label: "Viza turlari", emoji: "🛂" },
+    { href: "/dashboard/library#hujjatlar", label: "Hujjatlar", emoji: "📑" },
+    { href: "/dashboard/library/search", label: "Qidiruv", emoji: "🔎", key: "search" as const },
   ];
   return (
-    <nav aria-labelledby="kb-tabs-label" className="sticky top-16 z-20 border-b border-surface-border bg-surface-canvas/85 backdrop-blur-xl lg:top-[88px]">
+    <nav aria-labelledby="kb-tabs-label" className="sticky top-16 z-20 mt-4 rounded-2xl border border-surface-border bg-surface-canvas/85 backdrop-blur-xl">
       <SrLabel id="kb-tabs-label" text="Kutubxona bo‘limlari" />
       <div className="container-page">
         <ul className="-mx-1 flex gap-1 overflow-x-auto py-2.5 [scrollbar-width:none]">

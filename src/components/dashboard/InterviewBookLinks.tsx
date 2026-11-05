@@ -17,7 +17,7 @@ const LIBRARY_COUNTRIES = new Set(
 );
 
 /** The interview chapter of the book (IV BOB. Viza suhbati va rad javobi). */
-const INTERVIEW_CHAPTER = "/knowledge-base/book/bob-4";
+const INTERVIEW_CHAPTER = "/dashboard/library/book/bob-4";
 
 /** Links from interview practice into the VIZAR AI book: the chosen country and the interview chapter. */
 export function InterviewBookLinks({ countryCode, countryName }: { countryCode: string; countryName: string }) {

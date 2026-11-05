@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { LocalLink as Link } from "@/components/site/LocalLink";
+import Link from "next/link";
 import { BookOpen, ExternalLink, FlaskConical, Info, Library, Loader2, Lock, Send, ShieldAlert, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Markdown } from "@/components/knowledge/Markdown";
@@ -144,7 +144,7 @@ function UnlockCard() {
           {l("Obunani faollashtirish")}
         </Link>
         <Link
-          href="/knowledge-base"
+          href="/dashboard/library"
           className="inline-flex items-center gap-1.5 rounded-pill border border-surface-border bg-surface px-4 py-2 text-body-sm font-semibold text-ink-800 transition-colors hover:border-brand-300 hover:text-brand-700"
         >
           <Library size={15} />
