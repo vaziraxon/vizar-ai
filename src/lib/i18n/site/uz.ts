@@ -989,6 +989,10 @@ export const uz: SiteContent = {
         a: "Supabase bulut bazasida. Har bir foydalanuvchi faqat o‘z ma’lumotlari va fayllarini ko‘radi.",
       },
       {
+        q: "Sayt meni kuzatadimi?",
+        a: "Sayt cookie’siz tashrif statistikasini yig‘adi (Vercel Web Analytics): qaysi sahifa necha marta ochilgani, qaysi saytdan kelingani, davlat va qurilma turi. Ism, email, qidiruv matni yuborilmaydi; admin sahifalari hisobga olinmaydi.",
+      },
+      {
         q: "Qanday shifrlash ishlatiladi?",
         a: "Aloqa HTTPS (TLS) bilan, baza va fayllar saqlashda AES-256 bilan shifrlanadi (Supabase infratuzilmasi).",
       },
