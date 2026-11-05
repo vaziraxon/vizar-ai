@@ -27,7 +27,7 @@ export function ToolPage({ id }: { id: ToolId }) {
         <div className="container-page relative grid items-center gap-14 pb-16 pt-28 sm:pt-36 lg:grid-cols-12 lg:gap-12 lg:pb-20 lg:pt-40">
           <div className="animate-fade-up lg:col-span-6">
             <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-body-sm text-ink-500">
-              <Link href="/features" className="rounded transition-colors duration-200 hover:text-ink-900">
+              <Link href="/features" className="-my-3 inline-block rounded py-3 transition-colors duration-200 hover:text-ink-900">
                 {site.toolPage.breadcrumb}
               </Link>
               <ChevronRight size={14} className="text-ink-500" />

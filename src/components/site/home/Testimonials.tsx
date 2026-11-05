@@ -129,7 +129,7 @@ function StoryCard({ card, width, labels, hidden }: { card: Card; width?: number
             </p>
           </div>
           {card.sample ? (
-            <span className="shrink-0 rounded-pill bg-citron-100 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.08em] text-ink-900 ring-1 ring-citron-400/60 dark:bg-citron-300/15 dark:text-citron-200 dark:ring-citron-300/30">
+            <span className="shrink-0 rounded-pill bg-citron-100 px-2.5 py-1 text-[12px] font-bold uppercase tracking-[0.08em] text-ink-900 ring-1 ring-citron-400/60 dark:bg-citron-300/15 dark:text-citron-200 dark:ring-citron-300/30">
               {labels.sampleBadge}
             </span>
           ) : card.rating ? (
@@ -149,7 +149,7 @@ function StoryCard({ card, width, labels, hidden }: { card: Card; width?: number
               tabIndex={hidden ? -1 : undefined}
               aria-expanded={open}
               onClick={() => setOpen((o) => !o)}
-              className="mt-1.5 rounded text-body-sm font-semibold text-violet-700 underline-offset-4 hover:underline dark:text-citron-300"
+              className="-mb-3 mt-1.5 rounded pb-3 pt-0 text-body-sm font-semibold text-violet-700 underline-offset-4 hover:underline dark:text-citron-300"
             >
               {open ? labels.less : labels.more}
             </button>

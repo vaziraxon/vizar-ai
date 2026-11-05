@@ -59,7 +59,7 @@ export function DemoBadge({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-md bg-surface-tint px-1.5 py-1 text-[10.5px] font-semibold uppercase leading-none tracking-[0.08em] text-ink-500",
+        "inline-flex items-center rounded-md bg-surface-tint px-1.5 py-1 text-[12px] font-semibold uppercase leading-none tracking-[0.08em] text-ink-500",
         className
       )}
     >

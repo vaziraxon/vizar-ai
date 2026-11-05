@@ -94,7 +94,7 @@ function ReadinessDemo() {
           <ArrowRight size={15} />
         </span>
       </div>
-      <p className="mt-3 text-center text-[11px] font-medium text-ink-500">{site.common.notGuaranteed}</p>
+      <p className="mt-3 text-center text-[12px] font-medium text-ink-500">{site.common.notGuaranteed}</p>
     </Frame>
   );
 }
@@ -429,7 +429,7 @@ function ExpertsDemo() {
         {d.cta}
         <ArrowRight size={16} />
       </Link>
-      <p className="mt-3 text-center text-[11px] font-medium text-ink-500">{d.note}</p>
+      <p className="mt-3 text-center text-[12px] font-medium text-ink-500">{d.note}</p>
     </Frame>
   );
 }

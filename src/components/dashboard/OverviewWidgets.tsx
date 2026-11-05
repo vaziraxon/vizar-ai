@@ -68,7 +68,7 @@ export function TripCountdown({ className }: { className?: string }) {
             <p className="mt-2 max-w-sm text-body-sm text-ink-600">{l("Safar sanasini kiriting — qolgan kunlar va muhim muddatlar shu yerda ko'rinadi.")}</p>
           )}
         </div>
-        <span className="rounded-pill border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">
+        <span className="rounded-pill border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1 text-[12px] font-semibold text-emerald-700 dark:text-emerald-300">
           💾 {l("Shu brauzerda saqlanadi")}
         </span>
       </div>

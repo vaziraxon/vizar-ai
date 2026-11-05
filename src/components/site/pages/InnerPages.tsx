@@ -236,7 +236,7 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
               <Image src={meta.photo} alt={copy.name} fill priority sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
               <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-night-950/40 via-transparent to-transparent" />
               {PHOTO_CREDITS[meta.photo] && (
-                <figcaption className="absolute bottom-3 right-3 rounded-pill bg-night-950/35 px-2.5 py-1 text-[10px] font-medium text-white/90 backdrop-blur-sm">
+                <figcaption className="absolute bottom-3 right-3 rounded-pill bg-night-950/35 px-2.5 py-1 text-[12px] font-medium text-white/90 backdrop-blur-sm">
                   Foto:{" "}
                   <a href={PHOTO_CREDITS[meta.photo]!.url} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:underline">
                     {PHOTO_CREDITS[meta.photo]!.author}

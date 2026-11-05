@@ -22,14 +22,14 @@ const INTERVIEW_CHAPTER = "/dashboard/library/book/bob-4";
 /** Links from interview practice into the VIZAR AI book: the chosen country and the interview chapter. */
 export function InterviewBookLinks({ countryCode, countryName }: { countryCode: string; countryName: string }) {
   const l = useL();
-  const link = "inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand-700 hover:text-brand-deep";
+  const link = "inline-flex items-center gap-1.5 py-2 text-body-sm font-semibold text-brand-700 hover:text-brand-deep";
 
   return (
     <div className="rounded-2xl border border-surface-border bg-surface-tint/60 px-4 py-3 text-left">
       <p className="flex items-center gap-2 text-body-sm font-semibold text-ink-900">
         <span aria-hidden="true">📚</span> {l("Kitobdan o'qing")}
       </p>
-      <div className="mt-2 flex flex-col gap-1.5">
+      <div className="mt-0.5 flex flex-col">
         {LIBRARY_COUNTRIES.has(countryCode) && (
           <Link href={libraryHref.country(countryCode)} className={link}>
             {l("Kitobda: {country} bo'yicha qoidalar va manbalar", { country: countryName })} <ArrowRight size={14} />

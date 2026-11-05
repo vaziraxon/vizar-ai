@@ -132,7 +132,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
                   )}
                   <Link
                     href="/dashboard/readiness"
-                    className="inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep"
+                    className="-my-3 inline-flex items-center gap-1.5 py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep"
                   >
                     {l("Batafsil ko'rish")} <ArrowRight size={14} />
                   </Link>
@@ -244,7 +244,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
           <p className="mt-3 font-accent text-[44px] font-medium italic leading-none text-ink-950">{data.missingCount}</p>
           <Link
             href="/dashboard/documents"
-            className="mt-5 inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep"
+            className="-mb-3 mt-2 inline-flex items-center gap-1.5 py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep"
           >
             {l("Hujjat yuklash")} <ArrowRight size={14} />
           </Link>
@@ -257,7 +257,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
           <p className="mt-3 font-accent text-[44px] font-medium italic leading-none text-ink-950">{data.unreadCount}</p>
           <Link
             href="/notifications"
-            className="mt-5 inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep"
+            className="-mb-3 mt-2 inline-flex items-center gap-1.5 py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep"
           >
             {l("Bildirishnomalar")} <ArrowRight size={14} />
           </Link>
@@ -272,7 +272,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
               <span aria-hidden="true">📌</span>
               {l("Yaqinlashayotgan vazifalar")}
             </h2>
-            <Link href="/recommendations" className="text-body-sm font-semibold text-brand-600 hover:text-brand-deep">
+            <Link href="/recommendations" className="-my-3 inline-block py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep">
               {l("Barchasi")}
             </Link>
           </div>
@@ -293,7 +293,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
                   </span>
                   <span
                     className={cn(
-                      "shrink-0 rounded-pill px-2.5 py-1 text-[11px] font-semibold leading-none ring-1",
+                      "shrink-0 rounded-pill px-2.5 py-1 text-[12px] font-semibold leading-none ring-1",
                       CHIP_STYLE[task.chip] ?? "bg-surface-tint text-ink-700 ring-surface-border"
                     )}
                   >
@@ -356,7 +356,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
           )}
           <Link
             href="/dashboard/experts"
-            className="mt-5 inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep"
+            className="-mb-3 mt-2 inline-flex items-center gap-1.5 py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep"
           >
             {l("Mutaxassislar")} <ArrowRight size={14} />
           </Link>
