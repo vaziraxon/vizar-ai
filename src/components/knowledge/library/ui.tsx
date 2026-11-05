@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { ArrowRight, ChevronRight, Lock, LogIn, Sparkles } from "lucide-react";
 import { L } from "@/components/i18n/L";
 import { Plural } from "@/components/i18n/Plural";

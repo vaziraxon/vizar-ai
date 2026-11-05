@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { L } from "@/components/i18n/L";
@@ -7,6 +7,7 @@ import { Plural } from "@/components/i18n/Plural";
 import { CoverArt } from "@/components/knowledge/library/visuals";
 import { AccessCard, LibraryError, LibraryHero, LibraryTabs, Paywall, SectionRow, SrLabel, chapterEmoji } from "@/components/knowledge/library/ui";
 import { getRequestLanguage } from "@/lib/i18n/request-language";
+import { languageAlternates } from "@/lib/site/page-meta";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import { chapterHeading, getCountries, getOutline, readingMinutes, type LibraryCountry, type OutlineChapter } from "@/lib/knowledge/library";
 import { libraryHref } from "@/lib/knowledge/offline";
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       .slice(0, 6)
       .map((s) => s.title)
       .join(" · "),
-    alternates: { canonical: `/knowledge-base/book/${chapter.slug}` },
+    alternates: languageAlternates(`/knowledge-base/book/${chapter.slug}`, "uz"),
   };
 }
 

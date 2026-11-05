@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { BookOpen, ExternalLink, FlaskConical, Info, Library, Loader2, Lock, Send, ShieldAlert, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Markdown } from "@/components/knowledge/Markdown";

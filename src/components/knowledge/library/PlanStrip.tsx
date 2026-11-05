@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { LocalLink as Link } from "@/components/site/LocalLink";
 import { useL } from "@/components/i18n/L";
 import { useSite } from "@/lib/i18n/site";
 import { PLAN_EMOJI } from "@/lib/knowledge/visuals";
