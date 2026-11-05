@@ -200,7 +200,7 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <label className="flex cursor-pointer items-start gap-2.5 text-body-sm text-ink-700 dark:text-white/70">
+          <label className="-my-2 flex cursor-pointer items-start gap-2.5 py-2 text-body-sm text-ink-700 dark:text-white/70">
             <input
               type="checkbox"
               checked={terms}
@@ -248,7 +248,7 @@ export default function RegisterPage() {
           {t("au_have_account")}{" "}
           <Link
             href="/login"
-            className="rounded font-semibold text-brand-600 hover:text-brand-700"
+            className="-mx-2 -my-3 inline-block rounded px-2 py-3 font-semibold text-brand-600 hover:text-brand-700"
           >
             {t("au_log_in_link")}
           </Link>
