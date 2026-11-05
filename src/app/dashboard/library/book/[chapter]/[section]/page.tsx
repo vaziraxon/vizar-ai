@@ -9,7 +9,7 @@ import { AiTranslatedBadge, LibraryError, LibraryTabs, LockIcon, Paywall, SrLabe
 import { getRequestLanguage } from "@/lib/i18n/request-language";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import {
-  chapterHeading,
+  chapterHeading, chapterTitle,
   getOutline,
   getSectionContent,
   getSectionPreview,
@@ -66,7 +66,7 @@ export default async function SectionPage({ params }: Params) {
     <>
       <section className="lime-wash grain relative overflow-hidden rounded-[32px]">
         <HeroSky calm />
-        <div className="container-page relative pb-8 pt-28 sm:pb-10 sm:pt-36 lg:pt-40">
+        <div className="container-page relative pb-8 pt-8 sm:pb-10 sm:pt-10 lg:pt-12">
           <nav aria-label="Breadcrumb">
             <ol className="flex flex-wrap items-center gap-1.5 text-body-sm text-ink-500">
               <li>
@@ -112,7 +112,7 @@ export default async function SectionPage({ params }: Params) {
                   className="aspect-[16/10] rotate-2 rounded-[28px] border-4 border-white shadow-float transition-transform duration-300 group-hover:rotate-0 dark:border-white/10"
                 >
                   <span className="absolute inset-x-3 bottom-3 rounded-2xl bg-surface/90 px-4 py-2.5 text-body-sm font-semibold text-ink-900 backdrop-blur">
-                    {chapter.label} — {chapterHeading(chapter)}
+                    {chapterTitle(chapter, " — ")}
                   </span>
                 </CoverArt>
               </Link>

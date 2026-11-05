@@ -766,6 +766,7 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Davlatlar bo‘yicha qoidalar va rasmiy manbalarga havolalar": { ru: "Правила по странам и ссылки на официальные источники", en: "Rules by country with links to official sources" },
   "Kitob ichidan qidiruv va «Kitobdan javob» bo‘limi": { ru: "Поиск по книге и раздел «Ответы из книги»", en: "Search inside the book and the “Answers from the book” section" },
   "Kabinetda o‘qish": { ru: "Читать в кабинете", en: "Read in my account" },
+  "Kutubxona — hozircha bepul": { ru: "Библиотека — пока бесплатно", en: "Library — free for now" },
   "Hozircha bepul — faqat ro‘yxatdan o‘tish kerak.": { ru: "Пока бесплатно — нужна только регистрация.", en: "Free for now — you only need to sign up." },
   "Ichida nima bor": { ru: "Что внутри", en: "What’s inside" },
   "Ro‘yxatdan o‘ting": { ru: "Зарегистрируйтесь", en: "Sign up" },

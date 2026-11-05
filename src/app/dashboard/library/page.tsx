@@ -213,10 +213,10 @@ export default async function KnowledgeBasePage() {
       {/* Hero: copy + search on the left, a travel-photo collage on the right */}
       <section className="lime-wash grain relative overflow-hidden rounded-[32px]">
         <HeroSky calm />
-        <div className="container-page relative grid gap-10 pb-12 pt-28 sm:pt-36 lg:grid-cols-12 lg:items-center lg:gap-12 lg:pb-16 lg:pt-40">
+        <div className="container-page relative grid gap-10 pb-12 pt-8 sm:pt-10 lg:grid-cols-12 lg:items-center lg:gap-12 lg:pb-16 lg:pt-12">
           <div className="animate-fade-up lg:col-span-6">
             <p className="eyebrow">
-              <span aria-hidden="true">📚</span> <L>Premium kutubxona</L>
+              <span aria-hidden="true">📚</span> <L>Kutubxona — hozircha bepul</L>
             </p>
             <h1 className="mt-4 luxe-firm font-luxe [text-wrap:balance] text-[clamp(2.4rem,4.6vw,4.2rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-ink-950">
               <L>Viza ma’lumotlar bazasi</L>

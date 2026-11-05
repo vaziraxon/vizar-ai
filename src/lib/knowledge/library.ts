@@ -115,6 +115,15 @@ export function chapterHeading(chapter: Pick<OutlineChapter, "label" | "title">)
   return letters.length && upper / letters.length > 0.8 ? sentenceCase(title) : title;
 }
 
+/**
+ * Label and heading joined: "I bob. Viza tizimi…" (or with " — "), or just
+ * "Kirish" when the heading only repeats the label.
+ */
+export function chapterTitle(chapter: Pick<OutlineChapter, "label" | "title">, separator = ". "): string {
+  const heading = chapterHeading(chapter);
+  return heading.toLowerCase() === chapter.label.toLowerCase() ? heading : `${chapter.label}${separator}${heading}`;
+}
+
 // Proper names to restore after lower-casing; short ones must match the whole word.
 const NAMES_EXACT: Record<string, string> = { aqsh: "AQSh", ai: "AI", vizar: "VIZAR" };
 const NAMES_PREFIX: Record<string, string> = {

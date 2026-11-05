@@ -95,7 +95,7 @@ export function LibraryHero({
     return (
       <section className="lime-wash grain relative overflow-hidden rounded-[32px]">
         <HeroSky calm />
-        <div className="container-page relative pb-8 pt-24 sm:pb-10 sm:pt-28 lg:pt-32">
+        <div className="container-page relative pb-8 pt-8 sm:pb-10 sm:pt-10 lg:pt-12">
           <div className="relative overflow-hidden rounded-[32px] bg-night-950 px-5 pb-8 pt-7 text-white shadow-float sm:rounded-[40px] sm:px-10 sm:pb-12 sm:pt-10">
             <Image src={photo} alt={photoAlt} fill priority sizes="(min-width: 1280px) 1200px, 100vw" className="object-cover" />
             <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-night-950/90 via-night-950/60 to-night-950/20" />
@@ -117,7 +117,7 @@ export function LibraryHero({
           <EmojiSticker emoji={stickers[2]} size="sm" tilt={-4} delay={1800} className="absolute bottom-20 right-[33%]" />
         </div>
       ) : null}
-      <div className="container-page relative pb-10 pt-28 sm:pb-14 sm:pt-36 lg:pt-40">{body}</div>
+      <div className="container-page relative pb-10 pt-8 sm:pb-14 sm:pt-10 lg:pt-12">{body}</div>
     </section>
   );
 }
