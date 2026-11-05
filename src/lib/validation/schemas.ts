@@ -93,7 +93,8 @@ export const profileUpdateSchema = z.object({
     .optional()
     .or(z.literal("")),
   preferredLanguage: z.enum(["uz", "ru", "en"]).optional(),
-  accountType: z.enum(["individual", "agency"]).optional(),
+  // Agency accounts are not self-service while the agency area is a sample
+  accountType: z.enum(["individual"]).optional(),
 });
 
 export const reportCreateSchema = z.object({

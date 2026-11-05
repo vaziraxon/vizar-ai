@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { isAdminEmail } from "@/lib/supabase/authz";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getLatestApplication } from "@/lib/data/applications";
@@ -25,6 +27,9 @@ export default async function TestPage() {
   if (configured) {
     const supabase = createClient();
     const { data } = supabase ? await supabase.auth.getUser() : { data: { user: null } };
+    // A tool for the site's admins, not for visitors: everyone else gets a 404.
+    // (Sign in at /login first; demo mode without Supabase stays open for local work.)
+    if (!data.user || !isAdminEmail(data.user.email)) notFound();
     if (data.user) {
       props.user = {
         email: data.user.email ?? "—",

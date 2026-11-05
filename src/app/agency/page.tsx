@@ -1,8 +1,9 @@
 import { Users, FileSearch2, ShieldAlert, UserCog, Building2, Gauge } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { AgencySampleNotice } from "@/components/agency/SampleNotice";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { ClientTable } from "@/components/agency/ClientTable";
-import { AGENCY_NAV, AGENCY_OVERVIEW, AGENCY_CLIENTS } from "@/data/mockData";
+import { AGENCY_OVERVIEW, AGENCY_CLIENTS } from "@/data/mockData";
 
 export default function AgencyPage() {
   const priorityCases = AGENCY_CLIENTS.filter(
@@ -15,6 +16,7 @@ export default function AgencyPage() {
       subtitle="Barcha mijozlaringiz va arizalar bo'yicha umumiy ko'rinish."
       showOnboarding={false}
     >
+      <AgencySampleNotice />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <StatCard icon={Users} label="Jami mijozlar" value={String(AGENCY_OVERVIEW.totalClients)} />
         <StatCard icon={FileSearch2} label="Faol arizalar" value={String(AGENCY_OVERVIEW.activeApplications)} />

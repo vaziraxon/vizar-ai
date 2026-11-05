@@ -13,10 +13,11 @@ import {
   CalendarClock,
 } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { AgencySampleNotice } from "@/components/agency/SampleNotice";
 import { ScoreRing } from "@/components/dashboard/ScoreRing";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { SuccessToast } from "@/components/states/SuccessToast";
-import { AGENCY_NAV, AGENCY_CLIENTS, SPECIALISTS } from "@/data/mockData";
+import { AGENCY_CLIENTS, SPECIALISTS } from "@/data/mockData";
 import type { ClientStatus } from "@/types";
 
 const STATUS_OPTIONS: ClientStatus[] = [
@@ -54,6 +55,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
       
       showOnboarding={false}
     >
+      <AgencySampleNotice />
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Profile summary */}
         <div className="card flex flex-col items-center gap-3 p-6 text-center dark:border-white/10 dark:bg-navy-800">
@@ -153,7 +155,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
                 {client.interviewScore}/100
               </p>
               <p className="text-caption text-ink-400 dark:text-white/40">
-                Oxirgi AI Interview mashqi natijasi
+                Oxirgi suhbat mashqi natijasi
               </p>
             </div>
           </div>
