@@ -1,7 +1,7 @@
 import type { ApplicationStatus } from "@/types";
 
 const STATUS_DISPLAY_MAP: Record<string, ApplicationStatus> = {
-  draft: "Draft",
+  draft: "Qoralama",
   in_review: "Tahlil qilinmoqda",
   ready: "Tayyor",
   needs_consultation: "Konsultatsiya kerak",
@@ -9,5 +9,5 @@ const STATUS_DISPLAY_MAP: Record<string, ApplicationStatus> = {
 };
 
 export function displayApplicationStatus(dbStatus: string): ApplicationStatus {
-  return STATUS_DISPLAY_MAP[dbStatus] ?? "Draft";
+  return STATUS_DISPLAY_MAP[dbStatus] ?? "Qoralama";
 }

@@ -89,10 +89,10 @@ export const LIBRARY_PHRASES: PhraseTable = {
   },
   "Bobni ochish": { ru: "Открыть главу", en: "Open chapter" },
   "Kutubxonaning to‘liq matnini oching": { ru: "Откройте полный текст библиотеки", en: "Unlock the full library" },
-  "Savolingiz bormi? AI maslahatchidan so‘rang": { ru: "Есть вопрос? Спросите AI-консультанта", en: "Have a question? Ask the AI consultant" },
-  "Maslahatchi shu kitob asosida javob beradi va har bir javob ostida bob hamda manbani ko‘rsatadi.": {
-    ru: "Консультант отвечает по этой книге и под каждым ответом указывает главу и источник.",
-    en: "The consultant answers from this book and shows the chapter and source under every answer.",
+  "Savolingiz bormi? Javobni kitobdan toping": { ru: "Есть вопрос? Найдите ответ в книге", en: "Have a question? Find the answer in the book" },
+  "Savolingizga mos bo‘limlar shu kitobdan topiladi, har biri ostida bob va manba ko‘rsatiladi.": {
+    ru: "По вашему вопросу находятся разделы этой книги, под каждым указаны глава и источник.",
+    en: "Sections of this book that match your question are found, each with its chapter and source.",
   },
 
   /* ---------------------------------------------------- Chapter / section */
@@ -135,7 +135,7 @@ export const LIBRARY_PHRASES: PhraseTable = {
     ru: "Оглавление и короткие фрагменты открыты всем. Полный текст — на время подписки.",
     en: "The contents and short excerpts are open to everyone. The full text opens for the length of a subscription.",
   },
-  "AI maslahatchi": { ru: "AI-консультант", en: "AI consultant" },
+  "Kitobdan javob": { ru: "Ответы из книги", en: "Answers from the book" },
   "Savol berish": { ru: "Задать вопрос", en: "Ask a question" },
   "To‘liq matn": { ru: "Полный текст", en: "Full text" },
   "Qisqa parcha": { ru: "Короткий фрагмент", en: "Short excerpt" },

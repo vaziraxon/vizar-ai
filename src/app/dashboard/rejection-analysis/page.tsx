@@ -155,7 +155,7 @@ export default function RefusalAnalysisPage() {
               <div className="grain relative bg-gradient-to-br from-brand-600 to-violet-600 px-6 py-5 text-white">
                 <div className="flex items-center justify-between gap-3">
                   <p className="flex items-center gap-2 font-display text-body-lg font-bold">
-                    <span aria-hidden="true">🤖</span> {l("Tahlil natijasi")}
+                    <span aria-hidden="true">🧭</span> {l("Tahlil natijasi")}
                   </p>
                   {visual && <Flag code={visual.flag} size={34} className="ring-2 ring-white/40" />}
                 </div>

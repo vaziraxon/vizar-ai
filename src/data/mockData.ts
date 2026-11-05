@@ -4,7 +4,6 @@ import {
   FolderOpen,
   Gauge,
   MessagesSquare,
-  Bot,
   BookOpen,
   MessageSquareQuote,
   FileWarning,
@@ -85,7 +84,7 @@ export const CURRENT_APPLICATION = {
   progressSteps: [
     { label: "Ma'lumotlar kiritildi", done: true },
     { label: "Hujjatlar yuklandi", done: true },
-    { label: "AI tahlili", done: true },
+    { label: "Viza tahlili", done: true },
     { label: "Intervyu tayyorgarligi", done: false },
     { label: "Yakuniy ko'rib chiqish", done: false },
   ],
@@ -99,16 +98,16 @@ export const UPCOMING_CONSULTATION = {
 };
 
 export const RECENT_ACTIVITY = [
-  { icon: FileSearch2, text: "AI hujjat tahlili yakunlandi", time: "2 soat oldin" },
+  { icon: FileSearch2, text: "Viza tahlili yakunlandi", time: "2 soat oldin" },
   { icon: FolderOpen, text: "Bank statement yuklandi", time: "5 soat oldin" },
-  { icon: MessagesSquare, text: "AI Interview mashqi boshlandi", time: "1 kun oldin" },
-  { icon: Gauge, text: "Visa Readiness Score yangilandi: 82/100", time: "1 kun oldin" },
+  { icon: MessagesSquare, text: "Suhbat mashqi boshlandi", time: "1 kun oldin" },
+  { icon: Gauge, text: "Tayyorgarlik bali yangilandi: 82/100", time: "1 kun oldin" },
 ];
 
 export const NEXT_STEPS = [
   "Bank statementdagi hisob egasi ismini to'g'rilang",
   "Mehmonxona bron hujjatini yuklang",
-  "AI Interview mashqini yakunlang",
+  "Suhbat mashqini yakunlang",
   "Mutaxassis konsultatsiyasini tasdiqlang",
 ];
 
@@ -122,7 +121,7 @@ export const SIDEBAR_NAV: SidebarNavItem[] = [
   { icon: FolderOpen, label: "Hujjatlar", href: "/dashboard/documents" },
   { icon: ListChecks, label: "Checklist", href: "/dashboard/checklist" },
   { icon: MessagesSquare, label: "Suhbat mashqi", href: "/dashboard/interview" },
-  { icon: Bot, label: "AI maslahatchi", href: "/dashboard/assistant" },
+  { icon: BookOpen, label: "Kitobdan javob", href: "/dashboard/assistant" },
   { icon: Library, label: "Viza bazasi", href: "/knowledge-base" },
   { icon: Route, label: "Ariza kuzatuvi", href: "/dashboard/tracker" },
   { icon: FileWarning, label: "Rad javobi tahlili", href: "/dashboard/rejection-analysis" },
@@ -160,7 +159,7 @@ export const DOCUMENTS: DocumentItem[] = [
   { id: "employment", icon: Briefcase, title: "Ish joyidan ma'lumotnoma", status: "Tasdiqlandi", check: "Lavozim va maosh ko'rsatilgan" },
   { id: "invitation", icon: MailCheck, title: "Taklifnoma", status: "Yuklanmagan", optional: true },
   { id: "hotel", icon: Hotel, title: "Mehmonxona bron", status: "Yuklanmagan", check: "Barcha tunlar uchun" },
-  { id: "flight", icon: Plane, title: "Aviachipta bron", status: "AI tahlil qilmoqda", check: "Borish va qaytish" },
+  { id: "flight", icon: Plane, title: "Aviachipta bron", status: "Yangilash kerak", check: "Borish va qaytish" },
   {
     id: "insurance",
     icon: ShieldCheck,
@@ -267,9 +266,9 @@ export const APPLICATIONS: ApplicationRecord[] = [
 export const RECOMMENDATION_TASKS: RecommendationTask[] = [
   { id: "t1", title: "Bank statementni to'g'rilab qayta yuklang", status: "Muhim", dueLabel: "Bugun" },
   { id: "t2", title: "Mehmonxona bron hujjatini yuklang", status: "Jarayonda", dueLabel: "2 kun ichida" },
-  { id: "t3", title: "AI Interview mashqini yakunlang", status: "Boshlanmagan", dueLabel: "5 kun ichida" },
+  { id: "t3", title: "Suhbat mashqini yakunlang", status: "Boshlanmagan", dueLabel: "5 kun ichida" },
   { id: "t4", title: "Shaxsiy profil ma'lumotlarini tasdiqlang", status: "Bajarildi", dueLabel: "Bajarildi" },
-  { id: "t5", title: "Mutaxassis konsultatsiyasini band qiling", status: "Boshlanmagan", dueLabel: "1 hafta ichida" },
+  { id: "t5", title: "Mutaxassisga so'rov qoldiring", status: "Boshlanmagan", dueLabel: "1 hafta ichida" },
 ];
 
 // --- Admin panel ------------------------------------------------------------
@@ -315,15 +314,16 @@ export const ADMIN_SUPPORT_REQUESTS = [
 
 // --- Assessment form options --------------------------------------------------
 
+// The site's destinations, in the same order as the checklist
 export const COUNTRY_OPTIONS = [
+  "Shengen hududi",
   "AQSH",
-  "Kanada",
   "Buyuk Britaniya",
-  "Germaniya",
-  "Avstraliya",
+  "Kanada",
   "Yaponiya",
   "Janubiy Koreya",
   "BAA",
+  "Turkiya",
 ];
 
 export const VISA_TYPE_OPTIONS = [
@@ -781,7 +781,7 @@ export const REPORTS: ReportItem[] = [
 // --- Onboarding ------------------------------------------------------------
 
 export const ONBOARDING_STEPS: OnboardingStepConfig[] = [
-  { id: "welcome", title: "VIZAR AI'ga xush kelibsiz", description: "Viza olish jarayonini sun'iy intellekt bilan osonlashtiramiz." },
+  { id: "welcome", title: "VIZAR AI'ga xush kelibsiz", description: "Vizaga tayyorgarlikni bosqichma-bosqich, bir joyda olib boramiz." },
   { id: "country", title: "Davlatni tanlang", description: "Qaysi davlatga sayohat qilmoqchisiz?" },
   { id: "visa-type", title: "Viza turini tanlang", description: "Sizga mos viza turini belgilang." },
   { id: "goal", title: "Maqsadingizni tanlang", description: "Platformadan nima uchun foydalanmoqchisiz?" },
@@ -791,7 +791,7 @@ export const ONBOARDING_STEPS: OnboardingStepConfig[] = [
 
 export const ONBOARDING_GOALS = [
   "Vizaga tayyorgarlikni baholash",
-  "Hujjatlarni tekshirish",
+  "Hujjatlarni tartibga solish",
   "Intervyuga tayyorlanish",
   "Oldingi rad javobini tushunish",
 ];
@@ -802,9 +802,9 @@ export const COMMAND_ITEMS: CommandItem[] = [
   { id: "c1", icon: LayoutDashboard, label: "Dashboardni ochish", group: "Sahifalar", action: "navigate", href: "/dashboard" },
   { id: "c2", icon: FileSearch2, label: "Yangi tahlilni boshlash", group: "Amallar", action: "navigate", href: "/assessment" },
   { id: "c3", icon: FolderOpen, label: "Hujjat yuklash", group: "Amallar", action: "navigate", href: "/dashboard/documents" },
-  { id: "c4", icon: MessagesSquare, label: "Intervyu mashq qilish", group: "Amallar", action: "navigate", href: "/dashboard/interview" },
+  { id: "c4", icon: MessagesSquare, label: "Suhbat mashqini boshlash", group: "Amallar", action: "navigate", href: "/dashboard/interview" },
   { id: "c5", icon: ListChecks, label: "Tavsiyalarni ko'rish", group: "Sahifalar", action: "navigate", href: "/recommendations" },
-  { id: "c6", icon: UserCog, label: "Konsultatsiya band qilish", group: "Amallar", action: "navigate", href: "/dashboard/experts" },
+  { id: "c6", icon: UserCog, label: "Mutaxassisga so'rov qoldirish", group: "Amallar", action: "navigate", href: "/dashboard/experts" },
   { id: "c7", icon: Bell, label: "Bildirishnomalarni ochish", group: "Sahifalar", action: "navigate", href: "/notifications" },
   { id: "c8", icon: FileBarChart2, label: "Hisobotlarni ochish", group: "Sahifalar", action: "navigate", href: "/reports" },
   { id: "c9", icon: Moon, label: "Rejimni almashtirish", group: "Amallar", action: "theme" },
