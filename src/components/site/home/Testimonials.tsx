@@ -149,7 +149,7 @@ function StoryCard({ card, width, labels, hidden }: { card: Card; width?: number
               tabIndex={hidden ? -1 : undefined}
               aria-expanded={open}
               onClick={() => setOpen((o) => !o)}
-              className="mt-1.5 rounded text-body-sm font-semibold text-violet-700 underline-offset-4 hover:underline dark:text-citron-300"
+              className="-mb-3 mt-1.5 rounded pb-3 pt-0 text-body-sm font-semibold text-violet-700 underline-offset-4 hover:underline dark:text-citron-300"
             >
               {open ? labels.less : labels.more}
             </button>
