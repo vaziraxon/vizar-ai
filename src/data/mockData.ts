@@ -40,12 +40,6 @@ import {
   FileBarChart2,
   Route,
   ShieldAlert,
-  Home,
-  ScanSearch,
-  Rocket,
-  Globe2,
-  Smartphone,
-  Server,
   Moon,
   Globe,
   Library,
@@ -66,10 +60,8 @@ import type {
   DetectedField,
   AppNotification,
   ReportItem,
-  RoadmapItem,
   OnboardingStepConfig,
   CommandItem,
-  FAQItem,
 } from "@/types";
 
 // --- Current demo user & application ------------------------------------
@@ -786,26 +778,6 @@ export const REPORTS: ReportItem[] = [
 
 // --- Roadmap -----------------------------------------------------------------
 
-export const ROADMAP_ITEMS: RoadmapItem[] = [
-  { stage: "completed", icon: Home, title: "Landing page", description: "Marketing sayti va brend identifikatsiyasi." },
-  { stage: "completed", icon: LayoutDashboard, title: "Foydalanuvchi dashboardi", description: "Shaxsiy kabinet va umumiy ko'rinish." },
-  { stage: "completed", icon: FileSearch2, title: "Assessment oqimi", description: "Ko'p bosqichli viza so'rovnomasi." },
-  { stage: "completed", icon: ScanSearch, title: "Hujjatlar tahlili demo", description: "Hujjat yuklash va demo AI tahlili." },
-  { stage: "completed", icon: Gauge, title: "Readiness Score", description: "Tayyorgarlik darajasini baholash tizimi." },
-  { stage: "completed", icon: MessagesSquare, title: "Interview simulyatori", description: "Mock intervyu savollari va fikr-mulohaza." },
-  { stage: "completed", icon: FileWarning, title: "Rad javobi tahlili", description: "Oldingi rad sabablarini tahlil qilish demo." },
-  { stage: "completed", icon: UserCog, title: "Konsultatsiya bandlash", description: "Mutaxassislar bilan uchrashuv rejalashtirish." },
-  { stage: "in_progress", icon: Sparkles, title: "Haqiqiy AI integratsiyasi", description: "Demo tahlillarni ishlab chiqarish darajasidagi AI modellariga almashtirish." },
-  { stage: "in_progress", icon: ScanSearch, title: "OCR pipeline", description: "Haqiqiy hujjatlarni avtomatik o'qish tizimi." },
-  { stage: "in_progress", icon: Globe2, title: "Davlat qoidalari dvijoki", description: "Har bir davlat uchun rasmiy talablar bazasi." },
-  { stage: "in_progress", icon: UserCog, title: "Mutaxassislar bozori", description: "Ko'plab mustaqil mutaxassislarni platformaga qo'shish." },
-  { stage: "future", icon: Smartphone, title: "Mobil ilova", description: "iOS va Android uchun native ilovalar." },
-  { stage: "future", icon: Server, title: "Davlat API integratsiyalari", description: "Rasmiy konsullik tizimlari bilan integratsiya." },
-  { stage: "future", icon: Building2, title: "Agentlik CRM", description: "To'liq huquqli agentlik boshqaruv tizimi." },
-  { stage: "future", icon: Palette, title: "White-label platforma", description: "Boshqa kompaniyalar uchun oq etiketkali yechim." },
-  { stage: "future", icon: Rocket, title: "Mintaqaviy kengayish", description: "Markaziy Osiyo va undan tashqarida faoliyatni kengaytirish." },
-];
-
 // --- Onboarding ------------------------------------------------------------
 
 export const ONBOARDING_STEPS: OnboardingStepConfig[] = [
@@ -839,23 +811,3 @@ export const COMMAND_ITEMS: CommandItem[] = [
   { id: "c10", icon: Globe, label: "Tilni almashtirish", group: "Amallar", action: "language" },
 ];
 
-// --- Trust center FAQ --------------------------------------------------------
-
-export const TRUST_FAQ: FAQItem[] = [
-  {
-    question: "Mening ma'lumotlarim qayerda saqlanadi?",
-    answer: "Demo versiyada barcha ma'lumotlar faqat brauzeringizda (local state) saqlanadi va hech qanday serverga yuborilmaydi.",
-  },
-  {
-    question: "VIZAR AI qanday shifrlash ishlatadi?",
-    answer: "Ishlab chiqarish versiyasida sanoat standarti shifrlash qo'llanilishi rejalashtirilgan. Demo versiyada bu funksiya faol emas.",
-  },
-  {
-    question: "Sun'iy intellekt qarorlarini odam tekshiradimi?",
-    answer: "Ha, muhim qarorlar (masalan, konsultatsiya tavsiyalari) uchun inson tomonidan ko'rib chiqish jarayoni rejalashtirilgan.",
-  },
-  {
-    question: "Kompaniya ISO yoki GDPR sertifikatiga egami?",
-    answer: "Yo'q, hozircha bunday sertifikatlarga ega emasmiz. Bular kelajakdagi maqsadlarimiz sifatida belgilangan.",
-  },
-];

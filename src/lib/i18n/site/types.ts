@@ -1,3 +1,4 @@
+import type { RoadmapId, RoadmapStage, SecurityItemId, TrustPrincipleId } from "@/lib/site/about";
 import type { DestinationSlug, PopularCountry, ToolId } from "@/lib/site/registry";
 import type { HeadTop, PhotoBackground, PhotoGlasses } from "@/lib/site/visa-photo";
 import type { CostItem, LetterKind, Plan, Purpose, Relation } from "@/lib/site/visa-letters";
@@ -372,6 +373,32 @@ export interface SiteContent {
     privacy: string;
     /** Link on the Schengen and UK destination pages */
     destinationLink: string;
+  };
+  /** /roadmap: what is done, in progress and planned */
+  roadmapPage: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    stages: Record<RoadmapStage, string>;
+    items: Record<RoadmapId, { title: string; desc: string }>;
+    /** Under the columns: plans are not promises */
+    note: string;
+  };
+  /** /trust-center: how data is handled, said plainly */
+  trustPage: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    principles: Record<TrustPrincipleId, { title: string; desc: string }>;
+    securityTitle: string;
+    done: string;
+    planned: string;
+    security: Record<SecurityItemId, string>;
+    certNote: string;
+    legalTitle: string;
+    legal: string;
+    faqTitle: string;
+    faq: QA[];
   };
   footer: {
     tagline: string;

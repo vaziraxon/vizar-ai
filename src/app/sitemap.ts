@@ -17,8 +17,6 @@ const absolute = (path: string) => `${SITE_URL}${path === "/" ? "" : path}`;
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     ...LOCALIZED_PATHS,
-    "/roadmap",
-    "/trust-center",
     "/knowledge-base",
     ...BOOK_CHAPTERS.map((slug) => `/knowledge-base/book/${slug}`),
   ];

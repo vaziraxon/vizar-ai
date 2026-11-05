@@ -7,8 +7,8 @@ import type { LangCode } from "@/lib/translations";
 
 /**
  * Public pages that have Russian and English copy, so they also live at
- * /ru… and /en…. The roadmap, trust center and knowledge base are Uzbek-only
- * pages (or pick the language from a cookie) and stay out.
+ * /ru… and /en…. The knowledge base picks its language from a cookie and
+ * stays out.
  */
 export const LOCALIZED_PATHS: string[] = [
   "/",
@@ -16,6 +16,8 @@ export const LOCALIZED_PATHS: string[] = [
   "/how-it-works",
   "/pricing",
   "/faq",
+  "/roadmap",
+  "/trust-center",
   "/destinations",
   ...TOOLS.map((t) => t.href),
   ...TOOL_PROMOS.map((t) => t.publicHref),
@@ -60,6 +62,11 @@ function pageCopy(path: string, lang: LangCode): { title: string; description: s
       return { title: site.pricing.eyebrow, description: site.pricing.subtitle };
     case "/faq":
       return { title: site.faq.title, description: site.faq.subtitle };
+    case "/roadmap":
+      // The page heading already says "VIZAR AI"; the title template adds it too
+      return { title: site.footer.roadmap, description: site.roadmapPage.subtitle };
+    case "/trust-center":
+      return { title: site.trustPage.title, description: site.trustPage.subtitle };
     case "/destinations":
       return { title: site.destinationsPage.title, description: site.destinationsPage.subtitle };
   }
