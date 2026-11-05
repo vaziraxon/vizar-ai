@@ -95,7 +95,7 @@ export default function ForgotPasswordPage() {
           <p className="pt-2 text-center text-body-sm">
             <Link
               href="/login"
-              className="inline-flex items-center gap-1.5 rounded font-semibold text-ink-700 transition-colors hover:text-ink-900 dark:text-white/70 dark:hover:text-white"
+              className="-my-3 inline-flex items-center gap-1.5 rounded py-3 font-semibold text-ink-700 transition-colors hover:text-ink-900 dark:text-white/70 dark:hover:text-white"
             >
               <ArrowLeft size={15} /> {t("au_back_login")}
             </Link>

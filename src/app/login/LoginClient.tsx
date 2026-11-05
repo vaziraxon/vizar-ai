@@ -106,7 +106,7 @@ export default function LoginClient({ configured }: { configured: boolean }) {
         />
 
         <div className="flex items-center justify-between gap-4 text-body-sm">
-          <label className="flex cursor-pointer items-center gap-2 text-ink-700 dark:text-white/70">
+          <label className="-my-3 flex cursor-pointer items-center gap-2 py-3 text-ink-700 dark:text-white/70">
             <input
               type="checkbox"
               checked={remember}
@@ -117,7 +117,7 @@ export default function LoginClient({ configured }: { configured: boolean }) {
           </label>
           <Link
             href="/forgot-password"
-            className="rounded font-medium text-ink-900 underline decoration-surface-strong underline-offset-4 transition-colors hover:decoration-ink-900 dark:text-white"
+            className="-my-3 inline-block rounded py-3 font-medium text-ink-900 underline decoration-surface-strong underline-offset-4 transition-colors hover:decoration-ink-900 dark:text-white"
           >
             {t("au_forgot")}
           </Link>
@@ -145,7 +145,7 @@ export default function LoginClient({ configured }: { configured: boolean }) {
           {t("au_no_account")}{" "}
           <Link
             href="/register"
-            className="rounded font-semibold text-brand-600 hover:text-brand-700"
+            className="-mx-2 -my-3 inline-block rounded px-2 py-3 font-semibold text-brand-600 hover:text-brand-700"
           >
             {t("au_sign_up_link")}
           </Link>
