@@ -24,17 +24,12 @@ import {
   ShieldCheck,
   FilePlus2,
   Users,
-  FileStack,
   FileClock,
   Sparkles,
   TrendingUp,
   Bell,
   CalendarClock,
   BadgeCheck,
-  UserPlus,
-  Building2,
-  ClipboardList,
-  Palette,
   BarChart3,
   FileBarChart2,
   Route,
@@ -50,7 +45,6 @@ import type {
   Specialist,
   ApplicationRecord,
   RecommendationTask,
-  AdminStat,
   TrendPoint,
   CategoryDatum,
   ActivityTimelineItem,
@@ -274,44 +268,15 @@ export const RECOMMENDATION_TASKS: RecommendationTask[] = [
 
 // --- Admin panel ------------------------------------------------------------
 
-export const ADMIN_STATS: AdminStat[] = [
-  { icon: Users, label: "Jami foydalanuvchilar", value: "1 248" },
-  { icon: FileSearch2, label: "Faol tahlillar", value: "312" },
-  { icon: FolderOpen, label: "Yuklangan hujjatlar", value: "4 906" },
-  { icon: UserCog, label: "Konsultatsiyalar", value: "187" },
-  { icon: Landmark, label: "Daromad (namuna)", value: "—" },
-];
-
 export const ADMIN_NAV: SidebarNavItem[] = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
-  { icon: BookOpen, label: "AI bilimlar bazasi", href: "/admin/knowledge" },
+  { icon: BookOpen, label: "Kitob (bilimlar bazasi)", href: "/admin/knowledge" },
   { icon: MessageSquareQuote, label: "Mijozlar sharhlari", href: "/admin/testimonials" },
-  { icon: Users, label: "Foydalanuvchilar", href: "/admin" },
-  { icon: FileSearch2, label: "Arizalar", href: "/admin" },
-  { icon: FolderOpen, label: "Hujjatlar", href: "/admin" },
   { icon: UserCog, label: "Konsultatsiya so'rovlari", href: "/admin/consultations" },
   { icon: Crown, label: "Obuna so'rovlari", href: "/admin/subscriptions" },
-  { icon: FileStack, label: "Kontent", href: "/admin" },
   { icon: BarChart3, label: "Investor analitika", href: "/investor-analytics" },
   { icon: Route, label: "Roadmap", href: "/roadmap" },
   { icon: ShieldAlert, label: "Trust Center", href: "/trust-center" },
-  { icon: Settings, label: "Sozlamalar", href: "/admin" },
-];
-
-export const ADMIN_RECENT_USERS = [
-  { name: "Diyora Rakhimova", email: "diyora@example.com", joined: "2 soat oldin" },
-  { name: "Javlon Tursunov", email: "javlon@example.com", joined: "5 soat oldin" },
-  { name: "Madina Yusupova", email: "madina@example.com", joined: "1 kun oldin" },
-];
-
-export const ADMIN_FLAGGED_DOCS = [
-  { user: "Sherzod Aliyev", doc: "Bank statement", reason: "Sifat past, matn aniq ko'rinmayapti" },
-  { user: "Nodira Karimova", doc: "Taklifnoma", reason: "Sana maydoni bo'sh" },
-];
-
-export const ADMIN_SUPPORT_REQUESTS = [
-  { user: "Otabek Nematov", subject: "To'lov bo'yicha savol", status: "Ochiq" },
-  { user: "Kamola Yoldosheva", subject: "Hujjat yuklashda xatolik", status: "Jarayonda" },
 ];
 
 // --- Assessment form options --------------------------------------------------
@@ -357,9 +322,9 @@ export const INTERVIEW_PROGRESS_TREND: TrendPoint[] = [
 ];
 
 export const ACTIVITY_TIMELINE: ActivityTimelineItem[] = [
-  { icon: FileSearch2, title: "AI hujjat tahlili yakunlandi", time: "Bugun, 14:20" },
+  { icon: FileSearch2, title: "Viza tahlili yakunlandi", time: "Bugun, 14:20" },
   { icon: FolderOpen, title: "Bank statement yuklandi", time: "Bugun, 09:10" },
-  { icon: MessagesSquare, title: "AI Interview mashqi #4 bajarildi", time: "Kecha, 18:40" },
+  { icon: MessagesSquare, title: "Suhbat mashqi #4 bajarildi", time: "Kecha, 18:40" },
   { icon: Gauge, title: "Visa Readiness Score 74 → 82", time: "Kecha, 18:45" },
   { icon: UserCog, title: "Konsultatsiya band qilindi", time: "2 kun oldin" },
 ];
@@ -393,7 +358,7 @@ export const WEEKLY_SUMMARY = {
 
 export const SMART_RECOMMENDATIONS = [
   "Bank statementni yangilab qayta yuklang — bu tayyorgarlik bahosini oshiradi",
-  "AI Interview simulyatorida yana 2 ta mashq bajarish tavsiya etiladi",
+  "Suhbat mashqida yana 2 ta mashq bajarish tavsiya etiladi",
   "Mehmonxona bron hujjatini qo'shing — hozircha yetishmayapti",
 ];
 
@@ -403,9 +368,9 @@ export const INVESTOR_KPIS: KpiCardData[] = [
   { icon: Users, label: "Ro'yxatdan o'tgan foydalanuvchilar", value: "1 248", change: "+12%" },
   { icon: TrendingUp, label: "Oylik faol foydalanuvchilar", value: "612", change: "+9%" },
   { icon: FileSearch2, label: "Yakunlangan tahlillar", value: "934", change: "+15%" },
-  { icon: FolderOpen, label: "Tahlil qilingan hujjatlar", value: "4 906", change: "+18%" },
+  { icon: FolderOpen, label: "Yuklangan hujjatlar", value: "4 906", change: "+18%" },
   { icon: MessagesSquare, label: "Intervyu mashqlari", value: "2 310", change: "+21%" },
-  { icon: UserCog, label: "Konsultatsiya bandlari", value: "187", change: "+6%" },
+  { icon: UserCog, label: "Konsultatsiya so'rovlari", value: "187", change: "+6%" },
   { icon: BadgeCheck, label: "Bepuldan pullikka o'tish", value: "8.4%", change: "+1.2%" },
   { icon: Landmark, label: "Oylik takrorlanuvchi daromad (namuna)", value: "—" },
 ];
@@ -451,7 +416,7 @@ export const CONVERSION_FUNNEL: FunnelStep[] = [
   { label: "Ro'yxatdan o'tganlar", value: 1248 },
   { label: "Birinchi tahlilni boshlaganlar", value: 934 },
   { label: "Hujjat yuklaganlar", value: 701 },
-  { label: "AI Interview bajarganlar", value: 412 },
+  { label: "Suhbat mashqini bajarganlar", value: 412 },
   { label: "Pullik rejaga o'tganlar", value: 105 },
 ];
 
@@ -477,23 +442,11 @@ export const ENGAGEMENT_DATA: CategoryDatum[] = [
   { label: "Dashboard", value: 100 },
   { label: "Hujjatlar", value: 82 },
   { label: "Readiness Score", value: 76 },
-  { label: "AI Interview", value: 58 },
+  { label: "Suhbat mashqi", value: 58 },
   { label: "Konsultatsiya", value: 24 },
 ];
 
 // --- Agency ------------------------------------------------------------------
-
-export const AGENCY_NAV: SidebarNavItem[] = [
-  { icon: LayoutDashboard, label: "Umumiy ko'rinish", href: "/agency" },
-  { icon: Users, label: "Mijozlar", href: "/agency" },
-  { icon: UserPlus, label: "Yangi mijoz", href: "/agency" },
-  { icon: FileSearch2, label: "Arizalar", href: "/agency" },
-  { icon: FolderOpen, label: "Hujjatlar", href: "/agency" },
-  { icon: Building2, label: "Jamoa", href: "/agency" },
-  { icon: ClipboardList, label: "Hisobotlar", href: "/reports" },
-  { icon: Landmark, label: "Tarif va billing", href: "/pricing" },
-  { icon: Palette, label: "Agentlik sozlamalari", href: "/agency/white-label" },
-];
 
 export const AGENCY_OVERVIEW = {
   totalClients: 46,
@@ -530,7 +483,7 @@ export const AGENCY_CLIENTS: AgencyClient[] = [
     timeline: [
       { label: "Ariza yaratildi", date: "01-iyun" },
       { label: "Hujjatlar yuklandi", date: "05-iyun" },
-      { label: "AI tahlili yakunlandi", date: "07-iyun" },
+      { label: "Viza tahlili yakunlandi", date: "07-iyun" },
     ],
   },
   {
@@ -605,7 +558,7 @@ export const AGENCY_CLIENTS: AgencyClient[] = [
     ],
     riskFactors: ["Oldingi rad javobi mavjud", "Moliyaviy hujjatlar to'liq emas"],
     interviewScore: 44,
-    recommendations: ["Rad javobini tahlil qilish moduli orqali sabablarni aniqlash", "AI Interview mashqini boshlash"],
+    recommendations: ["Rad javobini tahlil qilish moduli orqali sabablarni aniqlash", "Suhbat mashqini boshlash"],
     notes: [],
     timeline: [{ label: "Ariza yaratildi", date: "16-iyul" }],
   },
@@ -709,7 +662,7 @@ export const NOTIFICATIONS: AppNotification[] = [
     type: "recommendation",
     icon: Sparkles,
     title: "Yangi tavsiya",
-    description: "AI Interview simulyatorida qo'shimcha mashq tavsiya etiladi.",
+    description: "Suhbat mashqida qo'shimcha mashq tavsiya etiladi.",
     time: "2 kun oldin",
     read: true,
   },
@@ -748,7 +701,7 @@ export const REPORTS: ReportItem[] = [
     id: "r2",
     icon: FolderOpen,
     title: "Hujjatlar tahlili hisoboti",
-    description: "Barcha yuklangan hujjatlar bo'yicha AI tahlili xulosasi.",
+    description: "Barcha yuklangan hujjatlar bo'yicha xulosa.",
     date: "Kecha",
     status: "Tayyor",
   },
@@ -756,7 +709,7 @@ export const REPORTS: ReportItem[] = [
     id: "r3",
     icon: MessagesSquare,
     title: "Intervyuga tayyorgarlik hisoboti",
-    description: "AI Interview mashqlari natijalari va tavsiyalar.",
+    description: "Suhbat mashqlari natijalari va tavsiyalar.",
     date: "2 kun oldin",
     status: "Tayyor",
   },

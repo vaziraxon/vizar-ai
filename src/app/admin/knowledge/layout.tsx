@@ -21,7 +21,7 @@ export default async function KnowledgeAdminLayout({ children }: { children: Rea
               <ArrowLeft size={16} /> Admin
             </Link>
             <span className="text-ink-300">/</span>
-            <h1 className="font-display text-[20px] font-bold text-ink-950">AI bilimlar bazasi</h1>
+            <h1 className="font-display text-[20px] font-bold text-ink-950">Kitob (bilimlar bazasi)</h1>
           </div>
           <nav className="flex flex-wrap gap-1">
             {TABS.map((t) => (
@@ -38,7 +38,7 @@ export default async function KnowledgeAdminLayout({ children }: { children: Rea
         ) : !ctx.isEditor ? (
           <p className="mb-6 rounded-2xl border border-amber-200 bg-amber-50/70 px-4 py-3 text-body-sm text-ink-800 dark:border-amber-400/20 dark:bg-amber-400/10">
             Siz faqat ko‘rish rejimidasiz. Tahrirlash uchun hisobingiz emaili Supabase SQL Editor orqali{" "}
-            <code>kb_editors</code> jadvaliga qo‘shilishi kerak (SUPABASE_SETUP.md, “AI bilimlar bazasi” bo‘limi).
+            <code>kb_editors</code> jadvaliga qo‘shilishi kerak (SUPABASE_SETUP.md, bilimlar bazasi bo‘limi).
           </p>
         ) : null}
         {ctx.supabase ? children : null}

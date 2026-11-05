@@ -169,12 +169,6 @@ export interface PricingPlan {
   highlighted?: boolean;
 }
 
-export interface AdminStat {
-  icon: LucideIcon;
-  label: string;
-  value: string;
-}
-
 // --- Stage 5 -------------------------------------------------------------
 
 export interface TrendPoint {

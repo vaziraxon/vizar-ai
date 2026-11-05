@@ -43,7 +43,7 @@ export default async function ChapterAdminPage({
         <label className="block">
           <span className="mb-1.5 block text-body-sm font-medium text-ink-900">Holat</span>
           <select name="status" defaultValue={chapter.status} className="input" disabled={!isEditor}>
-            <option value="published">published — AI foydalanadi</option>
+            <option value="published">published — saytda ko‘rinadi</option>
             <option value="draft">draft — yashirin</option>
             <option value="archived">archived</option>
           </select>

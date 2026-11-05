@@ -760,6 +760,8 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Hammasi yuklandi": { ru: "Всё загружено", en: "All uploaded" },
   /* ------------------------------------------------- AI knowledge assistant */
   "Kitobdan javob": { ru: "Ответы из книги", en: "Answers from the book" },
+  "Namuna: agentlik bo‘limi hali ishlab chiqilmoqda. Bu yerdagi mijozlar, raqamlar va arizalar to‘qima — haqiqiy ma’lumot emas.": { ru: "Пример: раздел для агентств ещё в разработке. Клиенты, цифры и заявки здесь вымышлены — это не реальные данные.", en: "Sample: the agency area is still being built. The clients, numbers and applications here are made up — not real data." },
+
   /* ------- Library promo (/knowledge-base) and the library in the dashboard */
   "VIZAR AI kitobi va davlatlar bo‘yicha viza qoidalari — rasmiy manbalar bilan. Ro‘yxatdan o‘tgach, shaxsiy kabinetda o‘qiysiz.": { ru: "Книга VIZAR AI и визовые правила по странам — с официальными источниками. После регистрации читайте в личном кабинете.", en: "The VIZAR AI book and visa rules by country — with official sources. Sign up and read it in your account." },
   "9 bob: viza turlari, hujjatlar, suhbat, rad javobi va boshqalar": { ru: "9 глав: типы виз, документы, собеседование, отказ и другое", en: "9 chapters: visa types, documents, the interview, refusals and more" },

@@ -5,7 +5,6 @@ import { UploadCloud, Save } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { SuccessToast } from "@/components/states/SuccessToast";
 import { Button } from "@/components/ui/Button";
-import { AGENCY_NAV } from "@/data/mockData";
 
 export default function WhiteLabelPage() {
   const [logo, setLogo] = useState<string | null>(null);

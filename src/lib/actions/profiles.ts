@@ -8,7 +8,7 @@ export async function updateMyProfileAction(input: {
   lastName?: string;
   phone?: string;
   preferredLanguage?: "uz" | "ru" | "en";
-  accountType?: "individual" | "agency";
+  accountType?: "individual";
 }) {
   const result = await profiles.updateMyProfile(input);
   if (result.ok) {

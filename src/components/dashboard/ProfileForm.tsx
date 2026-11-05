@@ -17,8 +17,6 @@ const sectionTitle = "mb-4 flex items-center gap-2 text-body-sm font-semibold te
 
 const LANGUAGE_OPTIONS = ["uz", "ru", "en"];
 const LANGUAGE_LABELS: Record<string, string> = { uz: "O‘zbekcha", ru: "Русский", en: "English" };
-const ACCOUNT_TYPE_OPTIONS = ["individual", "agency"];
-const ACCOUNT_TYPE_LABELS: Record<string, string> = { individual: "Shaxsiy", agency: "Agentlik" };
 
 export function ProfileForm({
   profile,
@@ -34,7 +32,6 @@ export function ProfileForm({
   const [lastName, setLastName] = useState(profile.last_name ?? "");
   const [phone, setPhone] = useState(profile.phone ?? "");
   const [language, setLanguage] = useState(profile.preferred_language);
-  const [accountType, setAccountType] = useState(profile.account_type);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
@@ -52,7 +49,6 @@ export function ProfileForm({
       lastName,
       phone,
       preferredLanguage: language as "uz" | "ru" | "en",
-      accountType: accountType as "individual" | "agency",
     });
     setSaving(false);
     if (!result.ok) {
@@ -183,17 +179,9 @@ export function ProfileForm({
 
       <div className="card rounded-[24px] p-6">
         <p className={sectionTitle}>
-          <span aria-hidden="true">🌐</span> {l("Hisob turi va til")}
+          <span aria-hidden="true">🌐</span> {l("Til")}
         </p>
         <div className="grid gap-4 sm:grid-cols-2">
-          <SelectField
-            id="accountType"
-            label="Hisob turi"
-            options={ACCOUNT_TYPE_OPTIONS}
-            optionLabels={ACCOUNT_TYPE_LABELS}
-            value={accountType}
-            onChange={(e) => setAccountType(e.target.value)}
-          />
           <SelectField
             id="language"
             label="Til"
