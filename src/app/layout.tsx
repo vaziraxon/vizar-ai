@@ -5,6 +5,7 @@ import "./fonts.css";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-context";
 import { LanguageProvider } from "@/lib/language-context";
+import { SiteAnalytics } from "@/components/layout/SiteAnalytics";
 
 /** Latin files for body and display text, fetched before the CSS asks for them. */
 const PRELOAD_FONTS = ["/fonts/inter-normal-100-900-latin.1dc044f4.woff2", "/fonts/manrope-normal-200-800-latin.22630002.woff2"];
@@ -84,6 +85,7 @@ export default function RootLayout({
         <ThemeProvider>
           <LanguageProvider>{children}</LanguageProvider>
         </ThemeProvider>
+        <SiteAnalytics />
       </body>
     </html>
   );
