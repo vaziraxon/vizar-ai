@@ -7,19 +7,23 @@ import { cn } from "@/lib/utils";
 /**
  * Accessible FAQ accordion with a 220ms height transition: compact cards that
  * tint violet on hover and press, the open one framed in violet with a filled
- * chevron circle.
+ * chevron circle. Questions are h3 by default; a page whose only content is
+ * the list (the FAQ) passes headingLevel 2 so no heading level is skipped.
  */
 export function Accordion({
   items,
   defaultOpen = 0,
+  headingLevel = 3,
   className,
 }: {
   items: { q: string; a: string }[];
   defaultOpen?: number | null;
+  headingLevel?: 2 | 3;
   className?: string;
 }) {
   const [open, setOpen] = useState<number | null>(defaultOpen);
   const uid = useId();
+  const Heading = headingLevel === 2 ? "h2" : "h3";
 
   return (
     <ul className={cn("space-y-2.5", className)}>
@@ -37,7 +41,7 @@ export function Accordion({
                 : "border-surface-border bg-surface hover:border-violet-200 hover:bg-violet-50/70 hover:shadow-[0_12px_26px_-20px_rgba(113,56,236,0.5)]"
             )}
           >
-            <h3>
+            <Heading>
               <button
                 id={buttonId}
                 type="button"
@@ -69,11 +73,12 @@ export function Accordion({
                   />
                 </span>
               </button>
-            </h3>
+            </Heading>
             <div
               id={panelId}
               role="region"
               aria-labelledby={buttonId}
+              aria-hidden={!isOpen}
               className={cn(
                 "grid transition-[grid-template-rows,opacity] duration-200 ease-premium",
                 isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"

@@ -59,7 +59,7 @@ const taskEmoji = (title: string) => TASK_EMOJI.find(([re]) => re.test(title))?.
 
 // Priority / task status → chip tone (keys are the Uzbek data values)
 const CHIP_STYLE: Record<string, string> = {
-  Muhim: "bg-red-500/10 text-red-600 ring-red-500/20 dark:text-red-300",
+  Muhim: "bg-red-500/10 text-red-700 ring-red-500/20 dark:text-red-300",
   "O'rtacha": "bg-amber-400/15 text-amber-700 ring-amber-400/25 dark:text-amber-300",
   Past: "bg-surface-tint text-ink-700 ring-surface-border",
   Jarayonda: "bg-brand-50 text-brand-700 ring-brand-100",

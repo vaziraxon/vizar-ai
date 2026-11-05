@@ -90,7 +90,7 @@ export function TrustCenterPage() {
                 )}
                 <span>
                   {copy.security[item.id]}
-                  <span className="ml-2 text-caption text-ink-400">· {item.done ? copy.done : copy.planned}</span>
+                  <span className="ml-2 text-caption text-ink-500">· {item.done ? copy.done : copy.planned}</span>
                 </span>
               </li>
             ))}

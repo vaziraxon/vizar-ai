@@ -163,7 +163,7 @@ export function FaqPage() {
       <PageHero emoji="💬" decor={["❓", "💡", "✅"]} eyebrow={site.faq.eyebrow} title={site.faq.title} subtitle={site.faq.subtitle} />
       <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
         <div data-reveal className="container-page max-w-3xl">
-          <Accordion items={site.faq.items} />
+          <Accordion items={site.faq.items} headingLevel={2} />
         </div>
       </section>
       <FinalCTA />
