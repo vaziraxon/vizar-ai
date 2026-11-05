@@ -72,7 +72,7 @@ export default function ChecklistPage() {
       title="Shaxsiy checklist"
       subtitle="Davlat va viza turingizga mos hujjatlar ro'yxati."
       eyebrow={
-        <span className="inline-flex items-center gap-1.5 rounded-pill border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">
+        <span className="inline-flex items-center gap-1.5 rounded-pill border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1 text-[12px] font-semibold text-emerald-700 dark:text-emerald-300">
           💾 {l("Shu brauzerda saqlanadi")}
         </span>
       }

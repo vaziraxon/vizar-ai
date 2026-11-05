@@ -439,7 +439,7 @@ export default function AiInterviewPage() {
             <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-900">
               <span aria-hidden="true">🕒</span> {l("Mashqlar tarixi")}
               {history.length === 0 && (
-                <span className="rounded-md bg-surface-tint px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-ink-500">
+                <span className="rounded-md bg-surface-tint px-1.5 py-0.5 text-[12px] font-semibold uppercase tracking-[0.08em] text-ink-500">
                   {l("Namuna")}
                 </span>
               )}
@@ -465,7 +465,7 @@ export default function AiInterviewPage() {
               ))}
             </ul>
             {history.length > 0 && (
-              <button type="button" onClick={() => setHistory([])} className="mt-3 text-caption font-semibold text-ink-500 hover:text-red-600">
+              <button type="button" onClick={() => setHistory([])} className="-mb-3 py-3 text-caption font-semibold text-ink-500 hover:text-red-600">
                 {l("Tarixni tozalash")}
               </button>
             )}

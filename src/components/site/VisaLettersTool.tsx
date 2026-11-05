@@ -203,28 +203,43 @@ function Paper({ blocks }: { blocks: Block[] }) {
             );
           case "table":
             return (
-              <table key={i} className="w-full border-collapse text-[11.5px]">
-                <thead>
-                  <tr>
-                    {b.head.map((h) => (
-                      <th key={h} className="border border-black/50 px-1.5 py-1 text-left font-bold">
-                        {h}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {b.rows.map((row, r) => (
-                    <tr key={r}>
-                      {row.map((cell, c) => (
-                        <td key={c} className="border border-black/50 px-1.5 py-1 align-top">
-                          {marked(cell)}
-                        </td>
+              <div key={i}>
+                <table className="hidden w-full border-collapse text-[11.5px] sm:table print:table">
+                  <thead>
+                    <tr>
+                      {b.head.map((h) => (
+                        <th key={h} className="border border-black/50 px-1.5 py-1 text-left font-bold">
+                          {h}
+                        </th>
                       ))}
                     </tr>
+                  </thead>
+                  <tbody>
+                    {b.rows.map((row, r) => (
+                      <tr key={r}>
+                        {row.map((cell, c) => (
+                          <td key={c} className="border border-black/50 px-1.5 py-1 align-top">
+                            {marked(cell)}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {/* Phones: one card per row instead of a five-column table that scrolls sideways */}
+                <div className="space-y-2 sm:hidden print:hidden">
+                  {b.rows.map((row, r) => (
+                    <dl key={r} className="rounded border border-black/40 px-2.5 py-1.5 text-[12px]">
+                      {row.map((cell, c) => (
+                        <div key={c} className="flex gap-1.5">
+                          <dt className="shrink-0 font-bold">{b.head[c]}:</dt>
+                          <dd>{marked(cell)}</dd>
+                        </div>
+                      ))}
+                    </dl>
                   ))}
-                </tbody>
-              </table>
+                </div>
+              </div>
             );
           case "sign":
             return (
@@ -620,13 +635,13 @@ export function VisaLettersTool({ embedded = false }: { embedded?: boolean } = {
                   href={EMBASSY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-body-sm font-semibold text-brand-700 underline-offset-2 hover:underline"
+                  className="-my-2 inline-flex items-center gap-1 py-2 text-body-sm font-semibold text-brand-700 underline-offset-2 hover:underline"
                 >
                   {c.sourceEmbassy} <ExternalLink size={13} aria-hidden="true" />
                 </a>
               </li>
               <li>
-                <Link href={BOOK_URL} className="inline-flex items-center gap-1 text-body-sm font-semibold text-brand-700 underline-offset-2 hover:underline">
+                <Link href={BOOK_URL} className="-my-2 inline-flex items-center gap-1 py-2 text-body-sm font-semibold text-brand-700 underline-offset-2 hover:underline">
                   <BookOpen size={14} aria-hidden="true" /> {c.bookLink}
                 </Link>
               </li>

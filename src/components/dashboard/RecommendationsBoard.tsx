@@ -75,7 +75,7 @@ export function RecommendationsBoard({ items, demo }: { items: RecommendationIte
           <p className={cn("text-body-sm font-semibold text-ink-900", item.status === "done" && "text-ink-500 line-through")}>{l(item.title)}</p>
           <div className="mt-1 flex flex-wrap items-center gap-3">
             {item.priority && (
-              <span className={cn("rounded-pill px-2.5 py-0.5 text-[11px] font-semibold ring-1", PRIORITY_STYLE[item.priority] ?? PRIORITY_STYLE.Past)}>
+              <span className={cn("rounded-pill px-2.5 py-0.5 text-[12px] font-semibold ring-1", PRIORITY_STYLE[item.priority] ?? PRIORITY_STYLE.Past)}>
                 {l(item.priority)}
               </span>
             )}
@@ -99,7 +99,7 @@ export function RecommendationsBoard({ items, demo }: { items: RecommendationIte
         <p className="mb-4 flex flex-wrap items-center gap-2 font-display text-body-lg font-bold text-ink-950">
           <span aria-hidden="true">📌</span> {l("Ustuvor vazifalar ro'yxati")}
           {demo && (
-            <span className="rounded-md bg-surface-tint px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-ink-500">
+            <span className="rounded-md bg-surface-tint px-1.5 py-0.5 text-[12px] font-semibold uppercase tracking-[0.08em] text-ink-500">
               {l("Namuna")}
             </span>
           )}
@@ -126,11 +126,11 @@ export function RecommendationsBoard({ items, demo }: { items: RecommendationIte
         <p className="text-body-sm text-ink-600">
           {l("Bu ro'yxat viza tahlilidagi javoblaringizdan tuziladi. Har bir yangi tahlil o'z qadamlarini qo'shadi.")}
         </p>
-        <div className="mt-4 flex flex-col gap-2">
-          <Link href="/assessment" className="inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep">
+        <div className="mt-1.5 flex flex-col">
+          <Link href="/assessment" className="inline-flex items-center gap-1.5 py-2.5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep">
             {l("Yangi viza tahlili")} <ArrowRight size={14} />
           </Link>
-          <Link href="/dashboard/readiness" className="inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep">
+          <Link href="/dashboard/readiness" className="inline-flex items-center gap-1.5 py-2.5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep">
             {l("Tayyorgarlik")} <ArrowRight size={14} />
           </Link>
         </div>

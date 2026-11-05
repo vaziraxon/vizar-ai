@@ -508,7 +508,7 @@ export function VisaPhotoTool({ embedded = false }: { embedded?: boolean } = {})
                     href={s.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-body-sm font-semibold text-brand-700 underline-offset-2 hover:underline"
+                    className="-my-2 inline-flex items-center gap-1 py-2 text-body-sm font-semibold text-brand-700 underline-offset-2 hover:underline"
                   >
                     {l(s.label)} <ExternalLink size={13} aria-hidden="true" />
                   </a>

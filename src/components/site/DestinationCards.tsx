@@ -71,7 +71,7 @@ export function DestinationCard({
           <span className="absolute inset-x-2 bottom-2 flex items-center justify-between gap-2 rounded-[14px] bg-white/[0.14] px-3 py-2 ring-1 ring-inset ring-white/25 backdrop-blur-md sm:inset-x-2.5 sm:bottom-2.5 sm:px-3.5 sm:py-2.5">
             <span className="min-w-0">
               <span className="block break-words font-luxe text-[16px] font-semibold leading-tight text-white sm:text-[21px]">{name}</span>
-              <span className="mt-0.5 block truncate text-[10px] font-semibold uppercase tracking-[0.14em] text-white/80 sm:text-[10.5px]">{region}</span>
+              <span className="mt-0.5 block truncate text-[12px] font-semibold uppercase tracking-[0.14em] text-white/80">{region}</span>
             </span>
             <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-lemon-300 text-night shadow-[0_6px_14px_-6px_rgba(222,186,10,0.9)] transition-transform duration-300 ease-premium group-hover:-rotate-45 sm:flex">
               <ArrowRight size={15} strokeWidth={2.4} />
@@ -103,7 +103,7 @@ export function DestinationGrid({ exclude, limit }: { exclude?: DestinationSlug;
             region={copy.region}
             badge={
               !d.available && (
-                <span className="absolute right-2 top-3 rounded-pill bg-surface/90 px-1.5 py-1 text-[10px] font-semibold leading-none text-ink-600 backdrop-blur sm:right-3 sm:top-3.5 sm:px-2 sm:text-[11px]">
+                <span className="absolute right-2 top-3 rounded-pill bg-surface/90 px-1.5 py-1 text-[12px] font-semibold leading-none text-ink-600 backdrop-blur sm:right-3 sm:top-3.5 sm:px-2">
                   <span aria-hidden="true" className="hidden sm:inline">
                     ⏳{" "}
                   </span>
