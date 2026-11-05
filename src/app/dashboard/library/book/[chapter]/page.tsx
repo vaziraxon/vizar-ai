@@ -8,7 +8,7 @@ import { CoverArt } from "@/components/knowledge/library/visuals";
 import { AccessCard, LibraryError, LibraryHero, LibraryTabs, Paywall, SectionRow, SrLabel, chapterEmoji } from "@/components/knowledge/library/ui";
 import { getRequestLanguage } from "@/lib/i18n/request-language";
 import { getLibraryViewer } from "@/lib/knowledge/access";
-import { chapterHeading, getCountries, getOutline, readingMinutes, type LibraryCountry, type OutlineChapter } from "@/lib/knowledge/library";
+import { chapterHeading, chapterTitle, getCountries, getOutline, readingMinutes, type LibraryCountry, type OutlineChapter } from "@/lib/knowledge/library";
 import { libraryHref } from "@/lib/knowledge/offline";
 import { chapterCover, sectionCountry, sectionEmoji } from "@/lib/knowledge/visuals";
 import { cn } from "@/lib/utils";
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const chapter = viewer.supabase ? (await getOutline(viewer.supabase, lang).catch(() => [])).find((c) => c.slug === params.chapter) : undefined;
   if (!chapter) return {};
   return {
-    title: `${chapter.label}. ${chapterHeading(chapter)}`,
+    title: chapterTitle(chapter),
     description: chapter.sections
       .filter((s) => !s.isIntro)
       .slice(0, 6)
@@ -50,7 +50,7 @@ function ChapterLink({ chapter, direction }: { chapter: OutlineChapter; directio
           {next ? <ArrowRight size={13} aria-hidden="true" /> : null}
         </span>
         <span className="mt-1 block text-body-sm font-semibold text-ink-900 group-hover:text-brand-700">
-          {chapterEmoji(chapter)} {chapter.label} — {chapterHeading(chapter)}
+          {chapterEmoji(chapter)} {chapterTitle(chapter, " — ")}
         </span>
       </span>
     </Link>
