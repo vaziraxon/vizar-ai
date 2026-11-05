@@ -64,12 +64,13 @@ export const NAV_KEY_BY_HREF: Record<string, string> = {
   "/recommendations": "recommendations",
   "/reports": "reports",
   "/notifications": "notifications",
+  "/dashboard/subscription": "nav_subscription",
   "/profile": "profile",
   "/settings": "settings",
 };
 
 const MORE_HREFS = new Set(["/assessment", "/recommendations", "/reports", "/notifications"]);
-const ACCOUNT_HREFS = new Set(["/profile", "/settings"]);
+const ACCOUNT_HREFS = new Set(["/dashboard/subscription", "/profile", "/settings"]);
 
 function NavLinks({
   navItems,
@@ -103,7 +104,8 @@ function NavLinks({
           </p>
           <ul className="space-y-0.5">
             {group.items.map((item) => {
-              const active = pathname === item.href;
+              // A plan page (/dashboard/subscription/premium) still marks "Obuna"
+              const active = pathname === item.href || (item.href === "/dashboard/subscription" && pathname.startsWith(`${item.href}/`));
               return (
                 <li key={item.href + item.label}>
                   <Link

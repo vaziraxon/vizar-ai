@@ -1,6 +1,7 @@
 "use client";
 
 import { LocalLink as Link } from "@/components/site/LocalLink";
+import { subscriptionHref } from "@/lib/dashboard/subscription-plans";
 import {
   ArrowRight,
   Briefcase,
@@ -29,11 +30,11 @@ const PLANS: {
   price: string;
   check: string;
 }[] = [
-  { id: "standard", href: "/register", icon: FileText, accent: "from-violet-500 to-violet-700", price: "text-violet-700 dark:text-violet-300", check: "bg-violet-600" },
+  { id: "standard", href: subscriptionHref("standard"), icon: FileText, accent: "from-violet-500 to-violet-700", price: "text-violet-700 dark:text-violet-300", check: "bg-violet-600" },
   // Citron fills carry night icons: white on citron is unreadable
-  { id: "premium", href: "/register", icon: Gauge, accent: "from-citron-200 to-citron-400 text-night", price: "text-citron-300", check: "bg-citron-300 text-night" },
-  { id: "pro", href: "/register", icon: Headphones, accent: "from-[#4A4D57] to-charcoal-deep", price: "text-ink-950", check: "bg-charcoal dark:bg-citron-300 dark:text-night" },
-  { id: "vip", href: "/experts", icon: Crown, accent: "from-amber-400 to-orange-600", price: "text-orange-600 dark:text-orange-400", check: "bg-orange-500" },
+  { id: "premium", href: subscriptionHref("premium"), icon: Gauge, accent: "from-citron-200 to-citron-400 text-night", price: "text-citron-300", check: "bg-citron-300 text-night" },
+  { id: "pro", href: subscriptionHref("pro"), icon: Headphones, accent: "from-[#4A4D57] to-charcoal-deep", price: "text-ink-950", check: "bg-charcoal dark:bg-citron-300 dark:text-night" },
+  { id: "vip", href: subscriptionHref("vip"), icon: Crown, accent: "from-amber-400 to-orange-600", price: "text-orange-600 dark:text-orange-400", check: "bg-orange-500" },
 ];
 
 /** The four B2C plans with their published prices, plus the B2B strip. */
