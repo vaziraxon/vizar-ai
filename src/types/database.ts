@@ -180,6 +180,27 @@ export interface Database {
         Update: Partial<Database["public"]["Tables"]["recommendations"]["Insert"]>;
         Relationships: [];
       };
+      subscription_requests: {
+        Row: {
+          id: string;
+          user_id: string;
+          plan: string;
+          contact: string;
+          message: string;
+          status: string;
+          subscription_id: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          user_id: string;
+          plan: string;
+          contact: string;
+          message?: string;
+        };
+        Update: { status?: string };
+        Relationships: [];
+      };
       consultations: {
         Row: {
           id: string;

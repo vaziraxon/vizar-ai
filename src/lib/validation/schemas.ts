@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CONSULTATION_TOPICS } from "@/lib/dashboard/consultation-request";
+import { SUBSCRIPTION_PLANS } from "@/lib/dashboard/subscription-plans";
 
 /**
  * Every Server Action / Route Handler that writes to the database
@@ -66,6 +67,20 @@ export const consultationRequestSchema = z.object({
 
 export const consultationCancelSchema = z.object({
   consultationId: z.string().uuid(),
+});
+
+export const subscriptionRequestSchema = z.object({
+  plan: z.enum(SUBSCRIPTION_PLANS, { errorMap: () => ({ message: "Tarifni tanlang." }) }),
+  contact: z
+    .string()
+    .trim()
+    .min(5, "Telegram yoki telefon raqamingizni yozing.")
+    .max(100, "Aloqa 100 belgidan oshmasin."),
+  message: z.string().trim().max(1000, "Izoh 1000 belgidan oshmasin.").default(""),
+});
+
+export const subscriptionRequestCancelSchema = z.object({
+  requestId: z.string().uuid(),
 });
 
 export const profileUpdateSchema = z.object({

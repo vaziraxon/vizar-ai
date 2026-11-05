@@ -42,6 +42,7 @@ import {
   Moon,
   Globe,
   Library,
+  Crown,
 } from "lucide-react";
 import type {
   SidebarNavItem,
@@ -134,6 +135,7 @@ export const SIDEBAR_NAV: SidebarNavItem[] = [
   { icon: Sparkles, label: "Tavsiyalar", href: "/recommendations" },
   { icon: FileBarChart2, label: "Hisobotlar", href: "/reports" },
   { icon: Bell, label: "Bildirishnomalar", href: "/notifications" },
+  { icon: Crown, label: "Obuna", href: "/dashboard/subscription" },
   { icon: UserRound, label: "Profil", href: "/profile" },
   { icon: Settings, label: "Sozlamalar", href: "/settings" },
 ];
@@ -289,6 +291,7 @@ export const ADMIN_NAV: SidebarNavItem[] = [
   { icon: FileSearch2, label: "Arizalar", href: "/admin" },
   { icon: FolderOpen, label: "Hujjatlar", href: "/admin" },
   { icon: UserCog, label: "Konsultatsiya so'rovlari", href: "/admin/consultations" },
+  { icon: Crown, label: "Obuna so'rovlari", href: "/admin/subscriptions" },
   { icon: FileStack, label: "Kontent", href: "/admin" },
   { icon: BarChart3, label: "Investor analitika", href: "/investor-analytics" },
   { icon: Route, label: "Roadmap", href: "/roadmap" },

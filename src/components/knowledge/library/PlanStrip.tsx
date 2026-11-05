@@ -3,6 +3,7 @@
 import { LocalLink as Link } from "@/components/site/LocalLink";
 import { useL } from "@/components/i18n/L";
 import { useSite } from "@/lib/i18n/site";
+import { subscriptionHref } from "@/lib/dashboard/subscription-plans";
 import { PLAN_EMOJI } from "@/lib/knowledge/visuals";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +21,7 @@ export function PlanStrip({ className }: { className?: string }) {
         return (
           <li key={id}>
             <Link
-              href="/pricing"
+              href={subscriptionHref(id)}
               className={cn(
                 "group relative flex h-full flex-col rounded-2xl border bg-surface p-4 text-left transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-card-hover",
                 popular ? "border-violet-300 ring-1 ring-violet-200 dark:border-violet-400/40 dark:ring-violet-400/20" : "border-surface-border hover:border-brand-200"
