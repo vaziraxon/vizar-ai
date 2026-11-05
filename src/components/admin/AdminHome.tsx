@@ -36,6 +36,7 @@ export function AdminHome({ state }: { state: AdminStatsState }) {
   const n = (v: number | undefined) => (v === undefined ? "—" : v.toLocaleString("uz-UZ"));
 
   const sections = [
+    { href: "/admin/users", icon: Users, title: "Foydalanuvchilar", note: s ? `${n(s.users)} ta, oxirgi 7 kunda +${n(s.users_7d)}` : "Kim ro‘yxatdan o‘tgan va qay darajada ishlayapti" },
     { href: "/admin/consultations", icon: UserCog, title: "Konsultatsiya so‘rovlari", note: s ? `${n(s.consultations_open)} ta javob kutmoqda` : "" },
     { href: "/admin/subscriptions", icon: Crown, title: "Obuna so‘rovlari", note: s ? `${n(s.subscription_requests_pending)} ta kutilmoqda` : "" },
     {
