@@ -987,6 +987,10 @@ export const en: SiteContent = {
         a: "In a Supabase cloud database. Each user sees only their own data and files.",
       },
       {
+        q: "Does the site track me?",
+        a: "The site collects cookie-less visit statistics (Vercel Web Analytics): how often each page is opened, which site visitors came from, country and device type. No name, email or search text is sent, and admin pages are not counted.",
+      },
+      {
         q: "What encryption is used?",
         a: "HTTPS (TLS) for the connection, AES-256 at rest for the database and files (Supabase infrastructure).",
       },
