@@ -249,7 +249,7 @@ export function AssistantChat() {
           className={cn(
             "flex items-start gap-2.5 rounded-2xl border px-4 py-3 text-body-sm",
             status?.ai.mode === "mock"
-              ? "border-violet-200 bg-violet-50/70 text-violet-900 dark:border-violet-400/20 dark:bg-violet-400/10 dark:text-violet-100"
+              ? "border-violet-200 bg-violet-50/70 text-violet-900 dark:border-violet-400/20 dark:bg-violet-400/10"
               : "border-brand-200 bg-brand-50/70 text-ink-800 dark:border-white/10 dark:bg-white/5"
           )}
         >
