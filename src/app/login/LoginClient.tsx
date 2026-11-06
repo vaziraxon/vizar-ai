@@ -145,7 +145,7 @@ export default function LoginClient({ configured }: { configured: boolean }) {
           {t("au_no_account")}{" "}
           <Link
             href="/register"
-            className="-mx-2 -my-3 inline-block rounded px-2 py-3 font-semibold text-brand-600 hover:text-brand-700"
+            className="-mx-2 -my-3 inline-block rounded px-2 py-3 font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-300 dark:hover:text-white"
           >
             {t("au_sign_up_link")}
           </Link>
