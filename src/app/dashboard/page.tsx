@@ -13,7 +13,6 @@ import { getMyProfile } from "@/lib/data/profiles";
 import { getLatestApplication } from "@/lib/data/applications";
 import { getAssessmentForApplication, isAssessmentComplete } from "@/lib/data/assessments";
 import { listDocumentsForApplication } from "@/lib/data/documents";
-import { listMyNotifications } from "@/lib/data/notifications";
 import { listMyRecommendations } from "@/lib/data/recommendations";
 import { getOpenConsultationRequest } from "@/lib/data/consultations";
 import { readRequest } from "@/lib/dashboard/consultation-request";
@@ -25,8 +24,6 @@ import {
   CURRENT_USER,
   CURRENT_APPLICATION,
   UPCOMING_CONSULTATION,
-  RECENT_ACTIVITY,
-  NOTIFICATIONS,
   RECOMMENDATION_TASKS,
 } from "@/data/mockData";
 
@@ -44,16 +41,15 @@ export default async function DashboardPage() {
     ? (profileResult?.ok && profileResult.data?.first_name) || ""
     : CURRENT_USER.firstName;
 
-  const [docsResult, notificationsResult, recommendationsResult, consultationResult, assessmentResult] =
+  const [docsResult, recommendationsResult, consultationResult, assessmentResult] =
     configured && application
       ? await Promise.all([
           listDocumentsForApplication(application.id),
-          listMyNotifications(),
           listMyRecommendations(),
           getOpenConsultationRequest(),
           getAssessmentForApplication(application.id),
         ])
-      : [null, null, null, null, null];
+      : [null, null, null, null];
 
   const live = configured && application;
   const uploadedCount = live
@@ -87,24 +83,6 @@ export default async function DashboardPage() {
         : RECOMMENDATION_TASKS.filter((t) => t.status !== "Bajarildi").map((t) => ({ id: t.id, title: t.title, chip: t.status }));
 
   const nextAction = tasks[0]?.title ?? "Yangi viza tahlilini boshlang";
-
-  // Activity: real notifications are actual account events; demo mode uses samples.
-  const activity = live
-    ? notificationsResult?.ok
-      ? notificationsResult.data.slice(0, 4).map((n) => ({
-          id: n.id,
-          text: n.title,
-          time: new Date(n.created_at).toLocaleDateString("uz-UZ"),
-          unread: !n.is_read,
-        }))
-      : []
-    : RECENT_ACTIVITY.map((a, i) => ({ id: String(i), text: a.text, time: a.time, unread: i === 0 }));
-
-  const unreadCount = live
-    ? notificationsResult?.ok
-      ? notificationsResult.data.filter((n) => !n.is_read).length
-      : 0
-    : NOTIFICATIONS.filter((n) => !n.read).length;
 
   const consultation = live
     ? consultationResult?.ok && consultationResult.data
@@ -176,8 +154,6 @@ export default async function DashboardPage() {
             totalSlots,
             missingCount,
             docsPercent,
-            unreadCount,
-            activity,
             consultation,
           }}
         />

@@ -12,8 +12,6 @@ import {
   Camera,
   FilePen,
   Calculator,
-  UserRound,
-  Settings,
   LogOut,
   FileText,
   Landmark,
@@ -92,13 +90,6 @@ export const UPCOMING_CONSULTATION = {
   topic: "Hujjatlarni yakuniy ko'rib chiqish",
 };
 
-export const RECENT_ACTIVITY = [
-  { icon: FileSearch2, text: "Viza tahlili yakunlandi", time: "2 soat oldin" },
-  { icon: FolderOpen, text: "Bank statement yuklandi", time: "5 soat oldin" },
-  { icon: MessagesSquare, text: "Suhbat mashqi boshlandi", time: "1 kun oldin" },
-  { icon: Gauge, text: "Tayyorgarlik bali yangilandi: 82/100", time: "1 kun oldin" },
-];
-
 export const NEXT_STEPS = [
   "Bank statementdagi hisob egasi ismini to'g'rilang",
   "Mehmonxona bron hujjatini yuklang",
@@ -128,9 +119,6 @@ export const SIDEBAR_NAV: SidebarNavItem[] = [
   { icon: FileSearch2, label: "Yangi viza tahlili", href: "/assessment" },
   { icon: Sparkles, label: "Tavsiyalar", href: "/recommendations" },
   { icon: FileBarChart2, label: "Hisobotlar", href: "/reports" },
-  { icon: Bell, label: "Bildirishnomalar", href: "/notifications" },
-  { icon: UserRound, label: "Profil", href: "/profile" },
-  { icon: Settings, label: "Sozlamalar", href: "/settings" },
 ];
 
 export const SIDEBAR_LOGOUT: SidebarNavItem = {
