@@ -978,7 +978,7 @@ export const en: SiteContent = {
       },
       ai: {
         title: "Honest about AI",
-        desc: "Today the site's scores, recommendations and analyses come from open, pre-written rules — no AI model is used. If AI is added, we will say so here, and it will only advise.",
+        desc: "“AI services” and “AI interview practice” in your dashboard are section names. Today they, like the site's scores, recommendations and analyses, run on open, pre-written rules — no AI model is used. If an AI model is added, we will say so here, and it will only advise.",
       },
       people: {
         title: "People involved",

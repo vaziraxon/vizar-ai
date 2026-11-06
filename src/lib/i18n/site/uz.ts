@@ -983,7 +983,7 @@ export const uz: SiteContent = {
       },
       ai: {
         title: "AI haqida halollik",
-        desc: "Hozir saytdagi ball, tavsiya va tahlillar oldindan yozilgan ochiq qoidalar asosida hisoblanadi — AI model ishlatilmaydi. AI qo‘shilsa, buni shu yerda aytamiz va u faqat tavsiya beradi.",
+        desc: "Kabinetdagi “AI xizmatlar” va “AI suhbat mashqi” — bo‘lim nomlari. Hozir ular ham, saytdagi ball, tavsiya va tahlillar ham oldindan yozilgan ochiq qoidalar asosida ishlaydi — AI model ishlatilmaydi. AI model qo‘shilsa, buni shu yerda aytamiz va u faqat tavsiya beradi.",
       },
       people: {
         title: "Inson ishtiroki",
