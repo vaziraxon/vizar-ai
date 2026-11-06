@@ -87,7 +87,7 @@ export function SchengenCalculator({ embedded = false }: { embedded?: boolean } 
             </ol>
 
             {reversed && (
-              <p role="alert" className="mt-3 text-body-sm font-medium text-red-600">
+              <p role="alert" className="mt-3 text-body-sm font-medium text-red-600 dark:text-red-300">
                 {c.invalid}
               </p>
             )}

@@ -29,3 +29,17 @@ const twMerge = extendTailwindMerge({
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+/**
+ * After a failed submit, move focus to the first field marked invalid so its
+ * error is read out; for a marked group (radios), its first control.
+ */
+export function focusFirstInvalid(root: ParentNode = document) {
+  requestAnimationFrame(() => {
+    const invalid = root.querySelector<HTMLElement>('[aria-invalid="true"]');
+    const control = invalid?.matches("input, select, textarea, button")
+      ? invalid
+      : invalid?.querySelector<HTMLElement>("input, select, textarea, button");
+    control?.focus();
+  });
+}

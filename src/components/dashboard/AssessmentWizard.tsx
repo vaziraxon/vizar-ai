@@ -19,6 +19,7 @@ import { upsertReportAction } from "@/lib/actions/reports";
 import { reviewAssessment, type AssessmentFinding } from "@/lib/dashboard/assessment-review";
 import { AssessmentFindings } from "@/components/dashboard/AssessmentFindings";
 import { useL } from "@/components/i18n/L";
+import { focusFirstInvalid } from "@/lib/utils";
 
 // Same order as DOC_LABELS
 const DOC_EMOJI = ["🛂", "🏦", "💼", "🏨", "✈️", "🩺", "✉️"];
@@ -131,6 +132,7 @@ export function AssessmentWizard({
         next.refusalReason = "Rad etilish sababini kiriting.";
     }
     setErrors(next);
+    if (Object.keys(next).length) focusFirstInvalid();
     return Object.keys(next).length === 0;
   }
 
@@ -431,7 +433,7 @@ export function AssessmentWizard({
       </AnimatePresence>
 
       {formError && (
-        <p className="mt-4 text-body-sm font-medium text-red-600">{l(formError)}</p>
+        <p role="alert" className="mt-4 text-body-sm font-medium text-red-600 dark:text-red-300">{l(formError)}</p>
       )}
 
       <div className="mt-8 flex items-center justify-between border-t border-surface-border pt-6 dark:border-white/10">

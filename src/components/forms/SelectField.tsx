@@ -60,7 +60,7 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
           />
         </div>
         {error && (
-          <p id={errorId} className="mt-1.5 text-caption font-medium text-red-600">
+          <p id={errorId} className="mt-1.5 text-caption font-medium text-red-600 dark:text-red-300">
             {l(error)}
           </p>
         )}

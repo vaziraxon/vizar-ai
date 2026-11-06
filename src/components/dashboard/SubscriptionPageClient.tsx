@@ -13,7 +13,7 @@ import { cancelSubscriptionRequestAction, requestSubscriptionAction } from "@/li
 import { SUBSCRIPTION_PLANS, SUBSCRIPTION_REQUEST_STATUS, isSubscriptionPlan, type SubscriptionPlanId } from "@/lib/dashboard/subscription-plans";
 import { useSite } from "@/lib/i18n/site";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
-import { cn } from "@/lib/utils";
+import { cn, focusFirstInvalid } from "@/lib/utils";
 import type { MySubscription, SubscriptionRequestRow } from "@/lib/data/subscriptions";
 
 const PLAN_EMOJI: Record<SubscriptionPlanId, string> = { standard: "📄", premium: "⭐", pro: "💎", vip: "👑" };
@@ -50,7 +50,7 @@ export function SubscriptionPageClient({
     if (!plan) next.plan = "Tarifni tanlang.";
     if (contact.trim().length < 5) next.contact = "Telegram yoki telefon raqamingizni yozing.";
     setErrors(next);
-    if (Object.keys(next).length) return;
+    if (Object.keys(next).length) return focusFirstInvalid();
 
     if (!configured) {
       setSent(true);
@@ -109,7 +109,13 @@ export function SubscriptionPageClient({
 
           <fieldset>
             <legend className="mb-2 block text-body-sm font-medium text-ink-900 dark:text-white/80">{l("Tarif")}</legend>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div
+              role="radiogroup"
+              aria-label={l("Tarif")}
+              aria-invalid={errors.plan ? true : undefined}
+              aria-describedby={errors.plan ? "plan-error" : undefined}
+              className="grid grid-cols-1 gap-3 sm:grid-cols-2"
+            >
               {SUBSCRIPTION_PLANS.map((id) => {
                 const copy = site.pricing.plans[id];
                 const selected = plan === id;
@@ -142,7 +148,7 @@ export function SubscriptionPageClient({
                 );
               })}
             </div>
-            {errors.plan && <p className="mt-2 text-caption font-medium text-red-600">{l(errors.plan)}</p>}
+            {errors.plan && <p id="plan-error" className="mt-2 text-caption font-medium text-red-600 dark:text-red-300">{l(errors.plan)}</p>}
           </fieldset>
 
           <TextField
@@ -169,7 +175,7 @@ export function SubscriptionPageClient({
             />
           </div>
 
-          {formError && <p role="alert" className="text-body-sm font-medium text-red-600">{l(formError)}</p>}
+          {formError && <p role="alert" className="text-body-sm font-medium text-red-600 dark:text-red-300">{l(formError)}</p>}
 
           <Button type="submit" size="md" disabled={sending}>
             {sending ? <Loader2 size={16} className="animate-spin" /> : null}

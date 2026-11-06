@@ -409,7 +409,7 @@ export function VisaPhotoTool({ embedded = false }: { embedded?: boolean } = {})
                 </label>
                 <p className="text-caption text-ink-500">{c.uploadHint}</p>
                 {loadError && (
-                  <p role="alert" className="text-body-sm font-medium text-red-600">
+                  <p role="alert" className="text-body-sm font-medium text-red-600 dark:text-red-300">
                     {c.loadError}
                   </p>
                 )}
