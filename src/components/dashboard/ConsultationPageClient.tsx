@@ -11,6 +11,7 @@ import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { requestConsultationAction, cancelConsultationAction } from "@/lib/actions/consultations";
 import { CONSULTATION_TOPICS, REQUEST_STATUS_LABEL, readRequest } from "@/lib/dashboard/consultation-request";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { focusFirstInvalid } from "@/lib/utils";
 import type { ConsultationRow } from "@/lib/data/consultations";
 import { useDateLocale, useL } from "@/components/i18n/L";
 
@@ -36,7 +37,7 @@ export function ConsultationPageClient({ requests }: { requests: ConsultationRow
     if (!form.topic) next.topic = "Mavzuni tanlang.";
     if (form.contact.trim().length < 5) next.contact = "Telegram yoki telefon raqamingizni yozing.";
     setErrors(next);
-    if (Object.keys(next).length) return;
+    if (Object.keys(next).length) return focusFirstInvalid();
 
     if (!configured) {
       setSent(true);
@@ -123,7 +124,7 @@ export function ConsultationPageClient({ requests }: { requests: ConsultationRow
             />
           </div>
 
-          {formError && <p role="alert" className="text-body-sm font-medium text-red-600">{l(formError)}</p>}
+          {formError && <p role="alert" className="text-body-sm font-medium text-red-600 dark:text-red-300">{l(formError)}</p>}
 
           <Button type="submit" size="md" disabled={sending}>
             {sending ? <Loader2 size={16} className="animate-spin" /> : null}

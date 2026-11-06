@@ -105,7 +105,7 @@ export function RecommendationsBoard({ items, demo }: { items: RecommendationIte
           )}
         </p>
         <p className="-mt-2 mb-4 text-caption text-ink-500">👆 {l("Holatni o'zgartirish uchun belgini bosing — saqlanadi.")}</p>
-        {error && <p role="alert" className="mb-3 text-body-sm font-medium text-red-600">{l(error)}</p>}
+        {error && <p role="alert" className="mb-3 text-body-sm font-medium text-red-600 dark:text-red-300">{l(error)}</p>}
         {open.length > 0 ? (
           <ul className="space-y-3">{open.map(row)}</ul>
         ) : (

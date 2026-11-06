@@ -128,7 +128,7 @@ export function ProfileForm({
             )}
           </div>
           {photoError ? (
-            <p role="alert" className="mt-2 text-caption font-medium text-red-600">{l(photoError)}</p>
+            <p role="alert" className="mt-2 text-caption font-medium text-red-600 dark:text-red-300">{l(photoError)}</p>
           ) : (
             <p className="mt-2 text-caption text-ink-500">{l("JPG, PNG yoki WEBP. Rasm kvadrat qilib qirqiladi.")}</p>
           )}
@@ -143,6 +143,7 @@ export function ProfileForm({
           <TextField
             id="firstName"
             label="Ism"
+            autoComplete="given-name"
             value={firstName}
             maxLength={100}
             onChange={(e) => setFirstName(e.target.value)}
@@ -150,6 +151,7 @@ export function ProfileForm({
           <TextField
             id="lastName"
             label="Familiya"
+            autoComplete="family-name"
             value={lastName}
             maxLength={100}
             onChange={(e) => setLastName(e.target.value)}
@@ -162,17 +164,18 @@ export function ProfileForm({
           <span aria-hidden="true">📞</span> {l("Aloqa ma'lumotlari")}
         </p>
         <div className="grid gap-4 sm:grid-cols-2">
-          <TextField id="email" label="Email" type="email" value={email} disabled />
+          <TextField id="email" label="Email" type="email" autoComplete="email" value={email} disabled />
           <TextField
             id="phone"
             label="Telefon raqami"
             type="tel"
+            autoComplete="tel"
             placeholder="+998901234567"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
         </div>
-        <p className="mt-2 text-caption text-ink-400 dark:text-white/40">
+        <p className="mt-2 text-caption text-ink-500 dark:text-white/60">
           {l("Email manzilni o'zgartirish hozircha qo'llab-quvvatlanmaydi.")}
         </p>
       </div>
@@ -193,7 +196,7 @@ export function ProfileForm({
         </div>
       </div>
 
-      {error && <p className="text-body-sm font-medium text-red-600">{l(error)}</p>}
+      {error && <p role="alert" className="text-body-sm font-medium text-red-600 dark:text-red-300">{l(error)}</p>}
 
       <div className="flex items-center gap-3">
         <Button type="submit" size="md" disabled={saving}>

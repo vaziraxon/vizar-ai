@@ -200,7 +200,7 @@ export function RealDocumentCard({
           )}
 
           {phase === "error" && (
-            <p className="flex items-center gap-1.5 text-caption font-medium text-red-600">
+            <p role="alert" className="flex items-center gap-1.5 text-caption font-medium text-red-600 dark:text-red-300">
               <AlertTriangle size={13} /> {l(errorMsg)}
             </p>
           )}

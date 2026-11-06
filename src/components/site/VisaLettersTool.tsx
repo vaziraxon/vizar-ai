@@ -300,9 +300,13 @@ export function VisaLettersTool({ embedded = false }: { embedded?: boolean } = {
   const setE = <K extends keyof EmployerData>(key: K, value: EmployerData[K]) => setEmployer((d) => ({ ...d, [key]: value }));
   const setS = <K extends keyof SponsorData>(key: K, value: SponsorData[K]) => setSponsor((d) => ({ ...d, [key]: value }));
 
-  const input = (value: string, onChange: (v: string) => void, type: "text" | "date" | "tel" | "email" = "text") => (
-    <input type={type} value={value} onChange={(e) => onChange(e.target.value)} className={inputCls} />
-  );
+  // autoComplete only on the applicant's own details, so the browser can fill them in
+  const input = (
+    value: string,
+    onChange: (v: string) => void,
+    type: "text" | "date" | "tel" | "email" = "text",
+    autoComplete?: string
+  ) => <input type={type} value={value} onChange={(e) => onChange(e.target.value)} autoComplete={autoComplete} className={inputCls} />;
 
   const countrySelect = (value: string, onChange: (v: string) => void, emptyLabel: string) => (
     <select value={value} onChange={(e) => onChange(e.target.value)} className={inputCls}>
@@ -397,15 +401,15 @@ export function VisaLettersTool({ embedded = false }: { embedded?: boolean } = {
               {kind === "cover" && (
                 <>
                   <Section title={c.sections.applicant}>
-                    <Field label={f.fullName}>{input(cover.fullName, (v) => setC("fullName", v))}</Field>
-                    <Field label={f.birthDate}>{input(cover.birthDate, (v) => setC("birthDate", v), "date")}</Field>
+                    <Field label={f.fullName}>{input(cover.fullName, (v) => setC("fullName", v), "text", "name")}</Field>
+                    <Field label={f.birthDate}>{input(cover.birthDate, (v) => setC("birthDate", v), "date", "bday")}</Field>
                     <Field label={f.passport}>{input(cover.passport, (v) => setC("passport", v))}</Field>
-                    <Field label={f.homeCity}>{input(cover.homeCity, (v) => setC("homeCity", v))}</Field>
+                    <Field label={f.homeCity}>{input(cover.homeCity, (v) => setC("homeCity", v), "text", "address-level2")}</Field>
                     <Field label={f.address} wide>
-                      {input(cover.address, (v) => setC("address", v))}
+                      {input(cover.address, (v) => setC("address", v), "text", "street-address")}
                     </Field>
-                    <Field label={f.phone}>{input(cover.phone, (v) => setC("phone", v), "tel")}</Field>
-                    <Field label={f.email}>{input(cover.email, (v) => setC("email", v), "email")}</Field>
+                    <Field label={f.phone}>{input(cover.phone, (v) => setC("phone", v), "tel", "tel")}</Field>
+                    <Field label={f.email}>{input(cover.email, (v) => setC("email", v), "email", "email")}</Field>
                   </Section>
                   <Section title={c.sections.trip}>
                     <Field label={f.country}>{countrySelect(cover.country, (v) => setC("country", v), "—")}</Field>
@@ -421,7 +425,7 @@ export function VisaLettersTool({ embedded = false }: { embedded?: boolean } = {
                     <Field label={f.from}>{input(cover.from, (v) => setC("from", v), "date")}</Field>
                     <Field label={f.to}>{input(cover.to, (v) => setC("to", v), "date")}</Field>
                     {coverReversed && (
-                      <p role="alert" className="text-body-sm font-medium text-red-600 sm:col-span-2">
+                      <p role="alert" className="text-body-sm font-medium text-red-600 dark:text-red-300 sm:col-span-2">
                         {c.invalidDates}
                       </p>
                     )}
