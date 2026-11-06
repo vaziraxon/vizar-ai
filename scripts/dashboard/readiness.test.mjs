@@ -81,7 +81,8 @@ test("filledSlots ignores repeats and documents outside the slots", () => {
 });
 
 test("readinessLevel boundaries", () => {
-  assert.equal(readinessLevel(0), "Endi boshlanmoqda");
+  assert.equal(readinessLevel(0), "Hali baholanmagan");
+  assert.equal(readinessLevel(1), "Endi boshlanmoqda");
   assert.equal(readinessLevel(25), "Davom eting");
   assert.equal(readinessLevel(60), "Yaxshi ketyapsiz");
   assert.equal(readinessLevel(90), "Deyarli tayyor");

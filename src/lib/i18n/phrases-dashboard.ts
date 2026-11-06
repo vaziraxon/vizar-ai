@@ -1039,6 +1039,15 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Suhbat mashqi — natija": { ru: "Тренировка интервью — результат", en: "Interview practice — result" },
   "Viza tayyorgarlik bali": { ru: "Балл готовности к визе", en: "Visa readiness score" },
   "Suhbat mashqi bo'limida tayyorlaning": { ru: "Подготовьтесь в разделе «Тренировка интервью»", en: "Prepare in the Interview practice section" },
+  /* Active application */
+  "Hali baholanmagan": { ru: "Ещё не оценено", en: "Not assessed yet" },
+  "Tayyorgarlik hali baholanmagan": { ru: "Готовность ещё не оценена", en: "Readiness not assessed yet" },
+  "Viza tahlilini yakunlang yoki hujjat yuklang — ball shundan hisoblanadi.": { ru: "Завершите анализ визы или загрузите документ — балл считается по ним.", en: "Finish the visa assessment or upload a document — the score is built from them." },
+  "Tayyorgarlik yakuni": { ru: "Готовность завершена", en: "Ready to apply" },
+  "Joriy arizangiz uchun: {destination}, {visa}": { ru: "Для вашей текущей заявки: {destination}, {visa}", en: "For your current application: {destination}, {visa}" },
+  "Bu ro'yxat joriy arizangizga tegishli emas ({destination}).": { ru: "Этот список не относится к вашей текущей заявке ({destination}).", en: "This list isn't for your current application ({destination})." },
+  "Arizangizdagi davlat ({destination}) uchun alohida ro'yxat yo'q — eng yaqin yo'nalishni tanlang.": { ru: "Для страны вашей заявки ({destination}) отдельного списка нет — выберите ближайшее направление.", en: "There's no separate list for your application's country ({destination}) — pick the closest destination." },
+  "Arizamga qaytish": { ru: "Вернуться к моей заявке", en: "Back to my application" },
   /* Visa-free short trips (Turkey) */
   "Viza kerak emas, qabul kunini band qilish shart emas.": { ru: "Виза не нужна, записываться на подачу не требуется.", en: "No visa is needed, so there is no appointment to book." },
   "Bu safar uchun viza kerak emas": { ru: "Для этой поездки виза не нужна", en: "This trip needs no visa" },

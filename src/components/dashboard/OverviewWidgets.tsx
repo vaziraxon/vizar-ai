@@ -8,6 +8,7 @@ import { useDateLocale, useL } from "@/components/i18n/L";
 import { useSite } from "@/lib/i18n/site";
 import { DESTINATION_BY_SLUG } from "@/lib/site/registry";
 import { useLocalState } from "@/lib/dashboard/use-local-state";
+import { useApplicationChecklist } from "@/components/dashboard/ActiveApplication";
 import {
   CHECKLIST_SELECTION_KEY,
   DEFAULT_SELECTION,
@@ -120,7 +121,9 @@ export function TripCountdown({ className }: { className?: string }) {
 export function ChecklistMini({ className }: { className?: string }) {
   const l = useL();
   const site = useSite();
-  const [selection] = useLocalState<ChecklistSelection>(CHECKLIST_SELECTION_KEY, DEFAULT_SELECTION);
+  const [stored] = useLocalState<ChecklistSelection>(CHECKLIST_SELECTION_KEY, DEFAULT_SELECTION);
+  // Shows the active application's checklist, not whichever one was last browsed
+  const selection = useApplicationChecklist() ?? stored;
   const [saved] = useLocalState<ChecklistSaved>(checklistKey(selection.dest, selection.visa), { done: [], custom: [] });
   const progress = checklistProgress(selection, saved);
   const dest = DESTINATION_BY_SLUG[selection.dest];

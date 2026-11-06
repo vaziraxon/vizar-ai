@@ -1,5 +1,5 @@
 import { SITE_CONTENT } from "@/lib/i18n/site";
-import type { FlagCode } from "@/lib/site/registry";
+import type { DestinationSlug, FlagCode } from "@/lib/site/registry";
 
 export interface DestinationVisual {
   flag: FlagCode;
@@ -49,6 +49,26 @@ for (const [alias, flag] of Object.entries({
   schengen: "eu", shengen: "eu", шенген: "eu", europe: "eu", yevropa: "eu",
   uae: "ae", dubai: "ae", dubay: "ae",
 } as Record<string, keyof typeof BY_FLAG>)) NAMES.set(key(alias), flag);
+
+const SLUG_BY_FLAG: Record<string, DestinationSlug> = {
+  eu: "schengen",
+  fr: "schengen",
+  de: "schengen",
+  it: "schengen",
+  us: "usa",
+  gb: "uk",
+  ca: "canada",
+  jp: "japan",
+  kr: "south-korea",
+  ae: "uae",
+  tr: "turkey",
+};
+
+/** The site destination (checklist, guide) for a country name in any language; null when unknown. */
+export function matchDestinationSlug(name: string | null | undefined): DestinationSlug | null {
+  const visual = matchDestination(name);
+  return visual ? SLUG_BY_FLAG[visual.flag] ?? null : null;
+}
 
 /** Visuals for a destination name in any language; null when unknown. */
 export function matchDestination(name: string | null | undefined): DestinationVisual | null {

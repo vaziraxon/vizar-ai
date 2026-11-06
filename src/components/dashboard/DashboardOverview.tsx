@@ -31,7 +31,7 @@ export interface OverviewData {
 }
 
 // Step markers along the application journey
-const STEP_EMOJI = ["👤", "📂", "🧭", "🎤", "🏁"];
+const STEP_EMOJI = ["👤", "📂", "🧭", "🏁"];
 // Task bullets — matched loosely by topic, otherwise a pin
 const TASK_EMOJI: [RegExp, string][] = [
   [/bank|statement|ko.chirma/i, "🏦"],
@@ -73,6 +73,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
   const visual = matchDestination(data.destination);
   const readiness = useReadiness(data.readiness ?? NO_READINESS_FACTS);
   const score = data.readiness ? readiness.score : data.demoScore;
+  const notAssessed = Boolean(data.readiness) && score === 0;
 
   return (
     <div className="space-y-5">
@@ -102,11 +103,17 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
             </div>
 
             <div className="mt-7 grid gap-6 sm:grid-cols-[auto_1fr] sm:items-center">
-              <ScoreRing score={score} size={120} strokeWidth={10} />
+              <ScoreRing score={score} size={120} strokeWidth={10} empty={notAssessed} />
               <div>
-                <p className="text-body font-semibold text-ink-900">{l("Tayyorgarlik darajasi")}</p>
+                <p className="text-body font-semibold text-ink-900">
+                  {l(notAssessed ? "Tayyorgarlik hali baholanmagan" : "Tayyorgarlik darajasi")}
+                </p>
                 <p className="mt-1 max-w-md text-body-sm text-ink-600">
-                  {l("Hujjatlaringiz, checklist va mashqlaringiz asosida hisoblangan ko'rsatkich — viza kafolati emas.")}
+                  {l(
+                    notAssessed
+                      ? "Viza tahlilini yakunlang yoki hujjat yuklang — ball shundan hisoblanadi."
+                      : "Hujjatlaringiz, checklist va mashqlaringiz asosida hisoblangan ko'rsatkich — viza kafolati emas."
+                  )}
                 </p>
                 <div className="mt-4 flex flex-wrap items-center gap-3">
                   {visual && (
