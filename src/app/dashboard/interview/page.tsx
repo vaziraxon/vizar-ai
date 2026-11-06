@@ -332,7 +332,7 @@ export default function AiInterviewPage() {
     return (
       <DashboardShell title="Suhbat mashqi" subtitle="Mashqni boshlashdan oldin davlat va qiyinlik darajasini tanlang.">
         <div className="card mx-auto max-w-2xl space-y-6 overflow-hidden rounded-[28px] p-6 sm:p-8">
-          <div className="hero-sky-soft grain relative -mx-6 -mt-6 flex items-center gap-4 overflow-hidden px-6 py-6 sm:-mx-8 sm:-mt-8 sm:px-8">
+          <div className="lime-wash grain relative -mx-6 -mt-6 flex items-center gap-4 overflow-hidden px-6 py-6 sm:-mx-8 sm:-mt-8 sm:px-8">
             <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[18px] bg-surface text-[28px] shadow-float">🎤</span>
             <div>
               <p className="font-display text-body-lg font-bold text-ink-950">{l("Konsul bilan suhbatni mashq qiling")}</p>
