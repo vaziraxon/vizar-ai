@@ -284,7 +284,7 @@ export default function ChecklistPage() {
           </p>
         </div>
 
-        <aside className="h-fit space-y-4 lg:sticky lg:top-24">
+        <aside aria-label={l("Umumiy progress")} className="h-fit space-y-4 lg:sticky lg:top-24">
           <div className="card spotlight rounded-[24px] p-6">
             <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-500">
               <span aria-hidden="true" className="text-[14px]">📊</span>
