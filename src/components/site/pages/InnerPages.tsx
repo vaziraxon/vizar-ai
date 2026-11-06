@@ -209,7 +209,7 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
         <div className="container-page relative pb-12 pt-28 sm:pt-36 lg:pb-16 lg:pt-40">
           <Link
             href="/destinations"
-            className="inline-flex animate-fade-up items-center gap-1.5 rounded-pill text-body-sm font-semibold text-ink-800 transition-colors hover:text-brand-700"
+            className="relative inline-flex animate-fade-up items-center gap-1.5 rounded-pill text-body-sm font-semibold text-ink-800 transition-colors before:absolute before:-inset-x-2 before:-inset-y-3 before:content-[''] hover:text-brand-700"
           >
             <ChevronLeft size={17} />
             {page.eyebrow}
