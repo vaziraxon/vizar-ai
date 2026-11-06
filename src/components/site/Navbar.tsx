@@ -230,6 +230,10 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout>>();
+  const focusPanel = useRef(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const mobileToggle = useRef<HTMLButtonElement>(null);
 
   const activeKey =
     pathname === "/"
@@ -260,10 +264,15 @@ export function Navbar() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setMenu(null);
-        setMobileOpen(false);
-      }
+      if (e.key !== "Escape") return;
+      // Hand focus back to the button that opened what is closing, so
+      // keyboard users keep their place instead of landing on <body>
+      const active = document.activeElement;
+      const panel = active?.closest<HTMLElement>("[data-nav-panel]");
+      if (panel) document.querySelector<HTMLElement>(`[aria-controls="${panel.id}"]`)?.focus();
+      else if (active?.closest("#mobile-menu")) mobileToggle.current?.focus();
+      setMenu(null);
+      setMobileOpen(false);
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
@@ -275,11 +284,25 @@ export function Navbar() {
     const onChange = () => mq.matches && setMobileOpen(false);
     mq.addEventListener("change", onChange);
     document.body.style.overflow = "hidden";
+    // The open sheet covers the page, so Tab stays in the bar and the sheet
+    const onFocusIn = (e: FocusEvent) => {
+      const target = e.target as Node;
+      if (!headerRef.current?.contains(target) && !sheetRef.current?.contains(target)) mobileToggle.current?.focus();
+    };
+    document.addEventListener("focusin", onFocusIn);
     return () => {
       mq.removeEventListener("change", onChange);
+      document.removeEventListener("focusin", onFocusIn);
       document.body.style.overflow = "";
     };
   }, [mobileOpen]);
+
+  // A dropdown opened from the keyboard moves focus to its first link
+  useEffect(() => {
+    if (!menu || !focusPanel.current) return;
+    focusPanel.current = false;
+    document.getElementById(`menu-${menu}`)?.querySelector<HTMLElement>("a, button")?.focus();
+  }, [menu]);
 
   const openMenu = (id: MenuId) => {
     clearTimeout(closeTimer.current);
@@ -316,7 +339,12 @@ export function Navbar() {
       aria-haspopup="true"
       aria-controls={`menu-${id}`}
       onMouseEnter={() => openMenu(id)}
-      onClick={() => (menu === id ? close() : openMenu(id))}
+      onClick={(e) => {
+        if (menu === id) return close();
+        // detail is 0 for Enter/Space, so only the keyboard moves focus into the panel
+        focusPanel.current = e.detail === 0;
+        openMenu(id);
+      }}
       className={cn(itemClass(id), "group")}
     >
       {label}
@@ -350,6 +378,7 @@ export function Navbar() {
       {/* Mobile: a full-width bar. Desktop: transparent on top, then the whole
           header condenses into one floating glass capsule. Height stays 88px. */}
       <header
+        ref={headerRef}
         className={cn(
           "sticky top-0 z-50 border-b transition-[background-color,border-color] duration-200 lg:border-b-0 lg:py-2",
           solid ? "border-surface-border bg-surface/90 backdrop-blur-xl lg:bg-transparent lg:backdrop-blur-none" : "border-transparent"
@@ -366,6 +395,10 @@ export function Navbar() {
               "lg:bg-surface/60 lg:shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_24px_48px_-24px_rgba(16,24,40,0.28)] lg:backdrop-blur-2xl lg:backdrop-saturate-[1.8] dark:lg:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_48px_-24px_rgba(0,0,0,0.6)]"
           )}
           onMouseLeave={scheduleClose}
+          // Moving focus to anything but the open dropdown or its button closes it
+          onFocus={(e) => {
+            if (menu && !e.target.closest(`#menu-${menu}`) && e.target.getAttribute("aria-controls") !== `menu-${menu}`) close();
+          }}
         >
           <Link href="/" aria-label={site.nav.homeAria} className="shrink-0 rounded-lg">
             <Logo />
@@ -412,6 +445,7 @@ export function Navbar() {
           <div className="flex items-center gap-2 lg:hidden">
           <ThemeToggle variant="pill" className="h-11 w-11" labels={{ toDark: site.nav.themeToDark, toLight: site.nav.themeToLight }} />
           <button
+            ref={mobileToggle}
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? site.nav.closeMenu : site.nav.openMenu}
@@ -427,7 +461,20 @@ export function Navbar() {
           {menu && (
             <div
               id={`menu-${menu}`}
+              data-nav-panel
               onMouseEnter={() => clearTimeout(closeTimer.current)}
+              // The panel sits after the bar in the DOM: Shift+Tab off its first
+              // link goes back to its button, Tab off its last link closes it
+              onKeyDown={(e) => {
+                if (e.key !== "Tab") return;
+                const links = e.currentTarget.querySelectorAll<HTMLElement>("a, button");
+                const trigger = document.querySelector<HTMLElement>(`[aria-controls="menu-${menu}"]`);
+                if (e.shiftKey ? document.activeElement === links[0] : document.activeElement === links[links.length - 1]) {
+                  e.preventDefault();
+                  if (!e.shiftKey) close();
+                  trigger?.focus();
+                }
+              }}
               className={cn(
                 "absolute left-1/2 top-[68px] z-50 hidden -translate-x-1/2 pt-2 lg:block",
                 menu === "library" ? "w-[min(940px,calc(100vw-40px))]" : "w-[680px]"
@@ -502,6 +549,7 @@ export function Navbar() {
       {/* Mobile menu — full-width sheet under the bar; a sibling of <header>
           so the bar's backdrop-filter can't become its containing block. */}
       <div
+        ref={sheetRef}
         id="mobile-menu"
         className={cn(
           "fixed inset-x-0 bottom-0 top-16 z-40 flex flex-col bg-surface transition-[opacity,visibility] duration-200 lg:hidden",

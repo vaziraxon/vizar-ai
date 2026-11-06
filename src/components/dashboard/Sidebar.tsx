@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,6 +11,7 @@ import { logoutAction } from "@/lib/actions/auth";
 import { useLanguage } from "@/lib/language-context";
 import { cn } from "@/lib/utils";
 import { useL } from "@/components/i18n/L";
+import { useDialogFocus } from "@/lib/use-dialog-focus";
 
 // One tip per day (Uzbek source, translated through the phrase table)
 const DAILY_TIPS = [
@@ -168,6 +170,15 @@ export function Sidebar({
   logoutItem = SIDEBAR_LOGOUT,
 }: SidebarProps) {
   const { t } = useLanguage();
+  const drawerRef = useRef<HTMLElement>(null);
+  useDialogFocus(mobileOpen, drawerRef);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mobileOpen, onClose]);
 
   return (
     <>
@@ -193,6 +204,10 @@ export function Sidebar({
               className="fixed inset-0 z-[60] bg-night/30 backdrop-blur-[2px] lg:hidden"
             />
             <motion.aside
+              ref={drawerRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label={t("tab_menu")}
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}

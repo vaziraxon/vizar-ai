@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Sparkles, ArrowRight, ArrowLeft, X, Check } from "lucide-react";
 import { ONBOARDING_STEPS, ONBOARDING_GOALS, COUNTRY_OPTIONS, VISA_TYPE_OPTIONS } from "@/data/mockData";
 import { useL } from "@/components/i18n/L";
+import { useDialogFocus } from "@/lib/use-dialog-focus";
 
 const STORAGE_KEY = "vizar-ai-onboarding-done";
 const PROGRESS_KEY = "vizar-ai-onboarding-progress";
@@ -19,6 +20,8 @@ export function OnboardingWizard() {
   const [visaType, setVisaType] = useState("");
   const [goal, setGoal] = useState("");
   const [name, setName] = useState("");
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useDialogFocus(open, dialogRef);
 
   useEffect(() => {
     const done = window.localStorage.getItem(STORAGE_KEY);
@@ -44,6 +47,18 @@ export function OnboardingWizard() {
     setOpen(false);
   }
 
+  // Escape skips the wizard, like its close button
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      window.localStorage.setItem(STORAGE_KEY, "true");
+      setOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   const total = ONBOARDING_STEPS.length;
   const current = ONBOARDING_STEPS[step]!;
 
@@ -57,7 +72,13 @@ export function OnboardingWizard() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[90] bg-night/40 backdrop-blur-[2px]"
           />
-          <div className="fixed inset-0 z-[91] flex items-center justify-center p-4">
+          <div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="onboarding-title"
+            className="fixed inset-0 z-[91] flex items-center justify-center p-4"
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -96,7 +117,7 @@ export function OnboardingWizard() {
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-50 text-brand-600 dark:bg-brand-500/15 dark:text-brand-300">
                     <Sparkles size={19} />
                   </span>
-                  <h2 className="mt-4 font-display text-display-sm text-ink-900 dark:text-white">
+                  <h2 id="onboarding-title" className="mt-4 font-display text-display-sm text-ink-900 dark:text-white">
                     {l(current.title)}
                   </h2>
                   <p className="mt-1 text-body-sm text-ink-600 dark:text-white/60">

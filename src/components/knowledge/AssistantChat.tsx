@@ -309,7 +309,7 @@ export function AssistantChat() {
         </article>
       ))}
 
-      <form onSubmit={onSubmit} className="sticky bottom-20 rounded-[24px] border border-surface-border bg-surface p-3 shadow-float lg:bottom-4">
+      <form onSubmit={onSubmit} className="sticky bottom-20 rounded-[24px] border border-surface-border bg-surface p-3 shadow-float transition-[border-color,box-shadow] duration-200 focus-within:border-brand-500 focus-within:shadow-focus lg:bottom-4">
         <label htmlFor="kb-question" className="sr-only">
           {l("Savolingiz")}
         </label>
