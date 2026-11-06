@@ -176,13 +176,16 @@ export const uz: SiteContent = {
       ],
     },
   },
+  // "Viza kerak" lines, checked 2026-11-06: EU Regulation 2018/1806 Annex I; UK Appendix
+  // Visitor: Visa national list; IRCC entry requirements by country; DHS Visa Waiver Program
+  // list and Japan MOFA visa-exemption list (Uzbekistan in neither). Same in ru/en.
   destinations: {
     schengen: {
       name: "Shengen hududi",
       region: "Yevropa",
       menu: "Fransiya, Germaniya, Italiya va boshqalar",
       intro:
-        "Shengen vizasi bilan bir nechta Yevropa davlatlariga bitta viza orqali sayohat qilish mumkin. Ariza odatda asosiy boradigan davlatning konsulligi yoki viza markazi orqali topshiriladi.",
+        "O‘zbekiston fuqarolariga qisqa safar uchun ham viza kerak. Shengen vizasi bilan bir nechta Yevropa davlatlariga bitta viza orqali sayohat qilish mumkin. Ariza odatda asosiy boradigan davlatning konsulligi yoki viza markazi orqali topshiriladi.",
       visaTypes: ["Turistik", "Biznes", "Mehmon"],
     },
     usa: {
@@ -190,7 +193,7 @@ export const uz: SiteContent = {
       region: "Shimoliy Amerika",
       menu: "Turistik, talaba va ish vizalari",
       intro:
-        "AQSH vizasi uchun ariza odatda konsullikdagi suhbatni o‘z ichiga oladi. Hujjatlar va suhbatga oldindan puxta tayyorlanish muhim.",
+        "O‘zbekiston fuqarolariga qisqa safar uchun ham viza kerak. AQSH vizasi uchun ariza odatda konsullikdagi suhbatni o‘z ichiga oladi. Hujjatlar va suhbatga oldindan puxta tayyorlanish muhim.",
       visaTypes: ["Turistik (B1/B2)", "Talaba (F-1)", "Ish"],
     },
     uk: {
@@ -198,7 +201,7 @@ export const uz: SiteContent = {
       region: "Yevropa",
       menu: "Turistik, talaba va ish vizalari",
       intro:
-        "Buyuk Britaniya vizasi uchun ariza onlayn to‘ldiriladi, so‘ng viza markazida biometrik ma’lumotlar topshiriladi. Moliyaviy hujjatlarga alohida e’tibor bering.",
+        "O‘zbekiston fuqarolariga qisqa safar uchun ham viza kerak. Buyuk Britaniya vizasi uchun ariza onlayn to‘ldiriladi, so‘ng viza markazida biometrik ma’lumotlar topshiriladi. Moliyaviy hujjatlarga alohida e’tibor bering.",
       visaTypes: ["Turistik", "Talaba", "Ish"],
     },
     canada: {
@@ -206,7 +209,7 @@ export const uz: SiteContent = {
       region: "Shimoliy Amerika",
       menu: "Turistik, talaba va ish ruxsatnomalari",
       intro:
-        "Kanada uchun ariza asosan onlayn topshiriladi. Safar maqsadi va moliyaviy holatni aniq tasdiqlash muhim.",
+        "O‘zbekiston fuqarolariga qisqa safar uchun ham viza kerak. Kanada uchun ariza asosan onlayn topshiriladi. Safar maqsadi va moliyaviy holatni aniq tasdiqlash muhim.",
       visaTypes: ["Turistik", "Talaba", "Ish"],
     },
     japan: {
@@ -214,7 +217,7 @@ export const uz: SiteContent = {
       region: "Osiyo",
       menu: "Turistik va biznes vizalari",
       intro:
-        "Yaponiya vizasi uchun safar rejasi va moliyaviy hujjatlar aniq bo‘lishi muhim. Talablar ariza topshiriladigan joyga qarab farq qilishi mumkin.",
+        "O‘zbekiston fuqarolariga qisqa safar uchun ham viza kerak. Yaponiya vizasi uchun safar rejasi va moliyaviy hujjatlar aniq bo‘lishi muhim. Talablar ariza topshiriladigan joyga qarab farq qilishi mumkin.",
       visaTypes: ["Turistik", "Biznes", "Talaba"],
     },
     "south-korea": {
