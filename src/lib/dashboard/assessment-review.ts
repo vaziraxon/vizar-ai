@@ -5,8 +5,29 @@
  *
  * Dependency-free so it can be unit-tested with plain Node.
  */
+/**
+ * Short trips an ordinary Uzbek passport makes without a visa, so the
+ * dashboard asks for no visa application, appointment or interview.
+ *
+ * Turkey — Turkish MFA, "Visa information for foreigners": Uzbek ordinary
+ * passports are "exempted from visa up to 90 days within any 180 day period";
+ * "Passport validity requirements": valid at least 60 days beyond the stay.
+ * Work and study still need a visa, so only tourist and business trips count.
+ * Keys are destination slugs and the country names the assessment saves.
+ */
+const VISA_FREE: Record<string, { days: number; window: number }> = {
+  turkey: { days: 90, window: 180 },
+  Turkiya: { days: 90, window: 180 },
+};
+/** Checklist visa kinds and assessment visa types that are short trips */
+const SHORT_TRIP = new Set(["tourist", "business", "Turistik viza", "Biznes vizasi"]);
+
+export function visaFreeStay(destination: string, visaKind: string) {
+  return SHORT_TRIP.has(visaKind) ? VISA_FREE[destination] ?? null : null;
+}
+
 export interface AssessmentFinding {
-  id: "date" | "documents" | "refusal" | "sponsor" | "funds" | "visited" | "interview";
+  id: "date" | "documents" | "refusal" | "sponsor" | "funds" | "visited" | "interview" | "visa-free" | "passport";
   /** "todo" findings are also saved as recommendations, under `task` */
   tone: "todo" | "good";
   emoji: string;
@@ -53,7 +74,7 @@ export const TASK_HREF: Record<string, string> = {
 
 const text = (value: unknown) => (typeof value === "string" ? value.trim() : "");
 
-function travelFinding(travelDate: string, today: Date): AssessmentFinding | null {
+function travelFinding(travelDate: string, today: Date, visaFree: boolean): AssessmentFinding | null {
   const travel = Date.parse(`${travelDate}T00:00:00Z`);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(travelDate) || Number.isNaN(travel)) return null;
   const days = Math.round((travel - Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate())) / DAY);
@@ -69,6 +90,16 @@ function travelFinding(travelDate: string, today: Date): AssessmentFinding | nul
       link: "Yangi tahlil",
       task: "Safar sanasini yangilang",
       priority: "Muhim",
+    };
+  }
+  if (visaFree) {
+    return {
+      id: "date",
+      tone: "good",
+      emoji: "📅",
+      title: "Safargacha {n} kun bor",
+      text: "Viza kerak emas, qabul kunini band qilish shart emas.",
+      vars: { n: days },
     };
   }
   if (days <= SOON_DAYS) {
@@ -95,9 +126,34 @@ function travelFinding(travelDate: string, today: Date): AssessmentFinding | nul
 
 export function reviewAssessment(answers: Record<string, unknown>, today: Date): AssessmentFinding[] {
   const findings: AssessmentFinding[] = [];
+  const country = text(answers.country);
+  const visaFree = visaFreeStay(country, text(answers.visaType));
 
-  const travel = travelFinding(text(answers.travelDate), today);
+  const travel = travelFinding(text(answers.travelDate), today, Boolean(visaFree));
   if (travel) findings.push(travel);
+
+  if (visaFree) {
+    findings.push(
+      {
+        id: "visa-free",
+        tone: "good",
+        emoji: "🛂",
+        title: "Bu safar uchun viza kerak emas",
+        text: "Oddiy pasport bilan istalgan {window} kun ichida {days} kungacha vizasiz qolish mumkin.",
+        vars: { days: visaFree.days, window: visaFree.window },
+      },
+      {
+        id: "passport",
+        tone: "todo",
+        emoji: "📘",
+        title: "Pasport muddatini tekshiring",
+        text: "Pasport qolish muddatidan keyin kamida 60 kun amal qilishi kerak ({days} kunlik safarda jami {total} kun).",
+        vars: { days: visaFree.days, total: visaFree.days + 60 },
+        task: "Pasport muddatini tekshiring",
+        priority: "Muhim",
+      }
+    );
+  }
 
   const docs = answers.docsStatus && typeof answers.docsStatus === "object" ? Object.entries(answers.docsStatus) : [];
   if (docs.length) {
@@ -163,7 +219,9 @@ export function reviewAssessment(answers: Record<string, unknown>, today: Date):
       tone: "todo",
       emoji: "🏦",
       title: "Mablag'ingizni talab bilan solishtiring",
-      text: "Siz yozgan daromad: {income}. Bank hisobi: {balance}. Elchixona talab qiladigan miqdorni rasmiy manbadan tekshiring.",
+      text: visaFree
+        ? "Siz yozgan daromad: {income}. Bank hisobi: {balance}. Chegarada safar uchun yetarli mablag' so'ralishi mumkin."
+        : "Siz yozgan daromad: {income}. Bank hisobi: {balance}. Elchixona talab qiladigan miqdorni rasmiy manbadan tekshiring.",
       vars: { income: income || "—", balance: balance || "—" },
       href: "/dashboard/library",
       link: "Viza bazasi",
@@ -182,8 +240,8 @@ export function reviewAssessment(answers: Record<string, unknown>, today: Date):
     });
   }
 
-  const country = text(answers.country);
-  findings.push({
+  // A visa-free trip has no consular interview
+  if (!visaFree) findings.push({
     id: "interview",
     tone: "todo",
     emoji: "🎤",

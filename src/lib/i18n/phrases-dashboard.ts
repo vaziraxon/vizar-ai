@@ -1039,6 +1039,21 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Suhbat mashqi — natija": { ru: "Тренировка интервью — результат", en: "Interview practice — result" },
   "Viza tayyorgarlik bali": { ru: "Балл готовности к визе", en: "Visa readiness score" },
   "Suhbat mashqi bo'limida tayyorlaning": { ru: "Подготовьтесь в разделе «Тренировка интервью»", en: "Prepare in the Interview practice section" },
+  /* Visa-free short trips (Turkey) */
+  "Viza kerak emas, qabul kunini band qilish shart emas.": { ru: "Виза не нужна, записываться на подачу не требуется.", en: "No visa is needed, so there is no appointment to book." },
+  "Bu safar uchun viza kerak emas": { ru: "Для этой поездки виза не нужна", en: "This trip needs no visa" },
+  "Oddiy pasport bilan istalgan {window} kun ichida {days} kungacha vizasiz qolish mumkin.": { ru: "С обычным паспортом можно находиться без визы до {days} дней в любые {window} дней.", en: "With an ordinary passport you can stay up to {days} days in any {window}-day period without a visa." },
+  "Pasport muddatini tekshiring": { ru: "Проверьте срок действия паспорта", en: "Check your passport's expiry date" },
+  "Pasport qolish muddatidan keyin kamida 60 kun amal qilishi kerak ({days} kunlik safarda jami {total} kun).": { ru: "Паспорт должен быть действителен минимум 60 дней после окончания пребывания (для поездки на {days} дней — всего {total} дней).", en: "Your passport must stay valid at least 60 days after your stay ends ({total} days in total for a {days}-day trip)." },
+  "Siz yozgan daromad: {income}. Bank hisobi: {balance}. Chegarada safar uchun yetarli mablag' so'ralishi mumkin.": { ru: "Ваш доход: {income}. Счёт в банке: {balance}. На границе могут спросить, хватает ли средств на поездку.", en: "Your income: {income}. Bank balance: {balance}. Border officers may ask whether you have enough money for the trip." },
+  "Vizasiz safar": { ru: "Поездка без визы", en: "Visa-free trip" },
+  "Qolish muddatidan keyin kamida 60 kun amal qilsin": { ru: "Действителен минимум 60 дней после окончания пребывания", en: "Valid at least 60 days after your stay ends" },
+  "Qaytish yoki keyingi safar chiptasi": { ru: "Обратный билет или билет на дальнейший маршрут", en: "Return or onward ticket" },
+  "Mehmonxona broni yoki yashash manzili": { ru: "Бронь отеля или адрес проживания", en: "Hotel booking or address where you will stay" },
+  "Safar davomiga yetadigan mablag'": { ru: "Средства на всю поездку", en: "Enough money for the whole trip" },
+  "Bank kartasi yoki naqd pul": { ru: "Банковская карта или наличные", en: "Bank card or cash" },
+  "Tavsiya etiladi": { ru: "Рекомендуется", en: "Recommended" },
+  "Bu yo'nalishga qisqa safar uchun viza kerak emas: istalgan 180 kun ichida 90 kungacha. Quyidagi ro'yxat — vizasiz safar uchun.": { ru: "Для короткой поездки по этому направлению виза не нужна: до 90 дней в любые 180 дней. Список ниже — для поездки без визы.", en: "A short trip to this destination needs no visa: up to 90 days in any 180-day period. The list below is for a visa-free trip." },
   /* ------------------------------------------------- Tool pages */
   "Shaxsiy kabinetda": { ru: "В личном кабинете", en: "In your account" },
 };

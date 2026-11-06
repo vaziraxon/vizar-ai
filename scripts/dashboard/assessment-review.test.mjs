@@ -3,7 +3,7 @@
 //   node --experimental-strip-types --test scripts/dashboard/assessment-review.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { TASK_HREF, currentTaskTitle, reviewAssessment } from "../../src/lib/dashboard/assessment-review.ts";
+import { TASK_HREF, currentTaskTitle, reviewAssessment, visaFreeStay } from "../../src/lib/dashboard/assessment-review.ts";
 
 const today = new Date("2026-11-02T09:00:00Z");
 const answers = {
@@ -76,4 +76,24 @@ test("old AI-worded tasks read back under their current title and link", () => {
   assert.equal(title, "Suhbat mashqini bajaring");
   assert.equal(TASK_HREF[title], "/dashboard/interview");
   assert.equal(currentTaskTitle("Bank statementni tekshirib chiqing"), "Bank statementni tekshirib chiqing");
+});
+
+test("a tourist trip to Turkey is visa-free: passport check, no interview or appointment", () => {
+  const findings = reviewAssessment({ ...answers, country: "Turkiya", visaType: "Turistik viza" }, today);
+  const byId = Object.fromEntries(findings.map((f) => [f.id, f]));
+  assert.ok(byId["visa-free"] && byId.passport, "visa-free and passport findings");
+  assert.equal(byId.interview, undefined);
+  assert.equal(byId.date.tone, "good");
+  assert.match(byId.date.text, /Viza kerak emas/);
+  assert.deepEqual(byId.passport.vars, { days: 90, total: 150 });
+  assert.match(byId.funds.text, /Chegarada/);
+});
+
+test("work and study in Turkey still go through a visa", () => {
+  const ids = reviewAssessment({ ...answers, country: "Turkiya", visaType: "Ish vizasi" }, today).map((f) => f.id);
+  assert.ok(ids.includes("interview"));
+  assert.ok(!ids.includes("visa-free"));
+  assert.equal(visaFreeStay("turkey", "student"), null);
+  assert.deepEqual(visaFreeStay("turkey", "business"), { days: 90, window: 180 });
+  assert.equal(visaFreeStay("schengen", "tourist"), null);
 });

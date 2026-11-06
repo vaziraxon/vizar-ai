@@ -21,6 +21,7 @@ import {
   type ChecklistSelection,
 } from "@/lib/dashboard/checklist-template";
 import { cn } from "@/lib/utils";
+import { visaFreeStay } from "@/lib/dashboard/assessment-review";
 
 const EMPTY: ChecklistSaved = { done: [], custom: [] };
 
@@ -129,6 +130,13 @@ export default function ChecklistPage() {
           </div>
         </div>
       </div>
+
+      {visaFreeStay(selection.dest, selection.visa) && (
+        <p className="mb-5 rounded-2xl border border-emerald-500/25 bg-emerald-500/10 px-4 py-3 text-body-sm text-emerald-800 dark:text-emerald-200">
+          <span aria-hidden="true">🛂 </span>
+          {l("Bu yo'nalishga qisqa safar uchun viza kerak emas: istalgan 180 kun ichida 90 kungacha. Quyidagi ro'yxat — vizasiz safar uchun.")}
+        </p>
+      )}
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1fr_320px]">
         <div className="space-y-5">
