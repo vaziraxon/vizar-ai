@@ -180,7 +180,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
         {/* Next best action */}
         <section
           aria-labelledby="next-action"
-          className="grain relative flex flex-col overflow-hidden rounded-[28px] bg-gradient-to-br from-brand-600 via-brand-600 to-violet-600 p-6 text-white shadow-float sm:p-7"
+          className="grain relative flex flex-col overflow-hidden rounded-[28px] bg-gradient-to-br from-[#5B21B6] to-[#7138EC] p-6 text-white shadow-float sm:p-7"
         >
           <span
             aria-hidden="true"
@@ -203,7 +203,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
           <div className="relative mt-auto pt-8">
             <Link
               href={data.tasks.length ? "/recommendations" : "/assessment"}
-              className="btn btn-md w-full bg-white text-brand-deep shadow-float hover:bg-[#eff5ff]"
+              className="btn btn-sheen btn-md w-full bg-gold-300 text-night shadow-float hover:bg-gold-200"
             >
               {l("Boshlash")} <ArrowRight size={16} />
             </Link>

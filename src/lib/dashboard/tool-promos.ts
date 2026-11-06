@@ -25,7 +25,7 @@ export const TOOL_PROMOS: ToolPromoData[] = [
     href: "/dashboard/tools/photo",
     publicHref: "/visa-photo",
     emoji: "📸",
-    tint: "from-brand-500 to-violet-600",
+    tint: "from-brand-600 to-violet-700",
     tagline: "Rasmingizni bir daqiqada viza o'lchamiga keltiring",
     points: [
       "Shengen, AQSH, Kanada, Yaponiya va Koreya o'lchamlari",
@@ -43,7 +43,7 @@ export const TOOL_PROMOS: ToolPromoData[] = [
     href: "/dashboard/tools/letters",
     publicHref: "/visa-letters",
     emoji: "📝",
-    tint: "from-violet-500 to-fuchsia-500",
+    tint: "from-violet-600 to-fuchsia-700",
     tagline: "Qo'shimcha xat, ma'lumotnoma va homiylik xati — bir necha daqiqada",
     points: ["Ingliz, nemis yoki rus tilida", "Germaniya elchixonasi ro'yxatidagi maydonlar bilan", "Chop eting yoki PDF qilib saqlang"],
     steps: [
@@ -57,7 +57,7 @@ export const TOOL_PROMOS: ToolPromoData[] = [
     href: "/dashboard/tools/timing",
     publicHref: "/visa-timing",
     emoji: "🗓️",
-    tint: "from-emerald-500 to-teal-600",
+    tint: "from-emerald-700 to-teal-700",
     tagline: "Ariza topshirish muddatini o'tkazib yubormang",
     points: ["Qachondan topshirish mumkinligi va oxirgi tavsiya etilgan kun", "Pasport muddatini tekshirish", "Eslatmalar kalendaringizga"],
     steps: [
@@ -71,7 +71,7 @@ export const TOOL_PROMOS: ToolPromoData[] = [
     href: "/dashboard/tools/schengen",
     publicHref: "/schengen-calculator",
     emoji: "🧮",
-    tint: "from-amber-400 to-orange-500",
+    tint: "from-amber-700 to-orange-700",
     tagline: "Shengen hududida qancha kun qolganini aniq biling",
     points: ["Barcha safarlaringizni kiriting", "Qolgan kunlar va yangi safar uchun eng uzoq muddat", "Safarlar shu brauzerda saqlanadi"],
     steps: [

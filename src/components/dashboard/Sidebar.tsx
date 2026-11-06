@@ -117,7 +117,7 @@ function NavLinks({
                     className={cn(
                       "group relative flex h-10 items-center gap-3 rounded-pill px-3.5 text-body-sm font-medium transition-colors duration-150",
                       active
-                        ? "bg-gradient-to-r from-brand-600 to-violet-600 font-semibold text-white shadow-button dark:text-white"
+                        ? "bg-gold-300 font-semibold text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_8px_20px_-10px_rgba(180,130,20,0.7)]"
                         : "text-ink-600 hover:bg-surface-tint hover:text-ink-900 dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white"
                     )}
                   >
@@ -126,7 +126,7 @@ function NavLinks({
                       strokeWidth={1.9}
                       className={cn(
                         "shrink-0 transition-colors",
-                        active ? "text-white" : "text-ink-400 group-hover:text-ink-700 dark:text-white/40"
+                        active ? "text-night/80" : "text-ink-400 group-hover:text-ink-700 dark:text-white/40"
                       )}
                     />
                     <span className="truncate">{label(item)}</span>

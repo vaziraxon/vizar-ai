@@ -463,7 +463,7 @@ export function AssessmentWizard({
         )}
       </div>
 
-      <p className="mt-4 text-center text-caption text-ink-400 dark:text-white/40">
+      <p className="mt-4 text-center text-caption text-ink-500 dark:text-white/60">
         {l("Natija javoblaringizdan qoidalar asosida tuziladi, AI emas. Viza tasdiqlanishini kafolatlamaydi.")}
       </p>
     </div>

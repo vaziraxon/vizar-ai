@@ -30,17 +30,18 @@ const config: Config = {
           50: v("brand-50"),
           100: v("brand-100"),
           200: v("brand-200"),
-          300: "#93B8FD",
-          400: "#6097FA",
-          500: "#3B7BF6",
-          600: "#2563EB",
+          // 300–600, deep and 950 are the action blue; the dashboard turns them violet
+          300: v("brand-300"),
+          400: v("brand-400"),
+          500: v("brand-500"),
+          600: v("brand-600"),
           // 700–900 are text shades: deep blue in light, pale blue in dark
           700: v("brand-700"),
           800: v("brand-800"),
           900: v("brand-900"),
-          950: "#172554",
-          // Fixed deep blue for fills (hover states, done markers)
-          deep: "#1D4FD7",
+          950: v("brand-950"),
+          // Deep blue for fills (hover states, done markers)
+          deep: v("brand-deep"),
         },
         // Violet — secondary atmosphere, beta states, subtle highlights
         violet: {
