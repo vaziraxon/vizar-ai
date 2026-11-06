@@ -8,6 +8,28 @@ const supabaseHost = (() => {
   }
 })();
 
+// Content Security Policy, in report-only mode for now: browsers log what it
+// would block (DevTools console) but block nothing, so we can confirm it fits
+// every page before enforcing it. Inline scripts stay allowed — the theme and
+// <html lang> snippets in app/layout.tsx and Next's own bootstrap need them.
+// vercel.live is the Vercel toolbar on preview deployments.
+const supabaseOrigin = supabaseHost ? `https://${supabaseHost}` : "https://*.supabase.co";
+const supabaseSocket = supabaseHost ? `wss://${supabaseHost}` : "wss://*.supabase.co";
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""} https://vercel.live`,
+  "style-src 'self' 'unsafe-inline'",
+  `img-src 'self' data: blob: ${supabaseOrigin} https://vercel.live https://vercel.com`,
+  "font-src 'self' data:",
+  `connect-src 'self' ${supabaseOrigin} ${supabaseSocket} https://vercel.live`,
+  "worker-src 'self' blob:",
+  "frame-src 'self' https://vercel.live",
+  "frame-ancestors 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join("; ");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -39,6 +61,7 @@ const nextConfig = {
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          { key: "Content-Security-Policy-Report-Only", value: contentSecurityPolicy },
         ],
       },
     ];
