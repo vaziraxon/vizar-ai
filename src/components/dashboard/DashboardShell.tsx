@@ -8,32 +8,53 @@ import { Topbar } from "./Topbar";
 import { MobileTabBar } from "./MobileTabBar";
 import { CommandPalette } from "@/components/search/CommandPalette";
 import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
-import { EmojiSticker } from "@/components/site/primitives";
+import {
+  Bell,
+  BookOpen,
+  Calculator,
+  CalendarClock,
+  Camera,
+  Compass,
+  FilePen,
+  FileWarning,
+  FolderOpen,
+  Gauge,
+  Lightbulb,
+  ListChecks,
+  MessagesSquare,
+  Route,
+  Settings,
+  UserCog,
+  UserRound,
+  Wrench,
+  BarChart3,
+  type LucideIcon,
+} from "lucide-react";
 import { LandingFonts } from "@/components/site/LandingFonts";
 import { useL } from "@/components/i18n/L";
 import type { SidebarNavItem } from "@/types";
 
-// Page mascot in the header banner, by route
-const PAGE_EMOJI: Record<string, string> = {
-  "/dashboard/readiness": "🎯",
-  "/dashboard/documents": "📄",
-  "/dashboard/checklist": "✅",
-  "/dashboard/interview": "🎤",
-  "/dashboard/assistant": "📚",
-  "/dashboard/tracker": "📍",
-  "/dashboard/rejection-analysis": "🔍",
-  "/dashboard/experts": "🤝",
-  "/dashboard/tools": "🧰",
-  "/dashboard/tools/photo": "📸",
-  "/dashboard/tools/letters": "📝",
-  "/dashboard/tools/timing": "🗓️",
-  "/dashboard/tools/schengen": "🧮",
-  "/notifications": "🔔",
-  "/profile": "👤",
-  "/settings": "⚙️",
-  "/reports": "📊",
-  "/recommendations": "💡",
-  "/assessment": "🧭",
+// Page icon in the header banner, by route — the same line icons as the sidebar
+const PAGE_ICON: Record<string, LucideIcon> = {
+  "/dashboard/readiness": Gauge,
+  "/dashboard/documents": FolderOpen,
+  "/dashboard/checklist": ListChecks,
+  "/dashboard/interview": MessagesSquare,
+  "/dashboard/assistant": BookOpen,
+  "/dashboard/tracker": Route,
+  "/dashboard/rejection-analysis": FileWarning,
+  "/dashboard/experts": UserCog,
+  "/dashboard/tools": Wrench,
+  "/dashboard/tools/photo": Camera,
+  "/dashboard/tools/letters": FilePen,
+  "/dashboard/tools/timing": CalendarClock,
+  "/dashboard/tools/schengen": Calculator,
+  "/notifications": Bell,
+  "/profile": UserRound,
+  "/settings": Settings,
+  "/reports": BarChart3,
+  "/recommendations": Lightbulb,
+  "/assessment": Compass,
 };
 
 interface DashboardShellProps {
@@ -67,7 +88,7 @@ export function DashboardShell({
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const l = useL();
-  const emoji = PAGE_EMOJI[pathname];
+  const PageIcon = PAGE_ICON[pathname];
   const titleText = typeof title === "string" ? l(title, titleVars) : title;
   const subtitleText = typeof subtitle === "string" ? l(subtitle) : subtitle;
 
@@ -95,26 +116,21 @@ export function DashboardShell({
                 >
                   <Image src={heroImage} alt="" fill sizes="(min-width: 1024px) 520px, 46vw" className="object-cover" priority />
                 </div>
-              ) : (
-                <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden xl:block">
-                  <EmojiSticker emoji="✈️" size="sm" tilt={12} className="absolute right-[34%] top-5" />
-                  <EmojiSticker emoji="🌍" tilt={-8} delay={1200} className="absolute bottom-4 right-[24%]" />
-                </div>
-              )}
-              <div className="relative flex flex-col gap-4 px-5 py-6 sm:flex-row sm:items-end sm:justify-between sm:px-8 sm:py-8">
+              ) : null}
+              <div className="relative flex flex-col gap-4 px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-7 sm:py-6">
                 <div className="flex min-w-0 items-start gap-4">
-                  {emoji && (
+                  {PageIcon && (
                     <span
                       aria-hidden="true"
-                      className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-[18px] bg-surface text-[28px] leading-none shadow-float ring-1 ring-white sm:flex dark:ring-white/10"
+                      className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-surface text-brand-700 shadow-float ring-1 ring-white sm:flex dark:ring-white/10"
                     >
-                      {emoji}
+                      <PageIcon size={22} strokeWidth={1.8} />
                     </span>
                   )}
                   <div className="min-w-0">
-                    {eyebrow && <div className="mb-2 text-body-sm font-medium text-ink-600">{eyebrow}</div>}
-                    <h1 className="font-display text-[clamp(1.9rem,3.4vw,2.6rem)] font-semibold leading-[1.08] tracking-[-0.02em] text-ink-950">{titleText}</h1>
-                    {subtitleText && <p className="mt-2 max-w-xl text-body text-ink-600">{subtitleText}</p>}
+                    {eyebrow && <div className="mb-1.5 text-body-sm font-medium text-ink-700">{eyebrow}</div>}
+                    <h1 className="font-display text-[clamp(1.75rem,3vw,2.35rem)] font-semibold leading-[1.08] tracking-[-0.02em] text-ink-950">{titleText}</h1>
+                    {subtitleText && <p className="mt-1.5 max-w-xl text-body text-ink-700">{subtitleText}</p>}
                   </div>
                 </div>
                 {actions && (

@@ -75,7 +75,9 @@ test("old AI-worded tasks read back under their current title and link", () => {
   const title = currentTaskTitle("AI Interview simulyatorida mashq qiling");
   assert.equal(title, "Suhbat mashqini bajaring");
   assert.equal(TASK_HREF[title], "/dashboard/interview");
-  assert.equal(currentTaskTitle("Bank statementni tekshirib chiqing"), "Bank statementni tekshirib chiqing");
+  assert.equal(currentTaskTitle("Bank statementni tekshirib chiqing"), "Bank hisobingizdan ko'chirmani tekshiring");
+  assert.equal(TASK_HREF[currentTaskTitle("Bank statementni tekshirib chiqing")], "/dashboard/documents");
+  assert.equal(currentTaskTitle("Qabul kunini band qiling"), "Qabul kunini band qiling");
 });
 
 test("a tourist trip to Turkey is visa-free: passport check, no interview or appointment", () => {

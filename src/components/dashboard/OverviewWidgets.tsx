@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, CalendarDays } from "lucide-react";
+import { ArrowRight, CalendarDays, ListChecks, Plane } from "lucide-react";
 import { ScoreRing } from "@/components/dashboard/ScoreRing";
 import { Flag } from "@/components/site/Flag";
 import { useDateLocale, useL } from "@/components/i18n/L";
@@ -58,7 +58,7 @@ export function TripCountdown({ className }: { className?: string }) {
       <div className="relative flex flex-wrap items-start justify-between gap-4">
         <div>
           <p id="trip-title" className="flex items-center gap-2 text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">
-            <span aria-hidden="true">✈️</span> {l("Safargacha")}
+            <Plane size={14} aria-hidden="true" /> {l("Safargacha")}
           </p>
           {big ? (
             <p className="mt-2 flex items-baseline gap-3">
@@ -132,7 +132,7 @@ export function ChecklistMini({ className }: { className?: string }) {
   return (
     <section aria-labelledby="checklist-mini" className={cn("card spotlight flex flex-col rounded-[28px] p-6 sm:p-7", className)}>
       <p id="checklist-mini" className="flex items-center gap-2 text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">
-        <span aria-hidden="true">✅</span> {l("Checklist")}
+        <ListChecks size={14} aria-hidden="true" /> {l("Checklist")}
       </p>
       <div className="mt-4 flex items-center gap-4">
         <ScoreRing score={progress.percent} size={92} strokeWidth={9} label="%" />
