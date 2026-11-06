@@ -23,6 +23,7 @@ const DOC_EMOJI = ["🛂", "📸", "📝", "🏦", "🧳", "💼", "🩺"];
 /** Emoji for destinations with their own document list, in the same order as that list */
 const OWN_DOC_EMOJI: Partial<Record<DestinationSlug, string[]>> = {
   turkey: ["🛂", "🎫", "🏨", "💳", "🩺"],
+  uae: ["🛂", "🎫", "🏨", "💳", "🩺"],
 };
 
 /* /features ---------------------------------------------------------------- */

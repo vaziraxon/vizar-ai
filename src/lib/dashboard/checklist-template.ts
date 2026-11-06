@@ -1,5 +1,5 @@
 import type { DestinationSlug } from "@/lib/site/registry";
-import { visaFreeStay } from "@/lib/dashboard/assessment-review";
+import { visaFreeStay, type VisaFreeRule } from "@/lib/dashboard/assessment-review";
 
 /**
  * Sample document checklist, assembled from destination + visa type.
@@ -60,12 +60,18 @@ const BASE: ChecklistGroup[] = [
 ];
 
 /** A visa-free short trip: no application, photo or embassy paperwork. Ids match BASE so ticks carry over. */
-const VISA_FREE_TRIP: ChecklistGroup[] = [
+const visaFreeTrip = (rule: VisaFreeRule): ChecklistGroup[] => [
   {
     title: "Vizasiz safar",
     emoji: "🛂",
     items: [
-      { id: "passport", emoji: "🛂", title: "Amaldagi pasport", note: "Qolish muddatidan keyin kamida 60 kun amal qilsin", upload: true },
+      {
+        id: "passport",
+        emoji: "🛂",
+        title: "Amaldagi pasport",
+        note: "beyondStayDays" in rule.passport ? "Qolish muddatidan keyin kamida 60 kun amal qilsin" : "Biometrik, kamida 6 oy amal qilsin",
+        upload: true,
+      },
       { id: "flight", emoji: "🎫", title: "Qaytish yoki keyingi safar chiptasi", upload: true },
       { id: "hotel", emoji: "🏨", title: "Mehmonxona broni yoki yashash manzili", upload: true },
       { id: "funds", emoji: "💳", title: "Safar davomiga yetadigan mablag'", note: "Bank kartasi yoki naqd pul" },
@@ -104,7 +110,8 @@ const BY_DESTINATION: Partial<Record<DestinationSlug, ChecklistItem[]>> = {
 };
 
 export function buildChecklist(dest: DestinationSlug, visa: VisaKind, custom: ChecklistItem[] = []): ChecklistGroup[] {
-  const groups = (visaFreeStay(dest, visa) ? VISA_FREE_TRIP : BASE).map((g) => ({ ...g, items: [...g.items] }));
+  const rule = visaFreeStay(dest, visa);
+  const groups = (rule ? visaFreeTrip(rule) : BASE).map((g) => ({ ...g, items: [...g.items] }));
   const extras = [...(BY_VISA[visa] ?? []), ...(BY_DESTINATION[dest] ?? [])];
   if (extras.length) groups.push({ title: "Viza turi va davlatga oid", emoji: "📌", items: extras });
   if (custom.length) groups.push({ title: "Mening qo'shimchalarim", emoji: "✍️", items: custom });

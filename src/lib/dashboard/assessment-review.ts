@@ -12,17 +12,26 @@
  * Turkey — Turkish MFA, "Visa information for foreigners": Uzbek ordinary
  * passports are "exempted from visa up to 90 days within any 180 day period";
  * "Passport validity requirements": valid at least 60 days beyond the stay.
- * Work and study still need a visa, so only tourist and business trips count.
- * Keys are destination slugs and the country names the assessment saves.
+ * UAE — UAE–Uzbekistan protocol of 16 January 2024 (lex.uz/docs/6799651, in
+ * force 16 February 2024): biometric passports valid at least six months, a
+ * stay of up to 30 days.
+ * Work and study still need a visa or permit, so only tourist and business
+ * trips count. Keys are destination slugs and the country names the assessment saves.
  */
-const VISA_FREE: Record<string, { days: number; window: number }> = {
-  turkey: { days: 90, window: 180 },
-  Turkiya: { days: 90, window: 180 },
-};
+export interface VisaFreeRule {
+  days: number;
+  /** Rolling period the stay limit counts over, when there is one (Turkey: 90 in any 180) */
+  window?: number;
+  /** Passport valid this many days past the stay, or this many months on entry */
+  passport: { beyondStayDays: number } | { months: number };
+}
+const TURKEY: VisaFreeRule = { days: 90, window: 180, passport: { beyondStayDays: 60 } };
+const UAE: VisaFreeRule = { days: 30, passport: { months: 6 } };
+const VISA_FREE: Record<string, VisaFreeRule> = { turkey: TURKEY, Turkiya: TURKEY, uae: UAE, BAA: UAE };
 /** Checklist visa kinds and assessment visa types that are short trips */
 const SHORT_TRIP = new Set(["tourist", "business", "Turistik viza", "Biznes vizasi"]);
 
-export function visaFreeStay(destination: string, visaKind: string) {
+export function visaFreeStay(destination: string, visaKind: string): VisaFreeRule | null {
   return SHORT_TRIP.has(visaKind) ? VISA_FREE[destination] ?? null : null;
 }
 
@@ -139,16 +148,27 @@ export function reviewAssessment(answers: Record<string, unknown>, today: Date):
         tone: "good",
         emoji: "🛂",
         title: "Bu safar uchun viza kerak emas",
-        text: "Oddiy pasport bilan istalgan {window} kun ichida {days} kungacha vizasiz qolish mumkin.",
-        vars: { days: visaFree.days, window: visaFree.window },
+        ...(visaFree.window
+          ? {
+              text: "Oddiy pasport bilan istalgan {window} kun ichida {days} kungacha vizasiz qolish mumkin.",
+              vars: { days: visaFree.days, window: visaFree.window },
+            }
+          : { text: "Biometrik pasport bilan {days} kungacha vizasiz qolish mumkin.", vars: { days: visaFree.days } }),
       },
       {
         id: "passport",
         tone: "todo",
         emoji: "📘",
         title: "Pasport muddatini tekshiring",
-        text: "Pasport qolish muddatidan keyin kamida 60 kun amal qilishi kerak ({days} kunlik safarda jami {total} kun).",
-        vars: { days: visaFree.days, total: visaFree.days + 60 },
+        ...("beyondStayDays" in visaFree.passport
+          ? {
+              text: "Pasport qolish muddatidan keyin kamida 60 kun amal qilishi kerak ({days} kunlik safarda jami {total} kun).",
+              vars: { days: visaFree.days, total: visaFree.days + visaFree.passport.beyondStayDays },
+            }
+          : {
+              text: "Kirish kunida pasport kamida {months} oy amal qilishi kerak.",
+              vars: { months: visaFree.passport.months },
+            }),
         task: "Pasport muddatini tekshiring",
         priority: "Muhim",
       }

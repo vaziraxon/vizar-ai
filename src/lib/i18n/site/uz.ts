@@ -228,10 +228,20 @@ export const uz: SiteContent = {
     uae: {
       name: "BAA",
       region: "Yaqin Sharq",
-      menu: "Turistik va biznes vizalari",
+      menu: "30 kungacha vizasiz, ish va o‘qish uchun ruxsat",
       intro:
-        "BAA vizalari ko‘pincha mehmonxona, aviakompaniya yoki homiy orqali rasmiylashtiriladi. Pasport muddati va safar ma’lumotlarini oldindan tekshiring.",
-      visaTypes: ["Turistik", "Biznes"],
+        "2024-yil 16-fevraldan O‘zbekiston fuqarolari biometrik xorijiy pasport bilan BAAga vizasiz kiradi va 30 kungacha qolishi mumkin. Pasport kamida 6 oy amal qilishi kerak. Ishlash yoki o‘qish uchun BAA qonunlariga ko‘ra alohida ruxsat olinadi.",
+      visaTypes: ["Vizasiz (30 kun)", "Ish", "Talaba"],
+      docsTitle: "Vizasiz safar uchun hujjatlar",
+      docs: [
+        "Biometrik xorijiy pasport — kamida 6 oy amal qilsin",
+        "Qaytish yoki keyingi safar chiptasi",
+        "Mehmonxona broni yoki yashash manzili",
+        "Safar davomiga yetadigan mablag‘",
+        "Tibbiy sug‘urta polisi",
+      ],
+      docsNote:
+        "Vizasiz kirish uchun ariza yoki fotosurat kerak emas. Pasport talabi rasmiy, qolgan bandlar tavsiya — chegarada so‘ralishi mumkin. 30 kundan ortiq qolish, ishlash yoki o‘qish uchun BAA qoidalariga ko‘ra ruxsat oling. Manba: O‘zbekiston va BAA hukumatlari o‘rtasidagi 2024-yil 16-yanvardagi bayonnoma (lex.uz).",
     },
     turkey: {
       name: "Turkiya",

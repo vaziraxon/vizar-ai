@@ -43,6 +43,7 @@ export default function ChecklistPage() {
   useEffect(() => setMounted(true), []);
 
   const groups = useMemo(() => buildChecklist(selection.dest, selection.visa, saved.custom), [selection, saved.custom]);
+  const visaFree = visaFreeStay(selection.dest, selection.visa);
   const allIds = groups.flatMap((g) => g.items.map((i) => i.id));
   const done = new Set(saved.done.filter((id) => allIds.includes(id)));
   const percent = allIds.length ? Math.round((done.size / allIds.length) * 100) : 0;
@@ -131,10 +132,15 @@ export default function ChecklistPage() {
         </div>
       </div>
 
-      {visaFreeStay(selection.dest, selection.visa) && (
+      {visaFree && (
         <p className="mb-5 rounded-2xl border border-emerald-500/25 bg-emerald-500/10 px-4 py-3 text-body-sm text-emerald-800 dark:text-emerald-200">
           <span aria-hidden="true">🛂 </span>
-          {l("Bu yo'nalishga qisqa safar uchun viza kerak emas: istalgan 180 kun ichida 90 kungacha. Quyidagi ro'yxat — vizasiz safar uchun.")}
+          {visaFree.window
+            ? l("Bu yo'nalishga qisqa safar uchun viza kerak emas: istalgan {window} kun ichida {days} kungacha. Quyidagi ro'yxat — vizasiz safar uchun.", {
+                days: visaFree.days,
+                window: visaFree.window,
+              })
+            : l("Bu yo'nalishga qisqa safar uchun viza kerak emas: {days} kungacha. Quyidagi ro'yxat — vizasiz safar uchun.", { days: visaFree.days })}
         </p>
       )}
 

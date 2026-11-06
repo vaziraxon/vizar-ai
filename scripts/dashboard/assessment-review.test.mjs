@@ -94,6 +94,16 @@ test("work and study in Turkey still go through a visa", () => {
   assert.ok(ids.includes("interview"));
   assert.ok(!ids.includes("visa-free"));
   assert.equal(visaFreeStay("turkey", "student"), null);
-  assert.deepEqual(visaFreeStay("turkey", "business"), { days: 90, window: 180 });
+  assert.deepEqual(visaFreeStay("turkey", "business"), { days: 90, window: 180, passport: { beyondStayDays: 60 } });
   assert.equal(visaFreeStay("schengen", "tourist"), null);
+});
+
+test("the UAE is visa-free for 30 days with a passport valid six months", () => {
+  const findings = reviewAssessment({ ...answers, country: "BAA", visaType: "Biznes vizasi" }, today);
+  const byId = Object.fromEntries(findings.map((f) => [f.id, f]));
+  assert.deepEqual(byId["visa-free"].vars, { days: 30 });
+  assert.match(byId["visa-free"].text, /Biometrik/);
+  assert.deepEqual(byId.passport.vars, { months: 6 });
+  assert.equal(byId.interview, undefined);
+  assert.equal(visaFreeStay("uae", "student"), null);
 });
