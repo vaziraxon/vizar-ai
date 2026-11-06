@@ -614,7 +614,11 @@ export function VisaLettersTool({ embedded = false }: { embedded?: boolean } = {
                     </Button>
                   </div>
                 </div>
-                <div className="mt-4 max-h-[70vh] overflow-auto rounded-xl bg-white p-5 shadow-inner ring-1 ring-black/10 sm:p-7">
+                <div
+                  role="region"
+                  aria-label={c.previewTitle}
+                  tabIndex={0}
+                  className="mt-4 max-h-[70vh] overflow-auto rounded-xl bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 p-5 shadow-inner ring-1 ring-black/10 sm:p-7">
                   <Paper blocks={blocks} />
                 </div>
                 <p className="mt-3 text-caption text-ink-500">{c.gapsNote}</p>

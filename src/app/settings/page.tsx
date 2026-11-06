@@ -49,7 +49,7 @@ export default function SettingsPage() {
             <p className={sectionTitle}>
               <span aria-hidden="true">🌐</span> {l("Til")}
             </p>
-            <p className="mt-0.5 text-caption text-ink-400">{l("Interfeys tili: o'zbek, rus yoki ingliz.")}</p>
+            <p className="mt-0.5 text-caption text-ink-500">{l("Interfeys tili: o'zbek, rus yoki ingliz.")}</p>
           </div>
           <LanguageSelector variant="pill" />
         </div>
@@ -59,7 +59,7 @@ export default function SettingsPage() {
             <p className={sectionTitle}>
               <span aria-hidden="true">🎬</span> {l("Tanishtiruv (onboarding)")}
             </p>
-            <p className="text-caption text-ink-400">{l("Birinchi marta ko'rsatilgan tanishtiruv oynasini qayta oching.")}</p>
+            <p className="text-caption text-ink-500">{l("Birinchi marta ko'rsatilgan tanishtiruv oynasini qayta oching.")}</p>
           </div>
           <button
             type="button"
@@ -79,7 +79,7 @@ export default function SettingsPage() {
               <p className="text-body-sm font-medium text-ink-900 dark:text-white">
                 {l("Tungi rejim")}
               </p>
-              <p className="text-caption text-ink-400">{l("Interfeys ko'rinishini almashtiring.")}</p>
+              <p className="text-caption text-ink-500">{l("Interfeys ko'rinishini almashtiring.")}</p>
             </div>
             <button
               type="button"
@@ -125,7 +125,7 @@ export default function SettingsPage() {
           <p className="mb-1 flex items-center gap-2 text-body-sm font-semibold text-red-600 dark:text-red-300">
             <span aria-hidden="true">⚠️</span> {l("Xavfli hudud")}
           </p>
-          <p className="mb-3 text-caption text-ink-400">{l("Hisobni o'chirish qaytarib bo'lmaydigan amal.")}</p>
+          <p className="mb-3 text-caption text-ink-500">{l("Hisobni o'chirish qaytarib bo'lmaydigan amal.")}</p>
           <div className="mb-4">
             <InlineAlert variant="warning">
               <span className="flex items-start gap-1.5">

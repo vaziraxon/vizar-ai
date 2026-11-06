@@ -27,7 +27,21 @@ const nextConfig = {
   },
   // Self-hosted fonts carry a content hash in their names (see app/fonts.css)
   async headers() {
-    return [{ source: "/fonts/:file*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] }];
+    return [
+      { source: "/fonts/:file*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
+      // Basic hardening for every page: no MIME sniffing, no framing by other
+      // sites (clickjacking), no full URLs leaked to other sites, and no
+      // camera/microphone/location access (no feature uses them).
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        ],
+      },
+    ];
   },
   // App features moved under /dashboard/*. Keep old links (emails,
   // bookmarks, notifications) working. Temporary (307) on purpose so the
