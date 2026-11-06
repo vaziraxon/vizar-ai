@@ -214,7 +214,7 @@ export default function RefusalAnalysisPage() {
               </div>
             </motion.div>
           ) : (
-            <div className="card hero-sky-soft grain relative flex flex-col items-center justify-center gap-3 overflow-hidden rounded-[28px] p-10 text-center">
+            <div className="card lime-wash grain relative flex flex-col items-center justify-center gap-3 overflow-hidden rounded-[28px] p-10 text-center">
               <span aria-hidden="true" className="flex h-16 w-16 items-center justify-center rounded-[20px] bg-surface text-[32px] shadow-float">
                 🔍
               </span>

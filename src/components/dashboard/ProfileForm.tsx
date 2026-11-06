@@ -88,7 +88,7 @@ export function ProfileForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="hero-sky-soft grain relative flex flex-wrap items-center gap-4 overflow-hidden rounded-[28px] border border-white p-6 shadow-xs dark:border-white/10">
+      <div className="lime-wash grain relative flex flex-wrap items-center gap-4 overflow-hidden rounded-[28px] border border-white p-6 shadow-xs dark:border-white/10">
         <span className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-[24px] bg-gradient-to-br from-brand-500 to-violet-600 font-display text-xl font-bold text-white shadow-button">
           {avatarUrl ? <Image src={avatarUrl} alt="" fill sizes="80px" className="object-cover" /> : initials}
           {photoBusy && (
