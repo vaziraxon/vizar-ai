@@ -107,7 +107,7 @@ export function GoogleButton({ next = "/dashboard", configured }: { next?: strin
         {enabled || provider === "checking" ? t("au_google_continue") : t("au_google_soon")}
       </button>
       {error && (
-        <p role="alert" className="mt-2 text-center text-caption font-medium text-red-600">
+        <p role="alert" className="mt-2 text-center text-caption font-medium text-red-600 dark:text-red-300">
           {error}
         </p>
       )}

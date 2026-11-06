@@ -207,12 +207,13 @@ export default function RegisterPage() {
               onChange={(e) => setTerms(e.target.checked)}
               disabled={!configured}
               aria-invalid={errors.terms ? true : undefined}
+              aria-describedby={errors.terms ? "terms-error" : undefined}
               className="mt-0.5 h-4 w-4 shrink-0 rounded border-surface-strong accent-brand-600"
             />
             {t("au_terms")}
           </label>
           {errors.terms && (
-            <p className="mt-1.5 text-caption font-medium text-red-600">
+            <p id="terms-error" className="mt-1.5 text-caption font-medium text-red-600 dark:text-red-300">
               {errors.terms}
             </p>
           )}
