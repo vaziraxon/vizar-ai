@@ -313,7 +313,7 @@ export function VisaPhotoTool({ embedded = false }: { embedded?: boolean } = {})
                     onClick={() => setSpecId(s.id)}
                     className={cn(
                       "inline-flex items-center gap-2 rounded-pill border px-3 py-1.5 text-body-sm font-semibold transition-colors",
-                      s.id === specId ? "border-brand-400 bg-brand-50 text-brand-800 dark:text-brand-200" : "border-surface-border text-ink-700 hover:bg-surface-tint"
+                      s.id === specId ? "border-brand-400 bg-brand-50 text-brand-800" : "border-surface-border text-ink-700 hover:bg-surface-tint"
                     )}
                   >
                     <Flag code={flag} size={20} />
@@ -364,7 +364,8 @@ export function VisaPhotoTool({ embedded = false }: { embedded?: boolean } = {})
                     <button
                       type="button"
                       onClick={() => fileRef.current?.click()}
-                      className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center text-body-sm font-semibold text-ink-500 hover:text-brand-700"
+                      // The frame stays white in dark mode (it is the photo background), so the label keeps a fixed dark grey
+                      className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center text-body-sm font-semibold text-[#4A4F5A] hover:text-brand-600"
                     >
                       <ImagePlus size={28} aria-hidden="true" />
                       {c.upload}

@@ -146,7 +146,7 @@ export function ChecklistMini({ className }: { className?: string }) {
           </p>
         </div>
       </div>
-      <Link href="/dashboard/checklist" className="mt-auto inline-flex items-center gap-1.5 pt-5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep">
+      <Link href="/dashboard/checklist" className="mt-auto inline-flex items-center gap-1.5 pt-5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep dark:text-brand-300 dark:hover:text-white">
         {l("Checklistni ochish")} <ArrowRight size={14} />
       </Link>
     </section>

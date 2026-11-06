@@ -30,7 +30,7 @@ const SOURCES: Record<TimingCountry, { label: "sourceEu" | "sourceGb" | "sourceE
 };
 
 const STATUS_STYLE: Record<TimingStatus, string> = {
-  early: "bg-brand-50 text-brand-800 dark:text-brand-200",
+  early: "bg-brand-50 text-brand-800",
   open: "bg-emerald-500/10 text-emerald-800 dark:text-emerald-300",
   late: "bg-amber-50 text-amber-800 dark:bg-amber-400/10 dark:text-amber-300",
   past: "bg-red-500/10 text-red-700 dark:text-red-300",
@@ -98,7 +98,7 @@ export function VisaTimingTool({ embedded = false }: { embedded?: boolean } = {}
                     onClick={() => setCountry(code)}
                     className={cn(
                       "rounded-pill border px-3.5 py-1.5 text-body-sm font-semibold transition-colors",
-                      code === country ? "border-brand-400 bg-brand-50 text-brand-800 dark:text-brand-200" : "border-surface-border text-ink-700 hover:bg-surface-tint"
+                      code === country ? "border-brand-400 bg-brand-50 text-brand-800" : "border-surface-border text-ink-700 hover:bg-surface-tint"
                     )}
                   >
                     {c.countries[code].label}

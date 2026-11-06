@@ -80,7 +80,7 @@ export function RecommendationsBoard({ items, demo }: { items: RecommendationIte
               </span>
             )}
             {href && item.status !== "done" && (
-              <Link href={href} className="inline-flex items-center gap-1 text-caption font-semibold text-brand-600 hover:text-brand-deep">
+              <Link href={href} className="inline-flex items-center gap-1 text-caption font-semibold text-brand-600 hover:text-brand-deep dark:text-brand-300 dark:hover:text-white">
                 {l("Ochish")} <ArrowRight size={12} />
               </Link>
             )}
@@ -127,10 +127,10 @@ export function RecommendationsBoard({ items, demo }: { items: RecommendationIte
           {l("Bu ro'yxat viza tahlilidagi javoblaringizdan tuziladi. Har bir yangi tahlil o'z qadamlarini qo'shadi.")}
         </p>
         <div className="mt-1.5 flex flex-col">
-          <Link href="/assessment" className="inline-flex items-center gap-1.5 py-2.5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep">
+          <Link href="/assessment" className="inline-flex items-center gap-1.5 py-2.5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep dark:text-brand-300 dark:hover:text-white">
             {l("Yangi viza tahlili")} <ArrowRight size={14} />
           </Link>
-          <Link href="/dashboard/readiness" className="inline-flex items-center gap-1.5 py-2.5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep">
+          <Link href="/dashboard/readiness" className="inline-flex items-center gap-1.5 py-2.5 text-body-sm font-semibold text-brand-600 hover:text-brand-deep dark:text-brand-300 dark:hover:text-white">
             {l("Tayyorgarlik")} <ArrowRight size={14} />
           </Link>
         </div>

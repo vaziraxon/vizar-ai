@@ -65,7 +65,7 @@ function PhotoDemo() {
             key={id}
             className={cn(
               "rounded-pill border px-2.5 py-1 text-caption font-semibold",
-              i === 0 ? "border-brand-400 bg-brand-50 text-brand-800 dark:text-brand-200" : "border-surface-border text-ink-600"
+              i === 0 ? "border-brand-400 bg-brand-50 text-brand-800" : "border-surface-border text-ink-600"
             )}
           >
             {site.destinations[id].name}
@@ -195,7 +195,7 @@ function TimingDemo() {
   const t = timing("schengen", "2027-06-01", "2027-01-15")!;
   return (
     <Frame title={c.title}>
-      <span className="rounded-pill border border-brand-400 bg-brand-50 px-2.5 py-1 text-caption font-semibold text-brand-800 dark:text-brand-200">
+      <span className="rounded-pill border border-brand-400 bg-brand-50 px-2.5 py-1 text-caption font-semibold text-brand-800">
         {c.countries.schengen.label}
       </span>
       <div className="mt-4 grid grid-cols-2 gap-3">

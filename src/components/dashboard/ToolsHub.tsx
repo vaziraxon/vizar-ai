@@ -63,7 +63,7 @@ export function ToolsPromo() {
           📸📝🗓️🧮
         </p>
       </div>
-      <span className="relative inline-flex shrink-0 items-center gap-1.5 self-start rounded-pill bg-white px-4 py-2 text-body-sm font-semibold text-brand-700 transition-[gap] duration-200 group-hover:gap-2.5 sm:self-center">
+      <span className="relative inline-flex shrink-0 items-center gap-1.5 self-start rounded-pill bg-white px-4 py-2 text-body-sm font-semibold text-brand-700 transition-[gap] duration-200 group-hover:gap-2.5 sm:self-center dark:text-brand-600">
         {l("Ochib ko'rish")} <ArrowRight size={15} aria-hidden="true" />
       </span>
     </Link>

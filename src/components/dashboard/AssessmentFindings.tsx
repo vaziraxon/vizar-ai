@@ -40,7 +40,7 @@ export function AssessmentFindings({ findings, className }: { findings: Assessme
               </ul>
             ) : null}
             {finding.href && finding.link ? (
-              <Link href={finding.href} className="mt-2.5 inline-flex items-center gap-1 text-body-sm font-semibold text-brand-600 hover:text-brand-deep">
+              <Link href={finding.href} className="mt-2.5 inline-flex items-center gap-1 text-body-sm font-semibold text-brand-600 hover:text-brand-deep dark:text-brand-300 dark:hover:text-white">
                 {l(finding.link)} <ArrowRight size={14} />
               </Link>
             ) : null}

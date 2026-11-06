@@ -132,7 +132,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
                   )}
                   <Link
                     href="/dashboard/readiness"
-                    className="-my-3 inline-flex items-center gap-1.5 py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep"
+                    className="-my-3 inline-flex items-center gap-1.5 py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep dark:text-brand-300 dark:hover:text-white"
                   >
                     {l("Batafsil ko'rish")} <ArrowRight size={14} />
                   </Link>
@@ -244,7 +244,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
           <p className="mt-3 font-accent text-[44px] font-medium italic leading-none text-ink-950">{data.missingCount}</p>
           <Link
             href="/dashboard/documents"
-            className="-mb-3 mt-2 inline-flex items-center gap-1.5 py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep"
+            className="-mb-3 mt-2 inline-flex items-center gap-1.5 py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep dark:text-brand-300 dark:hover:text-white"
           >
             {l("Hujjat yuklash")} <ArrowRight size={14} />
           </Link>
@@ -257,7 +257,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
           <p className="mt-3 font-accent text-[44px] font-medium italic leading-none text-ink-950">{data.unreadCount}</p>
           <Link
             href="/notifications"
-            className="-mb-3 mt-2 inline-flex items-center gap-1.5 py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep"
+            className="-mb-3 mt-2 inline-flex items-center gap-1.5 py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep dark:text-brand-300 dark:hover:text-white"
           >
             {l("Bildirishnomalar")} <ArrowRight size={14} />
           </Link>
@@ -272,7 +272,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
               <span aria-hidden="true">📌</span>
               {l("Yaqinlashayotgan vazifalar")}
             </h2>
-            <Link href="/recommendations" className="-my-3 inline-block py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep">
+            <Link href="/recommendations" className="-my-3 inline-block py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep dark:text-brand-300 dark:hover:text-white">
               {l("Barchasi")}
             </Link>
           </div>
@@ -356,7 +356,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
           )}
           <Link
             href="/dashboard/experts"
-            className="-mb-3 mt-2 inline-flex items-center gap-1.5 py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep"
+            className="-mb-3 mt-2 inline-flex items-center gap-1.5 py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep dark:text-brand-300 dark:hover:text-white"
           >
             {l("Mutaxassislar")} <ArrowRight size={14} />
           </Link>
