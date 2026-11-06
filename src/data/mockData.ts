@@ -247,7 +247,7 @@ export const APPLICATIONS: ApplicationRecord[] = [
 // --- Recommendations ----------------------------------------------------------
 
 export const RECOMMENDATION_TASKS: RecommendationTask[] = [
-  { id: "t1", title: "Bank statementni to'g'rilab qayta yuklang", status: "Muhim", dueLabel: "Bugun" },
+  { id: "t1", title: "Bank hisobingizdan ko'chirmani to'g'rilab, qayta yuklang", status: "Muhim", dueLabel: "Bugun" },
   { id: "t2", title: "Mehmonxona bron hujjatini yuklang", status: "Jarayonda", dueLabel: "2 kun ichida" },
   { id: "t3", title: "Suhbat mashqini yakunlang", status: "Boshlanmagan", dueLabel: "5 kun ichida" },
   { id: "t4", title: "Shaxsiy profil ma'lumotlarini tasdiqlang", status: "Bajarildi", dueLabel: "Bajarildi" },

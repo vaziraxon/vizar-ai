@@ -63,6 +63,7 @@ export const SOON_DAYS = 30;
  */
 const LEGACY_TASK_TITLES: Record<string, string> = {
   "AI Interview simulyatorida mashq qiling": "Suhbat mashqini bajaring",
+  "Bank statementni tekshirib chiqing": "Bank hisobingizdan ko'chirmani tekshiring",
 };
 
 export const currentTaskTitle = (title: string) => LEGACY_TASK_TITLES[title] ?? title;
@@ -78,7 +79,7 @@ export const TASK_HREF: Record<string, string> = {
   "Avvalgi rad javobini tahlil qiling": "/dashboard/rejection-analysis",
   "Mablag' talabini tekshiring": "/dashboard/library",
   "Suhbat mashqini bajaring": "/dashboard/interview",
-  "Bank statementni tekshirib chiqing": "/dashboard/documents",
+  "Bank hisobingizdan ko'chirmani tekshiring": "/dashboard/documents",
 };
 
 const text = (value: unknown) => (typeof value === "string" ? value.trim() : "");

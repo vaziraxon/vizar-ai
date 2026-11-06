@@ -50,20 +50,15 @@ export function ToolsPromo() {
   return (
     <Link
       href="/dashboard/tools"
-      className="group relative mt-6 flex flex-col gap-4 overflow-hidden rounded-[28px] bg-gradient-to-br from-brand-600 to-violet-600 p-6 text-white shadow-float sm:flex-row sm:items-center sm:p-7"
+      className="group relative mt-5 flex flex-col gap-3 overflow-hidden rounded-[24px] bg-gradient-to-br from-brand-600 to-violet-600 px-5 py-4 text-white shadow-float sm:flex-row sm:items-center sm:gap-4"
     >
-      <span aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/15 blur-2xl" />
-      <div className="relative min-w-0 flex-1">
-        <span className="inline-flex items-center gap-1.5 rounded-pill bg-white/20 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em]">
-          <Sparkles size={12} aria-hidden="true" /> {l("Yangilik")}
-        </span>
-        <p className="mt-3 font-display text-[1.4rem] font-bold leading-tight">{l("Viza foto, xatlar va ariza muddati — endi kabinetingizda")}</p>
-        <p className="mt-1 text-body-sm text-white/85">{l("Viza foto, xatlar, muddat rejalashtiruvchi va Shengen kalkulyatori — hammasi bir joyda.")}</p>
-        <p aria-hidden="true" className="mt-3 text-[22px] tracking-[0.3em]">
-          📸📝🗓️🧮
-        </p>
-      </div>
-      <span className="relative inline-flex shrink-0 items-center gap-1.5 self-start rounded-pill bg-white px-4 py-2 text-body-sm font-semibold text-brand-700 transition-[gap] duration-200 group-hover:gap-2.5 sm:self-center dark:text-brand-600">
+      <span className="relative inline-flex w-fit shrink-0 items-center gap-1.5 rounded-pill bg-white/20 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em]">
+        <Sparkles size={12} aria-hidden="true" /> {l("Yangilik")}
+      </span>
+      <p className="relative min-w-0 flex-1 text-body-sm font-medium text-white/95">
+        {l("Viza foto, xatlar, muddat rejalashtiruvchi va Shengen kalkulyatori — hammasi bir joyda.")}
+      </p>
+      <span className="relative inline-flex shrink-0 items-center gap-1.5 self-start rounded-pill bg-white px-4 py-2 text-body-sm font-semibold text-brand-700 transition-[gap] duration-200 group-hover:gap-2.5 motion-reduce:transition-none sm:self-center dark:text-brand-600">
         {l("Ochib ko'rish")} <ArrowRight size={15} aria-hidden="true" />
       </span>
     </Link>
