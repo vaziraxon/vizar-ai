@@ -310,7 +310,7 @@ export default function AiInterviewPage() {
             ))}
           </ul>
           {visible.length === 0 && <p className="mt-4 text-center text-body-sm text-ink-500">{l("Hech narsa topilmadi.")}</p>}
-          <p className="mt-5 text-caption text-ink-400">
+          <p className="mt-5 text-caption text-ink-500">
             {l("Savollar konsullikning rasmiy savollari emas, javoblar viza yoki mamlakatga kirishni kafolatlamaydi. Namuna javoblarni o'z haqiqiy ma'lumotingizga moslashtiring.")}
           </p>
         </div>
@@ -429,7 +429,7 @@ export default function AiInterviewPage() {
               <BookOpen size={16} /> {l("Barcha savollarni ko'rish")}
             </Button>
           </div>
-          <p className="text-caption text-ink-400">
+          <p className="text-caption text-ink-500">
             {l("Savollar konsullikning rasmiy savollari emas, javoblar viza yoki mamlakatga kirishni kafolatlamaydi. Namuna javoblarni o'z haqiqiy ma'lumotingizga moslashtiring.")}
           </p>
 
@@ -517,7 +517,7 @@ export default function AiInterviewPage() {
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-caption text-ink-400">{l("Qoidaga asoslangan tahlil — haqiqiy AI yoki konsullik qarori emas.")}</p>
+          <p className="mt-4 text-caption text-ink-500">{l("Qoidaga asoslangan tahlil — haqiqiy AI yoki konsullik qarori emas.")}</p>
           <div className="mt-6">
             <InterviewBookLinks countryCode={countryCode} countryName={country.name[appLang]} />
           </div>
@@ -700,7 +700,7 @@ export default function AiInterviewPage() {
                   </p>
                 )}
               </div>
-              <p className="mt-3 text-caption text-ink-400">{l("Qoidaga asoslangan tahlil — haqiqiy AI yoki konsullik qarori emas.")}</p>
+              <p className="mt-3 text-caption text-ink-500">{l("Qoidaga asoslangan tahlil — haqiqiy AI yoki konsullik qarori emas.")}</p>
               <p className="mt-1 text-caption text-ink-400">
                 {l("Savollar konsullikning rasmiy savollari emas, javoblar viza yoki mamlakatga kirishni kafolatlamaydi. Namuna javoblarni o'z haqiqiy ma'lumotingizga moslashtiring.")}
               </p>

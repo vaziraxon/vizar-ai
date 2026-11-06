@@ -206,7 +206,7 @@ export default function RefusalAnalysisPage() {
                   </Link>
                 </div>
                 <div className="flex items-center justify-between gap-3">
-                  <p className="text-caption text-ink-400">{l("Qoidaga asoslangan tahlil — konsullik qarori emas.")}</p>
+                  <p className="text-caption text-ink-500">{l("Qoidaga asoslangan tahlil — konsullik qarori emas.")}</p>
                   <button type="button" onClick={startOver} className="-my-3 inline-flex shrink-0 items-center gap-1.5 py-3 text-caption font-semibold text-ink-600 hover:text-ink-900">
                     <RotateCcw size={13} /> {l("Yangidan")}
                   </button>

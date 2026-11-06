@@ -245,7 +245,7 @@ function SchengenDemo() {
           <p className="text-caption font-semibold text-ink-600">{c.usedLabel}</p>
           <p className="mt-1 font-luxe text-[2rem] font-semibold leading-none text-ink-950">
             {result.used}
-            <span className="font-sans text-body font-semibold text-ink-400">/{MAX_DAYS}</span>
+            <span className="font-sans text-body font-semibold text-ink-500">/{MAX_DAYS}</span>
           </p>
         </div>
         <div className="rounded-2xl bg-emerald-500/10 p-3.5">
