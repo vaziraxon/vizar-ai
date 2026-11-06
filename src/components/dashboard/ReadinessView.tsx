@@ -24,7 +24,7 @@ export function ReadinessView({ facts, missingDocs }: { facts: ServerReadinessFa
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="card spotlight relative flex flex-col items-center justify-center gap-3 overflow-hidden rounded-[28px] p-8 text-center">
           <span aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-brand-50 to-transparent" />
-          <ScoreRing score={score} size={140} strokeWidth={11} label="/ 100" />
+          <ScoreRing score={score} size={140} strokeWidth={11} label="/ 100" empty={score === 0} />
           <p className="text-body-sm font-medium text-ink-700 dark:text-white/70">{l("Umumiy tayyorgarlik darajasi")}</p>
           <span className="rounded-pill bg-brand-50 px-3 py-1 text-caption font-semibold text-brand-700 ring-1 ring-brand-100">
             {l(readinessLevel(score))}

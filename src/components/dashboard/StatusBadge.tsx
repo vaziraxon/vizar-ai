@@ -13,7 +13,7 @@ const STATUS_STYLES: Record<string, string> = {
   // Applications
   Qoralama: "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/50",
   Yangi: "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
-  "Tahlil qilinmoqda": "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
+  "Tahlil yakunlandi": "bg-brand-50 text-brand-700 dark:bg-brand-600/40 dark:text-brand-300",
   Tayyor: "bg-success/10 text-green-800 dark:text-green-300",
   "Konsultatsiya kerak": "bg-warning/10 text-warning",
   Yakunlangan: "bg-success/10 text-green-800 dark:text-green-300",

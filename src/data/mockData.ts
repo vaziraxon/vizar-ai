@@ -68,18 +68,18 @@ export const CURRENT_USER = {
 export const CURRENT_APPLICATION = {
   destination: "Janubiy Koreya",
   flag: "🇰🇷",
-  visaType: "Tourist Visa",
-  status: "Tahlil jarayonida",
+  visaType: "Turistik viza",
+  status: "Tahlil yakunlandi",
   readinessScore: 82,
   uploadedDocs: 6,
   missingDocs: 2,
   interviewScore: 76,
+  // Same four steps as a real account: profile, documents, assessment, ready
   progressSteps: [
-    { label: "Ma'lumotlar kiritildi", done: true },
-    { label: "Hujjatlar yuklandi", done: true },
+    { label: "Profil", done: true },
+    { label: "Hujjatlar", done: false },
     { label: "Viza tahlili", done: true },
-    { label: "Intervyu tayyorgarligi", done: false },
-    { label: "Yakuniy ko'rib chiqish", done: false },
+    { label: "Tayyorgarlik yakuni", done: false },
   ],
 };
 
@@ -206,10 +206,10 @@ export const APPLICATIONS: ApplicationRecord[] = [
     id: "app-1",
     country: "Janubiy Koreya",
     flag: "🇰🇷",
-    visaType: "Tourist Visa",
+    visaType: "Turistik viza",
     createdDate: "01-iyul, 2026",
     readinessScore: 82,
-    status: "Tahlil qilinmoqda",
+    status: "Tahlil yakunlandi",
     lastUpdate: "2 soat oldin",
   },
   {

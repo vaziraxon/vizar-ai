@@ -8,6 +8,15 @@ import { visaFreeStay, type VisaFreeRule } from "@/lib/dashboard/assessment-revi
  */
 export type VisaKind = "tourist" | "student" | "work" | "business";
 
+/** The checklist kind for an application's visa type (Uzbek or English text); tourist when unclear. */
+export function visaKindFromType(visaType: string | null | undefined): VisaKind {
+  const t = (visaType ?? "").toLowerCase();
+  if (/talaba|student|o.qish|study/.test(t)) return "student";
+  if (/\bish\b|work|mehnat/.test(t)) return "work";
+  if (/biznes|business/.test(t)) return "business";
+  return "tourist";
+}
+
 export interface ChecklistItem {
   id: string;
   title: string;

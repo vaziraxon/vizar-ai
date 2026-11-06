@@ -135,7 +135,7 @@ export interface Specialist {
 
 export type ApplicationStatus =
   | "Qoralama"
-  | "Tahlil qilinmoqda"
+  | "Tahlil yakunlandi"
   | "Tayyor"
   | "Konsultatsiya kerak"
   | "Yakunlangan";

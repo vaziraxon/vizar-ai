@@ -135,6 +135,7 @@ export function filledSlots(uploadedTypes: string[], slots: string[]) {
 
 /** Uzbek source strings: how far along the user is, not how likely a visa is. */
 export function readinessLevel(score: number) {
+  if (score <= 0) return "Hali baholanmagan";
   if (score >= 90) return "Deyarli tayyor";
   if (score >= 60) return "Yaxshi ketyapsiz";
   if (score >= 25) return "Davom eting";

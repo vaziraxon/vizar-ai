@@ -27,7 +27,6 @@ import {
   RECOMMENDATION_TASKS,
 } from "@/data/mockData";
 
-const APP_STEPS = ["draft", "in_review", "ready", "completed"];
 
 export default async function DashboardPage() {
   const configured = isSupabaseConfigured();
@@ -65,12 +64,6 @@ export default async function DashboardPage() {
   const visaType = live ? application.visa_type : CURRENT_APPLICATION.visaType;
   const status = live ? displayApplicationStatus(application.status) : CURRENT_APPLICATION.status;
 
-  const steps = live
-    ? APP_STEPS.map((s, i) => ({
-        label: displayApplicationStatus(s),
-        done: APP_STEPS.indexOf(application.status) >= i,
-      }))
-    : CURRENT_APPLICATION.progressSteps;
 
   // Tasks: the user's open recommendations, most urgent first; demo mode uses samples.
   const tasks =
@@ -83,6 +76,23 @@ export default async function DashboardPage() {
         : RECOMMENDATION_TASKS.filter((t) => t.status !== "Bajarildi").map((t) => ({ id: t.id, title: t.title, chip: t.status }));
 
   const nextAction = tasks[0]?.title ?? "Yangi viza tahlilini boshlang";
+
+  // The journey follows what the user has actually done; the application's
+  // official status is shown separately (the badge in the header).
+  const assessmentDone = live && assessmentResult?.ok ? isAssessmentComplete(assessmentResult.data) : false;
+  const journey = {
+    profile: Boolean(firstName),
+    documents: totalSlots > 0 && uploadedCount >= totalSlots,
+    assessment: assessmentDone,
+  };
+  const steps = live
+    ? [
+        { label: "Profil", done: journey.profile },
+        { label: "Hujjatlar", done: journey.documents },
+        { label: "Viza tahlili", done: journey.assessment },
+        { label: "Tayyorgarlik yakuni", done: journey.profile && journey.documents && journey.assessment && tasks.length === 0 },
+      ]
+    : CURRENT_APPLICATION.progressSteps;
 
   const consultation = live
     ? consultationResult?.ok && consultationResult.data
@@ -142,7 +152,7 @@ export default async function DashboardPage() {
             readiness: live
               ? {
                   hasApplication: true,
-                  assessmentDone: assessmentResult?.ok ? isAssessmentComplete(assessmentResult.data) : false,
+                  assessmentDone,
                   docsUploaded: uploadedCount,
                   docsTotal: totalSlots,
                 }

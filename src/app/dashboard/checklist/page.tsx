@@ -22,6 +22,7 @@ import {
 } from "@/lib/dashboard/checklist-template";
 import { cn } from "@/lib/utils";
 import { visaFreeStay } from "@/lib/dashboard/assessment-review";
+import { useActiveApplication, useApplicationChecklist } from "@/components/dashboard/ActiveApplication";
 
 const EMPTY: ChecklistSaved = { done: [], custom: [] };
 
@@ -39,8 +40,18 @@ export default function ChecklistPage() {
   const [saved, setSaved] = useLocalState<ChecklistSaved>(checklistKey(selection.dest, selection.visa), EMPTY);
   const [draft, setDraft] = useState("");
   const [mounted, setMounted] = useState(false);
+  const application = useActiveApplication();
+  const appChecklist = useApplicationChecklist();
+  const appDest = appChecklist?.dest;
+  const appVisa = appChecklist?.visa;
+  const onAppChecklist = Boolean(appChecklist) && selection.dest === appDest && selection.visa === appVisa;
 
   useEffect(() => setMounted(true), []);
+
+  // Open on the active application's checklist; other destinations stay a click away
+  useEffect(() => {
+    if (appDest && appVisa) setSelection({ dest: appDest, visa: appVisa });
+  }, [appDest, appVisa, setSelection]);
 
   const groups = useMemo(() => buildChecklist(selection.dest, selection.visa, saved.custom), [selection, saved.custom]);
   const visaFree = visaFreeStay(selection.dest, selection.visa);
@@ -84,6 +95,32 @@ export default function ChecklistPage() {
         </button>
       }
     >
+      {application && mounted && (
+        <div
+          className={cn(
+            "mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-body-sm",
+            onAppChecklist
+              ? "border-surface-border bg-surface text-ink-700"
+              : "border-amber-500/30 bg-amber-500/10 text-amber-900 dark:text-amber-100"
+          )}
+        >
+          <span>
+            {onAppChecklist
+              ? l("Joriy arizangiz uchun: {destination}, {visa}", { destination: l(application.destination), visa: l(application.visaType) })
+              : appChecklist
+                ? l("Bu ro'yxat joriy arizangizga tegishli emas ({destination}).", { destination: l(application.destination) })
+                : l("Arizangizdagi davlat ({destination}) uchun alohida ro'yxat yo'q — eng yaqin yo'nalishni tanlang.", {
+                    destination: l(application.destination),
+                  })}
+          </span>
+          {appChecklist && !onAppChecklist && (
+            <button type="button" onClick={() => setSelection(appChecklist)} className="btn-secondary btn-sm">
+              {l("Arizamga qaytish")}
+            </button>
+          )}
+        </div>
+      )}
+
       {/* Selection */}
       <div className="card mb-5 grid gap-5 rounded-[28px] p-5 sm:p-6 lg:grid-cols-[1.4fr_1fr]">
         <div>
