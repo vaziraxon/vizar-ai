@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpLeft, X } from "lucide-react";
+import { ArrowUpLeft, ChevronDown, X } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { SIDEBAR_NAV, SIDEBAR_LOGOUT } from "@/data/mockData";
 import { logoutAction } from "@/lib/actions/auth";
@@ -12,6 +12,7 @@ import { useLanguage } from "@/lib/language-context";
 import { cn } from "@/lib/utils";
 import { useL } from "@/components/i18n/L";
 import { useDialogFocus } from "@/lib/use-dialog-focus";
+import { useLocalState } from "@/lib/dashboard/use-local-state";
 
 // One tip per day (Uzbek source, translated through the phrase table)
 const DAILY_TIPS = [
@@ -71,8 +72,20 @@ export const NAV_KEY_BY_HREF: Record<string, string> = {
   "/settings": "settings",
 };
 
-const MORE_HREFS = new Set(["/assessment", "/recommendations", "/reports", "/notifications"]);
-const ACCOUNT_HREFS = new Set(["/dashboard/subscription", "/profile", "/settings"]);
+// Menu groups, in order; items keep this order inside their group. Anything
+// not listed (agency and admin menus) lands in the first group.
+const NAV_GROUPS: { id: string; titleKey: string; hrefs: string[] }[] = [
+  { id: "main", titleKey: "app_section_main", hrefs: ["/dashboard", "/dashboard/tracker", "/dashboard/readiness", "/dashboard/documents", "/dashboard/checklist"] },
+  { id: "ai", titleKey: "app_section_ai", hrefs: ["/assessment", "/dashboard/interview", "/dashboard/rejection-analysis", "/dashboard/assistant"] },
+  {
+    id: "tools",
+    titleKey: "app_section_tools",
+    hrefs: ["/dashboard/library", "/dashboard/tools/photo", "/dashboard/tools/letters", "/dashboard/tools/timing", "/dashboard/tools/schengen"],
+  },
+  { id: "help", titleKey: "app_section_help", hrefs: ["/dashboard/experts", "/recommendations", "/reports", "/notifications"] },
+  { id: "account", titleKey: "app_section_account", hrefs: ["/dashboard/subscription", "/profile", "/settings"] },
+];
+const COLLAPSED_KEY = "vizar-sidebar-collapsed";
 
 function NavLinks({
   navItems,
@@ -91,23 +104,50 @@ function NavLinks({
     return key ? t(key) : item.label;
   };
 
-  const groups = [
-    { title: t("app_section_main"), items: navItems.filter((i) => !MORE_HREFS.has(i.href) && !ACCOUNT_HREFS.has(i.href)) },
-    { title: t("app_section_more"), items: navItems.filter((i) => MORE_HREFS.has(i.href)) },
-    { title: t("app_section_account"), items: navItems.filter((i) => ACCOUNT_HREFS.has(i.href)) },
-  ].filter((g) => g.items.length > 0);
+  const [collapsed, setCollapsed] = useLocalState<string[]>(COLLAPSED_KEY, []);
+  // A plan page (/dashboard/subscription/premium) still marks "Obuna"
+  const isActive = (href: string) => pathname === href || (href === "/dashboard/subscription" && pathname.startsWith(`${href}/`));
+
+  const listed = new Set(NAV_GROUPS.flatMap((g) => g.hrefs));
+  const groups = NAV_GROUPS.map((group, index) => ({
+    ...group,
+    items: [
+      ...(index === 0 ? navItems.filter((i) => !listed.has(i.href)) : []),
+      ...group.hrefs.flatMap((href) => navItems.filter((i) => i.href === href)),
+    ],
+  })).filter((g) => g.items.length > 0);
+
+  const toggle = (id: string) => setCollapsed((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
 
   return (
-    <nav aria-label="Dashboard" className="flex flex-1 flex-col gap-6 overflow-y-auto px-3 pb-4">
-      {groups.map((group) => (
-        <div key={group.title}>
-          <p className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-500 dark:text-white/60">
-            {group.title}
-          </p>
-          <ul className="space-y-0.5">
+    <nav aria-label="Dashboard" className="flex flex-1 flex-col gap-4 overflow-y-auto px-3 pb-4">
+      {groups.map((group) => {
+        // The group holding the current page always stays open
+        const holdsActive = group.items.some((i) => isActive(i.href));
+        const open = holdsActive || !collapsed.includes(group.id);
+        const listId = `nav-group-${group.id}`;
+        return (
+        <div key={group.id}>
+          <button
+            type="button"
+            onClick={() => toggle(group.id)}
+            aria-expanded={open}
+            aria-controls={listId}
+            disabled={holdsActive}
+            className="group/head flex w-full items-center justify-between rounded-lg px-3 pb-2 pt-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-500 transition-colors hover:text-ink-900 disabled:cursor-default disabled:hover:text-ink-500 dark:text-white/60 dark:hover:text-white"
+          >
+            {t(group.titleKey)}
+            {!holdsActive && (
+              <ChevronDown
+                size={14}
+                aria-hidden="true"
+                className={cn("transition-transform duration-200 motion-reduce:transition-none", !open && "-rotate-90")}
+              />
+            )}
+          </button>
+          <ul id={listId} hidden={!open} className="space-y-0.5">
             {group.items.map((item) => {
-              // A plan page (/dashboard/subscription/premium) still marks "Obuna"
-              const active = pathname === item.href || (item.href === "/dashboard/subscription" && pathname.startsWith(`${item.href}/`));
+              const active = isActive(item.href);
               return (
                 <li key={item.href + item.label}>
                   <Link
@@ -136,7 +176,8 @@ function NavLinks({
             })}
           </ul>
         </div>
-      ))}
+        );
+      })}
 
       <div className="mt-auto space-y-0.5 border-t border-surface-border pt-3 dark:border-white/10">
         <DailyTip />
