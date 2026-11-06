@@ -30,7 +30,8 @@ const DOC_STATUS: Record<string, string> = {
   verified: "Tasdiqlandi",
   issue_found: "Kamchilik bor",
   expired: "Yangilash kerak",
-  analyzing: "AI tahlil qilmoqda",
+  // Uploads are saved as "analyzing", but nothing reads or checks the files
+  analyzing: "Yuklandi",
   uploaded: "Yangi",
 };
 

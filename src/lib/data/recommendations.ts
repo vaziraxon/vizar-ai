@@ -1,8 +1,11 @@
 import "server-only";
 import { getAuthedContext, genericDbError, type DataResult } from "./_shared";
 import type { Database } from "@/types/database";
+import { currentTaskTitle } from "@/lib/dashboard/assessment-review";
 
 export type RecommendationRow = Database["public"]["Tables"]["recommendations"]["Row"];
+
+const withCurrentTitle = (row: RecommendationRow): RecommendationRow => ({ ...row, title: currentTaskTitle(row.title) });
 
 export async function listMyRecommendations(limit = 20): Promise<DataResult<RecommendationRow[]>> {
   const ctx = await getAuthedContext();
@@ -16,7 +19,7 @@ export async function listMyRecommendations(limit = 20): Promise<DataResult<Reco
     .limit(limit);
 
   if (error) return genericDbError();
-  return { ok: true, data: data ?? [] };
+  return { ok: true, data: (data ?? []).map(withCurrentTitle) };
 }
 
 export async function updateRecommendationStatus(
@@ -35,5 +38,5 @@ export async function updateRecommendationStatus(
     .single();
 
   if (error) return genericDbError();
-  return { ok: true, data };
+  return { ok: true, data: withCurrentTitle(data) };
 }
