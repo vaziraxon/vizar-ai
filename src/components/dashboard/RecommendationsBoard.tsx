@@ -86,7 +86,7 @@ export function RecommendationsBoard({ items, demo }: { items: RecommendationIte
             )}
           </div>
         </div>
-        <button type="button" onClick={() => advance(item)} aria-label={l("Holatni o'zgartirish")} className="shrink-0">
+        <button type="button" onClick={() => advance(item)} aria-label={l("Holatni o'zgartirish")} className="relative shrink-0 before:absolute before:-inset-y-2 before:-inset-x-1 before:content-['']">
           <StatusBadge status={STATUS_LABEL[item.status]} />
         </button>
       </li>

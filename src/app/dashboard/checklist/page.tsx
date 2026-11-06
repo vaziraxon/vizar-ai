@@ -249,7 +249,7 @@ export default function ChecklistPage() {
                           !checked && (
                             <Link
                               href="/dashboard/documents"
-                              className="shrink-0 rounded-pill border border-surface-border px-3 py-1.5 text-caption font-semibold text-ink-700 transition-colors hover:border-surface-strong hover:text-ink-900"
+                              className="relative shrink-0 rounded-pill border border-surface-border px-3 py-1.5 text-caption font-semibold text-ink-700 before:absolute before:-inset-y-2 before:-inset-x-1 before:content-[''] transition-colors hover:border-surface-strong hover:text-ink-900"
                             >
                               {l("Yuklash")}
                             </Link>

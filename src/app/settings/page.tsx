@@ -44,8 +44,8 @@ export default function SettingsPage() {
   return (
     <DashboardShell title="Sozlamalar" subtitle="Hisobingiz sozlamalarini boshqaring.">
       <div className="space-y-6">
-        <div className="card flex flex-wrap items-center justify-between gap-4 rounded-[24px] p-6">
-          <div>
+        <div className="card flex items-center justify-between gap-4 rounded-[24px] p-6">
+          <div className="min-w-0">
             <p className={sectionTitle}>
               <span aria-hidden="true">🌐</span> {l("Til")}
             </p>
