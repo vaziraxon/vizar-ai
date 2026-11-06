@@ -9,6 +9,7 @@ import { MobileTabBar } from "./MobileTabBar";
 import { CommandPalette } from "@/components/search/CommandPalette";
 import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
 import { EmojiSticker } from "@/components/site/primitives";
+import { LandingFonts } from "@/components/site/LandingFonts";
 import { useL } from "@/components/i18n/L";
 import type { SidebarNavItem } from "@/types";
 
@@ -71,7 +72,9 @@ export function DashboardShell({
   const subtitleText = typeof subtitle === "string" ? l(subtitle) : subtitle;
 
   return (
-    <div className="flex min-h-screen bg-surface-tint dark:bg-navy-950">
+    <div className="landing-lime dashboard-lime flex min-h-screen bg-surface-canvas dark:bg-navy-950">
+      {/* Same palette and serif as the public site (see .landing-lime and .dashboard-lime) */}
+      <LandingFonts />
       <Sidebar mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} navItems={navItems} />
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar onMenuClick={() => setMobileOpen(true)} />
@@ -79,15 +82,18 @@ export function DashboardShell({
           {/* Soft light behind the header area */}
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 h-[460px] bg-[radial-gradient(55%_70%_at_75%_0%,rgba(124,58,237,0.12),transparent_70%),radial-gradient(45%_60%_at_15%_0%,rgba(37,99,235,0.10),transparent_70%)]"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[460px] bg-[radial-gradient(55%_70%_at_75%_0%,rgba(217,242,107,0.22),transparent_70%),radial-gradient(45%_60%_at_15%_0%,rgba(176,160,252,0.22),transparent_70%)] dark:bg-[radial-gradient(55%_70%_at_75%_0%,rgba(190,228,60,0.08),transparent_70%),radial-gradient(45%_60%_at_15%_0%,rgba(124,58,237,0.16),transparent_70%)]"
           />
           <div className="relative mx-auto max-w-6xl">
-            {/* Page header — a sky banner with the page mascot or a photo */}
-            <div className="hero-sky-soft grain relative mb-6 overflow-hidden rounded-[28px] border border-white shadow-xs dark:border-white/10">
+            {/* Page header — the landing wash with the page mascot or a photo. The
+                photo fades in from its left edge, so it meets the wash without a seam. */}
+            <div className="lime-wash grain relative mb-6 overflow-hidden rounded-[28px] border border-white shadow-xs dark:border-white/10">
               {heroImage ? (
-                <div aria-hidden="true" className="absolute inset-y-0 right-0 hidden w-[46%] md:block">
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-y-0 right-0 hidden w-[46%] [mask-image:linear-gradient(to_right,transparent,black_55%)] md:block"
+                >
                   <Image src={heroImage} alt="" fill sizes="(min-width: 1024px) 520px, 46vw" className="object-cover" priority />
-                  <span className="absolute inset-0 bg-gradient-to-r from-[#e2e2fe] via-[#e2e2fe]/50 to-transparent dark:from-[#0d1230] dark:via-[#0d1230]/60" />
                 </div>
               ) : (
                 <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden xl:block">
@@ -107,7 +113,7 @@ export function DashboardShell({
                   )}
                   <div className="min-w-0">
                     {eyebrow && <div className="mb-2 text-body-sm font-medium text-ink-600">{eyebrow}</div>}
-                    <h1 className="font-display text-display-md font-extrabold tracking-[-0.035em] text-ink-950">{titleText}</h1>
+                    <h1 className="font-display text-[clamp(1.9rem,3.4vw,2.6rem)] font-semibold leading-[1.08] tracking-[-0.02em] text-ink-950">{titleText}</h1>
                     {subtitleText && <p className="mt-2 max-w-xl text-body text-ink-600">{subtitleText}</p>}
                   </div>
                 </div>

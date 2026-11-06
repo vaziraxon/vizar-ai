@@ -68,11 +68,11 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
           type="button"
           onClick={() => window.dispatchEvent(new CustomEvent("vizar-open-command-palette"))}
           aria-label={t("app_search_aria")}
-          className="flex h-9 items-center gap-2 rounded-pill border border-surface-border bg-surface-tint/70 px-3 text-body-sm text-ink-400 transition-colors hover:border-surface-strong hover:text-ink-600 md:w-72 dark:border-white/10 dark:bg-white/5 dark:text-white/40"
+          className="flex h-9 items-center gap-2 rounded-pill border border-surface-border bg-surface-tint/70 px-3 text-body-sm text-ink-600 transition-colors hover:border-surface-strong hover:text-ink-900 md:w-72 dark:border-white/10 dark:bg-white/5 dark:text-white/60"
         >
           <Search size={15} />
           <span className="hidden sm:inline">{t("app_search")}</span>
-          <kbd className="ml-auto hidden rounded-md border border-surface-border bg-white px-1.5 py-0.5 font-sans text-[10px] font-medium text-ink-400 md:inline dark:border-white/10 dark:bg-transparent">
+          <kbd className="ml-auto hidden rounded-md border border-surface-border bg-white px-1.5 py-0.5 font-sans text-[10px] font-medium text-ink-600 md:inline dark:border-white/10 dark:bg-transparent dark:text-white/60">
             Ctrl K
           </kbd>
         </button>

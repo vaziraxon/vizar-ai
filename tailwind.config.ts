@@ -19,6 +19,8 @@ const config: Config = {
   content: [
     "./src/app/**/*.{ts,tsx}",
     "./src/components/**/*.{ts,tsx}",
+    // Class names kept in data files, e.g. the tool cards' gradient tints
+    "./src/lib/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
