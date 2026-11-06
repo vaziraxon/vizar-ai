@@ -62,9 +62,9 @@ export function AuthCard({
         </div>
       </main>
 
-      <p className="relative pb-6 text-center text-caption text-ink-500">
+      <footer className="relative pb-6 text-center text-caption text-ink-500">
         © {new Date().getFullYear()} VIZAR AI. {t("ft_rights")}
-      </p>
+      </footer>
     </div>
   );
 }
