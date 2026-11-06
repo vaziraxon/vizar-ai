@@ -15,6 +15,7 @@ import {
 import { LANGUAGES } from "@/lib/constants";
 import { useLanguage } from "@/lib/language-context";
 import { useL } from "@/components/i18n/L";
+import { useDialogFocus } from "@/lib/use-dialog-focus";
 
 interface SearchResult {
   id: string;
@@ -28,6 +29,9 @@ export function CommandPalette() {
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  // The search field focuses itself; the hook keeps Tab inside and restores focus
+  useDialogFocus(open, dialogRef, { autoFocus: false });
   const router = useRouter();
   const { toggleTheme } = useTheme();
   const { language, setLanguage } = useLanguage();
@@ -149,6 +153,7 @@ export function CommandPalette() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
+              ref={dialogRef}
               role="dialog"
               aria-modal="true"
               aria-label={l("Qidiruv va buyruqlar paneli")}

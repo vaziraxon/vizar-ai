@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import type { ReactNode } from "react";
 import { useL } from "@/components/i18n/L";
+import { useDialogFocus } from "@/lib/use-dialog-focus";
 
 interface ModalProps {
   open: boolean;
@@ -15,6 +16,8 @@ interface ModalProps {
 
 export function Modal({ open, onClose, title, children }: ModalProps) {
   const l = useL();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useDialogFocus(open, dialogRef);
   useEffect(() => {
     if (!open) return;
     function onKeyDown(e: KeyboardEvent) {
@@ -36,6 +39,7 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
             className="fixed inset-0 z-[60] bg-night/40 backdrop-blur-[2px]"
           />
           <div
+            ref={dialogRef}
             className="fixed inset-0 z-[61] flex items-center justify-center p-4"
             role="dialog"
             aria-modal="true"
