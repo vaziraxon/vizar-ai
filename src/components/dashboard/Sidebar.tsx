@@ -101,7 +101,7 @@ function NavLinks({
     <nav aria-label="Dashboard" className="flex flex-1 flex-col gap-6 overflow-y-auto px-3 pb-4">
       {groups.map((group) => (
         <div key={group.title}>
-          <p className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-500 dark:text-white/40">
+          <p className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-500 dark:text-white/60">
             {group.title}
           </p>
           <ul className="space-y-0.5">

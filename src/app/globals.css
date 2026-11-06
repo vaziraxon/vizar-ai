@@ -309,7 +309,7 @@ p {
       0 30px 80px -20px rgba(47, 99, 216, 0.55),
       inset -24px -30px 60px rgba(16, 17, 34, 0.35);
   }
-  .landing-lime h2.font-display {
+  .landing-site h2.font-display {
     font-family: var(--font-luxe);
     font-size: clamp(2.15rem, 3.6vw, 3.1rem);
     font-weight: 600;
@@ -319,6 +319,16 @@ p {
   /* Bodoni's hairlines all but vanish on small text and the pastel wash; a stroke
      that scales with the type firms them up and keeps the contrast */
   .luxe-firm {
+    -webkit-text-stroke: 0.009em currentColor;
+  }
+
+  /* Dashboard in the landing look (DashboardShell sets .landing-lime too):
+     titles and figures set in font-display take the landing serif, firmed up
+     like .luxe-firm because many of them are small. */
+  .dashboard-lime {
+    --font-display: var(--font-luxe);
+  }
+  .dashboard-lime .font-display {
     -webkit-text-stroke: 0.009em currentColor;
   }
 

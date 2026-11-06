@@ -9,7 +9,7 @@ import { SpotlightObserver } from "@/components/site/SpotlightObserver";
 /** Public-site chrome: floating pill navbar, page content, footer, all in the landing palette and fonts. */
 export function MarketingShell({ children }: { children: ReactNode }) {
   return (
-    <div className="landing-lime relative min-h-screen bg-surface-canvas">
+    <div className="landing-lime landing-site relative min-h-screen bg-surface-canvas">
       <LandingFonts />
       <SkipLink />
       <Navbar />
