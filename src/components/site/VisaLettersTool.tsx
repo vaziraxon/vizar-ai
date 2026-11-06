@@ -468,7 +468,7 @@ export function VisaLettersTool({ embedded = false }: { embedded?: boolean } = {
                   <Section title={c.sections.funding}>
                     <div className="flex flex-wrap gap-4 sm:col-span-2" role="radiogroup" aria-label={f.funding}>
                       {(["self", "sponsor"] as const).map((v) => (
-                        <label key={v} className="inline-flex items-center gap-2 text-body-sm text-ink-800">
+                        <label key={v} className="relative inline-flex cursor-pointer items-center gap-2 text-body-sm text-ink-800 before:absolute before:-inset-y-3 before:-inset-x-1 before:content-['']">
                           <input type="radio" name="funding" checked={cover.funding === v} onChange={() => setC("funding", v)} className="accent-brand-600" />
                           {v === "self" ? f.fundingSelf : f.fundingSponsor}
                         </label>
