@@ -248,7 +248,7 @@ export default function RegisterPage() {
           {t("au_have_account")}{" "}
           <Link
             href="/login"
-            className="-mx-2 -my-3 inline-block rounded px-2 py-3 font-semibold text-brand-600 hover:text-brand-700"
+            className="-mx-2 -my-3 inline-block rounded px-2 py-3 font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-300 dark:hover:text-white"
           >
             {t("au_log_in_link")}
           </Link>
