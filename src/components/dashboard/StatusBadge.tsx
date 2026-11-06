@@ -10,7 +10,6 @@ const STATUS_STYLES: Record<string, string> = {
   "Yangilash kerak": "bg-warning/10 text-warning",
   Yuklanmagan: "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/50",
   Yuklandi: "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
-  "AI tahlil qilmoqda": "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
   // Applications
   Qoralama: "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/50",
   Yangi: "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",

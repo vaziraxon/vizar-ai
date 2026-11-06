@@ -97,7 +97,7 @@ export type DocStatus =
   | "Kamchilik bor"
   | "Yangilash kerak"
   | "Yuklanmagan"
-  | "AI tahlil qilmoqda";
+  | "Yuklandi";
 
 export interface DocumentItem {
   id: string;

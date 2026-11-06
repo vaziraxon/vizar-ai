@@ -3,7 +3,7 @@
 //   node --experimental-strip-types --test scripts/dashboard/assessment-review.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { reviewAssessment } from "../../src/lib/dashboard/assessment-review.ts";
+import { TASK_HREF, currentTaskTitle, reviewAssessment } from "../../src/lib/dashboard/assessment-review.ts";
 
 const today = new Date("2026-11-02T09:00:00Z");
 const answers = {
@@ -69,4 +69,11 @@ test("the user's own figures are passed through as written", () => {
 test("missing or odd answers don't throw", () => {
   assert.deepEqual(ids(reviewAssessment({}, today)), ["interview"]);
   assert.deepEqual(ids(reviewAssessment({ docsStatus: null, travelDate: 5, income: 7 }, today)), ["interview"]);
+});
+
+test("old AI-worded tasks read back under their current title and link", () => {
+  const title = currentTaskTitle("AI Interview simulyatorida mashq qiling");
+  assert.equal(title, "Suhbat mashqini bajaring");
+  assert.equal(TASK_HREF[title], "/dashboard/interview");
+  assert.equal(currentTaskTitle("Bank statementni tekshirib chiqing"), "Bank statementni tekshirib chiqing");
 });

@@ -27,9 +27,20 @@ const DAY = 86_400_000;
 export const SOON_DAYS = 30;
 
 /**
+ * Titles that early versions of the assessment saved and that no longer match
+ * what the app is (the interview practice is not AI). Saved rows keep their old
+ * text; it is swapped for the current title whenever a row is read.
+ */
+const LEGACY_TASK_TITLES: Record<string, string> = {
+  "AI Interview simulyatorida mashq qiling": "Suhbat mashqini bajaring",
+};
+
+export const currentTaskTitle = (title: string) => LEGACY_TASK_TITLES[title] ?? title;
+
+/**
  * Where a saved task (a recommendation title) can be worked on in the app.
  * Booking an appointment and gathering sponsor papers happen elsewhere. The last
- * two are the fixed demo titles the assessment saved before it had real rules.
+ * one is a fixed demo title the assessment saved before it had real rules.
  */
 export const TASK_HREF: Record<string, string> = {
   "Safar sanasini yangilang": "/assessment",
@@ -38,7 +49,6 @@ export const TASK_HREF: Record<string, string> = {
   "Mablag' talabini tekshiring": "/dashboard/library",
   "Suhbat mashqini bajaring": "/dashboard/interview",
   "Bank statementni tekshirib chiqing": "/dashboard/documents",
-  "AI Interview simulyatorida mashq qiling": "/dashboard/interview",
 };
 
 const text = (value: unknown) => (typeof value === "string" ? value.trim() : "");
