@@ -234,10 +234,20 @@ export const en: SiteContent = {
     turkey: {
       name: "Turkey",
       region: "Europe / Asia",
-      menu: "Coming soon",
+      menu: "Visa-free up to 90 days; visas for work and study",
       intro:
-        "Preparation tools for Turkey are in development. Requirements depend on your citizenship and the purpose of your trip.",
-      visaTypes: ["Tourist", "Business"],
+        "Citizens of Uzbekistan with an ordinary passport enter Turkey without a visa and can stay up to 90 days in any 180-day period. The passport must stay valid for at least 60 more days after the stay ends. Visas for work or study are issued by a Turkish embassy or consulate.",
+      visaTypes: ["Visa-free (90/180)", "Work", "Student"],
+      docsTitle: "Documents for a visa-free trip",
+      docs: [
+        "Passport valid at least 60 days beyond your stay (150 days in total for a 90-day trip)",
+        "Return or onward ticket",
+        "Hotel booking or address where you will stay",
+        "Enough money for the whole trip",
+        "Travel medical insurance",
+      ],
+      docsNote:
+        "Visa-free entry needs no application form or photo. The passport rule is official; the other items are advice — border officers may ask for them. To stay longer than 90 days, work or study, contact a Turkish embassy or consulate. Source: Turkish Ministry of Foreign Affairs (mfa.gov.tr).",
     },
   },
   countries: {
@@ -919,7 +929,7 @@ export const en: SiteContent = {
       tools: { title: "Four practical tools", desc: "Visa photo, visa letters, application timing and the Schengen 90/180 calculator." },
       library: { title: "Visa knowledge base", desc: "The 9 chapters of the VIZAR AI book and rules by country, with official sources." },
       account: { title: "Account control", desc: "A profile photo and full account deletion." },
-      countries: { title: "New country guides", desc: "Turkey and other destinations." },
+      countries: { title: "New country guides", desc: "Guides for more destinations." },
       network: { title: "Specialist network", desc: "Bringing more independent specialists onto the platform." },
       ai: { title: "AI assistant", desc: "An AI adviser for questions and documents — once quality and cost allow." },
       ocr: { title: "Automatic document reading", desc: "Pulling data out of uploaded documents automatically (OCR)." },

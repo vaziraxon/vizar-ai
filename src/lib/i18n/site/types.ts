@@ -71,7 +71,17 @@ export interface SiteContent {
   >;
   destinations: Record<
     DestinationSlug,
-    { name: string; region: string; menu: string; intro: string; visaTypes: string[] }
+    {
+      name: string;
+      region: string;
+      menu: string;
+      intro: string;
+      visaTypes: string[];
+      /** Own list and note where the shared visa-application list does not fit (visa-free entry) */
+      docsTitle?: string;
+      docs?: string[];
+      docsNote?: string;
+    }
   >;
   countries: Record<PopularCountry, string>;
   home: {

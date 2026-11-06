@@ -20,6 +20,10 @@ import { cn } from "@/lib/utils";
 
 // Same order as destinationsPage.docs in every language, then the Schengen extra.
 const DOC_EMOJI = ["🛂", "📸", "📝", "🏦", "🧳", "💼", "🩺"];
+/** Emoji for destinations with their own document list, in the same order as that list */
+const OWN_DOC_EMOJI: Partial<Record<DestinationSlug, string[]>> = {
+  turkey: ["🛂", "🎫", "🏨", "💳", "🩺"],
+};
 
 /* /features ---------------------------------------------------------------- */
 
@@ -195,7 +199,7 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
   const page = site.destinationsPage;
   const meta = DESTINATION_BY_SLUG[slug];
   const copy = site.destinations[slug];
-  const docs = slug === "schengen" ? [...page.docs, page.schengenExtra] : page.docs;
+  const docs = copy.docs ?? (slug === "schengen" ? [...page.docs, page.schengenExtra] : page.docs);
 
   return (
     <>
@@ -257,7 +261,7 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
               <div className="flex items-center justify-between gap-4 border-b border-surface-border px-5 py-5 sm:px-7">
                 <h2 className="luxe-firm flex items-center gap-3 font-luxe text-[1.35rem] font-semibold leading-tight tracking-[-0.01em] text-ink-950 sm:text-[1.7rem]">
                   <span aria-hidden="true">📋</span>
-                  {page.docsTitle}
+                  {copy.docsTitle ?? page.docsTitle}
                 </h2>
                 <span className="shrink-0 rounded-pill bg-brand-50 px-2.5 py-1 text-caption font-semibold text-brand-700">{docs.length}</span>
               </div>
@@ -268,14 +272,14 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-[17px] leading-none">
-                      {DOC_EMOJI[i] ?? "📄"}
+                      {(copy.docs ? OWN_DOC_EMOJI[slug] : DOC_EMOJI)?.[i] ?? "📄"}
                     </span>
                     <span className="text-body font-semibold text-ink-900">{doc}</span>
                   </li>
                 ))}
               </ol>
             </div>
-            <p className="mt-5 rounded-2xl border border-amber-200 bg-amber-50/70 dark:border-amber-400/20 dark:bg-amber-400/10 px-4 py-3 text-body-sm text-ink-700">⚠️ {page.docsNote}</p>
+            <p className="mt-5 rounded-2xl border border-amber-200 bg-amber-50/70 dark:border-amber-400/20 dark:bg-amber-400/10 px-4 py-3 text-body-sm text-ink-700">⚠️ {copy.docsNote ?? page.docsNote}</p>
           </div>
 
           {/* Side rail */}

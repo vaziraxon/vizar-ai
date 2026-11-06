@@ -236,10 +236,20 @@ export const uz: SiteContent = {
     turkey: {
       name: "Turkiya",
       region: "Yevropa / Osiyo",
-      menu: "Tez kunda",
+      menu: "90 kungacha vizasiz, ish va o‘qish uchun viza",
       intro:
-        "Turkiya yo‘nalishi bo‘yicha tayyorgarlik vositalari ishlab chiqilmoqda. Talablar fuqarolik va safar maqsadiga qarab farq qiladi.",
-      visaTypes: ["Turistik", "Biznes"],
+        "O‘zbekiston fuqarolari oddiy pasport bilan Turkiyaga vizasiz kiradi va istalgan 180 kun ichida 90 kungacha qolishi mumkin. Pasport qolish muddatidan keyin yana kamida 60 kun amal qilishi kerak. Ishlash yoki o‘qish uchun viza Turkiya elchixonasi yoki konsulligida beriladi.",
+      visaTypes: ["Vizasiz (90/180)", "Ish", "Talaba"],
+      docsTitle: "Vizasiz safar uchun hujjatlar",
+      docs: [
+        "Xorijiy pasport — qolish muddatidan keyin kamida 60 kun amal qilsin (90 kunlik safarda jami 150 kun)",
+        "Qaytish yoki keyingi safar chiptasi",
+        "Mehmonxona broni yoki yashash manzili",
+        "Safar davomiga yetadigan mablag‘",
+        "Tibbiy sug‘urta polisi",
+      ],
+      docsNote:
+        "Vizasiz kirish uchun ariza yoki fotosurat kerak emas. Pasport talabi rasmiy, qolgan bandlar tavsiya — chegarada so‘ralishi mumkin. 90 kundan ortiq qolish, ishlash yoki o‘qish uchun Turkiya elchixonasi yoki konsulligiga murojaat qiling. Manba: Turkiya Tashqi ishlar vazirligi (mfa.gov.tr).",
     },
   },
   countries: {
@@ -921,7 +931,7 @@ export const uz: SiteContent = {
       tools: { title: "To‘rt amaliy vosita", desc: "Viza fotosurati, viza xatlari, ariza muddati va Shengen 90/180 kalkulyatori." },
       library: { title: "Viza ma’lumotlar bazasi", desc: "VIZAR AI kitobining 9 bobi va davlatlar bo‘yicha qoidalar, rasmiy manbalar bilan." },
       account: { title: "Hisob boshqaruvi", desc: "Profil surati va hisobni butunlay o‘chirish imkoniyati." },
-      countries: { title: "Yangi davlat qo‘llanmalari", desc: "Turkiya va boshqa yo‘nalishlar bo‘yicha qo‘llanmalar." },
+      countries: { title: "Yangi davlat qo‘llanmalari", desc: "Boshqa yo‘nalishlar bo‘yicha qo‘llanmalar." },
       network: { title: "Mutaxassislar tarmog‘i", desc: "Platformaga ko‘proq mustaqil mutaxassislarni ulash." },
       ai: { title: "AI yordamchi", desc: "Savollar va hujjatlar bo‘yicha AI maslahatchi — sifati va narxi imkon berganda." },
       ocr: { title: "Hujjatlarni avtomatik o‘qish", desc: "Yuklangan hujjatlardan ma’lumotni avtomatik ajratib olish (OCR)." },
