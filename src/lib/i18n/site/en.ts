@@ -180,7 +180,7 @@ export const en: SiteContent = {
       region: "Europe",
       menu: "France, Germany, Italy and more",
       intro:
-        "A Schengen visa lets you travel across several European countries on a single visa. You usually apply through the consulate or visa centre of your main destination.",
+        "Citizens of Uzbekistan need a visa even for a short trip. A Schengen visa lets you travel across several European countries on a single visa. You usually apply through the consulate or visa centre of your main destination.",
       visaTypes: ["Tourist", "Business", "Visiting family"],
     },
     usa: {
@@ -188,7 +188,7 @@ export const en: SiteContent = {
       region: "North America",
       menu: "Tourist, student and work visas",
       intro:
-        "A US visa application usually includes an interview at the consulate. Preparing your documents and answers in advance matters.",
+        "Citizens of Uzbekistan need a visa even for a short trip. A US visa application usually includes an interview at the consulate. Preparing your documents and answers in advance matters.",
       visaTypes: ["Tourist (B1/B2)", "Student (F-1)", "Work"],
     },
     uk: {
@@ -196,7 +196,7 @@ export const en: SiteContent = {
       region: "Europe",
       menu: "Tourist, student and work visas",
       intro:
-        "UK visa applications are completed online, followed by biometrics at a visa centre. Pay special attention to your financial documents.",
+        "Citizens of Uzbekistan need a visa even for a short trip. UK visa applications are completed online, followed by biometrics at a visa centre. Pay special attention to your financial documents.",
       visaTypes: ["Tourist", "Student", "Work"],
     },
     canada: {
@@ -204,7 +204,7 @@ export const en: SiteContent = {
       region: "North America",
       menu: "Visitor visas, study and work permits",
       intro:
-        "Applications for Canada are mostly submitted online. Clearly evidencing your travel purpose and finances is important.",
+        "Citizens of Uzbekistan need a visa even for a short trip. Applications for Canada are mostly submitted online. Clearly evidencing your travel purpose and finances is important.",
       visaTypes: ["Visitor", "Study", "Work"],
     },
     japan: {
@@ -212,7 +212,7 @@ export const en: SiteContent = {
       region: "Asia",
       menu: "Tourist and business visas",
       intro:
-        "For a Japanese visa, a clear itinerary and financial documents matter. Requirements can vary depending on where you apply.",
+        "Citizens of Uzbekistan need a visa even for a short trip. For a Japanese visa, a clear itinerary and financial documents matter. Requirements can vary depending on where you apply.",
       visaTypes: ["Tourist", "Business", "Student"],
     },
     "south-korea": {
