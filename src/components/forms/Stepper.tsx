@@ -22,7 +22,7 @@ export function Stepper({ steps, currentStep }: StepperProps) {
                   isDone && "bg-success text-white",
                   isActive && !isDone && "bg-gradient-to-br from-brand-500 to-violet-600 text-white shadow-button",
                   !isDone && !isActive &&
-                    "bg-surface-muted text-ink-400 dark:bg-white/10 dark:text-white/40"
+                    "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/60"
                 )}
               >
                 {isDone ? <Check size={16} /> : i + 1}
@@ -32,7 +32,7 @@ export function Stepper({ steps, currentStep }: StepperProps) {
                   "hidden text-caption font-medium sm:block",
                   isActive
                     ? "text-ink-900 dark:text-white"
-                    : "text-ink-400 dark:text-white/40"
+                    : "text-ink-500 dark:text-white/60"
                 )}
               >
                 <L>{label}</L>

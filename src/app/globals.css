@@ -25,6 +25,13 @@
   --brand-50: 239 245 255;
   --brand-100: 219 232 254;
   --brand-200: 191 213 254;
+  /* Action blue, the same in both themes (the dashboard swaps it for violet) */
+  --brand-300: 147 184 253;
+  --brand-400: 96 151 250;
+  --brand-500: 59 123 246;
+  --brand-600: 37 99 235;
+  --brand-deep: 29 79 215;
+  --brand-950: 23 37 84;
   --brand-700: 29 79 215;
   --brand-800: 30 64 175;
   --brand-900: 30 58 138;
@@ -327,6 +334,24 @@ p {
      like .luxe-firm because many of them are small. */
   .dashboard-lime {
     --font-display: var(--font-luxe);
+    /* Actions in the landing violet instead of blue */
+    --brand-300: 196 181 253;
+    --brand-400: 167 139 250;
+    --brand-500: 139 92 246;
+    --brand-600: 124 58 237;
+    --brand-deep: 109 40 217;
+    --brand-950: 46 16 101;
+  }
+  .dashboard-lime :focus-visible {
+    outline-color: #7c3aed;
+  }
+  .dashboard-lime .btn-primary {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.28),
+      0 10px 24px -12px rgba(124, 58, 237, 0.75);
+  }
+  .dashboard-lime .input:focus {
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.16);
   }
   .dashboard-lime .font-display {
     -webkit-text-stroke: 0.009em currentColor;

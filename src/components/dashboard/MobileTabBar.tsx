@@ -38,7 +38,7 @@ export function MobileTabBar({ onMenu }: { onMenu: () => void }) {
               <span
                 className={cn(
                   "flex h-8 w-12 items-center justify-center rounded-pill transition-colors duration-200",
-                  active ? "bg-brand-50 text-brand-600 dark:bg-brand-500/15 dark:text-brand-300" : ""
+                  active ? "bg-gold-300 text-night" : ""
                 )}
               >
                 <tab.icon size={19} strokeWidth={1.9} />
