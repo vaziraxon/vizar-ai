@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Check, Plane } from "lucide-react";
+import { ArrowRight, Check, Plane } from "lucide-react";
 import { ScoreRing } from "@/components/dashboard/ScoreRing";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { Flag } from "@/components/site/Flag";
@@ -27,22 +27,8 @@ export interface OverviewData {
   totalSlots: number;
   missingCount: number;
   docsPercent: number;
-  unreadCount: number;
-  activity: { id: string; text: string; time: string; unread: boolean }[];
   consultation: { name: string | null; when: string } | null;
 }
-
-// Quick launch — mirrors the sidebar tools so the overview is a hub.
-const TOOL_LINKS = [
-  { href: "/dashboard/readiness", label: "Tayyorgarlik", emoji: "🎯" },
-  { href: "/dashboard/documents", label: "Hujjatlar", emoji: "📄" },
-  { href: "/dashboard/checklist", label: "Checklist", emoji: "✅" },
-  { href: "/dashboard/interview", label: "Suhbat mashqi", emoji: "🎤" },
-  { href: "/dashboard/tracker", label: "Ariza kuzatuvi", emoji: "📍" },
-  { href: "/dashboard/rejection-analysis", label: "Rad javobi tahlili", emoji: "🔍" },
-  { href: "/dashboard/experts", label: "Mutaxassislar", emoji: "🤝" },
-  { href: "/dashboard/tools", label: "Foto, xat va muddat", emoji: "🧰" },
-];
 
 // Step markers along the application journey
 const STEP_EMOJI = ["👤", "📂", "🧭", "🎤", "🏁"];
@@ -218,7 +204,7 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
       </div>
 
       {/* Row 3 — progress tiles */}
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div className="card spotlight rounded-[24px] p-6">
           <div className="flex items-center justify-between">
             <p className={cardTitle}>{l("Hujjatlar")}</p>
@@ -249,22 +235,9 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
             {l("Hujjat yuklash")} <ArrowRight size={14} />
           </Link>
         </div>
-        <div className="card spotlight rounded-[24px] p-6">
-          <div className="flex items-center justify-between">
-            <p className={cardTitle}>{l("Yangi xabarlar")}</p>
-            <TileEmoji emoji="🔔" />
-          </div>
-          <p className="mt-3 font-accent text-[44px] font-medium italic leading-none text-ink-950">{data.unreadCount}</p>
-          <Link
-            href="/notifications"
-            className="-mb-3 mt-2 inline-flex items-center gap-1.5 py-3 text-body-sm font-semibold text-brand-600 hover:text-brand-deep dark:text-brand-300 dark:hover:text-white"
-          >
-            {l("Bildirishnomalar")} <ArrowRight size={14} />
-          </Link>
-        </div>
       </div>
 
-      {/* Row 3 — tasks + activity */}
+      {/* Row 4 — tasks + consultation */}
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1.25fr_1fr]">
         <section aria-labelledby="tasks-title" className="card rounded-[24px] p-6 sm:p-7">
           <div className="flex items-center justify-between">
@@ -305,34 +278,6 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
           )}
         </section>
 
-        <section aria-labelledby="activity-title" className="card rounded-[24px] p-6 sm:p-7">
-          <h2 id="activity-title" className="flex items-center gap-2 font-display text-body-lg font-bold text-ink-950">
-            <span aria-hidden="true">🕒</span>
-            {l("So'nggi faoliyat")}
-          </h2>
-          {data.activity.length === 0 ? (
-            <p className="mt-6 text-body-sm text-ink-600">{l("Hozircha faoliyat yo'q.")}</p>
-          ) : (
-            <ol className="mt-5 space-y-4 border-l-2 border-dashed border-surface-border pl-5">
-              {data.activity.map((item) => (
-                <li key={item.id} className="relative">
-                  <span
-                    className={cn(
-                      "absolute -left-[27px] top-1 h-3 w-3 rounded-full ring-4 ring-surface",
-                      item.unread ? "bg-gradient-to-br from-brand-500 to-violet-600" : "bg-ink-300"
-                    )}
-                  />
-                  <p className="text-body-sm font-medium text-ink-900">{l(item.text)}</p>
-                  <p className="text-caption text-ink-500">{l(item.time)}</p>
-                </li>
-              ))}
-            </ol>
-          )}
-        </section>
-      </div>
-
-      {/* Row 4 — consultation + tools */}
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1fr_2fr]">
         <section aria-labelledby="consult-title" className="card rounded-[24px] p-6 sm:p-7">
           <p id="consult-title" className={cardTitle}>
             <span aria-hidden="true">🗓️</span>
@@ -361,33 +306,8 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
             {l("Mutaxassislar")} <ArrowRight size={14} />
           </Link>
         </section>
-
-        <section aria-labelledby="tools-title" className="card rounded-[24px] p-6 sm:p-7">
-          <p id="tools-title" className={cardTitle}>
-            <span aria-hidden="true">🧰</span>
-            {l("Vositalar")}
-          </p>
-          <ul className="mt-4 grid grid-cols-1 gap-2.5 min-[420px]:grid-cols-2 xl:grid-cols-3">
-            {TOOL_LINKS.map((tool) => (
-              <li key={tool.href}>
-                <Link
-                  href={tool.href}
-                  className="spotlight group flex h-full items-center gap-3 rounded-2xl border border-surface-border bg-surface px-3 py-3 text-body-sm font-semibold text-ink-900 transition-[border-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-100 hover:shadow-card-hover"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-50 to-violet-50 text-[17px] leading-none transition-transform duration-200 group-hover:-rotate-6"
-                  >
-                    {tool.emoji}
-                  </span>
-                  <span className="min-w-0 flex-1 leading-tight">{l(tool.label)}</span>
-                  <ArrowUpRight size={14} className="shrink-0 text-ink-300 transition-colors group-hover:text-brand-600" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
       </div>
+
     </div>
   );
 }
