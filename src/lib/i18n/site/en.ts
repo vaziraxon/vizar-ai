@@ -226,10 +226,20 @@ export const en: SiteContent = {
     uae: {
       name: "UAE",
       region: "Middle East",
-      menu: "Tourist and business visas",
+      menu: "Visa-free up to 30 days; permits for work and study",
       intro:
-        "UAE visas are often arranged through a hotel, airline or sponsor. Check your passport validity and travel details in advance.",
-      visaTypes: ["Tourist", "Business"],
+        "Since 16 February 2024, citizens of Uzbekistan with a biometric passport enter the UAE without a visa and can stay up to 30 days. The passport must be valid for at least 6 months. Work or study needs separate permission under UAE law.",
+      visaTypes: ["Visa-free (30 days)", "Work", "Student"],
+      docsTitle: "Documents for a visa-free trip",
+      docs: [
+        "Biometric passport valid for at least 6 months",
+        "Return or onward ticket",
+        "Hotel booking or address where you will stay",
+        "Enough money for the whole trip",
+        "Travel medical insurance",
+      ],
+      docsNote:
+        "Visa-free entry needs no application form or photo. The passport rule is official; the other items are advice — border officers may ask for them. To stay longer than 30 days, work or study, get permission under UAE rules. Source: protocol between the governments of Uzbekistan and the UAE of 16 January 2024 (lex.uz).",
     },
     turkey: {
       name: "Turkey",

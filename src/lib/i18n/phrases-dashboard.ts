@@ -1053,7 +1053,11 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Safar davomiga yetadigan mablag'": { ru: "Средства на всю поездку", en: "Enough money for the whole trip" },
   "Bank kartasi yoki naqd pul": { ru: "Банковская карта или наличные", en: "Bank card or cash" },
   "Tavsiya etiladi": { ru: "Рекомендуется", en: "Recommended" },
-  "Bu yo'nalishga qisqa safar uchun viza kerak emas: istalgan 180 kun ichida 90 kungacha. Quyidagi ro'yxat — vizasiz safar uchun.": { ru: "Для короткой поездки по этому направлению виза не нужна: до 90 дней в любые 180 дней. Список ниже — для поездки без визы.", en: "A short trip to this destination needs no visa: up to 90 days in any 180-day period. The list below is for a visa-free trip." },
+  "Bu yo'nalishga qisqa safar uchun viza kerak emas: istalgan {window} kun ichida {days} kungacha. Quyidagi ro'yxat — vizasiz safar uchun.": { ru: "Для короткой поездки по этому направлению виза не нужна: до {days} дней в любые {window} дней. Список ниже — для поездки без визы.", en: "A short trip to this destination needs no visa: up to {days} days in any {window}-day period. The list below is for a visa-free trip." },
+  "Bu yo'nalishga qisqa safar uchun viza kerak emas: {days} kungacha. Quyidagi ro'yxat — vizasiz safar uchun.": { ru: "Для короткой поездки по этому направлению виза не нужна: до {days} дней. Список ниже — для поездки без визы.", en: "A short trip to this destination needs no visa: up to {days} days. The list below is for a visa-free trip." },
+  "Biometrik pasport bilan {days} kungacha vizasiz qolish mumkin.": { ru: "С биометрическим паспортом можно находиться без визы до {days} дней.", en: "With a biometric passport you can stay up to {days} days without a visa." },
+  "Kirish kunida pasport kamida {months} oy amal qilishi kerak.": { ru: "На день въезда паспорт должен быть действителен минимум {months} мес.", en: "Your passport must be valid for at least {months} months on the day you enter." },
+  "Biometrik, kamida 6 oy amal qilsin": { ru: "Биометрический, действителен минимум 6 месяцев", en: "Biometric, valid for at least 6 months" },
   /* ------------------------------------------------- Tool pages */
   "Shaxsiy kabinetda": { ru: "В личном кабинете", en: "In your account" },
 };
