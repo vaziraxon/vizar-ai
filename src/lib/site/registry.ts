@@ -84,7 +84,7 @@ export const DESTINATIONS: DestinationMeta[] = [
   { slug: "japan", flag: "jp", photo: "/images/destinations/jp.webp", available: true },
   { slug: "south-korea", flag: "kr", photo: "/images/destinations/kr.webp", available: true },
   { slug: "uae", flag: "ae", photo: "/images/destinations/ae.webp", available: true },
-  { slug: "turkey", flag: "tr", photo: "/images/destinations/tr.webp", available: false },
+  { slug: "turkey", flag: "tr", photo: "/images/destinations/tr.webp", available: true },
 ];
 
 export const DESTINATION_BY_SLUG = Object.fromEntries(
