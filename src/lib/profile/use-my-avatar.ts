@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
-import { AVATAR_EVENT } from "@/lib/profile/avatar";
+import { AVATAR_EVENT } from "@/lib/profile/avatar-event";
 
 // Kept between page changes, so the top bar doesn't flash initials on every navigation.
 let cached: string | null | undefined;
@@ -13,8 +12,11 @@ export function useMyAvatar() {
 
   useEffect(() => {
     let alive = true;
-    const supabase = createClient();
-    if (supabase) {
+    // The Supabase client is large; load it after the page is up rather than
+    // with every dashboard page's first bundle (the photo is only decoration).
+    void import("@/lib/supabase/client").then(({ createClient }) => {
+      const supabase = createClient();
+      if (!supabase || !alive) return;
       supabase.auth.getSession().then(async ({ data }) => {
         const id = data.session?.user.id;
         if (!id) return;
@@ -26,7 +28,7 @@ export function useMyAvatar() {
         cached = row?.avatar_url ?? null;
         if (alive) setUrl(cached);
       });
-    }
+    });
     const onChange = (e: Event) => {
       cached = (e as CustomEvent<string | null>).detail;
       setUrl(cached);
