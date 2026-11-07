@@ -75,7 +75,7 @@ export const NAV_KEY_BY_HREF: Record<string, string> = {
 // Menu groups, in order; items keep this order inside their group. Anything
 // not listed (agency and admin menus) lands in the first group.
 const NAV_GROUPS: { id: string; titleKey: string; hrefs: string[] }[] = [
-  { id: "main", titleKey: "app_section_main", hrefs: ["/dashboard", "/dashboard/tracker", "/dashboard/readiness", "/dashboard/documents", "/dashboard/checklist"] },
+  { id: "main", titleKey: "app_section_main", hrefs: ["/dashboard/readiness", "/dashboard/documents", "/dashboard/checklist", "/dashboard/tracker"] },
   { id: "ai", titleKey: "app_section_ai", hrefs: ["/assessment", "/dashboard/interview", "/dashboard/rejection-analysis", "/dashboard/assistant"] },
   {
     id: "tools",
