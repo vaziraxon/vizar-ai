@@ -10,7 +10,8 @@ import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { GoogleButton } from "@/components/auth/GoogleButton";
 import { BulkUploader } from "@/components/dashboard/BulkUploader";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
-import { useDateLocale, useL } from "@/components/i18n/L";
+import { useFormatDate, useL } from "@/components/i18n/L";
+import { formatTime } from "@/lib/i18n/format-date";
 import { getSupabaseEnv } from "@/lib/supabase/config";
 import { logoutAction } from "@/lib/actions/auth";
 import { deleteDocumentAction, getSignedDocumentUrlAction } from "@/lib/actions/documents";
@@ -61,7 +62,7 @@ function CheckCard({ emoji, title, state, detail }: { emoji: string; title: stri
 
 export function TestBench({ configured, user, application, documents }: TestBenchProps) {
   const l = useL();
-  const locale = useDateLocale();
+  const fmt = useFormatDate();
   const router = useRouter();
   const [server, setServer] = useState<{ state: Check; ms?: number }>({ state: configured ? "pending" : "fail" });
   const [providers, setProviders] = useState<{ email: Check; google: Check }>({ email: "pending", google: "pending" });
@@ -392,7 +393,7 @@ export function TestBench({ configured, user, application, documents }: TestBenc
                         <div className="min-w-0 flex-1">
                           <p className="truncate text-body-sm font-semibold text-ink-900">{d.filename}</p>
                           <p className="text-caption text-ink-500">
-                            {l(d.type)} · {new Date(d.createdAt).toLocaleString(locale, { dateStyle: "medium", timeStyle: "short" })}
+                            {l(d.type)} · {fmt(d.createdAt, "medium")}, {formatTime(d.createdAt)}
                           </p>
                         </div>
                         <StatusBadge status={DOC_STATUS[d.status] ?? d.status} />

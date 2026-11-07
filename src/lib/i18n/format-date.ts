@@ -58,3 +58,21 @@ export function formatDate(date: Date | string, lang: DateLang, style: DateStyle
       return `${day}-${UZ_MONTHS[month]}, ${year}`;
   }
 }
+
+/** "15:00" — 24-hour time, Tashkent by default (same on server and browser) */
+export function formatTime(date: Date | string, timeZone: string | null = TASHKENT): string {
+  const d = typeof date === "string" ? new Date(date) : date;
+  if (Number.isNaN(d.getTime())) return "";
+  return new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: timeZone ?? undefined }).format(d);
+}
+
+/**
+ * "1 234 567" with no-break spaces, the way Uzbek and Russian group digits.
+ * Chrome has no Uzbek number format either ("1,234,567"), so this doesn't ask Intl.
+ */
+export function formatNumber(n: number): string {
+  if (!Number.isFinite(n)) return "";
+  const [whole, frac] = String(Math.abs(n)).split(".");
+  const grouped = whole!.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return `${n < 0 ? "-" : ""}${grouped}${frac ? `,${frac}` : ""}`;
+}

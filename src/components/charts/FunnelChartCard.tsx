@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { FunnelStep } from "@/types";
+import { formatNumber } from "@/lib/i18n/format-date";
 
 export function FunnelChartCard({
   title,
@@ -29,7 +30,7 @@ export function FunnelChartCard({
                   {step.label}
                 </span>
                 <span className="text-ink-400 dark:text-white/40">
-                  {step.value.toLocaleString()}
+                  {formatNumber(step.value)}
                   {i > 0 && (
                     <span className="ml-1.5 text-red-500">-{dropOff}%</span>
                   )}

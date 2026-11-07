@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { formatDate } from "../../src/lib/i18n/format-date.ts";
+import { formatDate, formatNumber, formatTime } from "../../src/lib/i18n/format-date.ts";
 
 const at = "2026-11-07T10:00:00Z"; // a Saturday
 
@@ -38,4 +38,19 @@ test("Russian and English go through Intl", () => {
 test("a bad date gives an empty string instead of 'Invalid Date'", () => {
   assert.equal(formatDate("not a date", "uz"), "");
   assert.equal(formatDate("", "en"), "");
+});
+
+test("numbers group digits with no-break spaces, never Chrome's commas", () => {
+  assert.equal(formatNumber(1234567), "1 234 567");
+  assert.equal(formatNumber(1234567), (1234567).toLocaleString("uz-UZ")); // what Node renders on the server
+  assert.equal(formatNumber(999), "999");
+  assert.equal(formatNumber(0), "0");
+  assert.equal(formatNumber(-12500), "-12 500");
+  assert.equal(formatNumber(NaN), "");
+});
+
+test("times are 24-hour, Tashkent by default", () => {
+  assert.equal(formatTime("2026-11-07T10:00:00Z"), "15:00");
+  assert.equal(formatTime("2026-11-07T10:00:00Z", "UTC"), "10:00");
+  assert.equal(formatTime("bad"), "");
 });
