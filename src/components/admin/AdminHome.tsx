@@ -7,6 +7,7 @@ import { ArrowRight, BookOpen, Crown, FileText, FolderOpen, Menu, MessageSquareQ
 import { Logo } from "@/components/ui/Logo";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { ADMIN_NAV } from "@/data/mockData";
+import { formatNumber } from "@/lib/i18n/format-date";
 
 /** Live counts from public.admin_site_stats() (supabase/admin_stats.sql) */
 export interface AdminStats {
@@ -33,7 +34,7 @@ const NOTICE: Record<Exclude<AdminStatsState, { ok: true }>["reason"], string> =
 export function AdminHome({ state }: { state: AdminStatsState }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const s = state.ok ? state.stats : null;
-  const n = (v: number | undefined) => (v === undefined ? "—" : v.toLocaleString("uz-UZ"));
+  const n = (v: number | undefined) => (v === undefined ? "—" : formatNumber(v));
 
   const sections = [
     { href: "/admin/users", icon: Users, title: "Foydalanuvchilar", note: s ? `${n(s.users)} ta, oxirgi 7 kunda +${n(s.users_7d)}` : "Kim ro‘yxatdan o‘tgan va qay darajada ishlayapti" },

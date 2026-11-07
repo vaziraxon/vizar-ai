@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import { Markdown } from "@/components/knowledge/Markdown";
 import { saveSectionAction } from "@/lib/actions/knowledge";
 import { cn } from "@/lib/utils";
+import { formatNumber } from "@/lib/i18n/format-date";
 
 function SaveButton() {
   const { pending } = useFormStatus();
@@ -63,7 +64,7 @@ export function SectionEditor({
               </button>
             ))}
           </div>
-          <span className="text-caption tabular-nums text-ink-500">{content.length.toLocaleString("uz")} belgi</span>
+          <span className="text-caption tabular-nums text-ink-500">{formatNumber(content.length)} belgi</span>
         </div>
         {/* The textarea stays mounted so the form always submits the latest text. */}
         <textarea
