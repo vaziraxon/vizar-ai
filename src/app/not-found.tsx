@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -31,10 +31,14 @@ const COPY: Record<LangCode, { title: string; text: string; home: string }> = {
 /**
  * Under /ru/… and /en/… the address decides the language, as on those public
  * pages; elsewhere the visitor's chosen language. The home link stays in it.
+ * Production serves one prebuilt (Uzbek) 404 for every address, so the
+ * address's language is applied after hydration, not during it.
  */
 export default function NotFound() {
   const { lang } = splitLangPath(usePathname() ?? "/");
-  return lang === "uz" ? (
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return !mounted || lang === "uz" ? (
     <NotFoundPage />
   ) : (
     <UrlLanguageScope lang={lang}>
