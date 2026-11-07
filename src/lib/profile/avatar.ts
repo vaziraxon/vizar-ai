@@ -3,6 +3,9 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { setMyAvatarAction } from "@/lib/actions/profiles";
 import { createClient } from "@/lib/supabase/client";
+import { AVATAR_EVENT } from "@/lib/profile/avatar-event";
+
+export { AVATAR_EVENT };
 
 /**
  * Profile photos in the public "avatars" bucket (supabase/avatars.sql), one
@@ -11,8 +14,6 @@ import { createClient } from "@/lib/supabase/client";
  * Error strings are Uzbek source text (translated in the UI).
  */
 export const AVATAR_BUCKET = "avatars";
-/** Fired on window with the new URL (or null) so the top bar updates at once. */
-export const AVATAR_EVENT = "vizar-avatar-changed";
 
 const TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_INPUT_BYTES = 8 * 1024 * 1024;
