@@ -7,8 +7,8 @@ import type { PhraseTable } from "./phrases";
  */
 export const DASHBOARD_PHRASES: PhraseTable = {
   /* ---------------------------------------------------------------- Shell */
-  "Xush kelibsiz 👋": { ru: "Добро пожаловать 👋", en: "Welcome 👋" },
-  "Xush kelibsiz, {name} 👋": { ru: "Добро пожаловать, {name} 👋", en: "Welcome, {name} 👋" },
+  "Xush kelibsiz": { ru: "Добро пожаловать", en: "Welcome" },
+  "Xush kelibsiz, {name}": { ru: "Добро пожаловать, {name}", en: "Welcome, {name}" },
   "Viza tayyorgarligingiz — bir qarashda.": { ru: "Ваша подготовка к визе — с первого взгляда.", en: "Your visa preparation at a glance." },
   "Yangi tahlil": { ru: "Новый анализ", en: "New assessment" },
   "Yangi viza tahlili": { ru: "Новый анализ визы", en: "New visa assessment" },

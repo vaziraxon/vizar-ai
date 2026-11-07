@@ -86,7 +86,7 @@ export default function ChecklistPage() {
       subtitle="Davlat va viza turingizga mos hujjatlar ro'yxati."
       eyebrow={
         <span className="inline-flex items-center gap-1.5 rounded-pill border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1 text-[12px] font-semibold text-emerald-700 dark:text-emerald-300">
-          💾 {l("Shu brauzerda saqlanadi")}
+          {l("Shu brauzerda saqlanadi")}
         </span>
       }
       actions={
@@ -124,7 +124,7 @@ export default function ChecklistPage() {
       {/* Selection */}
       <div className="card mb-5 grid gap-5 rounded-[28px] p-5 sm:p-6 lg:grid-cols-[1.4fr_1fr]">
         <div>
-          <p className="mb-2.5 text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">🌍 {l("Yo'nalish")}</p>
+          <p className="mb-2.5 text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">{l("Yo'nalish")}</p>
           <div className="flex flex-wrap gap-2">
             {DESTINATIONS.map((d) => (
               <button
@@ -146,7 +146,7 @@ export default function ChecklistPage() {
           </div>
         </div>
         <div>
-          <p className="mb-2.5 text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">🛂 {l("Viza turi")}</p>
+          <p className="mb-2.5 text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">{l("Viza turi")}</p>
           <div className="grid grid-cols-2 gap-2">
             {VISA_KINDS.map((v) => (
               <button
@@ -161,7 +161,7 @@ export default function ChecklistPage() {
                     : "border-surface-border bg-surface text-ink-700 hover:bg-surface-tint"
                 )}
               >
-                <span aria-hidden="true">{v.emoji}</span>
+                
                 {l(v.label)}
               </button>
             ))}
@@ -171,7 +171,7 @@ export default function ChecklistPage() {
 
       {visaFree && (
         <p className="mb-5 rounded-2xl border border-emerald-500/25 bg-emerald-500/10 px-4 py-3 text-body-sm text-emerald-800 dark:text-emerald-200">
-          <span aria-hidden="true">🛂 </span>
+          
           {visaFree.window
             ? l("Bu yo'nalishga qisqa safar uchun viza kerak emas: istalgan {window} kun ichida {days} kungacha. Quyidagi ro'yxat — vizasiz safar uchun.", {
                 days: visaFree.days,
@@ -189,9 +189,6 @@ export default function ChecklistPage() {
               <section key={group.title} className="card rounded-[24px] p-6 sm:p-7">
                 <div className="flex items-center justify-between gap-3">
                   <h2 className="flex items-center gap-2.5 font-display text-body-lg font-bold text-ink-950">
-                    <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-50 to-violet-50 text-[18px] leading-none ring-1 ring-brand-100">
-                      {group.emoji}
-                    </span>
                     {l(group.title)}
                   </h2>
                   <span
@@ -219,9 +216,6 @@ export default function ChecklistPage() {
                             )}
                           >
                             {checked && <Check size={13} strokeWidth={3} />}
-                          </span>
-                          <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-surface-tint text-[17px] leading-none">
-                            {item.emoji}
                           </span>
                           <span className="min-w-0">
                             <span
@@ -265,7 +259,6 @@ export default function ChecklistPage() {
 
           {/* Add your own item */}
           <form onSubmit={addCustom} className="card flex flex-col gap-3 rounded-[24px] p-5 sm:flex-row sm:items-center">
-            <span aria-hidden="true" className="hidden text-[20px] sm:block">✍️</span>
             <input
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
@@ -280,14 +273,13 @@ export default function ChecklistPage() {
           </form>
 
           <p className="rounded-2xl border border-amber-200 bg-amber-50/70 px-4 py-3 text-body-sm text-ink-700 dark:border-amber-400/20 dark:bg-amber-400/10">
-            ⚠️ {l("Bu ro'yxat namuna. Rasmiy talablar o'zgarishi mumkin — har doim elchixona yoki rasmiy viza markazi saytini tekshiring.")}
+            {l("Bu ro'yxat namuna. Rasmiy talablar o'zgarishi mumkin — har doim elchixona yoki rasmiy viza markazi saytini tekshiring.")}
           </p>
         </div>
 
         <aside aria-label={l("Umumiy progress")} className="h-fit space-y-4 lg:sticky lg:top-24">
           <div className="card spotlight rounded-[24px] p-6">
             <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-500">
-              <span aria-hidden="true" className="text-[14px]">📊</span>
               {l("Umumiy progress")}
             </p>
             <p className="mt-3 font-accent text-[52px] font-medium italic leading-none text-ink-950">{percent}%</p>
@@ -302,14 +294,14 @@ export default function ChecklistPage() {
             </p>
             {percent === 100 ? (
               <p className="mt-4 rounded-2xl bg-emerald-500/10 px-3 py-2.5 text-body-sm font-semibold text-emerald-700 dark:text-emerald-300">
-                🎉 {l("Barcha hujjatlar tayyor!")}
+                {l("Barcha hujjatlar tayyor!")}
               </p>
             ) : (
               nextItem && (
                 <div className="mt-4 rounded-2xl bg-surface-tint px-3 py-2.5">
                   <p className="text-caption text-ink-500">{l("Keyingi qadam")}</p>
                   <p className="text-body-sm font-semibold text-ink-900">
-                    {nextItem.emoji} {nextItem.custom ? nextItem.title : l(nextItem.title)}
+                    {nextItem.custom ? nextItem.title : l(nextItem.title)}
                   </p>
                 </div>
               )
@@ -346,7 +338,7 @@ export default function ChecklistPage() {
             {groups.map((group) => (
               <section key={group.title} className="mt-4 break-inside-avoid">
                 <h2 className="border-b border-black/30 pb-1 text-[14px] font-bold">
-                  {group.emoji} {l(group.title)}
+                  {l(group.title)}
                 </h2>
                 <ul className="mt-1.5 space-y-1">
                   {group.items.map((item) => (
@@ -364,7 +356,7 @@ export default function ChecklistPage() {
               </section>
             ))}
             <p className="mt-5 border-t border-black/30 pt-2 text-[11px] text-black/70">
-              ⚠️ {l("Bu ro'yxat namuna. Rasmiy talablar o'zgarishi mumkin — har doim elchixona yoki rasmiy viza markazi saytini tekshiring.")}
+              {l("Bu ro'yxat namuna. Rasmiy talablar o'zgarishi mumkin — har doim elchixona yoki rasmiy viza markazi saytini tekshiring.")}
             </p>
           </div>,
           document.body

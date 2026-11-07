@@ -42,7 +42,7 @@ export function TripCountdown({ className }: { className?: string }) {
       : null;
 
   const big =
-    travelDays === null ? null : travelDays > 0 ? String(travelDays) : travelDays === 0 ? "🎉" : "✓";
+    travelDays === null ? null : travelDays > 0 ? String(travelDays) : travelDays === 0 ? "0" : "✓";
   const bigLabel =
     travelDays === null
       ? ""
@@ -70,7 +70,7 @@ export function TripCountdown({ className }: { className?: string }) {
           )}
         </div>
         <span className="rounded-pill border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1 text-[12px] font-semibold text-emerald-700 dark:text-emerald-300">
-          💾 {l("Shu brauzerda saqlanadi")}
+          {l("Shu brauzerda saqlanadi")}
         </span>
       </div>
 
@@ -78,12 +78,12 @@ export function TripCountdown({ className }: { className?: string }) {
         <div className="relative mt-4 flex flex-wrap gap-2">
           {apptDays !== null && (
             <span className="rounded-pill bg-surface-tint px-3 py-1.5 text-caption font-semibold text-ink-800">
-              🗓️ {apptDays > 0 ? l("Uchrashuvgacha {n} kun", { n: apptDays }) : apptDays === 0 ? l("Uchrashuv bugun") : l("Uchrashuv o'tdi")}
+              {apptDays > 0 ? l("Uchrashuvgacha {n} kun", { n: apptDays }) : apptDays === 0 ? l("Uchrashuv bugun") : l("Uchrashuv o'tdi")}
             </span>
           )}
           {docsBy && apptDays !== null && apptDays > 0 && (
             <span className="rounded-pill bg-amber-400/15 px-3 py-1.5 text-caption font-semibold text-amber-800 dark:text-amber-300">
-              📄 {l("Hujjatlarni {date} gacha tayyorlang", { date: docsBy })}
+              {l("Hujjatlarni {date} gacha tayyorlang", { date: docsBy })}
             </span>
           )}
         </div>
@@ -142,7 +142,7 @@ export function ChecklistMini({ className }: { className?: string }) {
             <span className="truncate">{site.destinations[selection.dest].name}</span>
           </p>
           <p className="text-caption text-ink-500">
-            {visa?.emoji} {l(visa?.label ?? "")}
+            {l(visa?.label ?? "")}
           </p>
           <p className="mt-2 text-caption font-medium text-ink-600">
             {l("{done}/{total} hujjat tayyor", { done: progress.done, total: progress.total })}

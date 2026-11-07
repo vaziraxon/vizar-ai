@@ -115,7 +115,7 @@ export function BulkUploader({
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-surface-border px-6 py-5">
         <div>
           <h2 id="bulk-title" className="flex items-center gap-2 font-display text-body-lg font-bold text-ink-950">
-            <span aria-hidden="true">{sandbox ? "🧪" : "📤"}</span> {l("Bir nechta faylni birdaniga yuklash")}
+            {l("Bir nechta faylni birdaniga yuklash")}
             {sandbox && (
               <span className="rounded-md bg-amber-400/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-amber-700 dark:text-amber-300">
                 Sandbox
@@ -126,7 +126,7 @@ export function BulkUploader({
         </div>
         {doneCount > 0 && (
           <span className="rounded-pill bg-emerald-500/10 px-3 py-1 text-caption font-semibold text-emerald-700 dark:text-emerald-300">
-            ✅ {l("{n} ta fayl yuklandi", { n: doneCount })}
+            {l("{n} ta fayl yuklandi", { n: doneCount })}
           </span>
         )}
       </div>
@@ -245,7 +245,7 @@ export function BulkUploader({
                 </button>
                 <button type="button" onClick={uploadAll} disabled={running || readyCount === 0} className="btn-primary btn-md">
                   {running ? <Loader2 size={16} className="animate-spin" /> : <UploadCloud size={16} />}
-                  {running ? l("Yuklanmoqda...") : readyCount === 0 && doneCount > 0 ? `✅ ${l("Hammasi yuklandi")}` : l("{n} ta faylni yuklash", { n: readyCount })}
+                  {running ? l("Yuklanmoqda...") : readyCount === 0 && doneCount > 0 ? l("Hammasi yuklandi") : l("{n} ta faylni yuklash", { n: readyCount })}
                 </button>
               </div>
             </motion.div>

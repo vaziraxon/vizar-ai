@@ -365,7 +365,7 @@ export function VisaLettersTool({ embedded = false }: { embedded?: boolean } = {
                 )}
               >
                 <span className="flex items-center gap-2 text-body-sm font-semibold text-ink-900">
-                  <span aria-hidden="true">{emoji}</span> {c.kinds[k].label}
+                  {c.kinds[k].label}
                 </span>
                 <span className="mt-1.5 block text-caption text-ink-600">{c.kinds[k].desc}</span>
               </button>
@@ -393,7 +393,7 @@ export function VisaLettersTool({ embedded = false }: { embedded?: boolean } = {
                   ))}
                 </div>
                 {kind === "cover" && cover.country === "DE" && lang !== "de" && (
-                  <p className="mt-2 text-caption font-medium text-amber-700 dark:text-amber-300">⚠️ {c.germanHint}</p>
+                  <p className="mt-2 text-caption font-medium text-amber-700 dark:text-amber-300">{c.germanHint}</p>
                 )}
                 <p className="mt-2 text-caption text-ink-500">{c.latinHint}</p>
               </div>
@@ -634,7 +634,7 @@ export function VisaLettersTool({ embedded = false }: { embedded?: boolean } = {
 
           <div className={card}>
             <p className="rounded-2xl border border-amber-200 bg-amber-50/70 px-4 py-3 text-body-sm text-ink-700 dark:border-amber-400/20 dark:bg-amber-400/10">
-              ⚠️ {c.truth}
+              {c.truth}
             </p>
             <p className="mt-5 text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">{c.sourcesTitle}</p>
             <ul className="mt-2 space-y-1.5">

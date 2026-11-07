@@ -97,14 +97,14 @@ export function RecommendationsBoard({ items, demo }: { items: RecommendationIte
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
       <div className="card rounded-[28px] p-6 sm:p-7 lg:col-span-2">
         <p className="mb-4 flex flex-wrap items-center gap-2 font-display text-body-lg font-bold text-ink-950">
-          <span aria-hidden="true">📌</span> {l("Ustuvor vazifalar ro'yxati")}
+          {l("Ustuvor vazifalar ro'yxati")}
           {demo && (
             <span className="rounded-md bg-surface-tint px-1.5 py-0.5 text-[12px] font-semibold uppercase tracking-[0.08em] text-ink-500">
               {l("Namuna")}
             </span>
           )}
         </p>
-        <p className="-mt-2 mb-4 text-caption text-ink-500">👆 {l("Holatni o'zgartirish uchun belgini bosing — saqlanadi.")}</p>
+        <p className="-mt-2 mb-4 text-caption text-ink-500">{l("Holatni o'zgartirish uchun belgini bosing — saqlanadi.")}</p>
         {error && <p role="alert" className="mb-3 text-body-sm font-medium text-red-600 dark:text-red-300">{l(error)}</p>}
         {open.length > 0 ? (
           <ul className="space-y-3">{open.map(row)}</ul>
@@ -121,7 +121,7 @@ export function RecommendationsBoard({ items, demo }: { items: RecommendationIte
 
       <div className="card h-fit rounded-[24px] p-6">
         <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-950">
-          <span aria-hidden="true">🧭</span> {l("Qayerdan keladi")}
+          {l("Qayerdan keladi")}
         </p>
         <p className="text-body-sm text-ink-600">
           {l("Bu ro'yxat viza tahlilidagi javoblaringizdan tuziladi. Har bir yangi tahlil o'z qadamlarini qo'shadi.")}

@@ -85,7 +85,7 @@ export default async function SectionPage({ params }: Params) {
           <div className="mt-5 grid gap-8 lg:grid-cols-12 lg:items-center">
             <div className="animate-fade-up lg:col-span-8">
               <p className="eyebrow">
-                <span aria-hidden="true">{section.isIntro ? emoji : sectionEmoji(section.sectionTitleSrc)}</span>
+                
                 {section.sectionNumber ? `${section.chapterLabel} · ${section.sectionNumber}` : section.chapterLabel}
               </p>
               <h1 className="luxe-firm mt-4 font-luxe [overflow-wrap:anywhere] [text-wrap:balance] text-[clamp(2.1rem,3.8vw,3.4rem)] font-semibold leading-[1.08] tracking-[-0.025em] text-ink-950">{title}</h1>
@@ -94,11 +94,11 @@ export default async function SectionPage({ params }: Params) {
                   <Clock size={14} aria-hidden="true" className="text-violet-600 dark:text-citron-300" />~{readingMinutes(section.chars)} <L>daqiqalik o‘qish</L>
                 </li>
                 <li className="inline-flex items-center gap-1.5 rounded-pill border border-white/80 bg-surface/80 px-3 py-1.5 backdrop-blur dark:border-white/10">
-                  <span aria-hidden="true">{emoji}</span>
+                  
                   {section.chapterLabel}
                 </li>
                 <li className="inline-flex items-center gap-1.5 rounded-pill border border-white/80 bg-surface/80 px-3 py-1.5 backdrop-blur dark:border-white/10">
-                  {content !== null ? <>✅ <L>To‘liq matn</L></> : <>🔐 <L>Qisqa parcha</L></>}
+                  {content !== null ? <><L>To‘liq matn</L></> : <><L>Qisqa parcha</L></>}
                 </li>
               </ul>
             </div>
@@ -126,7 +126,7 @@ export default async function SectionPage({ params }: Params) {
         <article className="min-w-0 lg:col-span-8">
           {lang !== "uz" && bodyLang === "uz" ? (
             <p className="mb-4 flex items-start gap-2 rounded-2xl border border-violet-200 bg-violet-50/70 px-4 py-3 text-body-sm text-ink-700 dark:border-violet-400/20 dark:bg-violet-400/10">
-              <span aria-hidden="true">🌐</span>
+              
               <L>Bu bo‘lim matni hozircha faqat o‘zbek tilida. Tarjimasi bosqichma-bosqich qo‘shilmoqda.</L>
             </p>
           ) : null}
@@ -207,9 +207,6 @@ export default async function SectionPage({ params }: Params) {
                           current ? "bg-brand-50 font-semibold text-brand-800 dark:bg-white/10 dark:text-white" : "text-ink-700 hover:bg-surface-tint hover:text-brand-700"
                         )}
                       >
-                        <span aria-hidden="true" className="w-5 shrink-0 text-center">
-                          {s.isIntro ? emoji : sectionEmoji(s.titleSrc)}
-                        </span>
                         <span className="w-11 shrink-0 tabular-nums text-ink-500">{s.number ?? "•"}</span>
                         <span className="min-w-0 flex-1">{s.isIntro ? <L>Bob haqida</L> : s.title}</span>
                         {!viewer.hasAccess ? <LockIcon className="mt-0.5" /> : null}

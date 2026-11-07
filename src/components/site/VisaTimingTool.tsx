@@ -159,7 +159,7 @@ export function VisaTimingTool({ embedded = false }: { embedded?: boolean } = {}
                   <p className="mt-3 rounded-2xl bg-emerald-500/10 px-4 py-3 text-body-sm font-medium text-emerald-800 dark:text-emerald-300">✓ {c.passport.ok}</p>
                 ) : (
                   <p className="mt-3 rounded-2xl bg-amber-50 px-4 py-3 text-body-sm font-medium text-amber-800 dark:bg-amber-400/10 dark:text-amber-300">
-                    ⚠️ {fill(c.passport.bad, { date: shortDate(addMonths(end, 3)) })}
+                    {fill(c.passport.bad, { date: shortDate(addMonths(end, 3)) })}
                   </p>
                 )}
               </div>
@@ -190,9 +190,9 @@ export function VisaTimingTool({ embedded = false }: { embedded?: boolean } = {}
               ))}
             </ul>
             <p className="mt-4 rounded-2xl border border-amber-200 bg-amber-50/70 px-4 py-3 text-body-sm text-ink-700 dark:border-amber-400/20 dark:bg-amber-400/10">
-              ⚠️ {c.disclaimer}
+              {c.disclaimer}
             </p>
-            <p className="mt-3 text-caption text-ink-500">🔒 {c.privacy}</p>
+            <p className="mt-3 text-caption text-ink-500">{c.privacy}</p>
           </div>
         </div>
       </section>

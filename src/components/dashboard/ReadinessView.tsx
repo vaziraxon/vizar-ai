@@ -33,7 +33,7 @@ export function ReadinessView({ facts, missingDocs }: { facts: ServerReadinessFa
 
         <div className="card rounded-[28px] p-6 lg:col-span-2">
           <p className={cardTitle}>
-            <Emoji e="🧩" /> {l("Ball nimadan iborat")}
+            {l("Ball nimadan iborat")}
           </p>
           <ul className="space-y-1">
             {parts.map((item) => (
@@ -41,7 +41,7 @@ export function ReadinessView({ facts, missingDocs }: { facts: ServerReadinessFa
                 <Link href={item.href} className="block rounded-2xl p-2 transition-colors hover:bg-surface-tint">
                   <span className="flex flex-wrap items-baseline justify-between gap-x-3">
                     <span className="flex min-w-0 items-center gap-2 text-body-sm font-semibold text-ink-900">
-                      <span aria-hidden="true">{item.emoji}</span> {l(item.label)}
+                      {l(item.label)}
                     </span>
                     <span className="text-caption font-semibold tabular-nums text-ink-600">
                       {l("{points}/{weight} ball", { points: item.points, weight: item.weight })}
@@ -64,7 +64,7 @@ export function ReadinessView({ facts, missingDocs }: { facts: ServerReadinessFa
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <div className={cn("card rounded-[24px] p-6", missingDocs.length === 0 && "lg:col-span-2")}>
           <p className={cardTitle}>
-            <Emoji e="📌" /> {l("Keyingi qadamlar")}
+            {l("Keyingi qadamlar")}
           </p>
           {steps.length === 0 ? (
             <p className="text-body-sm text-ink-700 dark:text-white/70">
@@ -79,7 +79,7 @@ export function ReadinessView({ facts, missingDocs }: { facts: ServerReadinessFa
                     className="flex items-center justify-between gap-3 rounded-2xl border border-surface-border bg-surface px-4 py-3 transition-colors hover:bg-surface-tint"
                   >
                     <span className="flex min-w-0 items-center gap-3 text-body-sm font-semibold text-ink-900">
-                      <span aria-hidden="true">{step.emoji}</span>
+                      
                       <span className="min-w-0">{l(step.action)}</span>
                     </span>
                     <span className="flex shrink-0 items-center gap-2">
@@ -98,7 +98,7 @@ export function ReadinessView({ facts, missingDocs }: { facts: ServerReadinessFa
         {missingDocs.length > 0 && (
           <div className="card rounded-[24px] p-6">
             <p className={cardTitle}>
-              <Emoji e="📂" /> {l("Yetishmayotgan hujjatlar")}
+              {l("Yetishmayotgan hujjatlar")}
             </p>
             <ul className="space-y-2.5">
               {missingDocs.map((doc) => (

@@ -86,7 +86,7 @@ export function ConsultationPageClient({ requests }: { requests: ConsultationRow
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <form onSubmit={handleSubmit} noValidate className="card space-y-4 rounded-[28px] p-6 sm:p-7 lg:col-span-2">
           <p className="flex items-center gap-2 font-display text-body-lg font-bold text-ink-950">
-            <span aria-hidden="true">🤝</span> {l("Mutaxassisga so'rov")}
+            {l("Mutaxassisga so'rov")}
           </p>
 
           {sent && (
@@ -150,7 +150,7 @@ export function ConsultationPageClient({ requests }: { requests: ConsultationRow
 
         <div className="card h-fit rounded-[24px] p-6">
           <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-950">
-            <span aria-hidden="true">🧭</span> {l("Qanday ishlaydi")}
+            {l("Qanday ishlaydi")}
           </p>
           <ol className="space-y-2 text-body-sm text-ink-600">
             <li>1. {l("Mavzu va aloqa usulini yozasiz.")}</li>

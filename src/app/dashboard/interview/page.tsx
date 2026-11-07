@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, BookOpen, Clock, Loader2, Mic, MicOff, Printer, RotateCcw, Search, Send, Volume2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Clock, Loader2, Mic, MicOff, UserRound, Printer, RotateCcw, Search, Send, Volume2 } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { InterviewBookLinks } from "@/components/dashboard/InterviewBookLinks";
 import { ScoreRing } from "@/components/dashboard/ScoreRing";
@@ -303,7 +303,7 @@ export default function AiInterviewPage() {
                     <p>
                       <SampleText text={q.answer[lang]} />
                     </p>
-                    {appLang === "uz" && <p className="mt-2 text-caption text-ink-500">💡 {q.note}</p>}
+                    {appLang === "uz" && <p className="mt-2 text-caption text-ink-500">{q.note}</p>}
                   </div>
                 </details>
               </li>
@@ -333,7 +333,7 @@ export default function AiInterviewPage() {
       <DashboardShell title="Suhbat mashqi" subtitle="Mashqni boshlashdan oldin davlat va qiyinlik darajasini tanlang.">
         <div className="card mx-auto max-w-2xl space-y-6 overflow-hidden rounded-[28px] p-6 sm:p-8">
           <div className="lime-wash grain relative -mx-6 -mt-6 flex items-center gap-4 overflow-hidden px-6 py-6 sm:-mx-8 sm:-mt-8 sm:px-8">
-            <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[18px] bg-surface text-[28px] shadow-float">🎤</span>
+            <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[18px] bg-surface text-[28px] shadow-float"><Mic size={26} strokeWidth={1.8} className="text-brand-700" /></span>
             <div>
               <p className="font-display text-body-lg font-bold text-ink-950">{l("Konsul bilan suhbatni mashq qiling")}</p>
               <p className="text-body-sm text-ink-600">{l("Savolga yozib yoki ovoz bilan javob bering — javobingiz qoidalar asosida darhol baholanadi.")}</p>
@@ -381,7 +381,7 @@ export default function AiInterviewPage() {
             <div className="flex flex-wrap gap-2">
               {PLAYBOOK_LEVELS.map((d) => (
                 <button key={d.key} type="button" onClick={() => setLevel(d.key)} aria-pressed={level === d.key} className={pill(level === d.key)}>
-                  <span aria-hidden="true">{d.emoji}</span> {l(d.label)} · {d.count}
+                  {l(d.label)} · {d.count}
                 </button>
               ))}
             </div>
@@ -411,11 +411,11 @@ export default function AiInterviewPage() {
           </div>
 
           <div className="grid gap-2 text-caption text-ink-600 sm:grid-cols-3">
-            <p className="rounded-2xl bg-surface-tint px-3 py-2.5">📝 {l("{n} ta savol", { n: sessionSize })}</p>
+            <p className="rounded-2xl bg-surface-tint px-3 py-2.5">{l("{n} ta savol", { n: sessionSize })}</p>
             <p className="rounded-2xl bg-surface-tint px-3 py-2.5">
-              {voiceSupported ? "🎙️" : "⌨️"} {voiceSupported ? l("Ovozli javob mavjud") : l("Matnli javob")}
+              {voiceSupported ? l("Ovozli javob mavjud") : l("Matnli javob")}
             </p>
-            <p className="rounded-2xl bg-surface-tint px-3 py-2.5">💾 {l("Natija saqlanadi")}</p>
+            <p className="rounded-2xl bg-surface-tint px-3 py-2.5">{l("Natija saqlanadi")}</p>
           </div>
 
           {loadError && <p role="alert" className="rounded-2xl bg-red-500/10 px-4 py-2.5 text-body-sm text-red-600 dark:text-red-300">{l("Savollar yuklanmadi. Qayta urinib ko'ring.")}</p>}
@@ -437,7 +437,7 @@ export default function AiInterviewPage() {
 
           <div className="border-t border-surface-border pt-5">
             <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-900">
-              <span aria-hidden="true">🕒</span> {l("Mashqlar tarixi")}
+              {l("Mashqlar tarixi")}
               {history.length === 0 && (
                 <span className="rounded-md bg-surface-tint px-1.5 py-0.5 text-[12px] font-semibold uppercase tracking-[0.08em] text-ink-500">
                   {l("Namuna")}
@@ -495,7 +495,7 @@ export default function AiInterviewPage() {
           <div className="mt-6 grid gap-4 text-left sm:grid-cols-2">
             <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4">
               <p className="mb-2 flex items-center gap-1.5 text-body-sm font-semibold text-emerald-700 dark:text-emerald-300">
-                <span aria-hidden="true">💪</span> {l("Kuchli javoblar")}
+                {l("Kuchli javoblar")}
               </p>
               <ul className="space-y-1.5 text-body-sm text-ink-600">
                 {strong.length ? strong.map((x) => <li key={x.q.id}>{x.q.question[lang]}</li>) : <li>—</li>}
@@ -503,7 +503,7 @@ export default function AiInterviewPage() {
             </div>
             <div className="rounded-2xl border border-red-500/20 bg-red-500/5 p-4">
               <p className="mb-2 flex items-center gap-1.5 text-body-sm font-semibold text-red-600 dark:text-red-300">
-                <span aria-hidden="true">⚠️</span> {l("Zaif javoblar")}
+                {l("Zaif javoblar")}
               </p>
               <ul className="space-y-1.5 text-body-sm text-ink-600">
                 {weak.length ? weak.map((x) => <li key={x.q.id}>{x.q.question[lang]}</li>) : <li>—</li>}
@@ -513,7 +513,7 @@ export default function AiInterviewPage() {
           <ul className="mt-6 space-y-2 text-left">
             {tips.map((tip) => (
               <li key={tip} className="flex gap-2 rounded-2xl bg-surface-tint px-4 py-2.5 text-body-sm text-ink-700">
-                <span aria-hidden="true">💡</span> {l(tip)}
+                {l(tip)}
               </li>
             ))}
           </ul>
@@ -573,7 +573,7 @@ export default function AiInterviewPage() {
 
         <div className="mt-5 flex items-start gap-3">
           <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-violet-600 text-[20px] shadow-button">
-            🧑‍💼
+            <UserRound size={20} strokeWidth={1.8} className="text-white" />
           </span>
           <div className="min-w-0 flex-1 rounded-2xl rounded-tl-md bg-surface-tint px-4 py-3">
             <p className="text-body font-medium text-ink-900">{question!.question[lang]}</p>
@@ -646,7 +646,7 @@ export default function AiInterviewPage() {
               className="mt-6 overflow-hidden border-t border-surface-border pt-6"
             >
               <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-                <p className="text-body-sm font-semibold text-ink-900">📊 {l("Javob tahlili")}</p>
+                <p className="text-body-sm font-semibold text-ink-900">{l("Javob tahlili")}</p>
                 <span className="flex items-center gap-2">
                   <span
                     className={cn(
@@ -670,7 +670,7 @@ export default function AiInterviewPage() {
                 <ProgressBar label="Aniqlik (clarity)" value={feedback.clarity} />
                 <ProgressBar label="Savolga mosligi" value={feedback.relevance} />
               </div>
-              <p className="mt-5 text-caption font-semibold text-ink-700">🚩 {l("Xavfli iboralar aniqlandi:")}</p>
+              <p className="mt-5 text-caption font-semibold text-ink-700">{l("Xavfli iboralar aniqlandi:")}</p>
               {feedback.risky.length ? (
                 <div className="mt-1.5 flex flex-wrap gap-1.5">
                   {feedback.risky.map((p) => (
@@ -680,17 +680,17 @@ export default function AiInterviewPage() {
                   ))}
                 </div>
               ) : (
-                <p className="mt-1 text-body-sm text-emerald-700 dark:text-emerald-300">✅ {l("Xavfli ibora topilmadi")}</p>
+                <p className="mt-1 text-body-sm text-emerald-700 dark:text-emerald-300">{l("Xavfli ibora topilmadi")}</p>
               )}
               <ul className="mt-4 space-y-2">
                 {feedback.tips.map((tip) => (
                   <li key={tip} className="flex gap-2 rounded-2xl bg-surface-tint px-3 py-2 text-body-sm text-ink-700">
-                    <span aria-hidden="true">💡</span> {l(tip)}
+                    {l(tip)}
                   </li>
                 ))}
               </ul>
               <div className="mt-4 rounded-2xl border border-violet-200 bg-violet-50/60 px-4 py-3 dark:border-white/10 dark:bg-white/5">
-                <p className="text-caption font-semibold text-violet-800 dark:text-violet-300">📘 {l("Namuna javob")}</p>
+                <p className="text-caption font-semibold text-violet-800 dark:text-violet-300">{l("Namuna javob")}</p>
                 <p className="mt-1 text-body-sm text-ink-800">
                   <SampleText text={question!.answer[lang]} />
                 </p>

@@ -288,7 +288,7 @@ export function VisaPhotoTool({ embedded = false }: { embedded?: boolean } = {})
   const check = (ok: boolean, text: string) => (
     <li className={cn("flex gap-2 text-body-sm", ok ? "text-emerald-700 dark:text-emerald-300" : "text-amber-700 dark:text-amber-300")}>
       <span aria-hidden="true" className="shrink-0">
-        {ok ? "✓" : "⚠️"}
+        {ok ? "✓" : "!"}
       </span>
       <span>{text}</span>
     </li>
@@ -491,7 +491,7 @@ export function VisaPhotoTool({ embedded = false }: { embedded?: boolean } = {})
 
           <div className={cn(card, "lg:col-span-3")}>
             <h2 className="flex items-center gap-2 text-body font-semibold text-ink-950">
-              <span aria-hidden="true">📏</span> {c.requirementsTitle} — {site.destinations[spec.id].name}
+              {c.requirementsTitle} — {site.destinations[spec.id].name}
             </h2>
             <dl className="mt-4 divide-y divide-surface-border">
               {rows.map(([term, value]) => (
@@ -521,7 +521,7 @@ export function VisaPhotoTool({ embedded = false }: { embedded?: boolean } = {})
 
           <div className={cn(card, "lg:col-span-2")}>
             <h2 className="flex items-center gap-2 text-body font-semibold text-ink-950">
-              <span aria-hidden="true">🤳</span> {c.tipsTitle}
+              {c.tipsTitle}
             </h2>
             <ul className="mt-3 list-disc space-y-1.5 pl-5 text-body-sm text-ink-700">
               {c.tips.map((tip) => (
@@ -531,7 +531,7 @@ export function VisaPhotoTool({ embedded = false }: { embedded?: boolean } = {})
           </div>
 
           <p className="rounded-2xl border border-amber-200 bg-amber-50/70 px-4 py-3 text-body-sm text-ink-700 dark:border-amber-400/20 dark:bg-amber-400/10 lg:col-span-5">
-            ⚠️ {c.disclaimer}
+            {c.disclaimer}
           </p>
         </div>
       </section>

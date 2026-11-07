@@ -99,7 +99,7 @@ export function ProfileForm({
         </span>
         <div className="min-w-0 flex-1">
           <p className="truncate font-display text-body-lg font-bold text-ink-950">{[firstName, lastName].filter(Boolean).join(" ") || "—"}</p>
-          <p className="truncate text-body-sm text-ink-600">✉️ {email || "—"}</p>
+          <p className="truncate text-body-sm text-ink-600">{email || "—"}</p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <input
               ref={fileRef}
@@ -137,7 +137,7 @@ export function ProfileForm({
 
       <div className="card rounded-[24px] p-6">
         <p className={sectionTitle}>
-          <span aria-hidden="true">👤</span> {l("Shaxsiy ma'lumotlar")}
+          {l("Shaxsiy ma'lumotlar")}
         </p>
         <div className="grid gap-4 sm:grid-cols-2">
           <TextField
@@ -161,7 +161,7 @@ export function ProfileForm({
 
       <div className="card rounded-[24px] p-6">
         <p className={sectionTitle}>
-          <span aria-hidden="true">📞</span> {l("Aloqa ma'lumotlari")}
+          {l("Aloqa ma'lumotlari")}
         </p>
         <div className="grid gap-4 sm:grid-cols-2">
           <TextField id="email" label="Email" type="email" autoComplete="email" value={email} disabled />
@@ -182,7 +182,7 @@ export function ProfileForm({
 
       <div className="card rounded-[24px] p-6">
         <p className={sectionTitle}>
-          <span aria-hidden="true">🌐</span> {l("Til")}
+          {l("Til")}
         </p>
         <div className="grid gap-4 sm:grid-cols-2">
           <SelectField
