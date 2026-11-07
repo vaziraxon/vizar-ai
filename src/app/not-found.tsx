@@ -1,13 +1,61 @@
+"use client";
+
+import { useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { ButtonLink } from "@/components/ui/Button";
+import { UrlLanguageScope, useLanguage } from "@/lib/language-context";
+import { localizedHref, splitLangPath } from "@/lib/i18n/url-lang";
+import type { LangCode } from "@/lib/translations";
 
+const COPY: Record<LangCode, { title: string; text: string; home: string }> = {
+  uz: {
+    title: "Sahifa topilmadi",
+    text: "Siz qidirayotgan sahifa mavjud emas yoki ko'chirilgan bo'lishi mumkin.",
+    home: "Bosh sahifaga qaytish",
+  },
+  ru: {
+    title: "Страница не найдена",
+    text: "Страницы, которую вы ищете, нет или она была перемещена.",
+    home: "Вернуться на главную",
+  },
+  en: {
+    title: "Page not found",
+    text: "The page you're looking for doesn't exist or may have moved.",
+    home: "Back to the home page",
+  },
+};
+
+/**
+ * Under /ru/… and /en/… the address decides the language, as on those public
+ * pages; elsewhere the visitor's chosen language. The home link stays in it.
+ */
 export default function NotFound() {
+  const { lang } = splitLangPath(usePathname() ?? "/");
+  return lang === "uz" ? (
+    <NotFoundPage />
+  ) : (
+    <UrlLanguageScope lang={lang}>
+      <NotFoundPage />
+    </UrlLanguageScope>
+  );
+}
+
+function NotFoundPage() {
+  const { language } = useLanguage();
+  const copy = COPY[language];
+  const home = localizedHref("/", language);
+
+  useEffect(() => {
+    document.title = `${copy.title} · VIZAR AI`;
+  }, [copy.title]);
+
   return (
     <div className="flex min-h-screen flex-col bg-white px-4 dark:bg-navy-950">
       <div className="container-page flex h-16 items-center px-0 sm:px-0 lg:px-0">
-        <Link href="/" className="rounded-lg">
+        <Link href={home} className="rounded-lg">
           <Logo />
         </Link>
       </div>
@@ -15,15 +63,11 @@ export default function NotFound() {
         <p className="font-display text-[120px] font-bold leading-none tracking-[-0.06em] text-surface-muted sm:text-[160px] dark:text-white/10">
           404
         </p>
-        <h1 className="mt-2 font-display text-display-md text-ink-900 dark:text-white">
-          Sahifa topilmadi
-        </h1>
-        <p className="mt-3 max-w-md text-body-lg text-ink-600 dark:text-white/60">
-          Siz qidirayotgan sahifa mavjud emas yoki ko&apos;chirilgan bo&apos;lishi mumkin.
-        </p>
-        <ButtonLink href="/" size="lg" variant="dark" className="mt-8">
+        <h1 className="mt-2 font-display text-display-md text-ink-900 dark:text-white">{copy.title}</h1>
+        <p className="mt-3 max-w-md text-body-lg text-ink-600 dark:text-white/60">{copy.text}</p>
+        <ButtonLink href={home} size="lg" variant="dark" className="mt-8">
           <ArrowLeft size={17} />
-          Bosh sahifaga qaytish
+          {copy.home}
         </ButtonLink>
       </main>
     </div>
