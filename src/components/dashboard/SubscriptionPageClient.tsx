@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { TextField } from "@/components/forms/TextField";
 import { InlineAlert } from "@/components/states/InlineAlert";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
+import { ConfirmationModal } from "@/components/states/ConfirmationModal";
 import { useFormatDate, useL } from "@/components/i18n/L";
 import { cancelSubscriptionRequestAction, requestSubscriptionAction } from "@/lib/actions/subscriptions";
 import { SUBSCRIPTION_PLANS, SUBSCRIPTION_REQUEST_STATUS, isSubscriptionPlan, type SubscriptionPlanId } from "@/lib/dashboard/subscription-plans";
@@ -40,6 +41,7 @@ export function SubscriptionPageClient({
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [cancelError, setCancelError] = useState("");
+  const [pendingCancel, setPendingCancel] = useState<string | null>(null);
 
   const planName = (id: string) => (isSubscriptionPlan(id) ? site.pricing.plans[id].name : id);
   const date = (iso: string) => fmt(iso, "medium");
@@ -224,7 +226,7 @@ export function SubscriptionPageClient({
                   {r.status === "pending" && (
                     <button
                       type="button"
-                      onClick={() => handleCancel(r.id)}
+                      onClick={() => setPendingCancel(r.id)}
                       className="flex items-center gap-1 text-caption font-semibold text-red-500 hover:text-red-600"
                     >
                       <X size={13} /> {l("Bekor qilish")}
@@ -236,6 +238,17 @@ export function SubscriptionPageClient({
           </ul>
         </div>
       )}
+
+      <ConfirmationModal
+        open={pendingCancel !== null}
+        title="So'rovni bekor qilish"
+        description="Bu so'rovni bekor qilmoqchimisiz?"
+        confirmLabel="Ha, bekor qilish"
+        cancelLabel="Yo'q, qoldirish"
+        danger
+        onConfirm={() => pendingCancel && handleCancel(pendingCancel)}
+        onClose={() => setPendingCancel(null)}
+      />
     </>
   );
 }
