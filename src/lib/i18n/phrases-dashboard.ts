@@ -1040,6 +1040,9 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Viza tayyorgarlik bali": { ru: "Балл готовности к визе", en: "Visa readiness score" },
   "Suhbat mashqi bo'limida tayyorlaning": { ru: "Подготовьтесь в разделе «Тренировка интервью»", en: "Prepare in the Interview practice section" },
   /* Overview 2.0 */
+  "Internet aloqasini tekshirib, qayta urinib ko'ring.": { ru: "Проверьте подключение к интернету и попробуйте ещё раз.", en: "Check your internet connection and try again." },
+  "Vazifalarni yuklab bo'lmadi": { ru: "Не удалось загрузить задачи", en: "Couldn't load your tasks" },
+  "Ma'lumotni yuklab bo'lmadi": { ru: "Не удалось загрузить данные", en: "Couldn't load this" },
   "Bank hisobingizdan ko'chirmani tekshiring": { ru: "Проверьте выписку с банковского счёта", en: "Check your bank account statement" },
   "Bank hisobingizdan ko'chirmani to'g'rilab, qayta yuklang": { ru: "Исправьте выписку с банковского счёта и загрузите заново", en: "Fix your bank account statement and upload it again" },
   "Sahifani yuklab bo'lmadi": { ru: "Не удалось загрузить страницу", en: "The page couldn't load" },
