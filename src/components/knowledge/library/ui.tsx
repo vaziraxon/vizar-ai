@@ -36,7 +36,6 @@ export function LibraryHero({
   aside,
   photo,
   photoAlt = "",
-  stickers,
   children,
 }: {
   breadcrumb?: { href: string; label: ReactNode }[];
@@ -46,8 +45,6 @@ export function LibraryHero({
   aside?: ReactNode;
   photo?: string;
   photoAlt?: string;
-  /** Three floating emoji around the header (desktop only) */
-  stickers?: [string, string, string];
   children?: ReactNode;
 }) {
   const onPhoto = Boolean(photo);
@@ -275,11 +272,11 @@ export function SrLabel({ id, text }: { id: string; text: string }) {
 /** Sub-navigation between the library's parts. */
 export function LibraryTabs({ active }: { active?: "home" | "search" }) {
   const tabs = [
-    { href: "/dashboard/library#boblar", label: "Boblar", emoji: "📚" },
-    { href: "/dashboard/library#davlatlar", label: "Davlatlar", emoji: "🌍" },
-    { href: "/dashboard/library#viza-turlari", label: "Viza turlari", emoji: "🛂" },
-    { href: "/dashboard/library#hujjatlar", label: "Hujjatlar", emoji: "📑" },
-    { href: "/dashboard/library/search", label: "Qidiruv", emoji: "🔎", key: "search" as const },
+    { href: "/dashboard/library#boblar", label: "Boblar" },
+    { href: "/dashboard/library#davlatlar", label: "Davlatlar" },
+    { href: "/dashboard/library#viza-turlari", label: "Viza turlari" },
+    { href: "/dashboard/library#hujjatlar", label: "Hujjatlar" },
+    { href: "/dashboard/library/search", label: "Qidiruv", key: "search" as const },
   ];
   return (
     <nav aria-labelledby="kb-tabs-label" className="sticky top-16 z-20 mt-4 rounded-2xl border border-surface-border bg-surface-canvas/85 backdrop-blur-xl">

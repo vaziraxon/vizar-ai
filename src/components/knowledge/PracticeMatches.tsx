@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MessagesSquare } from "lucide-react";
 import { useL } from "@/components/i18n/L";
 import { PLAYBOOK_COUNTRIES, PLAYBOOK_LEVELS, type PlaybookLang } from "@/data/interview-playbook";
 import { useLanguage } from "@/lib/language-context";
@@ -25,7 +25,7 @@ export function PracticeMatches({ matches, country }: { matches: PracticeMatch[]
   return (
     <div className="mt-5 rounded-2xl border border-violet-200 bg-violet-50/50 p-4 dark:border-white/10 dark:bg-white/5">
       <p className="flex items-center gap-2 text-body-sm font-semibold text-ink-900">
-        <span aria-hidden="true">🎤</span> {l("Suhbat mashqidan mos savollar")}
+        <MessagesSquare size={15} aria-hidden="true" className="text-violet-600" /> {l("Suhbat mashqidan mos savollar")}
       </p>
       <ul className="mt-3 space-y-2">
         {matches.map((m) => (
