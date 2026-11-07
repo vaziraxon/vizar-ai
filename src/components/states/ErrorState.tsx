@@ -1,9 +1,13 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { AlertOctagon } from "lucide-react";
 import { L } from "@/components/i18n/L";
 
 interface ErrorStateProps {
   title?: string;
   description?: string;
+  /** Defaults to reloading the page's server data (router.refresh) */
   onRetry?: () => void;
 }
 
@@ -12,6 +16,8 @@ export function ErrorState({
   description = "Ma'lumotlarni yuklab bo'lmadi. Iltimos, qayta urinib ko'ring.",
   onRetry,
 }: ErrorStateProps) {
+  const router = useRouter();
+  const retry = onRetry ?? (() => router.refresh());
   return (
     <div
       role="alert"
@@ -24,15 +30,13 @@ export function ErrorState({
       <p className="max-w-sm text-body-sm text-ink-600 dark:text-white/60">
         <L>{description}</L>
       </p>
-      {onRetry && (
-        <button
-          type="button"
-          onClick={onRetry}
-          className="mt-1 rounded-pill bg-brand-600 transition-colors hover:bg-brand-deep px-5 py-2 text-body-sm font-semibold text-white"
-        >
-          <L>Qayta urinish</L>
-        </button>
-      )}
+      <button
+        type="button"
+        onClick={retry}
+        className="mt-1 rounded-pill bg-brand-600 transition-colors hover:bg-brand-deep px-5 py-2 text-body-sm font-semibold text-white"
+      >
+        <L>Qayta urinish</L>
+      </button>
     </div>
   );
 }
