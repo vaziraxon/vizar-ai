@@ -8,6 +8,7 @@ import { L } from "@/components/i18n/L";
 import { matchDestination } from "@/lib/site/destination-match";
 import { SupabaseSetupNotice } from "@/components/dev/SupabaseSetupNotice";
 import { EmptyState } from "@/components/states/EmptyState";
+import { ErrorState } from "@/components/states/ErrorState";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getMyProfile } from "@/lib/data/profiles";
 import { getLatestApplication } from "@/lib/data/applications";
@@ -36,6 +37,8 @@ export default async function DashboardPage() {
     : [null, null];
 
   const application = appResult?.ok ? appResult.data : null;
+  // A failed load must not read as "no application yet"
+  const appFailed = Boolean(configured && appResult && !appResult.ok);
   const firstName = configured
     ? (profileResult?.ok && profileResult.data?.first_name) || ""
     : CURRENT_USER.firstName;
@@ -134,7 +137,9 @@ export default async function DashboardPage() {
         </div>
       )}
 
-      {configured && !application ? (
+      {appFailed ? (
+        <ErrorState />
+      ) : configured && !application ? (
         <EmptyState
           icon={FileSearch2}
           title="Hali arizangiz yo'q"
