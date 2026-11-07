@@ -51,6 +51,9 @@ export default async function DashboardPage() {
       : [null, null, null, null];
 
   const live = configured && application;
+  // A failed query must not read as "nothing to do" or "0 uploaded"
+  const docsFailed = Boolean(live && docsResult && !docsResult.ok);
+  const tasksFailed = Boolean(live && recommendationsResult && !recommendationsResult.ok);
   const uploadedCount = live
     ? docsResult?.ok
       ? filledSlots(docsResult.data.map((doc) => doc.document_type), REQUIRED_DOCUMENT_TITLES).length
@@ -90,7 +93,7 @@ export default async function DashboardPage() {
         { label: "Profil", done: journey.profile },
         { label: "Hujjatlar", done: journey.documents },
         { label: "Viza tahlili", done: journey.assessment },
-        { label: "Tayyorgarlik yakuni", done: journey.profile && journey.documents && journey.assessment && tasks.length === 0 },
+        { label: "Tayyorgarlik yakuni", done: journey.profile && journey.documents && journey.assessment && !tasksFailed && tasks.length === 0 },
       ]
     : CURRENT_APPLICATION.progressSteps;
 
@@ -159,6 +162,8 @@ export default async function DashboardPage() {
               : null,
             steps,
             tasks,
+            tasksFailed,
+            docsFailed,
             nextAction,
             uploadedCount,
             totalSlots,

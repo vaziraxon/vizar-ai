@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -13,6 +14,7 @@ import {
   Gauge,
   ListTodo,
   MessagesSquare,
+  RotateCw,
   Target,
   UserCog,
   UserRound,
@@ -37,6 +39,9 @@ export interface OverviewData {
   steps: { label: string; done: boolean }[];
   /** Open tasks, most urgent first; chip is the priority (or the sample status in demo mode) */
   tasks: { id: string; title: string; chip: string }[];
+  /** The tasks or documents query failed; show that instead of "none" */
+  tasksFailed?: boolean;
+  docsFailed?: boolean;
   nextAction: string;
   uploadedCount: number;
   totalSlots: number;
@@ -136,6 +141,7 @@ const NO_READINESS_FACTS: ServerReadinessFacts = { hasApplication: false, assess
 
 export function DashboardOverview({ data }: { data: OverviewData }) {
   const l = useL();
+  const router = useRouter();
   const visual = matchDestination(data.destination);
   const readiness = useReadiness(data.readiness ?? NO_READINESS_FACTS);
   const score = data.readiness ? readiness.score : data.demoScore;
@@ -181,18 +187,20 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
         <Metric
           icon={FolderOpen}
           label="Hujjatlar"
-          value={`${data.uploadedCount}/${data.totalSlots}`}
-          hint={l("{n}% yuklangan", { n: data.docsPercent })}
-          percent={data.docsPercent}
+          value={data.docsFailed ? null : `${data.uploadedCount}/${data.totalSlots}`}
+          hint={data.docsFailed ? l("Ma'lumotni yuklab bo'lmadi") : l("{n}% yuklangan", { n: data.docsPercent })}
+          percent={data.docsFailed ? undefined : data.docsPercent}
           href="/dashboard/documents"
           linkText={data.missingCount > 0 ? "Hujjat yuklash" : "Hujjatlar"}
         />
         <Metric
           icon={ListTodo}
           label="Kutilayotgan vazifalar"
-          value={String(data.tasks.length)}
+          value={data.tasksFailed ? null : String(data.tasks.length)}
           hint={
-            data.tasks.length === 0
+            data.tasksFailed
+              ? l("Ma'lumotni yuklab bo'lmadi")
+              : data.tasks.length === 0
               ? l("Hozircha ochiq vazifalar yo'q.")
               : urgent > 0
                 ? l("{n} tasi muhim", { n: urgent })
@@ -241,6 +249,20 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
                   {l("Keyin: {title}", { title: l(currentTaskTitle(after.title)) })}
                 </p>
               )}
+            </>
+          ) : data.tasksFailed ? (
+            <>
+              <h2 id="next-action" className="relative mt-4 font-display text-[1.45rem] font-semibold leading-snug text-white">
+                {l("Vazifalarni yuklab bo'lmadi")}
+              </h2>
+              <p className="relative mt-2 text-body-sm text-white/85">{l("Internet aloqasini tekshirib, qayta urinib ko'ring.")}</p>
+              <button
+                type="button"
+                onClick={() => router.refresh()}
+                className="btn btn-md relative mt-5 w-full bg-gold-300 text-night shadow-float hover:bg-gold-200"
+              >
+                <RotateCw size={16} aria-hidden="true" /> {l("Qayta urinish")}
+              </button>
             </>
           ) : (
             <>
@@ -339,7 +361,14 @@ export function DashboardOverview({ data }: { data: OverviewData }) {
               {l("Barchasi")}
             </Link>
           </div>
-          {data.tasks.length === 0 ? (
+          {data.tasksFailed ? (
+            <p role="alert" className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-body-sm text-ink-700">
+              {l("Vazifalarni yuklab bo'lmadi")}
+              <button type="button" onClick={() => router.refresh()} className={link}>
+                {l("Qayta urinish")}
+              </button>
+            </p>
+          ) : data.tasks.length === 0 ? (
             <p className="mt-5 text-body-sm text-ink-600">{l("Hozircha ochiq vazifalar yo'q.")}</p>
           ) : (
             <ul className="mt-4 space-y-2">
