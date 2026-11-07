@@ -2,12 +2,19 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Check, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calculator, CalendarClock, Camera, Check, FilePen, Sparkles, type LucideIcon } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { useL } from "@/components/i18n/L";
 import { useSite } from "@/lib/i18n/site";
 import { TOOL_PROMOS, type ToolKey } from "@/lib/dashboard/tool-promos";
 import { cn } from "@/lib/utils";
+
+const TOOL_ICON: Record<ToolKey, LucideIcon> = { visaPhoto: Camera, visaLetters: FilePen, visaTiming: CalendarClock, schengenCalc: Calculator };
+
+function ToolIcon({ tool }: { tool: ToolKey }) {
+  const Icon = TOOL_ICON[tool];
+  return <Icon aria-hidden="true" size={32} strokeWidth={1.6} className="relative" />;
+}
 
 /** /dashboard/tools: one promo card per tool */
 export function ToolCards() {
@@ -19,9 +26,7 @@ export function ToolCards() {
         <Link key={t.key} href={t.href} className="card group overflow-hidden rounded-[28px] transition-shadow duration-200 hover:shadow-float">
           <div className={cn("relative overflow-hidden bg-gradient-to-br px-6 pb-5 pt-6 text-white", t.tint)}>
             <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-10 h-32 w-32 rounded-full bg-white/20 blur-2xl" />
-            <span aria-hidden="true" className="relative block text-[40px] leading-none">
-              {t.emoji}
-            </span>
+            <ToolIcon tool={t.key} />
             <p className="relative mt-3 font-display text-[1.35rem] font-bold leading-tight">{site[t.key].title}</p>
             <p className="relative mt-1 text-body-sm font-medium text-white/90">{l(t.tagline)}</p>
           </div>

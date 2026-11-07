@@ -687,7 +687,7 @@ export const uz: SiteContent = {
     countryLabel: "Qaysi viza uchun",
     upload: "Rasm tanlash",
     replace: "Boshqa rasm",
-    uploadHint: "JPG yoki PNG. Rasm faqat brauzeringizda ishlanadi — hech qayerga yuklanmaydi va saqlanmaydi.",
+    uploadHint: "JPG yoki PNG.",
     loadError: "Bu faylni ochib bo‘lmadi. JPG yoki PNG rasm tanlang.",
     editorHint: "Rasmni barmoq yoki sichqoncha bilan suring, pastdagi slayderlar bilan kattalashtiring va to‘g‘rilang. Klaviaturada: strelkalar.",
     editorLabel: "Rasm ramkasi: strelkalar bilan suring",

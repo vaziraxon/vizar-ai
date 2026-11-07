@@ -27,7 +27,7 @@ export function InterviewBookLinks({ countryCode, countryName }: { countryCode: 
   return (
     <div className="rounded-2xl border border-surface-border bg-surface-tint/60 px-4 py-3 text-left">
       <p className="flex items-center gap-2 text-body-sm font-semibold text-ink-900">
-        <span aria-hidden="true">📚</span> {l("Kitobdan o'qing")}
+        {l("Kitobdan o'qing")}
       </p>
       <div className="mt-0.5 flex flex-col">
         {LIBRARY_COUNTRIES.has(countryCode) && (

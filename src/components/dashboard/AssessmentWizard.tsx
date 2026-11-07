@@ -22,8 +22,6 @@ import { useL } from "@/components/i18n/L";
 import { focusFirstInvalid } from "@/lib/utils";
 
 // Same order as DOC_LABELS
-const DOC_EMOJI = ["🛂", "🏦", "💼", "🏨", "✈️", "🩺", "✉️"];
-
 const STEP_LABELS = [
   "Mamlakat va viza",
   "Safar tafsilotlari",
@@ -217,7 +215,7 @@ export function AssessmentWizard({
   if (findings) {
     return (
       <div className="card mx-auto max-w-2xl rounded-[28px] p-6 sm:p-8">
-        <p className="text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">✅ {l("Tahlil yakunlandi")}</p>
+        <p className="text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">{l("Tahlil yakunlandi")}</p>
         <h2 className="mt-2 font-display text-display-sm font-bold text-ink-950">{l("Javoblaringiz bo'yicha keyingi qadamlar")}</h2>
         <p className="mt-2 text-body-sm text-ink-600">
           {l("Har bir band siz bergan javobdan kelib chiqadi. Bu ball ham, viza qarori bashorati ham emas.")}
@@ -405,9 +403,6 @@ export function AssessmentWizard({
                   className="flex items-center justify-between gap-4 rounded-2xl border border-surface-border bg-surface px-3 py-2.5"
                 >
                   <label htmlFor={`doc-status-${i}`} className="flex items-center gap-3 text-body-sm font-medium text-ink-900">
-                    <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-xl bg-surface-tint text-[17px] leading-none">
-                      {DOC_EMOJI[i] ?? "📄"}
-                    </span>
                     {l(doc)}
                   </label>
                   <select

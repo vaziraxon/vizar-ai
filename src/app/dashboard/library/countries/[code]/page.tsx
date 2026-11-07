@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ExternalLink, ShieldAlert, ShieldCheck } from "lucide-react";
+import { CircleCheck, Clock, ExternalLink, Globe, Link2, ShieldAlert, ShieldCheck, TriangleAlert, type LucideIcon } from "lucide-react";
 import { L } from "@/components/i18n/L";
 import { Plural } from "@/components/i18n/Plural";
 import { Markdown } from "@/components/knowledge/Markdown";
@@ -22,7 +22,19 @@ type Params = { params: { code: string } };
 const isCode = (code: string) => /^[a-z]{2}$/i.test(code);
 
 /** Official-page check state from kb-verify-sources, as a small emoji. */
-const CHECK_EMOJI: Record<string, string> = { ok: "✅", changed: "⚠️", pending: "⏳", unreachable: "🌐", error: "⚠️" };
+// Last automatic check of an official source: line icons in the brand colours
+const CHECK_ICON: Record<string, { Icon: LucideIcon; tone: string }> = {
+  ok: { Icon: CircleCheck, tone: "text-emerald-600" },
+  changed: { Icon: TriangleAlert, tone: "text-amber-600" },
+  pending: { Icon: Clock, tone: "text-ink-500" },
+  unreachable: { Icon: Globe, tone: "text-ink-500" },
+  error: { Icon: TriangleAlert, tone: "text-amber-600" },
+};
+
+function CheckIcon({ status }: { status: string | null }) {
+  const { Icon, tone } = CHECK_ICON[status ?? ""] ?? { Icon: Link2, tone: "text-ink-500" };
+  return <Icon size={14} aria-hidden="true" className={`shrink-0 ${tone}`} />;
+}
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!isCode(params.code)) return {};
@@ -90,7 +102,7 @@ export default async function CountryPage({ params }: Params) {
         eyebrow={
           region ? (
             <>
-              {visual.flag ? <CountryFlag code={visual.flag} size="xs" /> : <span aria-hidden="true">{visual.emoji}</span>} <L>{region.title}</L>
+              {visual.flag ? <CountryFlag code={visual.flag} size="xs" /> : null} <L>{region.title}</L>
             </>
           ) : undefined
         }
@@ -103,10 +115,10 @@ export default async function CountryPage({ params }: Params) {
         subtitle={
           <span className="mt-1 flex flex-wrap gap-2 text-body-sm font-medium">
             <span className="rounded-pill bg-white/15 px-3 py-1.5 backdrop-blur">
-              📌 {country.ruleCount} <Plural n={country.ruleCount} word="qoida" />
+              {country.ruleCount} <Plural n={country.ruleCount} word="qoida" />
             </span>
             <span className="rounded-pill bg-white/15 px-3 py-1.5 backdrop-blur">
-              📖 {sections.length} <Plural n={sections.length} word="bo‘lim kitobda" />
+              {sections.length} <Plural n={sections.length} word="bo‘lim kitobda" />
             </span>
             {country.topics.slice(0, 3).map((t, i) => (
               <span key={t} className="hidden rounded-pill bg-white/15 px-3 py-1.5 backdrop-blur sm:inline">
@@ -122,15 +134,12 @@ export default async function CountryPage({ params }: Params) {
       <div className="container-page grid gap-10 pb-12 pt-8 md:pb-14 md:pt-10 lg:grid-cols-12 lg:pb-16">
         <div className="min-w-0 space-y-6 lg:col-span-8">
           <h2 className="flex items-center gap-3 luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
-            <span aria-hidden="true" className="emoji-tile">
-              🛂
-            </span>
             <L>Viza qoidalari</L>
           </h2>
           {rules.length ? (
             <>
               <p className="flex items-start gap-2 rounded-2xl border border-amber-200 bg-amber-50/70 px-4 py-3 text-body-sm text-ink-700 dark:border-amber-400/20 dark:bg-amber-400/10">
-                <span aria-hidden="true">⚠️</span>
+                
                 <L>Yig‘imlar, topshirish joyi va kirish tartibi o‘zgarib turadi. Ariza berishdan oldin rasmiy manbada tekshiring.</L>
               </p>
               <ol className="space-y-4">
@@ -153,12 +162,12 @@ export default async function CountryPage({ params }: Params) {
                       <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-caption text-ink-500">
                         {rule.asOf ? (
                           <span>
-                            📅 <L>Kitobdagi ma’lumot sanasi</L>: <LibraryDate iso={rule.asOf} />
+                            <L>Kitobdagi ma’lumot sanasi</L>: <LibraryDate iso={rule.asOf} />
                           </span>
                         ) : null}
                         {rule.lastVerifiedAt ? (
                           <span>
-                            🔎 <L>Oxirgi tekshiruv</L>: <LibraryDate iso={rule.lastVerifiedAt} />
+                            <L>Oxirgi tekshiruv</L>: <LibraryDate iso={rule.lastVerifiedAt} />
                           </span>
                         ) : null}
                       </div>
@@ -172,7 +181,7 @@ export default async function CountryPage({ params }: Params) {
                                 rel="noopener noreferrer"
                                 className="inline-flex max-w-full items-center gap-1.5 rounded-pill border border-surface-border bg-surface-tint px-3 py-1.5 text-body-sm font-medium text-brand-700 transition-colors hover:border-brand-300"
                               >
-                                <span aria-hidden="true">{CHECK_EMOJI[s.checkStatus] ?? "🔗"}</span>
+                                <CheckIcon status={s.checkStatus} />
                                 <span className="truncate">{s.title}</span>
                                 <ExternalLink size={12} aria-hidden="true" className="shrink-0" />
                               </a>
@@ -206,7 +215,7 @@ export default async function CountryPage({ params }: Params) {
         <aside className="space-y-8 lg:col-span-4">
           <div>
             <h2 className="flex items-center gap-2 luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
-              <span aria-hidden="true">📖</span>
+              
               <L>Kitobda</L>
             </h2>
             {sections.length ? (
@@ -236,7 +245,7 @@ export default async function CountryPage({ params }: Params) {
           {neighbours.length ? (
             <div>
               <h2 className="flex items-center gap-2 luxe-firm font-luxe text-[1.25rem] font-semibold leading-tight text-ink-950">
-                <span aria-hidden="true">{visual.emoji}</span>
+                
                 <L>Shu hududdagi davlatlar</L>
               </h2>
               <ul className="mt-3 flex flex-wrap gap-2">

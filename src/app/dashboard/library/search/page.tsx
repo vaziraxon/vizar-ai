@@ -86,7 +86,7 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
         breadcrumb={[{ href: "/dashboard/library", label: <L>Kutubxona</L> }]}
         eyebrow={
           <>
-            <span aria-hidden="true">🔎</span> <L>Qidiruv</L>
+            <L>Qidiruv</L>
           </>
         }
         title={q ? <>«{q}»</> : <L>Kutubxonadan qidirish</L>}
@@ -95,7 +95,7 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
         <SearchForm defaultValue={q} className="mt-7 max-w-xl" />
         {lang !== "uz" ? (
           <p className="mt-3 max-w-xl text-body-sm text-ink-600">
-            🌐 <L>Qidiruv kitobning o‘zbekcha matni bo‘yicha ishlaydi; davlat nomlarini istalgan tilda yozishingiz mumkin.</L>
+            <L>Qidiruv kitobning o‘zbekcha matni bo‘yicha ishlaydi; davlat nomlarini istalgan tilda yozishingiz mumkin.</L>
           </p>
         ) : null}
       </LibraryHero>
@@ -122,9 +122,6 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
           <div className="grid gap-10 lg:grid-cols-12">
             <section aria-labelledby="hits-book" className="min-w-0 lg:col-span-8">
               <h2 id="hits-book" className="flex items-center gap-2 luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
-                <span aria-hidden="true" className="emoji-tile">
-                  📚
-                </span>
                 <L>Kitobdan</L>
                 <span className="text-body font-medium text-ink-500">· {result.chunks.length}</span>
               </h2>
@@ -162,9 +159,6 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
             {result.rules.length ? (
               <section aria-labelledby="hits-rules" className="lg:col-span-4">
                 <h2 id="hits-rules" className="flex items-center gap-2 luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
-                  <span aria-hidden="true" className="emoji-tile">
-                    🌍
-                  </span>
                   <L>Davlat qoidalari</L>
                 </h2>
                 <ul className="mt-5 space-y-2.5">

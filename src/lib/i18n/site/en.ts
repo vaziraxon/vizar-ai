@@ -682,7 +682,7 @@ export const en: SiteContent = {
     countryLabel: "Which visa",
     upload: "Choose a photo",
     replace: "Another photo",
-    uploadHint: "JPG or PNG. The photo is processed in your browser only — it is never uploaded or stored.",
+    uploadHint: "JPG or PNG.",
     loadError: "This file couldn't be opened. Choose a JPG or PNG photo.",
     editorHint: "Drag the photo with your finger or mouse, then zoom and straighten it with the sliders below. Keyboard: arrow keys.",
     editorLabel: "Photo frame: move with the arrow keys",

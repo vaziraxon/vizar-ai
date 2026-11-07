@@ -61,7 +61,7 @@ function SectionHeading({ id, emoji, eyebrow, title, subtitle, action }: { id: s
     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div className="max-w-2xl">
         <p className="eyebrow">
-          <span aria-hidden="true">{emoji}</span> <L>{eyebrow}</L>
+          <L>{eyebrow}</L>
         </p>
         <h2 id={id} className="luxe-firm mt-4 font-display text-ink-950">
           {title}
@@ -216,7 +216,7 @@ export default async function KnowledgeBasePage() {
         <div className="container-page relative grid gap-10 pb-12 pt-8 sm:pt-10 lg:grid-cols-12 lg:items-center lg:gap-12 lg:pb-16 lg:pt-12">
           <div className="animate-fade-up lg:col-span-6">
             <p className="eyebrow">
-              <span aria-hidden="true">📚</span> <L>Kutubxona — hozircha bepul</L>
+              <L>Kutubxona — hozircha bepul</L>
             </p>
             <h1 className="mt-4 luxe-firm font-luxe [text-wrap:balance] text-[clamp(2.4rem,4.6vw,4.2rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-ink-950">
               <L>Viza ma’lumotlar bazasi</L>
@@ -234,7 +234,7 @@ export default async function KnowledgeBasePage() {
                     href={`/dashboard/library/search?q=${encodeURIComponent(s.q)}`}
                     className="inline-flex items-center gap-2 rounded-pill border border-white/80 bg-surface/80 px-3 py-1.5 text-body-sm font-medium text-ink-800 backdrop-blur transition-colors hover:border-violet-300 hover:text-violet-700 dark:border-white/10 dark:hover:text-violet-300"
                   >
-                    {s.flag ? <CountryFlag code={s.flag} size="xs" /> : <span aria-hidden="true">{s.emoji}</span>}
+                    {s.flag ? <CountryFlag code={s.flag} size="xs" /> : null}
                     <L>{s.q}</L>
                   </Link>
                 </li>
@@ -244,7 +244,7 @@ export default async function KnowledgeBasePage() {
               {figures.map((f) => (
                 <div key={f.label} className="flex flex-col-reverse justify-end rounded-2xl border border-white/80 bg-surface/75 px-3.5 py-3 backdrop-blur dark:border-white/10">
                   <dt className="mt-1.5 flex items-center gap-1.5 text-caption font-medium leading-tight text-ink-600">
-                    <span aria-hidden="true">{f.emoji}</span>
+                    
                     <Plural n={f.value} word={f.label} />
                   </dt>
                   <dd className="font-luxe-italic text-[30px] font-semibold italic leading-none text-violet-600 [-webkit-text-stroke:0.35px_currentColor] dark:text-citron-300">{f.value}</dd>
@@ -337,7 +337,7 @@ export default async function KnowledgeBasePage() {
                       <span className="luxe-firm font-luxe text-[1.25rem] font-semibold leading-tight text-[1.4rem] text-ink-950 group-hover:text-brand-700">{chapterHeading(c)}</span>
                       <span className="mt-auto flex items-center justify-between pt-4 text-caption text-ink-500">
                         <span>
-                          📄 {c.sections.length} <Plural n={c.sections.length} word="bo‘lim" /> · ⏱ ~{readingMinutes(c.chars)} <L>daq</L>
+                          {c.sections.length} <Plural n={c.sections.length} word="bo‘lim" /> · ~{readingMinutes(c.chars)} <L>daq</L>
                         </span>
                         <ArrowRight size={16} aria-hidden="true" className="text-ink-300 transition-transform group-hover:translate-x-0.5 group-hover:text-violet-600" />
                       </span>
@@ -386,7 +386,7 @@ export default async function KnowledgeBasePage() {
                     <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-night-950/90 via-night-950/40 to-transparent" />
                     <span className="relative">
                       <span className="flex items-center gap-2">
-                        {visual.flag ? <CountryFlag code={visual.flag} size="sm" /> : <span aria-hidden="true" className="text-[22px]">{visual.emoji}</span>}
+                        {visual.flag ? <CountryFlag code={visual.flag} size="sm" /> : null}
                         <span className="rounded-pill bg-white/15 px-2.5 py-0.5 text-caption font-semibold backdrop-blur">
                           {list.filter((c) => c.code !== "EU").length} <Plural n={list.filter((c) => c.code !== "EU").length} word="davlat" />
                         </span>
@@ -439,7 +439,7 @@ export default async function KnowledgeBasePage() {
           <div className="relative grid gap-8 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-8">
               <p className="inline-flex items-center gap-2 rounded-pill border border-white/15 bg-white/10 px-3 py-1 text-[13px] font-medium">
-                <span aria-hidden="true">📚</span> <L>Kitobdan javob</L>
+                <L>Kitobdan javob</L>
               </p>
               <h2 className="luxe-firm mt-4 font-display">
                 <L>Savolingiz bormi? Javobni kitobdan toping</L>

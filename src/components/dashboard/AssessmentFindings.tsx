@@ -26,7 +26,7 @@ export function AssessmentFindings({ findings, className }: { findings: Assessme
             )}
           >
             <p className="flex items-center gap-2 text-body-sm font-semibold text-ink-900">
-              <span aria-hidden="true">{finding.emoji}</span>
+              
               {l(finding.title, vars)}
             </p>
             <p className="mt-1 text-body-sm text-ink-700">{l(finding.text, vars)}</p>

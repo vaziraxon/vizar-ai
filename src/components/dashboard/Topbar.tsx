@@ -85,7 +85,7 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
         )}
         {today && (
           <span className="ml-1 hidden items-center gap-1.5 rounded-pill border border-surface-border bg-surface px-3 py-1.5 text-caption font-semibold capitalize text-ink-600 2xl:inline-flex">
-            📅 {today}
+            {today}
           </span>
         )}
       </div>

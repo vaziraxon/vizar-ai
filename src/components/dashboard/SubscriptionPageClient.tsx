@@ -17,7 +17,6 @@ import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { cn, focusFirstInvalid } from "@/lib/utils";
 import type { MySubscription, SubscriptionRequestRow } from "@/lib/data/subscriptions";
 
-const PLAN_EMOJI: Record<SubscriptionPlanId, string> = { standard: "📄", premium: "⭐", pro: "💎", vip: "👑" };
 
 export function SubscriptionPageClient({
   initialPlan,
@@ -101,7 +100,7 @@ export function SubscriptionPageClient({
           <div>
             <p className="text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">{l("Faol obuna")}</p>
             <p className="mt-1 font-display text-body-lg font-bold text-ink-950">
-              {PLAN_EMOJI[isSubscriptionPlan(active.plan) ? active.plan : "standard"]} {planName(active.plan)} ·{" "}
+              {planName(active.plan)} ·{" "}
               {l("{date} gacha ochiq", { date: date(active.expiresAt) })}
             </p>
           </div>
@@ -150,7 +149,7 @@ export function SubscriptionPageClient({
                     />
                     <span className="min-w-0">
                       <span className="block text-body-sm font-bold text-ink-950">
-                        <span aria-hidden="true">{PLAN_EMOJI[id]}</span> {copy.name}
+                        {copy.name}
                       </span>
                       <span className="block text-body-sm text-ink-700">
                         {copy.price} {copy.period}
@@ -199,7 +198,7 @@ export function SubscriptionPageClient({
 
         <div className="card h-fit rounded-[24px] p-6">
           <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-950">
-            <span aria-hidden="true">🧭</span> {l("Qanday ishlaydi")}
+            {l("Qanday ishlaydi")}
           </p>
           <ol className="space-y-2 text-body-sm text-ink-600">
             <li>1. {l("Tarifni tanlab, aloqangizni qoldirasiz.")}</li>

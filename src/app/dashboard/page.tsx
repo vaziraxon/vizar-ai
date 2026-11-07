@@ -111,7 +111,7 @@ export default async function DashboardPage() {
 
   return (
     <DashboardShell
-      title={firstName ? "Xush kelibsiz, {name} 👋" : "Xush kelibsiz 👋"}
+      title={firstName ? "Xush kelibsiz, {name}" : "Xush kelibsiz"}
       titleVars={{ name: firstName }}
       subtitle="Viza tayyorgarligingiz — bir qarashda."
       heroImage={configured && !application ? undefined : matchDestination(destination)?.photo ?? "/images/travel/passports.webp"}

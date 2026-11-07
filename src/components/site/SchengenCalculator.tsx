@@ -48,7 +48,7 @@ export function SchengenCalculator({ embedded = false }: { embedded?: boolean } 
         <div className={cn(!embedded && "container-page", "grid max-w-6xl gap-6 lg:grid-cols-5")}>
           <div className={cn(card, "lg:col-span-3")}>
             <h2 className="luxe-firm flex items-center gap-3 font-luxe text-[1.35rem] font-semibold tracking-[-0.01em] text-ink-950 sm:text-[1.6rem]">
-              <span aria-hidden="true">🧳</span> {c.tripsTitle}
+              {c.tripsTitle}
             </h2>
             <p className="mt-1 text-body-sm text-ink-600">{c.tripsHint}</p>
 
@@ -133,7 +133,7 @@ export function SchengenCalculator({ embedded = false }: { embedded?: boolean } 
               {result &&
                 (result.overstay ? (
                   <p role="alert" className="mt-4 rounded-2xl bg-red-500/10 px-4 py-3 text-body-sm font-medium text-red-700 dark:text-red-300">
-                    ⚠️ {fill(c.overstay, { date: showDate(result.overstay.date), n: result.overstay.used })}
+                    {fill(c.overstay, { date: showDate(result.overstay.date), n: result.overstay.used })}
                   </p>
                 ) : (
                   <p className="mt-4 rounded-2xl bg-emerald-500/10 px-4 py-3 text-body-sm font-medium text-emerald-800 dark:text-emerald-300">✓ {c.ok}</p>
@@ -142,7 +142,7 @@ export function SchengenCalculator({ embedded = false }: { embedded?: boolean } 
 
             <div className={card}>
               <h2 className="flex items-center gap-2 text-body font-semibold text-ink-950">
-                <span aria-hidden="true">🗓️</span> {c.planTitle}
+                {c.planTitle}
               </h2>
               <label htmlFor="plan-entry" className={cn(label, "mt-4")}>
                 {c.planEntry}
@@ -165,11 +165,11 @@ export function SchengenCalculator({ embedded = false }: { embedded?: boolean } 
 
           <div className={cn(card, "lg:col-span-5")}>
             <h2 className="flex items-center gap-2 text-body font-semibold text-ink-950">
-              <span aria-hidden="true">📏</span> {c.ruleTitle}
+              {c.ruleTitle}
             </h2>
             <p className="mt-2 max-w-3xl text-body-sm text-ink-700">{c.ruleText}</p>
             <p className="mt-4 max-w-3xl rounded-2xl border border-amber-200 bg-amber-50/70 px-4 py-3 text-body-sm text-ink-700 dark:border-amber-400/20 dark:bg-amber-400/10">
-              ⚠️ {c.disclaimer}{" "}
+              {c.disclaimer}{" "}
               <a href={OFFICIAL_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold text-brand-700 underline-offset-2 hover:underline">
                 {c.official} <ExternalLink size={13} />
               </a>

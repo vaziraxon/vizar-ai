@@ -93,7 +93,7 @@ export default async function ChapterPage({ params }: Params) {
         title={chapterHeading(chapter)}
         subtitle={
           <>
-            📄 {chapter.sections.length} <Plural n={chapter.sections.length} word="bo‘lim" /> · ⏱ ~{readingMinutes(chapter.chars)} <L>daqiqalik o‘qish</L>
+            {chapter.sections.length} <Plural n={chapter.sections.length} word="bo‘lim" /> · ~{readingMinutes(chapter.chars)} <L>daqiqalik o‘qish</L>
           </>
         }
         aside={<AccessCard viewer={viewer} next={here} />}

@@ -15,28 +15,7 @@ import { useDialogFocus } from "@/lib/use-dialog-focus";
 import { useLocalState } from "@/lib/dashboard/use-local-state";
 
 // One tip per day (Uzbek source, translated through the phrase table)
-const DAILY_TIPS = [
-  "Pasportingiz safar tugaganidan keyin ham kamida 3–6 oy amal qilishi kerak.",
-  "Bank ko'chirmasi so'nggi oylardagi barqaror harakatni ko'rsatsin.",
-  "Suhbatda qisqa, aniq va hujjatlaringizga mos javob bering.",
-  "Barcha hujjatlarning nusxasini alohida papkada saqlang.",
-  "Ariza topshirishdan oldin rasmiy elchixona saytidagi talablarni tekshiring.",
-  "Safar marshrutingiz mehmonxona va chipta bronlariga mos bo'lsin.",
-];
 
-function DailyTip() {
-  const l = useL();
-  const tip = DAILY_TIPS[Math.floor(Date.now() / 86_400_000) % DAILY_TIPS.length]!;
-  return (
-    <div className="grain relative mx-1 mb-3 overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600 to-violet-600 p-4 text-white shadow-float">
-      <span aria-hidden="true" className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/15 blur-xl" />
-      <p className="relative text-[11px] font-semibold uppercase tracking-[0.1em] text-white/80">💡 {l("Kun maslahati")}</p>
-      <p className="relative mt-1.5 text-body-sm font-medium leading-snug" suppressHydrationWarning>
-        {l(tip)}
-      </p>
-    </div>
-  );
-}
 import type { SidebarNavItem } from "@/types";
 
 interface SidebarProps {
@@ -187,7 +166,6 @@ function NavLinks({
       })}
 
       <div className="mt-auto space-y-0.5 border-t border-surface-border pt-3 dark:border-white/10">
-        <DailyTip />
         <Link
           href="/"
           onClick={onNavigate}

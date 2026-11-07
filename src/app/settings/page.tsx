@@ -47,7 +47,7 @@ export default function SettingsPage() {
         <div className="card flex items-center justify-between gap-4 rounded-[24px] p-6">
           <div className="min-w-0">
             <p className={sectionTitle}>
-              <span aria-hidden="true">🌐</span> {l("Til")}
+              {l("Til")}
             </p>
             <p className="mt-0.5 text-caption text-ink-500">{l("Interfeys tili: o'zbek, rus yoki ingliz.")}</p>
           </div>
@@ -57,7 +57,7 @@ export default function SettingsPage() {
         <div className="card flex items-center justify-between gap-4 rounded-[24px] p-6">
           <div>
             <p className={sectionTitle}>
-              <span aria-hidden="true">🎬</span> {l("Tanishtiruv (onboarding)")}
+              {l("Tanishtiruv (onboarding)")}
             </p>
             <p className="text-caption text-ink-500">{l("Birinchi marta ko'rsatilgan tanishtiruv oynasini qayta oching.")}</p>
           </div>
@@ -72,7 +72,7 @@ export default function SettingsPage() {
 
         <div className="card rounded-[24px] p-6">
           <p className={`mb-1 ${sectionTitle}`}>
-            <span aria-hidden="true">🎨</span> {l("Ko'rinish")}
+            {l("Ko'rinish")}
           </p>
           <div className="flex items-center justify-between py-3">
             <div>
@@ -94,7 +94,7 @@ export default function SettingsPage() {
 
         <div className="card rounded-[24px] p-6">
           <p className={`mb-3 ${sectionTitle}`}>
-            <span aria-hidden="true">🔑</span> {l("Parolni o'zgartirish")}
+            {l("Parolni o'zgartirish")}
           </p>
           <p className="mb-4 text-body-sm text-ink-600">
             {l("Xavfsizlik uchun parolni o'zgartirish email orqali tasdiqlash havolasi bilan amalga oshiriladi.")}
@@ -109,7 +109,7 @@ export default function SettingsPage() {
 
         <div className="card rounded-[24px] p-6">
           <p className={`mb-3 ${sectionTitle}`}>
-            <span aria-hidden="true">🚪</span> {l("Hisobdan chiqish")}
+            {l("Hisobdan chiqish")}
           </p>
           <form action={logoutAction}>
             <button
@@ -123,7 +123,7 @@ export default function SettingsPage() {
 
         <div className="card rounded-[24px] border-red-200 p-6 dark:border-red-400/20">
           <p className="mb-1 flex items-center gap-2 text-body-sm font-semibold text-red-600 dark:text-red-300">
-            <span aria-hidden="true">⚠️</span> {l("Xavfli hudud")}
+            {l("Xavfli hudud")}
           </p>
           <p className="mb-3 text-caption text-ink-500">{l("Hisobni o'chirish qaytarib bo'lmaydigan amal.")}</p>
           <div className="mb-4">
