@@ -17,6 +17,7 @@ import { VIOLET_LEMON_STAGE } from "@/components/site/landing-styles";
 import { DESTINATION_BY_SLUG, PHOTO_CREDITS, type DestinationSlug } from "@/lib/site/registry";
 import { PHOTO_SPEC_BY_ID } from "@/lib/site/visa-photo";
 import { cn } from "@/lib/utils";
+import { EmojiIcon } from "@/components/site/EmojiIcon";
 
 // Same order as destinationsPage.docs in every language, then the Schengen extra.
 const DOC_EMOJI = ["🛂", "📸", "📝", "🏦", "🧳", "💼", "🩺"];
@@ -99,7 +100,7 @@ export function HowItWorksPage() {
             {how.outcomes.map((o, i) => (
               <div key={o.title} className={cn("md:px-8", i === 0 && "md:pl-0", i > 0 && "md:border-l md:border-surface-border")}>
                 <h3 className="luxe-firm flex items-center gap-2.5 font-luxe text-[1.55rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
-                  <span aria-hidden="true">{["🧭", "🗂️", "💪"][i]}</span>
+                  <EmojiIcon emoji={["🧭", "🗂️", "💪"][i]!} />
                   {o.title}
                 </h3>
                 <p className="mt-2 text-body text-ink-600">{o.desc}</p>
@@ -112,7 +113,7 @@ export function HowItWorksPage() {
             <ul className="space-y-5 lg:col-span-8">
               {how.honesty.map((h) => (
                 <li key={h.title} className="flex gap-4">
-                  <span aria-hidden="true" className="mt-0.5 shrink-0 text-[16px] leading-none">🚫</span>
+                  <span aria-hidden="true" className="mt-0.5 shrink-0 text-[16px] leading-none"><EmojiIcon emoji="🚫" /></span>
                   <div>
                     <p className="text-body font-semibold text-ink-900">{h.title}</p>
                     <p className="mt-0.5 text-body-sm text-ink-600">{h.desc}</p>
@@ -140,7 +141,7 @@ export function PricingPage() {
       <section className="pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
         <div className="container-page">
           <PricingPlans />
-          <p className="mt-8 text-center text-body-sm text-ink-600">💳 {p.note}</p>
+          <p className="mt-8 text-center text-body-sm text-ink-600">{p.note}</p>
         </div>
       </section>
 
@@ -220,7 +221,7 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
           >
             <div className="flex min-w-0 flex-col justify-center rounded-[24px] bg-gradient-to-br from-brand-50 via-surface to-violet-50 p-6 sm:p-9 lg:col-span-6">
               <div className="flex items-center justify-between gap-4">
-                <p className="text-body-sm font-semibold text-brand-700">📍 {copy.region}</p>
+                <p className="text-body-sm font-semibold text-brand-700">{copy.region}</p>
                 <Flag code={meta.flag} size={56} className="shrink-0 shadow-card ring-4 ring-surface" />
               </div>
               <h1 className="luxe-firm mt-3 break-words font-luxe text-[clamp(1.9rem,8.6vw,2.7rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-ink-950 sm:text-[3.4rem] lg:text-[clamp(2.6rem,3.9vw,3.5rem)]">
@@ -261,7 +262,7 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
             <div className="overflow-hidden rounded-[28px] border border-surface-border bg-surface">
               <div className="flex items-center justify-between gap-4 border-b border-surface-border px-5 py-5 sm:px-7">
                 <h2 className="luxe-firm flex items-center gap-3 font-luxe text-[1.35rem] font-semibold leading-tight tracking-[-0.01em] text-ink-950 sm:text-[1.7rem]">
-                  <span aria-hidden="true">📋</span>
+                  <span aria-hidden="true"><EmojiIcon emoji="📋" /></span>
                   {copy.docsTitle ?? page.docsTitle}
                 </h2>
                 <span className="shrink-0 rounded-pill bg-brand-50 px-2.5 py-1 text-caption font-semibold text-brand-700">{docs.length}</span>
@@ -273,20 +274,20 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-[17px] leading-none">
-                      {(copy.docs ? OWN_DOC_EMOJI[slug] : DOC_EMOJI)?.[i] ?? "📄"}
+                      <EmojiIcon emoji={(copy.docs ? OWN_DOC_EMOJI[slug] : DOC_EMOJI)?.[i] ?? "📄"} />
                     </span>
                     <span className="text-body font-semibold text-ink-900">{doc}</span>
                   </li>
                 ))}
               </ol>
             </div>
-            <p className="mt-5 rounded-2xl border border-amber-200 bg-amber-50/70 dark:border-amber-400/20 dark:bg-amber-400/10 px-4 py-3 text-body-sm text-ink-700">⚠️ {copy.docsNote ?? page.docsNote}</p>
+            <p className="mt-5 rounded-2xl border border-amber-200 bg-amber-50/70 dark:border-amber-400/20 dark:bg-amber-400/10 px-4 py-3 text-body-sm text-ink-700">{copy.docsNote ?? page.docsNote}</p>
           </div>
 
           {/* Side rail */}
           <aside data-reveal className="lg:col-span-4">
             <div className="sticky top-28 rounded-[28px] bg-gradient-to-br from-[#5B21B6] to-[#7138EC] p-7 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_24px_48px_-20px_rgba(91,33,182,0.75)]">
-              <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-[24px] leading-none">✈️</span>
+              <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-[24px] leading-none"><EmojiIcon emoji="✈️" className="text-white" /></span>
               <p className="luxe-firm mt-5 font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em]">{page.ctaTitle}</p>
               <p className="mt-2 text-body-sm text-white/80">{page.ctaText}</p>
               <Link href="/register" className="btn btn-sheen btn-lg group mt-6 w-full bg-gold-300 text-night hover:bg-gold-200">
@@ -300,7 +301,7 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
                 className="mt-4 flex items-center gap-3 rounded-[24px] border border-surface-border bg-surface p-4 transition-colors hover:bg-surface-tint"
               >
                 <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-[20px] leading-none">
-                  🧮
+                  <EmojiIcon emoji="🧮" />
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-body-sm font-semibold text-ink-900">{site.schengenCalc.title}</span>
@@ -315,7 +316,7 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
                 className="mt-4 flex items-center gap-3 rounded-[24px] border border-surface-border bg-surface p-4 transition-colors hover:bg-surface-tint"
               >
                 <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-[20px] leading-none">
-                  📸
+                  <EmojiIcon emoji="📸" />
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-body-sm font-semibold text-ink-900">{site.visaPhoto.title}</span>
@@ -330,7 +331,7 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
                 className="mt-4 flex items-center gap-3 rounded-[24px] border border-surface-border bg-surface p-4 transition-colors hover:bg-surface-tint"
               >
                 <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-[20px] leading-none">
-                  📝
+                  <EmojiIcon emoji="📝" />
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-body-sm font-semibold text-ink-900">{site.visaLetters.title}</span>
@@ -345,7 +346,7 @@ export function DestinationPage({ slug }: { slug: DestinationSlug }) {
                 className="mt-4 flex items-center gap-3 rounded-[24px] border border-surface-border bg-surface p-4 transition-colors hover:bg-surface-tint"
               >
                 <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-[20px] leading-none">
-                  🗓️
+                  <EmojiIcon emoji="🗓️" />
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-body-sm font-semibold text-ink-900">{site.visaTiming.title}</span>

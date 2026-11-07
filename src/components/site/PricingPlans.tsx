@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { useSite } from "@/lib/i18n/site";
 import { cn } from "@/lib/utils";
+import { EmojiIcon } from "@/components/site/EmojiIcon";
 
 type PlanId = "standard" | "premium" | "pro" | "vip";
 
@@ -163,7 +164,7 @@ function B2BStrip() {
         </span>
         <div>
           <p className="luxe-firm font-luxe text-[1.3rem] font-semibold leading-tight tracking-[-0.01em] text-ink-950">{b.label}</p>
-          <span className="mt-1 inline-flex rounded-pill bg-surface-tint px-2.5 py-0.5 text-caption font-semibold text-ink-600">⏳ {b.soon}</span>
+          <span className="mt-1 inline-flex rounded-pill bg-surface-tint px-2.5 py-0.5 text-caption font-semibold text-ink-600">{b.soon}</span>
         </div>
       </div>
       <ul className="grid flex-1 grid-cols-1 gap-3 sm:grid-cols-3 lg:border-l lg:border-surface-border lg:pl-6">

@@ -7,6 +7,7 @@ import { HeroSky } from "@/components/site/home/HeroSky";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { useL } from "@/components/i18n/L";
 import { useSite } from "@/lib/i18n/site";
+import { EmojiIcon } from "@/components/site/EmojiIcon";
 
 /** The library itself; signed out, the middleware sends the visitor to log in first and back there after */
 const LIBRARY_HREF = "/dashboard/library";
@@ -103,7 +104,7 @@ export function LibraryPromo() {
                 {INSIDE.map(([emoji, label]) => (
                   <li key={label} className="flex items-center gap-2.5 rounded-2xl border border-surface-border bg-surface px-3 py-3 text-body-sm font-semibold text-ink-900">
                     <span aria-hidden="true" className="text-[20px] leading-none">
-                      {emoji}
+                      <EmojiIcon emoji={emoji} />
                     </span>
                     {l(label)}
                   </li>

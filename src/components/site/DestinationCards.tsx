@@ -9,6 +9,7 @@ import { useSite } from "@/lib/i18n/site";
 import { GOLD_FOIL, VIOLET_LEMON_STAGE } from "@/components/site/landing-styles";
 import { DESTINATIONS, type DestinationSlug, type FlagCode } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
+import { EmojiIcon } from "@/components/site/EmojiIcon";
 
 /** A soft violet→lemon stage holding the cards; a touch narrower than the page, so they come out a little smaller. */
 export function DestinationStage({ children, className }: { children: ReactNode; className?: string }) {
@@ -105,7 +106,7 @@ export function DestinationGrid({ exclude, limit }: { exclude?: DestinationSlug;
               !d.available && (
                 <span className="absolute right-2 top-3 rounded-pill bg-surface/90 px-1.5 py-1 text-[12px] font-semibold leading-none text-ink-600 backdrop-blur sm:right-3 sm:top-3.5 sm:px-2">
                   <span aria-hidden="true" className="hidden sm:inline">
-                    ⏳{" "}
+                    
                   </span>
                   {site.destinationsPage.statusSoon}
                 </span>

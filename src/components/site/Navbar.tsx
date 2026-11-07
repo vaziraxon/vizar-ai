@@ -12,6 +12,7 @@ import { useSite } from "@/lib/i18n/site";
 import { chapterSlugEmoji } from "@/lib/knowledge/visuals";
 import { DESTINATIONS, TOOLS, TOOL_BY_ID, type DestinationSlug, type ToolMeta } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
+import { EmojiIcon } from "@/components/site/EmojiIcon";
 
 type MenuId = "tools" | "destinations" | "library";
 
@@ -47,7 +48,7 @@ function ToolRow({ tool, onNavigate, tabIndex }: { tool: ToolMeta; onNavigate?: 
         aria-hidden="true"
         className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-100 bg-brand-50/60 text-[18px] leading-none transition-colors duration-150 group-hover:border-brand-200 group-hover:bg-surface"
       >
-        {tool.emoji}
+        <EmojiIcon emoji={tool.emoji} />
       </span>
       <span className="min-w-0 flex-1">
         <span className="flex items-center gap-2">
@@ -114,7 +115,7 @@ function FreeToolRow({
         aria-hidden="true"
         className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-100 bg-brand-50/60 text-[18px] leading-none"
       >
-        {emoji}
+        <EmojiIcon emoji={emoji} />
       </span>
       <span className="min-w-0 flex-1">
         <span className="block truncate text-body-sm font-semibold text-ink-900">{title}</span>
@@ -179,7 +180,7 @@ function ChapterRow({ index, onNavigate, tabIndex }: { index: number; onNavigate
         aria-hidden="true"
         className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-100 bg-brand-50/60 text-[18px] leading-none transition-colors duration-150 group-hover:border-brand-200 group-hover:bg-surface"
       >
-        {chapterSlugEmoji(slug)}
+        <EmojiIcon emoji={chapterSlugEmoji(slug)} />
       </span>
       <span className="min-w-0 flex-1">
         <span className="block text-[10.5px] font-semibold uppercase tracking-[0.1em] text-ink-500">{chapter.label}</span>
@@ -493,7 +494,7 @@ export function Navbar() {
                           aria-hidden="true"
                           className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-violet-600 text-[22px] leading-none shadow-button"
                         >
-                          {FEATURED_TOOL.emoji}
+                          <EmojiIcon emoji={FEATURED_TOOL.emoji} className="text-white" />
                         </span>
                       }
                     />
@@ -532,7 +533,7 @@ export function Navbar() {
                     onClick={close}
                     className="inline-flex shrink-0 items-center gap-2 text-body-sm font-semibold text-brand-700 hover:text-violet-600 dark:hover:text-violet-400"
                   >
-                    <span aria-hidden="true">{menu === "tools" ? "🧰" : menu === "library" ? "📚" : "🌍"}</span>
+                    <EmojiIcon emoji={menu === "tools" ? "🧰" : menu === "library" ? "📚" : "🌍"} />
                     {menu === "tools" ? site.nav.allTools : menu === "library" ? site.nav.libraryAll : site.nav.allDestinations}
                     <ArrowRight size={14} />
                   </Link>

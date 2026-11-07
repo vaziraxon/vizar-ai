@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { HeroSky } from "@/components/site/home/HeroSky";
 import { EmojiSticker } from "@/components/site/primitives";
 import { cn } from "@/lib/utils";
+import { EmojiIcon } from "@/components/site/EmojiIcon";
 
 /**
  * Header band for inner public pages: the landing sky, a large emoji tile as
@@ -48,7 +49,7 @@ export function PageHero({
                 centered && "mx-auto"
               )}
             >
-              {emoji}
+              <EmojiIcon emoji={emoji} />
             </span>
           )}
           {eyebrow && (

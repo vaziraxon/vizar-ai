@@ -10,6 +10,7 @@ import { useLanguage } from "@/lib/language-context";
 import { DESTINATIONS, TOOL_BY_ID } from "@/lib/site/registry";
 import { REVIEW_SPAM, REVIEWABLE_TOOLS } from "@/lib/site/testimonials";
 import { cn } from "@/lib/utils";
+import { EmojiIcon } from "@/components/site/EmojiIcon";
 
 /** Where sign-in sends the customer back: the landing page reopens this dialog. */
 const RETURN_TO = "/?review=1";
@@ -190,7 +191,7 @@ export function ReviewComposer({ className }: { className?: string }) {
                     </option>
                     {REVIEWABLE_TOOLS.map((id) => (
                       <option key={id} value={id}>
-                        {TOOL_BY_ID[id].emoji} {site.tools[id].name}
+                        <EmojiIcon emoji={TOOL_BY_ID[id].emoji} className="inline align-[-0.15em]" /> {site.tools[id].name}
                       </option>
                     ))}
                   </select>
