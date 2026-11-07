@@ -30,25 +30,39 @@ export function NotificationsList({ notifications }: { notifications: Notificati
   const l = useL();
   const [filter, setFilter] = useState<Filter>("all");
   const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState("");
 
   const filtered = notifications.filter((n) => (filter === "unread" ? !n.is_read : true));
 
   function toggleRead(id: string) {
     startTransition(async () => {
-      await markNotificationReadAction(id);
+      setError("");
+      try {
+        const result = await markNotificationReadAction(id);
+        if (!result.ok) return setError(result.error);
+      } catch {
+        return setError("Amalni bajarib bo'lmadi. Qayta urinib ko'ring.");
+      }
       router.refresh();
     });
   }
 
   function markAllRead() {
     startTransition(async () => {
-      await markAllNotificationsReadAction();
+      setError("");
+      try {
+        const result = await markAllNotificationsReadAction();
+        if (!result.ok) return setError(result.error);
+      } catch {
+        return setError("Amalni bajarib bo'lmadi. Qayta urinib ko'ring.");
+      }
       router.refresh();
     });
   }
 
   return (
     <div>
+      {error && <p role="alert" className="mb-3 text-body-sm font-medium text-red-600 dark:text-red-300">{l(error)}</p>}
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <div className="flex gap-2">
           <button

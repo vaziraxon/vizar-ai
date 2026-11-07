@@ -27,6 +27,7 @@ export function ConsultationPageClient({ requests }: { requests: ConsultationRow
   const [formError, setFormError] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [cancelError, setCancelError] = useState("");
 
   const update = (key: keyof typeof EMPTY, value: string) => setForm((f) => ({ ...f, [key]: value }));
 
@@ -58,7 +59,17 @@ export function ConsultationPageClient({ requests }: { requests: ConsultationRow
   }
 
   async function handleCancel(id: string) {
-    await cancelConsultationAction(id);
+    setCancelError("");
+    try {
+      const result = await cancelConsultationAction(id);
+      if (!result.ok) {
+        setCancelError(result.error);
+        return;
+      }
+    } catch {
+      setCancelError("Amalni bajarib bo'lmadi. Qayta urinib ko'ring.");
+      return;
+    }
     router.refresh();
   }
 
@@ -150,6 +161,7 @@ export function ConsultationPageClient({ requests }: { requests: ConsultationRow
       {requests.length > 0 && (
         <div className="mt-8">
           <p className="mb-3 text-body-sm font-semibold text-ink-900 dark:text-white">{l("Mening so'rovlarim")}</p>
+          {cancelError && <p role="alert" className="mb-3 text-body-sm font-medium text-red-600 dark:text-red-300">{l(cancelError)}</p>}
           <ul className="space-y-3">
             {requests.map((c) => {
               const request = readRequest(c.notes, c.specialist_name);

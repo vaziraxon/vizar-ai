@@ -62,6 +62,7 @@ export function RealDocumentCard({
   const [progress, setProgress] = useState(0);
   const [dragOver, setDragOver] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [fileError, setFileError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const doc = existingDoc;
@@ -89,15 +90,29 @@ export function RealDocumentCard({
 
   async function handlePreview() {
     if (!doc?.storage_path) return;
-    const result = await getSignedDocumentUrlAction(doc.storage_path);
-    if (result.ok) {
-      window.open(result.data, "_blank", "noopener,noreferrer");
+    setFileError("");
+    try {
+      const result = await getSignedDocumentUrlAction(doc.storage_path);
+      if (result.ok) window.open(result.data, "_blank", "noopener,noreferrer");
+      else setFileError(result.error);
+    } catch {
+      setFileError("Amalni bajarib bo'lmadi. Qayta urinib ko'ring.");
     }
   }
 
   async function handleDelete() {
     if (!doc) return;
-    await deleteDocumentAction(doc.id);
+    setFileError("");
+    try {
+      const result = await deleteDocumentAction(doc.id);
+      if (!result.ok) {
+        setFileError(result.error);
+        return;
+      }
+    } catch {
+      setFileError("Amalni bajarib bo'lmadi. Qayta urinib ko'ring.");
+      return;
+    }
     router.refresh();
   }
 
@@ -122,6 +137,12 @@ export function RealDocumentCard({
       {check && (
         <p className="text-caption text-ink-600">
           <span className="font-semibold text-ink-700">{l("Tekshiring")}:</span> {l(check)}
+        </p>
+      )}
+
+      {fileError && (
+        <p role="alert" className="flex items-center gap-1.5 text-caption font-medium text-red-600 dark:text-red-300">
+          <AlertTriangle size={13} /> {l(fileError)}
         </p>
       )}
 
