@@ -225,7 +225,7 @@ export const uz: SiteContent = {
       region: "Osiyo",
       menu: "Turistik, talaba va ish vizalari",
       intro:
-        "Janubiy Koreya vizasi uchun hujjatlar to‘plami viza turiga qarab farq qiladi. Ta’lim va ish vizalarida qo‘shimcha hujjatlar so‘ralishi mumkin.",
+        "O‘zbekiston fuqarolariga qisqa safar uchun ham viza kerak. Janubiy Koreya vizasi uchun hujjatlar to‘plami viza turiga qarab farq qiladi. Ta’lim va ish vizalarida qo‘shimcha hujjatlar so‘ralishi mumkin.",
       visaTypes: ["Turistik", "Talaba", "Ish"],
     },
     uae: {
