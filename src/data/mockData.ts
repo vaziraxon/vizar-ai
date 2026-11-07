@@ -100,9 +100,9 @@ export const NEXT_STEPS = [
 // --- Dashboard sidebar ----------------------------------------------------
 
 // Primary app navigation — order follows the user's visa journey. The
-// Sidebar groups "/dashboard/*" tools separately from account items.
+// Sidebar groups "/dashboard/*" tools separately from account items. The
+// overview (/dashboard) has no entry: the logo and the phone tab bar open it.
 export const SIDEBAR_NAV: SidebarNavItem[] = [
-  { icon: LayoutDashboard, label: "Umumiy ko'rinish", href: "/dashboard" },
   { icon: Gauge, label: "Tayyorgarlik", href: "/dashboard/readiness" },
   { icon: FolderOpen, label: "Hujjatlar", href: "/dashboard/documents" },
   { icon: ListChecks, label: "Checklist", href: "/dashboard/checklist" },
