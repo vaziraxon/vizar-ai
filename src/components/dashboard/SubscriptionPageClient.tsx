@@ -39,6 +39,7 @@ export function SubscriptionPageClient({
   const [formError, setFormError] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [cancelError, setCancelError] = useState("");
 
   const planName = (id: string) => (isSubscriptionPlan(id) ? site.pricing.plans[id].name : id);
   const date = (iso: string) => new Date(iso).toLocaleDateString(locale, { dateStyle: "medium" });
@@ -71,7 +72,17 @@ export function SubscriptionPageClient({
   }
 
   async function handleCancel(id: string) {
-    await cancelSubscriptionRequestAction(id);
+    setCancelError("");
+    try {
+      const result = await cancelSubscriptionRequestAction(id);
+      if (!result.ok) {
+        setCancelError(result.error);
+        return;
+      }
+    } catch {
+      setCancelError("Amalni bajarib bo'lmadi. Qayta urinib ko'ring.");
+      return;
+    }
     router.refresh();
   }
 
@@ -200,6 +211,7 @@ export function SubscriptionPageClient({
       {requests.length > 0 && (
         <div className="mt-8">
           <p className="mb-3 text-body-sm font-semibold text-ink-900 dark:text-white">{l("Mening so'rovlarim")}</p>
+          {cancelError && <p role="alert" className="mb-3 text-body-sm font-medium text-red-600 dark:text-red-300">{l(cancelError)}</p>}
           <ul className="space-y-3">
             {requests.map((r) => (
               <li key={r.id} className="card flex flex-wrap items-center justify-between gap-3 rounded-[20px] p-4">
