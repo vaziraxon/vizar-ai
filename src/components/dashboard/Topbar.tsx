@@ -8,6 +8,7 @@ import { LanguageSelector } from "@/components/ui/LanguageSelector";
 import { LogoMark } from "@/components/ui/Logo";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { DemoModeBadge } from "@/components/dashboard/DemoModeBadge";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { logoutAction } from "@/lib/actions/auth";
 import { useLanguage } from "@/lib/language-context";
 import { useMyAvatar } from "@/lib/profile/use-my-avatar";
@@ -76,9 +77,12 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
             Ctrl K
           </kbd>
         </button>
-        <div className="ml-1 hidden xl:block">
-          <DemoModeBadge />
-        </div>
+        {/* Only when there is no database: signed-in users see their real data */}
+        {!isSupabaseConfigured() && (
+          <div className="ml-1 hidden xl:block">
+            <DemoModeBadge />
+          </div>
+        )}
         {today && (
           <span className="ml-1 hidden items-center gap-1.5 rounded-pill border border-surface-border bg-surface px-3 py-1.5 text-caption font-semibold capitalize text-ink-600 2xl:inline-flex">
             📅 {today}

@@ -74,15 +74,22 @@ export const NAV_KEY_BY_HREF: Record<string, string> = {
 
 // Menu groups, in order; items keep this order inside their group. Anything
 // not listed (agency and admin menus) lands in the first group.
+// Main follows the visa journey: assess → what to do → score → what to
+// gather → upload → track → results. Practice next, then the tools that
+// make documents, planning tools, and the reference library last.
 const NAV_GROUPS: { id: string; titleKey: string; hrefs: string[] }[] = [
-  { id: "main", titleKey: "app_section_main", hrefs: ["/dashboard/readiness", "/dashboard/documents", "/dashboard/checklist", "/dashboard/tracker"] },
-  { id: "ai", titleKey: "app_section_ai", hrefs: ["/assessment", "/dashboard/interview", "/dashboard/rejection-analysis", "/dashboard/assistant"] },
+  {
+    id: "main",
+    titleKey: "app_section_main",
+    hrefs: ["/assessment", "/recommendations", "/dashboard/readiness", "/dashboard/checklist", "/dashboard/documents", "/dashboard/tracker", "/reports"],
+  },
+  { id: "ai", titleKey: "app_section_ai", hrefs: ["/dashboard/interview", "/dashboard/assistant", "/dashboard/rejection-analysis"] },
   {
     id: "tools",
     titleKey: "app_section_tools",
-    hrefs: ["/dashboard/library", "/dashboard/tools/photo", "/dashboard/tools/letters", "/dashboard/tools/timing", "/dashboard/tools/schengen"],
+    hrefs: ["/dashboard/tools/photo", "/dashboard/tools/letters", "/dashboard/tools/timing", "/dashboard/tools/schengen", "/dashboard/library"],
   },
-  { id: "help", titleKey: "app_section_help", hrefs: ["/dashboard/experts", "/recommendations", "/reports", "/notifications"] },
+  { id: "help", titleKey: "app_section_help", hrefs: ["/dashboard/experts", "/notifications"] },
   { id: "account", titleKey: "app_section_account", hrefs: ["/dashboard/subscription", "/profile", "/settings"] },
 ];
 const COLLAPSED_KEY = "vizar-sidebar-collapsed";
