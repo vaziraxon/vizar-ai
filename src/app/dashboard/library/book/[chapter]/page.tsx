@@ -50,7 +50,7 @@ function ChapterLink({ chapter, direction }: { chapter: OutlineChapter; directio
           {next ? <ArrowRight size={13} aria-hidden="true" /> : null}
         </span>
         <span className="mt-1 block text-body-sm font-semibold text-ink-900 group-hover:text-brand-700">
-          {chapterEmoji(chapter)} {chapterTitle(chapter, " — ")}
+          {chapterTitle(chapter, " — ")}
         </span>
       </span>
     </Link>
@@ -84,10 +84,9 @@ export default async function ChapterPage({ params }: Params) {
       <LibraryHero
         breadcrumb={[{ href: "/dashboard/library", label: <L>Kutubxona</L> }]}
         photo={cover.photo}
-        stickers={cover.photo ? undefined : cover.emojis}
         eyebrow={
           <>
-            <span aria-hidden="true">{chapterEmoji(chapter)}</span> {chapter.label}
+            {chapter.label}
           </>
         }
         title={chapterHeading(chapter)}

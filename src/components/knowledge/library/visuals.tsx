@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { BookOpen } from "lucide-react";
 import type { Cover } from "@/lib/knowledge/visuals";
 import { cn } from "@/lib/utils";
 
@@ -33,7 +34,7 @@ export function CountryFlag({ code, size = "md", className }: { code: string; si
 
 /**
  * Card / header artwork: a real travel photo, or — for the thematic
- * chapters — the soft violet→lemon wash with three large emoji.
+ * chapters — the soft violet→lemon wash with a book mark.
  */
 export function CoverArt({
   cover,
@@ -67,18 +68,14 @@ export function CoverArt({
       ) : (
         <span aria-hidden="true" className="absolute inset-0">
           <span className="absolute inset-0 bg-gradient-to-br from-violet-100 via-surface to-lemon-200 dark:from-violet-100/60 dark:via-surface/40 dark:to-lemon-300/[0.06]" />
-          {/* Dotted paper texture + a soft light behind the main emoji */}
+          {/* Dotted paper texture + a soft light behind a calm book mark */}
           <span className="absolute inset-0 opacity-60 [background-image:radial-gradient(rgba(255,255,255,0.9)_1px,transparent_1.5px)] [background-size:16px_16px] dark:opacity-10" />
           <span className="absolute left-1/2 top-1/2 h-[58%] w-[42%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/70 blur-xl dark:bg-white/10" />
-          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[68px] leading-none drop-shadow-md transition-transform duration-500 ease-premium group-hover:scale-110">
-            {cover.emojis[0]}
-          </span>
-          <span className="absolute left-[11%] top-[16%] -rotate-12 text-[38px] leading-none drop-shadow transition-transform duration-500 ease-premium group-hover:-rotate-3">
-            {cover.emojis[1]}
-          </span>
-          <span className="absolute bottom-[14%] right-[12%] rotate-12 text-[42px] leading-none drop-shadow transition-transform duration-500 ease-premium group-hover:rotate-3">
-            {cover.emojis[2]}
-          </span>
+          <BookOpen
+            size={44}
+            strokeWidth={1.3}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-violet-700/70 transition-transform duration-500 ease-premium group-hover:scale-110 dark:text-violet-200/70"
+          />
         </span>
       )}
       {children}

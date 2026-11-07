@@ -60,7 +60,6 @@ export default async function SectionPage({ params }: Params) {
   const chapter = outline.find((c) => c.slug === section.chapterSlug);
   const here = libraryHref.section(section.chapterSlug, section.sectionSlug);
   const title = section.isIntro ? chapterHeading({ label: section.chapterLabel, title: section.chapterTitle }) : section.sectionTitle;
-  const emoji = chapter ? chapterEmoji(chapter) : "📘";
 
   return (
     <>
