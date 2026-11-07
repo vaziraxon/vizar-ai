@@ -4,6 +4,7 @@ import { LocalLink as Link } from "@/components/site/LocalLink";
 import { ArrowUpRight } from "lucide-react";
 import { EmojiSticker } from "@/components/site/primitives";
 import { useSite } from "@/lib/i18n/site";
+import { EmojiIcon } from "@/components/site/EmojiIcon";
 
 /**
  * Closing call-to-action shared by every public page — the violet→lime wash
@@ -47,9 +48,7 @@ export function FinalCTA({
           </div>
 
           <div className="relative mx-auto max-w-2xl">
-            <p aria-hidden="true" className="mb-6 text-[30px] leading-none md:hidden">
-              ✈️ 🛂 🌍
-            </p>
+            <p aria-hidden="true" className="mb-6 flex gap-4 text-[30px] leading-none md:hidden"><EmojiIcon emoji="✈️" /><EmojiIcon emoji="🛂" /><EmojiIcon emoji="🌍" /></p>
             <h2
               id="cta-title"
               className="font-display text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold leading-[1.08] tracking-[-0.04em] text-ink-950"

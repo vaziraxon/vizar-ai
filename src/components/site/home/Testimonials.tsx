@@ -10,6 +10,7 @@ import { useSite } from "@/lib/i18n/site";
 import { DESTINATION_BY_SLUG, TOOL_BY_ID, type DestinationSlug, type ToolId } from "@/lib/site/registry";
 import { SAMPLE_CARDS, SAMPLE_TESTIMONIALS_ENABLED, type Testimonial } from "@/lib/site/testimonials";
 import { cn } from "@/lib/utils";
+import { EmojiIcon } from "@/components/site/EmojiIcon";
 
 type Card = {
   key: string;
@@ -106,7 +107,7 @@ function StoryCard({ card, width, labels, hidden }: { card: Card; width?: number
             <Image src={card.avatar} alt="" width={44} height={44} className="h-11 w-11 shrink-0 rounded-full object-cover" />
           ) : card.emoji ? (
             <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-100 to-citron-100 text-[20px] dark:from-violet-500/20 dark:to-citron-300/10">
-              {card.emoji}
+              <EmojiIcon emoji={card.emoji} />
             </span>
           ) : (
             <span aria-hidden="true" className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[14px] font-bold text-white", toneFor(card.name))}>
@@ -158,7 +159,7 @@ function StoryCard({ card, width, labels, hidden }: { card: Card; width?: number
 
         <footer className="mt-4 flex items-end justify-between gap-3">
           <p className="text-caption text-ink-500">
-            <span aria-hidden="true">{TOOL_BY_ID[card.tool].emoji} </span>
+            <EmojiIcon emoji={TOOL_BY_ID[card.tool].emoji} className="mr-1 inline align-[-0.15em]" />
             {site.tools[card.tool].name}
           </p>
           {card.photo ? (

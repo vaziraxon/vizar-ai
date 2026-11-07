@@ -8,6 +8,7 @@ import { useL } from "@/components/i18n/L";
 import { TOOL_PROMOS, type ToolKey } from "@/lib/dashboard/tool-promos";
 import { TOOL_BY_ID, type ToolId, type ToolStatus } from "@/lib/site/registry";
 import { cn } from "@/lib/utils";
+import { EmojiIcon } from "@/components/site/EmojiIcon";
 
 /** A tool from the registry, or one of the four promoted dashboard tools */
 type IndexItem = { tool: ToolId } | { promo: ToolKey };
@@ -32,7 +33,7 @@ function ToolIndexCard({ href, emoji, name, status, desc }: { href: string; emoj
           aria-hidden="true"
           className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-[26px] leading-none ring-1 ring-brand-100"
         >
-          {emoji}
+          <EmojiIcon emoji={emoji} />
         </span>
         <span className="min-w-0 flex-1">
           <span className="flex flex-wrap items-center gap-2">
@@ -102,7 +103,7 @@ function ToolEntryList({ entries, className }: { entries: ToolEntry[]; className
               aria-hidden="true"
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-100 bg-brand-50/60 text-[18px] leading-none"
             >
-              {t.emoji}
+              <EmojiIcon emoji={t.emoji} />
             </span>
             <span className="min-w-0 flex-1">
               <span className="block truncate text-body-sm font-semibold text-ink-900">{t.name}</span>

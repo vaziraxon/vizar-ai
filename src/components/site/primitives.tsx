@@ -5,6 +5,7 @@ import { ArrowRight, Check, Clock3 } from "lucide-react";
 import type { ToolStatus } from "@/lib/site/registry";
 import { useSite } from "@/lib/i18n/site";
 import { cn } from "@/lib/utils";
+import { EmojiIcon } from "@/components/site/EmojiIcon";
 
 // Violet pill with a soft glow, in step with the navbar sign-in button (landing look)
 export const VIOLET_PILL =
@@ -97,7 +98,7 @@ export function Eyebrow({ emoji, children, className }: { emoji?: string; childr
     <p className={cn("eyebrow", className)}>
       {emoji && (
         <span aria-hidden="true" className="text-[14px] leading-none">
-          {emoji}
+          <EmojiIcon emoji={emoji} />
         </span>
       )}
       {children}
@@ -110,7 +111,7 @@ export function EmojiTile({ emoji, size = "md", className }: { emoji: string; si
   const sizes = { sm: "h-8 w-8 rounded-lg text-[16px]", md: "", lg: "h-12 w-12 rounded-2xl text-[24px]" };
   return (
     <span aria-hidden="true" className={cn("emoji-tile", sizes[size], className)}>
-      {emoji}
+      <EmojiIcon emoji={emoji} />
     </span>
   );
 }
@@ -148,11 +149,11 @@ export function EmojiSticker({
     >
       {label ? (
         <>
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-[18px] leading-none">{emoji}</span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-[18px] leading-none"><EmojiIcon emoji={emoji} /></span>
           <span className="whitespace-nowrap text-body-sm font-semibold text-ink-900">{label}</span>
         </>
       ) : (
-        <span className="leading-none">{emoji}</span>
+        <span className="leading-none"><EmojiIcon emoji={emoji} /></span>
       )}
     </span>
   );

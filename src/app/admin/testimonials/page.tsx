@@ -14,6 +14,7 @@ import {
 import { SITE_CONTENT } from "@/lib/i18n/site";
 import { DESTINATIONS, DESTINATION_BY_SLUG, TOOLS, type DestinationSlug, type ToolId } from "@/lib/site/registry";
 import { getTestimonialEditorContext, type ConsentRow, type TestimonialRow } from "@/lib/testimonials/admin";
+import { EmojiIcon } from "@/components/site/EmojiIcon";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Mijozlar sharhlari", robots: { index: false } };
@@ -69,7 +70,7 @@ function ReviewForm({
           </option>
           {TOOLS.map((t) => (
             <option key={t.id} value={t.id}>
-              {t.emoji} {uz.tools[t.id].name}
+              <EmojiIcon emoji={t.emoji} className="inline align-[-0.15em]" /> {uz.tools[t.id].name}
             </option>
           ))}
         </select>
