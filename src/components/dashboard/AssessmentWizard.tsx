@@ -404,13 +404,14 @@ export function AssessmentWizard({
                   key={doc}
                   className="flex items-center justify-between gap-4 rounded-2xl border border-surface-border bg-surface px-3 py-2.5"
                 >
-                  <span className="flex items-center gap-3 text-body-sm font-medium text-ink-900">
+                  <label htmlFor={`doc-status-${i}`} className="flex items-center gap-3 text-body-sm font-medium text-ink-900">
                     <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-xl bg-surface-tint text-[17px] leading-none">
                       {DOC_EMOJI[i] ?? "📄"}
                     </span>
                     {l(doc)}
-                  </span>
+                  </label>
                   <select
+                    id={`doc-status-${i}`}
                     value={form.docsStatus[doc]}
                     onChange={(e) =>
                       update("docsStatus", {

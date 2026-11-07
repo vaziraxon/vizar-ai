@@ -12,13 +12,16 @@ import { LIBRARY_PHRASES } from "./phrases-library";
  * that was built from such an entry and saved (e.g. a notification stored as
  * "Bank statement hujjati muvaffaqiyatli yuklandi …") is matched against the
  * entry, and the parts it captured are translated too when they are phrases.
+ *
+ * A few keys are internal English ids that are also saved data (document types
+ * such as "Passport"); their `uz` field is what Uzbek readers see.
  */
-export type PhraseTable = Record<string, { ru: string; en: string }>;
+export type PhraseTable = Record<string, { ru: string; en: string; uz?: string }>;
 
 // Apostrophe variants (', ‘, ’, `) are treated as the same character.
 const norm = (s: string) => s.replace(/[‘’`ʻʼ]/g, "'").replace(/\s+/g, " ").trim();
 
-const INDEX: Map<string, { ru: string; en: string }> = new Map(
+const INDEX: Map<string, { ru: string; en: string; uz?: string }> = new Map(
   Object.entries({ ...DASHBOARD_PHRASES, ...LIBRARY_PHRASES }).map(([uz, tr]) => [norm(uz), tr])
 );
 
@@ -61,7 +64,7 @@ function matchTemplate(text: string, lang: Exclude<LangCode, "uz">): string | nu
 }
 
 export function translatePhrase(text: string, lang: LangCode, vars?: Record<string, string | number>): string {
-  if (lang === "uz") return fill(text, vars);
+  if (lang === "uz") return fill(INDEX.get(norm(text))?.uz ?? text, vars);
   const key = norm(text);
   const hit = INDEX.get(key);
   if (hit) return fill(hit[lang], vars);
