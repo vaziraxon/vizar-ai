@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight, CalendarDays, ListChecks, Plane } from "lucide-react";
 import { ScoreRing } from "@/components/dashboard/ScoreRing";
 import { Flag } from "@/components/site/Flag";
-import { useDateLocale, useL } from "@/components/i18n/L";
+import { useFormatDate, useL } from "@/components/i18n/L";
 import { useSite } from "@/lib/i18n/site";
 import { DESTINATION_BY_SLUG } from "@/lib/site/registry";
 import { useLocalState } from "@/lib/dashboard/use-local-state";
@@ -32,13 +32,13 @@ const daysUntil = (iso: string) => {
 /** Travel + appointment countdown, saved in this browser. */
 export function TripCountdown({ className }: { className?: string }) {
   const l = useL();
-  const locale = useDateLocale();
+  const fmt = useFormatDate();
   const [trip, setTrip] = useLocalState<{ travel: string; appointment: string }>("vizar-trip-dates", { travel: "", appointment: "" });
   const travelDays = trip.travel ? daysUntil(trip.travel) : null;
   const apptDays = trip.appointment ? daysUntil(trip.appointment) : null;
   const docsBy =
     trip.appointment && apptDays !== null
-      ? new Date(new Date(`${trip.appointment}T00:00:00`).getTime() - 7 * DAY).toLocaleDateString(locale, { day: "numeric", month: "long" })
+      ? fmt(new Date(new Date(`${trip.appointment}T00:00:00`).getTime() - 7 * DAY), "dayMonth", null)
       : null;
 
   const big =

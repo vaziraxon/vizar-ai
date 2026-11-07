@@ -8,7 +8,7 @@ import { EmptyState } from "@/components/states/EmptyState";
 import type { ReportRow } from "@/lib/data/reports";
 import { AssessmentFindings } from "@/components/dashboard/AssessmentFindings";
 import type { AssessmentFinding } from "@/lib/dashboard/assessment-review";
-import { useDateLocale, useL } from "@/components/i18n/L";
+import { useFormatDate, useL } from "@/components/i18n/L";
 
 const TYPE_ICON: Record<string, typeof Gauge> = {
   readiness: Gauge,
@@ -35,7 +35,7 @@ function findingsOf(data: unknown): AssessmentFinding[] | null {
 export function ReportsGrid({ reports }: { reports: ReportRow[] }) {
   const [selected, setSelected] = useState<ReportRow | null>(null);
   const l = useL();
-  const locale = useDateLocale();
+  const fmt = useFormatDate();
 
   if (reports.length === 0) {
     return (
@@ -69,11 +69,7 @@ export function ReportsGrid({ reports }: { reports: ReportRow[] }) {
                 </p>
               </div>
               <p className="text-caption text-ink-400 dark:text-white/40">
-                {new Date(report.created_at).toLocaleDateString(locale, {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                })}
+                {fmt(report.created_at)}
               </p>
               <button
                 type="button"
@@ -102,7 +98,7 @@ export function ReportsGrid({ reports }: { reports: ReportRow[] }) {
               <div className="mb-3 flex items-center justify-between border-b border-surface-border pb-3">
                 <span className="font-display text-body font-bold text-brand-600">VIZAR AI</span>
                 <span className="text-caption text-ink-400">
-                  {new Date(selected.created_at).toLocaleDateString(locale)}
+                  {fmt(selected.created_at)}
                 </span>
               </div>
               <p className="text-body-sm font-semibold">{l(selected.title ?? "")}</p>
