@@ -8,6 +8,7 @@ import { SelectField } from "@/components/forms/SelectField";
 import { TextField } from "@/components/forms/TextField";
 import { InlineAlert } from "@/components/states/InlineAlert";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
+import { ConfirmationModal } from "@/components/states/ConfirmationModal";
 import { requestConsultationAction, cancelConsultationAction } from "@/lib/actions/consultations";
 import { CONSULTATION_TOPICS, REQUEST_STATUS_LABEL, readRequest } from "@/lib/dashboard/consultation-request";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
@@ -28,6 +29,7 @@ export function ConsultationPageClient({ requests }: { requests: ConsultationRow
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [cancelError, setCancelError] = useState("");
+  const [pendingCancel, setPendingCancel] = useState<string | null>(null);
 
   const update = (key: keyof typeof EMPTY, value: string) => setForm((f) => ({ ...f, [key]: value }));
 
@@ -179,7 +181,7 @@ export function ConsultationPageClient({ requests }: { requests: ConsultationRow
                     {c.status === "booked" && (
                       <button
                         type="button"
-                        onClick={() => handleCancel(c.id)}
+                        onClick={() => setPendingCancel(c.id)}
                         className="flex items-center gap-1 text-caption font-semibold text-red-500 hover:text-red-600"
                       >
                         <X size={13} /> {l("Bekor qilish")}
@@ -192,6 +194,17 @@ export function ConsultationPageClient({ requests }: { requests: ConsultationRow
           </ul>
         </div>
       )}
+
+      <ConfirmationModal
+        open={pendingCancel !== null}
+        title="So'rovni bekor qilish"
+        description="Bu so'rovni bekor qilmoqchimisiz?"
+        confirmLabel="Ha, bekor qilish"
+        cancelLabel="Yo'q, qoldirish"
+        danger
+        onConfirm={() => pendingCancel && handleCancel(pendingCancel)}
+        onClose={() => setPendingCancel(null)}
+      />
     </>
   );
 }

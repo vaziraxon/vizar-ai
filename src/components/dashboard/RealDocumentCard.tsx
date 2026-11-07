@@ -18,6 +18,7 @@ import {
   FilePlus2,
 } from "lucide-react";
 import { StatusBadge } from "./StatusBadge";
+import { ConfirmationModal } from "@/components/states/ConfirmationModal";
 import { getSignedDocumentUrlAction, deleteDocumentAction } from "@/lib/actions/documents";
 import { uploadDocumentFile } from "@/lib/documents/upload-client";
 import type { DocumentRow } from "@/lib/data/documents";
@@ -63,6 +64,7 @@ export function RealDocumentCard({
   const [dragOver, setDragOver] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [fileError, setFileError] = useState("");
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const doc = existingDoc;
@@ -162,7 +164,7 @@ export function RealDocumentCard({
             </button>
             <button
               type="button"
-              onClick={handleDelete}
+              onClick={() => setConfirmDelete(true)}
               aria-label={l("Faylni o'chirish")}
               className="text-red-500 hover:text-red-600"
             >
@@ -227,6 +229,16 @@ export function RealDocumentCard({
           )}
         </div>
       )}
+
+      <ConfirmationModal
+        open={confirmDelete}
+        title="Faylni o'chirish"
+        description={l("\"{name}\" faylini o'chirmoqchimisiz? Bu amalni qaytarib bo'lmaydi.", { name: doc?.original_filename ?? "" })}
+        confirmLabel="Ha, o'chirish"
+        danger
+        onConfirm={handleDelete}
+        onClose={() => setConfirmDelete(false)}
+      />
     </div>
   );
 }

@@ -1040,6 +1040,11 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Viza tayyorgarlik bali": { ru: "Балл готовности к визе", en: "Visa readiness score" },
   "Suhbat mashqi bo'limida tayyorlaning": { ru: "Подготовьтесь в разделе «Тренировка интервью»", en: "Prepare in the Interview practice section" },
   /* Overview 2.0 */
+  "\"{name}\" faylini o'chirmoqchimisiz? Bu amalni qaytarib bo'lmaydi.": { ru: "Удалить файл «{name}»? Это действие нельзя отменить.", en: "Delete \"{name}\"? This can't be undone." },
+  "So'rovni bekor qilish": { ru: "Отменить запрос", en: "Cancel request" },
+  "Bu so'rovni bekor qilmoqchimisiz?": { ru: "Отменить этот запрос?", en: "Cancel this request?" },
+  "Ha, bekor qilish": { ru: "Да, отменить", en: "Yes, cancel it" },
+  "Yo'q, qoldirish": { ru: "Нет, оставить", en: "No, keep it" },
   "Amalni bajarib bo'lmadi. Qayta urinib ko'ring.": { ru: "Не удалось выполнить действие. Попробуйте ещё раз.", en: "That didn't work. Please try again." },
   "Internet aloqasini tekshirib, qayta urinib ko'ring.": { ru: "Проверьте подключение к интернету и попробуйте ещё раз.", en: "Check your internet connection and try again." },
   "Vazifalarni yuklab bo'lmadi": { ru: "Не удалось загрузить задачи", en: "Couldn't load your tasks" },
