@@ -10,7 +10,7 @@ import { TextField } from "@/components/forms/TextField";
 import { Button } from "@/components/ui/Button";
 import { Flag } from "@/components/site/Flag";
 import { COUNTRY_OPTIONS, VISA_TYPE_OPTIONS } from "@/data/mockData";
-import { useDateLocale, useL } from "@/components/i18n/L";
+import { useFormatDate, useL } from "@/components/i18n/L";
 import { matchDestination } from "@/lib/site/destination-match";
 import { useLocalState } from "@/lib/dashboard/use-local-state";
 import {
@@ -25,7 +25,7 @@ import { cn } from "@/lib/utils";
 
 export default function RefusalAnalysisPage() {
   const l = useL();
-  const locale = useDateLocale();
+  const fmt = useFormatDate();
   const [country, setCountry] = useState("");
   const [visaType, setVisaType] = useState("");
   const [refusalDate, setRefusalDate] = useState("");
@@ -59,11 +59,7 @@ export default function RefusalAnalysisPage() {
   const wait = result ? suggestedWaitMonths(result.reasons) : 0;
   const reapplyFrom =
     result?.date && !Number.isNaN(new Date(result.date).getTime())
-      ? new Date(new Date(result.date).setMonth(new Date(result.date).getMonth() + wait)).toLocaleDateString(locale, {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        })
+      ? fmt(new Date(new Date(result.date).setMonth(new Date(result.date).getMonth() + wait)), "long", null)
       : null;
   const visual = result ? matchDestination(result.country) : null;
 

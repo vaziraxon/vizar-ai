@@ -14,14 +14,14 @@ import { CONSULTATION_TOPICS, REQUEST_STATUS_LABEL, readRequest } from "@/lib/da
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { focusFirstInvalid } from "@/lib/utils";
 import type { ConsultationRow } from "@/lib/data/consultations";
-import { useDateLocale, useL } from "@/components/i18n/L";
+import { useFormatDate, useL } from "@/components/i18n/L";
 
 const EMPTY = { topic: "", contact: "", preferredTime: "", message: "" };
 
 export function ConsultationPageClient({ requests }: { requests: ConsultationRow[] }) {
   const router = useRouter();
   const l = useL();
-  const locale = useDateLocale();
+  const fmt = useFormatDate();
   const configured = isSupabaseConfigured();
   const [form, setForm] = useState(EMPTY);
   const [errors, setErrors] = useState<Partial<Record<keyof typeof EMPTY, string>>>({});
@@ -172,7 +172,7 @@ export function ConsultationPageClient({ requests }: { requests: ConsultationRow
                   <div className="min-w-0">
                     <p className="text-body-sm font-semibold text-ink-900 dark:text-white">{l(request.topic)}</p>
                     <p className="text-caption text-ink-500">
-                      {new Date(c.created_at).toLocaleDateString(locale, { dateStyle: "medium" })}
+                      {fmt(c.created_at, "medium")}
                       {request.preferredTime ? ` · ${request.preferredTime}` : ""}
                     </p>
                   </div>

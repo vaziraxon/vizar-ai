@@ -12,22 +12,22 @@ import { logoutAction } from "@/lib/actions/auth";
 import { useLanguage } from "@/lib/language-context";
 import { useMyAvatar } from "@/lib/profile/use-my-avatar";
 import { cn } from "@/lib/utils";
-import { useDateLocale } from "@/components/i18n/L";
+import { useFormatDate } from "@/components/i18n/L";
 
 const iconButton =
   "flex h-9 w-9 shrink-0 items-center justify-center rounded-pill text-ink-600 transition-colors hover:bg-surface-tint hover:text-ink-900 dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white";
 
 export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
   const { t } = useLanguage();
-  const locale = useDateLocale();
+  const fmt = useFormatDate();
   const [today, setToday] = useState("");
   const [profileOpen, setProfileOpen] = useState(false);
   const avatarUrl = useMyAvatar();
 
   // Rendered after mount so the server and client never disagree on the date
   useEffect(() => {
-    setToday(new Date().toLocaleDateString(locale, { weekday: "short", day: "numeric", month: "long" }));
-  }, [locale]);
+    setToday(fmt(new Date(), "weekdayDayMonth", null));
+  }, [fmt]);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

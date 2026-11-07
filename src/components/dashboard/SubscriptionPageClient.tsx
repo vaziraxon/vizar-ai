@@ -9,7 +9,7 @@ import { TextField } from "@/components/forms/TextField";
 import { InlineAlert } from "@/components/states/InlineAlert";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { ConfirmationModal } from "@/components/states/ConfirmationModal";
-import { useDateLocale, useL } from "@/components/i18n/L";
+import { useFormatDate, useL } from "@/components/i18n/L";
 import { cancelSubscriptionRequestAction, requestSubscriptionAction } from "@/lib/actions/subscriptions";
 import { SUBSCRIPTION_PLANS, SUBSCRIPTION_REQUEST_STATUS, isSubscriptionPlan, type SubscriptionPlanId } from "@/lib/dashboard/subscription-plans";
 import { useSite } from "@/lib/i18n/site";
@@ -30,7 +30,7 @@ export function SubscriptionPageClient({
 }) {
   const router = useRouter();
   const l = useL();
-  const locale = useDateLocale();
+  const fmt = useFormatDate();
   const site = useSite();
   const configured = isSupabaseConfigured();
   const [plan, setPlan] = useState<SubscriptionPlanId | "">(initialPlan ?? "");
@@ -44,7 +44,7 @@ export function SubscriptionPageClient({
   const [pendingCancel, setPendingCancel] = useState<string | null>(null);
 
   const planName = (id: string) => (isSubscriptionPlan(id) ? site.pricing.plans[id].name : id);
-  const date = (iso: string) => new Date(iso).toLocaleDateString(locale, { dateStyle: "medium" });
+  const date = (iso: string) => fmt(iso, "medium");
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();

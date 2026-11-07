@@ -11,20 +11,12 @@ import { SuccessToast } from "@/components/states/SuccessToast";
 import { deleteDraftApplicationAction } from "@/lib/actions/applications";
 import { displayApplicationStatus } from "@/lib/status-map";
 import type { VisaApplication } from "@/lib/data/applications";
-import { useDateLocale, useL } from "@/components/i18n/L";
-
-function formatDate(iso: string, locale: string) {
-  return new Date(iso).toLocaleDateString(locale, {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-}
+import { useFormatDate, useL } from "@/components/i18n/L";
 
 export function ApplicationsTable({ applications }: { applications: VisaApplication[] }) {
   const router = useRouter();
   const l = useL();
-  const locale = useDateLocale();
+  const fmt = useFormatDate();
   const [pendingDelete, setPendingDelete] = useState<VisaApplication | null>(null);
   const [toast, setToast] = useState("");
 
@@ -79,7 +71,7 @@ export function ApplicationsTable({ applications }: { applications: VisaApplicat
                 </td>
                 <td className="px-5 py-3.5 text-ink-600 dark:text-white/60">{l(app.visa_type)}</td>
                 <td className="px-5 py-3.5 text-ink-600 dark:text-white/60">
-                  {formatDate(app.created_at, locale)}
+                  {fmt(app.created_at)}
                 </td>
                 <td className="px-5 py-3.5">
                   <StatusBadge status={displayApplicationStatus(app.status)} />
@@ -133,7 +125,7 @@ export function ApplicationsTable({ applications }: { applications: VisaApplicat
               )}
             </div>
             <p className="mt-2 text-caption text-ink-400 dark:text-white/40">
-              {formatDate(app.created_at, locale)}
+              {fmt(app.created_at)}
             </p>
             <div className="mt-3">
               <StatusBadge status={displayApplicationStatus(app.status)} />

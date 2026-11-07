@@ -9,7 +9,7 @@ import { ScoreRing } from "@/components/dashboard/ScoreRing";
 import { ProgressBar } from "@/components/dashboard/ProgressBar";
 import { Button } from "@/components/ui/Button";
 import { CountryFlag } from "@/components/knowledge/library/visuals";
-import { useDateLocale, useL } from "@/components/i18n/L";
+import { useFormatDate, useL } from "@/components/i18n/L";
 import { useLanguage } from "@/lib/language-context";
 import { useLocalState } from "@/lib/dashboard/use-local-state";
 import {
@@ -97,7 +97,7 @@ function Waveform() {
 
 export default function AiInterviewPage() {
   const l = useL();
-  const locale = useDateLocale();
+  const fmt = useFormatDate();
   const { language } = useLanguage();
   const [countryCode, setCountryCode] = useState(PLAYBOOK_COUNTRIES[0]!.code);
   const [level, setLevel] = useState<PlaybookLevel>("medium");
@@ -448,7 +448,7 @@ export default function AiInterviewPage() {
               {(history.length
                 ? history.map((s) => ({
                     key: s.at,
-                    label: `${new Date(s.at).toLocaleDateString(locale, { day: "numeric", month: "short" })} · ${PLAYBOOK_COUNTRIES.find((c) => c.name.uz === s.country)?.name[appLang] ?? l(s.country)} · ${l(s.difficulty)}`,
+                    label: `${fmt(s.at, "dayMonthShort")} · ${PLAYBOOK_COUNTRIES.find((c) => c.name.uz === s.country)?.name[appLang] ?? l(s.country)} · ${l(s.difficulty)}`,
                     score: s.score,
                   }))
                 : INTERVIEW_SESSION_HISTORY.map((s) => ({ key: s.date, label: l(s.date), score: s.score }))
