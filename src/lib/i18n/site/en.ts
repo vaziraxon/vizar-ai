@@ -220,7 +220,7 @@ export const en: SiteContent = {
       region: "Asia",
       menu: "Tourist, student and work visas",
       intro:
-        "The document set for South Korea depends on the visa type. Study and work visas may require additional documents.",
+        "Citizens of Uzbekistan need a visa even for a short trip. The document set for South Korea depends on the visa type. Study and work visas may require additional documents.",
       visaTypes: ["Tourist", "Student", "Work"],
     },
     uae: {
