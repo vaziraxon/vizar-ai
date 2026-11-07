@@ -47,15 +47,15 @@ export function generateMetadata(): Metadata {
   return META[getRequestLanguage()];
 }
 
-const QUICK_SEARCHES: { q: string; flag?: string; emoji?: string }[] = [
+const QUICK_SEARCHES: { q: string; flag?: string }[] = [
   { q: "Germaniya vizasi", flag: "DE" },
   { q: "AQSh B-1/B-2", flag: "US" },
-  { q: "90/180 qoidasi", emoji: "📅" },
-  { q: "Bank ko‘chirmasi", emoji: "🏦" },
+  { q: "90/180 qoidasi" },
+  { q: "Bank ko‘chirmasi" },
   { q: "Yaponiya", flag: "JP" },
 ];
 
-function SectionHeading({ id, emoji, eyebrow, title, subtitle, action }: { id: string; emoji: string; eyebrow: string; title: React.ReactNode; subtitle?: string; action?: React.ReactNode }) {
+function SectionHeading({ id, eyebrow, title, subtitle, action }: { id: string; eyebrow: string; title: React.ReactNode; subtitle?: string; action?: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div className="max-w-2xl">
@@ -193,11 +193,11 @@ export default async function KnowledgeBasePage() {
   const extras = outline.filter((c) => c.kind !== "chapter");
   const visaTypes = chapters.find((c) => c.number === 1);
   const documents = chapters.find((c) => c.number === 2);
-  const figures: { emoji: string; value: number; label: PluralWord }[] = [
-    { emoji: "📚", value: chapters.length, label: "bob" },
-    { emoji: "📄", value: stats?.sections ?? outline.reduce((n, c) => n + c.sections.length, 0), label: "bo‘lim" },
-    { emoji: "🌍", value: realCountries.length, label: "davlat" },
-    ...(stats?.sources ? [{ emoji: "🔗", value: stats.sources, label: "rasmiy manba" as const }] : []),
+  const figures: { value: number; label: PluralWord }[] = [
+    { value: chapters.length, label: "bob" },
+    { value: stats?.sections ?? outline.reduce((n, c) => n + c.sections.length, 0), label: "bo‘lim" },
+    { value: realCountries.length, label: "davlat" },
+    ...(stats?.sources ? [{ value: stats.sources, label: "rasmiy manba" as const }] : []),
   ];
 
   return (
@@ -300,7 +300,7 @@ export default async function KnowledgeBasePage() {
       <div className="container-page space-y-14 pb-12 pt-8 md:pb-14 md:pt-10 lg:space-y-16 lg:pb-16">
         {/* Chapters */}
         <section id="boblar" aria-labelledby="boblar-title" className="scroll-mt-24">
-          <SectionHeading id="boblar-title" emoji="📚" eyebrow="Kitob" title={<L>To‘qqiz bob</L>} />
+          <SectionHeading id="boblar-title" eyebrow="Kitob" title={<L>To‘qqiz bob</L>} />
           <ol className={cn("mt-8 grid gap-4 rounded-[36px] p-3 sm:grid-cols-2 sm:gap-5 sm:p-5 lg:grid-cols-3", VIOLET_LEMON_STAGE)}>
             {chapters.map((c, i) => {
               const cover = chapterCover(c);
@@ -357,7 +357,6 @@ export default async function KnowledgeBasePage() {
         <section id="davlatlar" aria-labelledby="davlatlar-title" className="scroll-mt-24">
           <SectionHeading
             id="davlatlar-title"
-            emoji="🌍"
             eyebrow="Davlatlar"
             title={<L vars={{ n: realCountries.length }}>{"{n} davlat bo‘yicha qoidalar"}</L>}
             subtitle="Har bir davlat uchun murojaat yo‘li, hujjatlar va kirish tartibi — rasmiy manbalar havolasi va oxirgi tekshiruv holati bilan."
