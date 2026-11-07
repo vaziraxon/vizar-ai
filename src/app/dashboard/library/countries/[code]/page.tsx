@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CircleCheck, Clock, ExternalLink, Globe, Link2, ShieldAlert, ShieldCheck, TriangleAlert, type LucideIcon } from "lucide-react";
+import { CircleCheck, Clock, ExternalLink, Globe, Link2, ShieldAlert, ShieldCheck, TriangleAlert, type LucideIcon, FileText } from "lucide-react";
 import { L } from "@/components/i18n/L";
 import { Plural } from "@/components/i18n/Plural";
 import { Markdown } from "@/components/knowledge/Markdown";
@@ -12,7 +12,7 @@ import { getRequestLanguage } from "@/lib/i18n/request-language";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import { REGIONS, getCountries, getCountryRules, getCountrySections, type CountryRule } from "@/lib/knowledge/library";
 import { libraryHref } from "@/lib/knowledge/offline";
-import { REGION_VISUALS, countryPhoto, sectionEmoji, topicEmoji } from "@/lib/knowledge/visuals";
+import { REGION_VISUALS, countryPhoto, sectionEmoji } from "@/lib/knowledge/visuals";
 import { cn } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -122,7 +122,7 @@ export default async function CountryPage({ params }: Params) {
             </span>
             {country.topics.slice(0, 3).map((t, i) => (
               <span key={t} className="hidden rounded-pill bg-white/15 px-3 py-1.5 backdrop-blur sm:inline">
-                {topicEmoji(t)} {country.topicLabels[i] ?? t}
+                {country.topicLabels[i] ?? t}
               </span>
             ))}
           </span>
@@ -147,9 +147,7 @@ export default async function CountryPage({ params }: Params) {
                   <li key={rule.id} className="overflow-hidden rounded-[24px] border border-surface-border bg-surface">
                     <div className="flex flex-wrap items-center justify-between gap-3 border-b border-surface-border bg-surface-tint/60 px-5 py-4 sm:px-6">
                       <h3 className="flex items-center gap-3 luxe-firm font-luxe text-[1.25rem] font-semibold leading-tight text-ink-950">
-                        <span aria-hidden="true" className="emoji-tile h-9 w-9 text-[17px]">
-                          {topicEmoji(rule.topicSrc)}
-                        </span>
+                        <span aria-hidden="true" className="emoji-tile h-9 w-9"><FileText size={16} strokeWidth={1.7} className="text-violet-700 dark:text-violet-200" /></span>
                         {rule.topic}
                       </h3>
                       <span className="flex flex-wrap items-center gap-2">
@@ -199,9 +197,7 @@ export default async function CountryPage({ params }: Params) {
               <ul className="grid gap-2.5 sm:grid-cols-2">
                 {country.topics.map((topic, i) => (
                   <li key={topic} className="flex items-center gap-3 rounded-2xl border border-surface-border bg-surface px-4 py-3.5">
-                    <span aria-hidden="true" className="emoji-tile h-9 w-9 text-[17px]">
-                      {topicEmoji(topic)}
-                    </span>
+                    <span aria-hidden="true" className="emoji-tile h-9 w-9"><FileText size={16} strokeWidth={1.7} className="text-violet-700 dark:text-violet-200" /></span>
                     <span className="min-w-0 flex-1 text-body font-medium text-ink-900">{country.topicLabels[i] ?? topic}</span>
                     <LockIcon />
                   </li>

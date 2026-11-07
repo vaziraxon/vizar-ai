@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MessagesSquare } from "lucide-react";
 import { L } from "@/components/i18n/L";
 import { Plural, type PluralWord } from "@/components/i18n/Plural";
 import { SearchForm } from "@/components/knowledge/library/SearchForm";
 import { CountryFlag, CoverArt } from "@/components/knowledge/library/visuals";
-import { AccessCard, LibraryError, LibraryTabs, Paywall, SectionRow, SrLabel, TranslationNote, chapterEmoji } from "@/components/knowledge/library/ui";
+import { AccessCard, LibraryError, LibraryTabs, Paywall, SectionRow, SrLabel, TranslationNote } from "@/components/knowledge/library/ui";
 import { HeroSky } from "@/components/site/home/HeroSky";
 import { Marquee } from "@/components/site/Marquee";
-import { EmojiSticker } from "@/components/site/primitives";
 import { getRequestLanguage } from "@/lib/i18n/request-language";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import {
@@ -24,7 +23,7 @@ import {
 import { libraryHref } from "@/lib/knowledge/offline";
 import { GOLD_FOIL, VIOLET_LEMON_STAGE } from "@/components/site/landing-styles";
 import { cn } from "@/lib/utils";
-import { REGION_VISUALS, chapterCover, sectionCountry, sectionEmoji, topicEmoji } from "@/lib/knowledge/visuals";
+import { REGION_VISUALS, chapterCover, sectionCountry, sectionEmoji } from "@/lib/knowledge/visuals";
 
 export const dynamic = "force-dynamic";
 
@@ -105,9 +104,6 @@ function TopicList({
           <CoverArt cover={cover} alt="" sizes="(min-width: 1024px) 380px, 100vw" className="absolute inset-0" />
           <span className="relative m-3 rounded-[22px] bg-surface/90 p-5 backdrop-blur-md">
             <span className="flex items-center gap-2 text-caption font-semibold uppercase tracking-[0.08em] text-ink-500">
-              <span aria-hidden="true" className="text-[16px]">
-                {chapterEmoji(chapter)}
-              </span>
               {chapter.label} · {sections.length} <Plural n={sections.length} word="bo‘lim" />
             </span>
             <span id={`${id}-title`} className="mt-1.5 block luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
@@ -153,7 +149,6 @@ function TopicList({
 }
 
 function CountryCard({ country }: { country: LibraryCountry }) {
-  const icons = Array.from(new Set(country.topics.map(topicEmoji))).slice(0, 4);
   return (
     <Link
       href={libraryHref.country(country.code)}
@@ -163,9 +158,6 @@ function CountryCard({ country }: { country: LibraryCountry }) {
       <span className="min-w-0 flex-1">
         <span className="block truncate text-body-sm font-semibold text-ink-900 group-hover:text-brand-700">{country.name}</span>
         <span className="mt-0.5 flex items-center gap-1.5 text-caption text-ink-500">
-          <span aria-hidden="true" className="tracking-[0.08em]">
-            {icons.join("")}
-          </span>
           <span>
             {country.ruleCount} <Plural n={country.ruleCount} word="qoida" />
           </span>
@@ -268,8 +260,6 @@ export default async function KnowledgeBasePage() {
                 <Image src="/images/destinations/us.webp" alt="" fill priority sizes="210px" className="object-cover" />
                 <span className="absolute left-3 top-3"><CountryFlag code="US" size="sm" /></span>
               </figure>
-              <EmojiSticker emoji="🛂" tilt={-12} className="absolute -left-4 top-[300px] z-20" />
-              <EmojiSticker emoji="✈️" size="sm" tilt={10} delay={900} className="absolute right-6 top-0 z-20" />
             </div>
             <div aria-hidden="true" className="grid grid-cols-3 gap-2.5 lg:hidden">
               {[
@@ -329,7 +319,6 @@ export default async function KnowledgeBasePage() {
                       className="aspect-[16/10]"
                     >
                       <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-pill bg-surface/90 px-3 py-1 text-caption font-bold text-ink-900 backdrop-blur">
-                        <span aria-hidden="true">{chapterEmoji(c)}</span>
                         {c.label}
                       </span>
                     </CoverArt>
@@ -356,7 +345,6 @@ export default async function KnowledgeBasePage() {
                     href={`/dashboard/library/book/${c.slug}`}
                     className="inline-flex items-center gap-2 rounded-pill border border-surface-border bg-surface px-3.5 py-2 text-body-sm font-medium text-ink-800 transition-colors hover:border-violet-300 hover:text-violet-700 dark:hover:text-violet-300"
                   >
-                    <span aria-hidden="true">{chapterEmoji(c)}</span>
                     {c.label}
                   </Link>
                 </li>
@@ -453,9 +441,9 @@ export default async function KnowledgeBasePage() {
               </Link>
             </div>
             <div aria-hidden="true" className="hidden justify-center gap-3 lg:col-span-4 lg:flex">
-              <EmojiSticker emoji="💬" tilt={-8} />
-              <EmojiSticker emoji="📖" size="lg" tilt={6} delay={800} />
-              <EmojiSticker emoji="✅" tilt={-3} delay={1600} />
+              <span className="flex h-28 w-28 items-center justify-center rounded-[32px] bg-surface/85 shadow-float ring-1 ring-white dark:ring-white/10">
+                <MessagesSquare size={44} strokeWidth={1.4} className="text-violet-700 dark:text-violet-200" />
+              </span>
             </div>
           </div>
         </section>

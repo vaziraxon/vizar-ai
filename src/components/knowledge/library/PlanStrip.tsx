@@ -29,7 +29,7 @@ export function PlanStrip({ className }: { className?: string }) {
             >
               {popular ? (
                 <span className="absolute -top-2.5 right-3 rounded-pill bg-gradient-to-r from-[#5B21B6] to-[#7138EC] px-2 py-0.5 text-[11px] font-semibold text-white">
-                  ✨ {site.pricing.popular}
+                  {site.pricing.popular}
                 </span>
               ) : null}
               <span className="flex items-center gap-2 text-body-sm font-bold text-ink-950">

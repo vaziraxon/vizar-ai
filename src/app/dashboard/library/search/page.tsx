@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FileText } from "lucide-react";
 import Link from "next/link";
 import { headers } from "next/headers";
 import { L } from "@/components/i18n/L";
@@ -9,7 +10,6 @@ import { getRequestLanguage } from "@/lib/i18n/request-language";
 import { getLibraryViewer } from "@/lib/knowledge/access";
 import { getCountries, getOutline, type LibraryCountry } from "@/lib/knowledge/library";
 import { excerpt, libraryHref } from "@/lib/knowledge/offline";
-import { chapterSlugEmoji, sectionEmoji, topicEmoji } from "@/lib/knowledge/visuals";
 import { searchKnowledge } from "@/lib/knowledge/search";
 import type { KbSearchResult } from "@/lib/knowledge/types";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
@@ -132,12 +132,10 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
                       href={libraryHref.section(hit.chapter_slug, hit.section_slug)}
                       className="group flex gap-4 rounded-[24px] border border-surface-border bg-surface p-4 transition-[border-color,box-shadow] duration-200 hover:border-violet-200 hover:shadow-card-hover sm:p-5"
                     >
-                      <span aria-hidden="true" className="emoji-tile h-12 w-12 rounded-2xl text-[22px] transition-transform duration-200 group-hover:-rotate-6">
-                        {sectionEmoji(hit.section_title)}
-                      </span>
+                      <span aria-hidden="true" className="emoji-tile h-12 w-12 rounded-2xl transition-transform duration-200 group-hover:-rotate-6"><FileText size={20} strokeWidth={1.7} className="text-violet-700 dark:text-violet-200" /></span>
                       <span className="min-w-0 flex-1">
                         <span className="flex items-center gap-2 text-caption font-semibold uppercase tracking-[0.06em] text-ink-500">
-                          {chapterSlugEmoji(hit.chapter_slug)} {chapterLabels.get(hit.chapter_slug) ?? hit.chapter_label}
+                          {chapterLabels.get(hit.chapter_slug) ?? hit.chapter_label}
                           {hit.section_number ? ` · ${hit.section_number}` : ""}
                           {!full ? <LockIcon /> : null}
                         </span>
@@ -174,7 +172,7 @@ export default async function LibrarySearchPage({ searchParams }: Props) {
                             {countryNames.get(rule.country_code) ?? rule.country_name}
                           </span>
                           <span className="block text-caption text-ink-500">
-                            {topicEmoji(rule.topic)} {topicLabels.get(rule.topic) ?? rule.topic}
+                            {topicLabels.get(rule.topic) ?? rule.topic}
                           </span>
                           {full && rule.rule_text ? (
                             <span lang={ruleTexts.has(rule.rule_id) ? lang : "uz"} className="mt-1 block text-caption text-ink-600 [overflow-wrap:anywhere]">

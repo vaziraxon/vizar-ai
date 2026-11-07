@@ -1,14 +1,13 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronRight, Lock, LogIn, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, ChevronRight, FileText, Languages, Lock, LogIn, Sparkles, Wrench } from "lucide-react";
 import { L } from "@/components/i18n/L";
 import { Plural } from "@/components/i18n/Plural";
 import { LibraryDate } from "@/components/knowledge/library/LibraryDate";
 import { PlanStrip } from "@/components/knowledge/library/PlanStrip";
 import { CountryFlag } from "@/components/knowledge/library/visuals";
 import { HeroSky } from "@/components/site/home/HeroSky";
-import { EmojiSticker } from "@/components/site/primitives";
 import { buttonClasses } from "@/components/ui/Button";
 import type { LibraryViewer, SubscriptionPlan } from "@/lib/knowledge/access";
 import { PLAN_EMOJI } from "@/lib/knowledge/visuals";
@@ -110,13 +109,6 @@ export function LibraryHero({
   return (
     <section className="lime-wash grain relative overflow-hidden rounded-[32px]">
       <HeroSky calm />
-      {stickers ? (
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden xl:block">
-          <EmojiSticker emoji={stickers[0]} tilt={-10} className="absolute right-[38%] top-[132px]" />
-          <EmojiSticker emoji={stickers[1]} size="sm" tilt={8} delay={900} className="absolute right-[50%] top-[104px]" />
-          <EmojiSticker emoji={stickers[2]} size="sm" tilt={-4} delay={1800} className="absolute bottom-20 right-[33%]" />
-        </div>
-      ) : null}
       <div className="container-page relative pb-10 pt-8 sm:pb-14 sm:pt-10 lg:pt-12">{body}</div>
     </section>
   );
@@ -154,7 +146,7 @@ export function AccessCard({ viewer, next }: { viewer: LibraryViewer; next: stri
         <div className="relative rounded-[26.5px] bg-surface/95 p-5 backdrop-blur dark:bg-night-950/90">
           <div className="flex items-center gap-3">
             <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-100 to-violet-100 text-[24px] dark:from-white/10 dark:to-white/5">
-              {plan ? PLAN_EMOJI[plan] : "🖋️"}
+              <BookOpen size={22} strokeWidth={1.6} className="text-violet-700 dark:text-violet-200" />
             </span>
             <div>
               <p className="text-body font-bold text-ink-950">
@@ -172,9 +164,9 @@ export function AccessCard({ viewer, next }: { viewer: LibraryViewer; next: stri
             </div>
           </div>
           <p className="mt-4 flex flex-wrap gap-1.5 text-caption font-semibold text-emerald-700 dark:text-emerald-300">
-            <span className="rounded-pill bg-emerald-50 px-2.5 py-1 dark:bg-emerald-400/10">📚 <L>9 bob to‘liq</L></span>
-            <span className="rounded-pill bg-emerald-50 px-2.5 py-1 dark:bg-emerald-400/10">🌍 <L>Davlat qoidalari</L></span>
-            <span className="rounded-pill bg-emerald-50 px-2.5 py-1 dark:bg-emerald-400/10">🔗 <L>Rasmiy manbalar</L></span>
+            <span className="rounded-pill bg-emerald-50 px-2.5 py-1 dark:bg-emerald-400/10"><L>9 bob to‘liq</L></span>
+            <span className="rounded-pill bg-emerald-50 px-2.5 py-1 dark:bg-emerald-400/10"><L>Davlat qoidalari</L></span>
+            <span className="rounded-pill bg-emerald-50 px-2.5 py-1 dark:bg-emerald-400/10"><L>Rasmiy manbalar</L></span>
           </p>
         </div>
       </div>
@@ -183,9 +175,7 @@ export function AccessCard({ viewer, next }: { viewer: LibraryViewer; next: stri
   return (
     <div className="rounded-[28px] border border-white/80 bg-surface/85 p-5 shadow-float backdrop-blur-md dark:border-white/10">
       <div className="flex items-start gap-3">
-        <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-100 to-violet-100 text-[22px] dark:from-white/10 dark:to-white/5">
-          🔐
-        </span>
+        <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-100 to-violet-100 text-[22px] dark:from-white/10 dark:to-white/5"><Lock size={20} strokeWidth={1.8} className="text-violet-700 dark:text-violet-200" /></span>
         <div>
           <p className="text-body font-bold text-ink-950">{viewer.user ? <L>Obuna faol emas</L> : <L>To‘liq matn obunachilar uchun</L>}</p>
           <p className="mt-1 text-body-sm text-ink-600">
@@ -222,14 +212,7 @@ function UnlockButtons({ viewer, next, size = "md" }: { viewer: LibraryViewer; n
 export function Paywall({ viewer, next, title, children }: { viewer: LibraryViewer; next: string; title: ReactNode; children?: ReactNode }) {
   return (
     <div className="lime-wash grain relative overflow-hidden rounded-[32px] px-5 py-8 text-center shadow-float sm:px-10 sm:py-12">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden md:block">
-        <EmojiSticker emoji="📚" size="sm" tilt={-10} className="absolute left-[6%] top-8" />
-        <EmojiSticker emoji="🌍" size="sm" tilt={8} delay={900} className="absolute right-[7%] top-10" />
-        <EmojiSticker emoji="✨" size="sm" tilt={-4} delay={1800} className="absolute bottom-10 left-[10%]" />
-      </div>
-      <span aria-hidden="true" className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-[22px] bg-surface text-[30px] shadow-float ring-1 ring-white">
-        🔐
-      </span>
+      <span aria-hidden="true" className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-[22px] bg-surface text-[30px] shadow-float ring-1 ring-white"><Lock size={26} strokeWidth={1.8} className="text-violet-700" /></span>
       <p className="relative mx-auto mt-5 max-w-xl luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950 sm:text-[2.1rem]">{title}</p>
       <p className="relative mx-auto mt-2 max-w-xl text-body text-ink-600">
         {viewer.user ? (
@@ -251,7 +234,7 @@ export function Paywall({ viewer, next, title, children }: { viewer: LibraryView
 export function TranslationNote({ className }: { className?: string }) {
   return (
     <p className={cn("flex items-start gap-2 rounded-2xl border border-white/80 bg-surface/75 px-3.5 py-2.5 text-body-sm text-ink-700 backdrop-blur dark:border-white/10", className)}>
-      <span aria-hidden="true">🌐</span>
+      <Languages size={16} aria-hidden="true" className="mt-0.5 shrink-0 text-violet-600" />
       <span>
         <L>Nomlar va davlat qoidalari AI yordamida tarjima qilingan; bo‘limlar matni bosqichma-bosqich qo‘shilmoqda. Asl nusxa — o‘zbek tilida.</L>
       </span>
@@ -263,7 +246,7 @@ export function TranslationNote({ className }: { className?: string }) {
 export function AiTranslatedBadge() {
   return (
     <span className="inline-flex items-center gap-1 rounded-pill bg-violet-50 px-2 py-0.5 text-[11px] font-semibold text-violet-700 dark:bg-violet-400/10 dark:text-violet-300">
-      <span aria-hidden="true">🌐</span>
+      <Languages size={11} aria-hidden="true" />
       <L>AI tarjimasi</L>
     </span>
   );
@@ -315,7 +298,6 @@ export function LibraryTabs({ active }: { active?: "home" | "search" }) {
                   current ? "bg-gold-300 text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_8px_20px_-10px_rgba(180,130,20,0.7)]" : "text-ink-700 hover:bg-gold-200/70 hover:text-night active:bg-gold-200 active:text-night"
                 )}
               >
-                <span aria-hidden="true">{t.emoji}</span>
                 <L>{t.label}</L>
               </Link>
             </li>
@@ -327,7 +309,7 @@ export function LibraryTabs({ active }: { active?: "home" | "search" }) {
   );
 }
 
-/** A row in a list of sections: emoji tile, number, title, reading time, lock when closed. */
+/** A row in a list of sections: icon tile, number, title, reading time, lock when closed. */
 export function SectionRow({
   href,
   number,
@@ -354,15 +336,13 @@ export function SectionRow({
             <CountryFlag code={flag} size="sm" />
           </span>
         ) : emoji ? (
-          <span aria-hidden="true" className="emoji-tile h-10 w-10 text-[18px] transition-transform duration-200 group-hover:-rotate-6">
-            {emoji}
-          </span>
+          <span aria-hidden="true" className="emoji-tile h-10 w-10 transition-transform duration-200 group-hover:-rotate-6"><FileText size={17} strokeWidth={1.7} className="text-violet-700 dark:text-violet-200" /></span>
         ) : null}
         <span className="w-11 shrink-0 text-body-sm font-semibold tabular-nums text-brand-700">{number ?? "•"}</span>
         <span className="min-w-0 flex-1 text-body font-medium text-ink-900 [overflow-wrap:anywhere] group-hover:text-brand-700">{title}</span>
         {minutes ? (
           <span className="hidden shrink-0 text-caption text-ink-500 sm:inline">
-            ⏱ {minutes} <L>daq</L>
+            {minutes} <L>daq</L>
           </span>
         ) : null}
         {locked ? (
@@ -378,9 +358,7 @@ export function SectionRow({
 export function LibraryError() {
   return (
     <div className="container-page py-24 text-center">
-      <p aria-hidden="true" className="text-[40px]">
-        🛠️
-      </p>
+      <Wrench aria-hidden="true" size={36} strokeWidth={1.5} className="mx-auto text-ink-400" />
       <p className="mt-3 luxe-firm font-luxe text-[1.7rem] font-semibold leading-[1.15] tracking-[-0.01em] text-ink-950">
         <L>Kutubxona hozir ochilmadi</L>
       </p>
