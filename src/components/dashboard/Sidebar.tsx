@@ -91,8 +91,9 @@ function NavLinks({
   };
 
   const [collapsed, setCollapsed] = useLocalState<string[]>(COLLAPSED_KEY, []);
-  // A plan page (/dashboard/subscription/premium) still marks "Obuna"
-  const isActive = (href: string) => pathname === href || (href === "/dashboard/subscription" && pathname.startsWith(`${href}/`));
+  // A plan page (/dashboard/subscription/premium) still marks "Obuna"; the readiness test marks "Hujjatlar"
+  const isActive = (href: string) =>
+    pathname === href || ((href === "/dashboard/subscription" || href === "/dashboard/documents") && pathname.startsWith(`${href}/`));
 
   const listed = new Set(NAV_GROUPS.flatMap((g) => g.hrefs));
   const groups = NAV_GROUPS.map((group, index) => ({
