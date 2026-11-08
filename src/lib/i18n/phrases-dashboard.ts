@@ -1040,6 +1040,7 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Viza tayyorgarlik bali": { ru: "Балл готовности к визе", en: "Visa readiness score" },
   "Suhbat mashqi bo'limida tayyorlaning": { ru: "Подготовьтесь в разделе «Тренировка интервью»", en: "Prepare in the Interview practice section" },
   /* Overview 2.0 */
+  "Hali mashq qilmadingiz. Birinchi mashqdan keyin natijalaringiz shu yerda ko'rinadi.": { ru: "Вы ещё не тренировались. После первой тренировки здесь появятся ваши результаты.", en: "You haven't practised yet. Your results will appear here after your first session." },
   "\"{name}\" faylini o'chirmoqchimisiz? Bu amalni qaytarib bo'lmaydi.": { ru: "Удалить файл «{name}»? Это действие нельзя отменить.", en: "Delete \"{name}\"? This can't be undone." },
   "So'rovni bekor qilish": { ru: "Отменить запрос", en: "Cancel request" },
   "Bu so'rovni bekor qilmoqchimisiz?": { ru: "Отменить этот запрос?", en: "Cancel this request?" },

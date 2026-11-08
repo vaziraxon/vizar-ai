@@ -600,13 +600,6 @@ export const DOC_AI_SUMMARY: Record<string, string> = {
 
 export const INTERVIEW_DIFFICULTIES = ["Oson", "O'rtacha", "Qiyin"];
 
-export const INTERVIEW_SESSION_HISTORY = [
-  { date: "3 hafta oldin", score: 52 },
-  { date: "2 hafta oldin", score: 61 },
-  { date: "1 hafta oldin", score: 68 },
-  { date: "Bugun", score: 76 },
-];
-
 // --- Notifications ------------------------------------------------------------
 
 export const NOTIFICATIONS: AppNotification[] = [

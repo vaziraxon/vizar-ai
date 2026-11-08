@@ -18,7 +18,6 @@ import {
   type AnswerEval,
   type InterviewSession,
 } from "@/lib/dashboard/interview-eval";
-import { INTERVIEW_SESSION_HISTORY } from "@/data/mockData";
 import {
   PLAYBOOK_COUNTRIES,
   PLAYBOOK_LEVELS,
@@ -438,21 +437,21 @@ export default function AiInterviewPage() {
           <div className="border-t border-surface-border pt-5">
             <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-900">
               {l("Mashqlar tarixi")}
-              {history.length === 0 && (
-                <span className="rounded-md bg-surface-tint px-1.5 py-0.5 text-[12px] font-semibold uppercase tracking-[0.08em] text-ink-500">
-                  {l("Namuna")}
-                </span>
-              )}
             </p>
+            {/* Only the user's own results — no sample scores before the first practice */}
+            {history.length === 0 ? (
+              <p className="rounded-2xl bg-surface-tint px-4 py-3 text-body-sm text-ink-600">
+                {l("Hali mashq qilmadingiz. Birinchi mashqdan keyin natijalaringiz shu yerda ko'rinadi.")}
+              </p>
+            ) : (
             <ul className="space-y-2">
-              {(history.length
-                ? history.map((s) => ({
-                    key: s.at,
-                    label: `${fmt(s.at, "dayMonthShort")} · ${PLAYBOOK_COUNTRIES.find((c) => c.name.uz === s.country)?.name[appLang] ?? l(s.country)} · ${l(s.difficulty)}`,
-                    score: s.score,
-                  }))
-                : INTERVIEW_SESSION_HISTORY.map((s) => ({ key: s.date, label: l(s.date), score: s.score }))
-              ).map((s) => (
+              {history
+                .map((s) => ({
+                  key: s.at,
+                  label: `${fmt(s.at, "dayMonthShort")} · ${PLAYBOOK_COUNTRIES.find((c) => c.name.uz === s.country)?.name[appLang] ?? l(s.country)} · ${l(s.difficulty)}`,
+                  score: s.score,
+                }))
+                .map((s) => (
                 <li key={s.key} className="flex items-center justify-between gap-4 rounded-2xl bg-surface-tint px-4 py-2.5 text-body-sm">
                   <span className="min-w-0 truncate text-ink-600">{s.label}</span>
                   <span className="flex shrink-0 items-center gap-3">
@@ -464,6 +463,7 @@ export default function AiInterviewPage() {
                 </li>
               ))}
             </ul>
+            )}
             {history.length > 0 && (
               <button type="button" onClick={() => setHistory([])} className="-mb-3 py-3 text-caption font-semibold text-ink-500 hover:text-red-600">
                 {l("Tarixni tozalash")}
