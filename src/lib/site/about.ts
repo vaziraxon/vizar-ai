@@ -75,6 +75,8 @@ export const SECURITY_ITEMS = [
   { id: "tls", done: true },
   { id: "roles", done: true },
   { id: "rateLimit", done: true },
+  { id: "headers", done: true },
+  { id: "csp", done: false },
   { id: "audit", done: false },
   { id: "law", done: false },
 ] as const;

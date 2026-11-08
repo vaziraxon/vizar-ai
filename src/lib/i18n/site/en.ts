@@ -992,6 +992,8 @@ export const en: SiteContent = {
       tls: "HTTPS and encryption at rest",
       roles: "Role-based access control (admin and agency areas)",
       rateLimit: "Request limits — protection against password guessing and spam",
+      headers: "Security headers — the site can't be framed by other pages and file types can't be spoofed",
+      csp: "Content Security Policy (CSP) — in test mode now, to be fully enforced next",
       audit: "Regular independent security audits",
       law: "Full GDPR and local law compliance",
     },

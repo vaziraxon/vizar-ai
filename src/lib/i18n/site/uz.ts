@@ -997,6 +997,8 @@ export const uz: SiteContent = {
       tls: "HTTPS va saqlashda shifrlash",
       roles: "Rolga asoslangan kirish nazorati (admin va agentlik bo‘limlari)",
       rateLimit: "So‘rovlar sonini cheklash — parol tanlash va spamdan himoya",
+      headers: "Himoya sarlavhalari — sayt begona sahifaga joylashtirilmaydi, fayl turi almashtirilmaydi",
+      csp: "Kontent xavfsizlik siyosati (CSP) — hozir sinov rejimida, keyin to‘liq yoqiladi",
       audit: "Muntazam mustaqil xavfsizlik auditi",
       law: "GDPR va mahalliy qonunchilikka to‘liq moslashtirish",
     },
