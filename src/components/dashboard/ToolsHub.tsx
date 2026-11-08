@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Calculator, CalendarClock, Camera, Check, FilePen, Sparkles, type LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calculator, CalendarClock, Camera, Check, FilePen, type LucideIcon } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { useL } from "@/components/i18n/L";
 import { useSite } from "@/lib/i18n/site";
@@ -46,27 +46,6 @@ export function ToolCards() {
         </Link>
       ))}
     </div>
-  );
-}
-
-/** Banner on the dashboard overview that leads to the tools */
-export function ToolsPromo() {
-  const l = useL();
-  return (
-    <Link
-      href="/dashboard/tools"
-      className="group relative mt-5 flex flex-col gap-3 overflow-hidden rounded-[24px] bg-gradient-to-br from-brand-600 to-violet-600 px-5 py-4 text-white shadow-float sm:flex-row sm:items-center sm:gap-4"
-    >
-      <span className="relative inline-flex w-fit shrink-0 items-center gap-1.5 rounded-pill bg-white/20 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em]">
-        <Sparkles size={12} aria-hidden="true" /> {l("Yangilik")}
-      </span>
-      <p className="relative min-w-0 flex-1 text-body-sm font-medium text-white/95">
-        {l("Viza foto, xatlar, muddat rejalashtiruvchi va Shengen kalkulyatori — hammasi bir joyda.")}
-      </p>
-      <span className="relative inline-flex shrink-0 items-center gap-1.5 self-start rounded-pill bg-white px-4 py-2 text-body-sm font-semibold text-brand-700 transition-[gap] duration-200 group-hover:gap-2.5 motion-reduce:transition-none sm:self-center dark:text-brand-600">
-        {l("Ochib ko'rish")} <ArrowRight size={15} aria-hidden="true" />
-      </span>
-    </Link>
   );
 }
 
