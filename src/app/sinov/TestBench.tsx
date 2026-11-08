@@ -138,6 +138,9 @@ export function TestBench({ configured, user, application, documents }: TestBenc
           <p className="mx-auto mt-3 max-w-xl text-body-lg text-ink-600">
             {l("Ulanish, kirish (email va Google) va fayl yuklashni shu yerda tekshiring.")}
           </p>
+          <Link href="/sinov/document-checker" className="btn-secondary btn-md mt-5">
+            Hujjat tekshiruvi sinovi (sun&apos;iy hujjatlar)
+          </Link>
         </div>
 
         {/* 1. Status */}
