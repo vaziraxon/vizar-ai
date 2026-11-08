@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FolderOpen, Gauge, LayoutDashboard, Menu, Route } from "lucide-react";
+import { FolderOpen, Gauge, ListChecks, Menu, Route } from "lucide-react";
 import { useLanguage } from "@/lib/language-context";
 import { cn } from "@/lib/utils";
 
 const TABS = [
-  { href: "/dashboard", key: "tab_home", icon: LayoutDashboard },
+  { href: "/dashboard/checklist", key: "nav_checklist", icon: ListChecks },
   { href: "/dashboard/readiness", key: "tab_readiness", icon: Gauge },
   { href: "/dashboard/documents", key: "tab_docs", icon: FolderOpen },
   { href: "/dashboard/tracker", key: "tab_tracker", icon: Route },

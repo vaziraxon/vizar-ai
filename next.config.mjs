@@ -76,6 +76,8 @@ const nextConfig = {
   // structure can still change without browsers caching the redirect.
   async redirects() {
     return [
+      // No overview page: sign-in, the logo and old links open the checklist
+      { source: "/dashboard", destination: "/dashboard/checklist", permanent: false },
       { source: "/readiness-score", destination: "/dashboard/readiness", permanent: false },
       { source: "/documents", destination: "/dashboard/documents", permanent: false },
       { source: "/ai-interview", destination: "/dashboard/interview", permanent: false },
