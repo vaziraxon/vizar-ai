@@ -1081,6 +1081,11 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Hujjatlaringiz holatini fayl yuklamasdan baholang: har bir hujjat uchun 4 variantdan birini tanlang.": { ru: "Оцените готовность документов без загрузки файлов: для каждого выберите один из 4 вариантов.", en: "Check where your documents stand without uploading anything: pick one of 4 options for each." },
   "Testni boshlash": { ru: "Начать тест", en: "Start the test" },
 
+  /* Welcome toast */
+  "Xush kelibsiz, {name}!": { ru: "Добро пожаловать, {name}!", en: "Welcome, {name}!" },
+  "Xush kelibsiz!": { ru: "Добро пожаловать!", en: "Welcome!" },
+  "Tayyorgarlikni shu yerdan davom ettiring.": { ru: "Продолжайте подготовку отсюда.", en: "Pick up your preparation right here." },
+
   /* Overview 2.0 */
   "Hujjat yuklash vaqtincha yopiq.": { ru: "Загрузка документов временно закрыта.", en: "Document upload is temporarily closed." },
   "Yuklash vaqtincha yopiq": { ru: "Загрузка временно закрыта", en: "Upload temporarily closed" },

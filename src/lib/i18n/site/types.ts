@@ -175,6 +175,18 @@ export interface SiteContent {
       subtitle: string;
       alerts: { title: string; time: string; tone: "warn" | "ok" | "info" }[];
     };
+    readinessTest: {
+      eyebrow: string;
+      title: string;
+      subtitle: string;
+      points: string[];
+      cta: string;
+      note: string;
+      doc: string;
+      options: [string, string, string, string];
+      result: string;
+      resultNote: string;
+    };
     more: { faq: string };
     destinations: { eyebrow: string; title: string; subtitle: string; all: string };
     cta: { title: string; subtitle: string; primary: string; secondary: string };

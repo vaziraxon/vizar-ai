@@ -384,6 +384,18 @@ export const en: SiteContent = {
         { title: "Consultation time confirmed", time: "2 days ago", tone: "info" },
       ],
     },
+    readinessTest: {
+      eyebrow: "New",
+      title: "How ready are your documents? Find out in 2 minutes",
+      subtitle: "Choose your destination and visa type, then pick one of 4 options for each document. You get a readiness percentage and what to do first.",
+      points: ["No files uploaded — just your answers", "A document list for your destination and visa type", "Save the result and take the test again later"],
+      cta: "Start the test",
+      note: "The result is based on your answers: no documents are checked, and it isn't the chance of getting a visa.",
+      doc: "Passport",
+      options: ["I have it, ready", "I have it, but incomplete", "Being prepared now", "Not yet"],
+      result: "Document readiness",
+      resultNote: "Based on your answers",
+    },
     more: { faq: "All questions" },
     destinations: {
       eyebrow: "Destinations",
