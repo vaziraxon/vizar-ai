@@ -1,4 +1,4 @@
-import { AlertTriangle, FileSearch2, ShieldCheck } from "lucide-react";
+import { AlertTriangle, ArrowRight, ClipboardCheck, FileSearch2, ShieldCheck } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { RealDocumentCard } from "@/components/dashboard/RealDocumentCard";
 import { BulkUploader } from "@/components/dashboard/BulkUploader";
@@ -123,6 +123,23 @@ export default async function DocumentsPage() {
       ) : (
         <UploadsClosedNotice />
       )}
+
+      <Link
+        href="/dashboard/documents/check"
+        className="group mb-6 flex flex-col gap-4 rounded-[28px] bg-gradient-to-br from-[#5B21B6] to-[#7138EC] p-6 text-white shadow-float sm:flex-row sm:items-center sm:justify-between sm:p-7"
+      >
+        <span className="min-w-0">
+          <span className="flex items-center gap-2 text-caption font-semibold uppercase tracking-[0.08em] text-white/80">
+            <ClipboardCheck size={15} aria-hidden="true" /> <L>Hujjat tayyorgarligi testi</L>
+          </span>
+          <span className="mt-1.5 block text-body text-white/90">
+            <L>Hujjatlaringiz holatini fayl yuklamasdan baholang: har bir hujjat uchun 4 variantdan birini tanlang.</L>
+          </span>
+        </span>
+        <span className="btn btn-md shrink-0 bg-gold-300 text-night shadow-float group-hover:bg-gold-200">
+          <L>Testni boshlash</L> <ArrowRight size={16} aria-hidden="true" />
+        </span>
+      </Link>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {DOCUMENTS.map((docSlot) => {

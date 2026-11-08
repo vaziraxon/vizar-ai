@@ -14,6 +14,7 @@ import {
   Calculator,
   CalendarClock,
   Camera,
+  ClipboardCheck,
   Compass,
   FilePen,
   FileWarning,
@@ -38,6 +39,7 @@ import type { SidebarNavItem } from "@/types";
 const PAGE_ICON: Record<string, LucideIcon> = {
   "/dashboard/readiness": Gauge,
   "/dashboard/documents": FolderOpen,
+  "/dashboard/documents/check": ClipboardCheck,
   "/dashboard/checklist": ListChecks,
   "/dashboard/interview": MessagesSquare,
   "/dashboard/assistant": BookOpen,
