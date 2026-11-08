@@ -1040,6 +1040,13 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Viza tayyorgarlik bali": { ru: "Балл готовности к визе", en: "Visa readiness score" },
   "Suhbat mashqi bo'limida tayyorlaning": { ru: "Подготовьтесь в разделе «Тренировка интервью»", en: "Prepare in the Interview practice section" },
   /* Overview 2.0 */
+  "Hujjat yuklash vaqtincha yopiq.": { ru: "Загрузка документов временно закрыта.", en: "Document upload is temporarily closed." },
+  "Yuklash vaqtincha yopiq": { ru: "Загрузка временно закрыта", en: "Upload temporarily closed" },
+  "Sinov bosqichida": { ru: "Тестовый этап", en: "Testing phase" },
+  "AI hujjat tekshiruvi — sinov bosqichida": { ru: "AI-проверка документов — тестовый этап", en: "AI document check — testing phase" },
+  "Hujjatlaringiz xavfsizligi biz uchun birinchi o'rinda.": { ru: "Безопасность ваших документов для нас на первом месте.", en: "The security of your documents comes first for us." },
+  "VIZAR AI hujjat tekshirish xizmatini O'zbekiston hududidagi himoyalangan serverda ishga tushirishga tayyorlamoqda.": { ru: "VIZAR AI готовит запуск сервиса проверки документов на защищённом сервере в Узбекистане.", en: "VIZAR AI is preparing to run the document-check service on a protected server in Uzbekistan." },
+  "Shaxsiy ma'lumotlaringizni himoya qilish maqsadida ushbu funksiya xavfsizlik tekshiruvlari yakunlangunga qadar vaqtincha yopiq. Tez orada xizmatdan foydalanishingiz mumkin bo'ladi.": { ru: "Чтобы защитить ваши личные данные, эта функция временно закрыта до завершения проверок безопасности. Скоро вы сможете ею пользоваться.", en: "To protect your personal data, this feature is temporarily closed until the security checks are complete. You'll be able to use it soon." },
   "Hali mashq qilmadingiz. Birinchi mashqdan keyin natijalaringiz shu yerda ko'rinadi.": { ru: "Вы ещё не тренировались. После первой тренировки здесь появятся ваши результаты.", en: "You haven't practised yet. Your results will appear here after your first session." },
   "\"{name}\" faylini o'chirmoqchimisiz? Bu amalni qaytarib bo'lmaydi.": { ru: "Удалить файл «{name}»? Это действие нельзя отменить.", en: "Delete \"{name}\"? This can't be undone." },
   "So'rovni bekor qilish": { ru: "Отменить запрос", en: "Cancel request" },

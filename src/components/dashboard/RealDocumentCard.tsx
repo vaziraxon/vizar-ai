@@ -46,6 +46,8 @@ interface RealDocumentCardProps {
   optional?: boolean;
   /** What to check in the file yourself; Uzbek source text */
   check?: string;
+  /** False while real uploads are closed: no drop zone, existing files stay */
+  uploadsEnabled: boolean;
 }
 
 export function RealDocumentCard({
@@ -55,6 +57,7 @@ export function RealDocumentCard({
   existingDoc,
   optional,
   check,
+  uploadsEnabled,
 }: RealDocumentCardProps) {
   const Icon = SLOT_ICONS[slotId as keyof typeof SLOT_ICONS] ?? FilePlus2;
   const router = useRouter();
@@ -172,6 +175,10 @@ export function RealDocumentCard({
             </button>
           </div>
         </div>
+      ) : !uploadsEnabled ? (
+        <p className="rounded-xl border border-dashed border-surface-border px-4 py-4 text-center text-caption text-ink-500 dark:border-white/10">
+          {l("Yuklash vaqtincha yopiq")}
+        </p>
       ) : (
         <div
           onDragOver={(e) => {

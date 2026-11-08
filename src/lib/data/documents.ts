@@ -3,6 +3,7 @@ import { getAuthedContext, genericDbError, type DataResult } from "./_shared";
 import { documentMetaSchema } from "@/lib/validation/schemas";
 import { sanitizeFilename } from "@/lib/storage-path";
 import { STORAGE_BUCKET } from "@/lib/document-constraints";
+import { UPLOADS_CLOSED_MESSAGE, documentUploadsEnabled } from "@/lib/document-upload";
 import type { Database } from "@/types/database";
 
 export type DocumentRow = Database["public"]["Tables"]["documents"]["Row"];
@@ -33,6 +34,10 @@ export async function listDocumentsForApplication(
 export async function recordUploadedDocument(
   input: unknown
 ): Promise<DataResult<DocumentRow>> {
+  // Closed until the document service runs on a protected server (the
+  // database refuses the insert too: supabase/document_upload_lock.sql)
+  if (!documentUploadsEnabled()) return { ok: false, reason: "db_error", error: UPLOADS_CLOSED_MESSAGE };
+
   const parsed = documentMetaSchema.safeParse(input);
   if (!parsed.success) {
     return {
