@@ -21,6 +21,7 @@ export const en: SiteContent = {
     libraryAll: "Open the library",
     libraryNote: "In your account — free for now.",
     pricing: "Pricing",
+    about: "About",
     signIn: "Sign in",
     getStarted: "Get Started",
     language: "Language",
@@ -1042,6 +1043,85 @@ export const en: SiteContent = {
       },
     ],
   },
+  aboutPage: {
+    eyebrow: "About us",
+    title: "VIZAR AI — an official project of VIZAR-TOUR LLC",
+    subtitle: "We bring tourism know-how and modern technology together to make visa preparation clear, organised and calm.",
+    founder: {
+      label: "Founder",
+      name: "Vazirakhon Zokirova",
+      role: "Founder of VIZAR AI and VIZAR-TOUR LLC",
+      bio: [
+        "Vazirakhon is a tourism specialist by training: she graduated from Kimyo International University in Tashkent with a bachelor’s degree in Tourism and the qualification of Tourism Manager.",
+        "She added practical depth with a guide retraining course at Polaris Guide School, covering Samarkand, Bukhara and Khorezm.",
+        "The idea behind VIZAR AI is simple: every traveller should see exactly where they stand before applying, and prepare for the visa step by step, with confidence.",
+      ],
+    },
+    values: [
+      {
+        title: "Honesty",
+        text: "We never promise a visa — we give a clear list, timelines and advice.",
+      },
+      {
+        title: "Official footing",
+        text: "A licensed travel agency and information from official sources.",
+      },
+      {
+        title: "Ease",
+        text: "A complex process in clear steps — in Uzbek, Russian and English.",
+      },
+    ],
+    company: {
+      title: "Official documents",
+      subtitle: "VIZAR-TOUR LLC is state-registered and licensed for tourism activity.",
+      license: {
+        title: "Tourism activity licence",
+        status: "Active",
+        facts: [
+          ["Licence number", "No. 964533"],
+          ["Registry number", "L-41802682"],
+          ["Valid", "from 14.08.2025 — no expiry"],
+          ["Issued by", "Tashkent City Tourism Department, Tourism Committee"],
+          ["Activity", "Travel agency; outbound tourism, including medical and educational tourism"],
+        ],
+      },
+      registration: {
+        title: "Certificate of state registration",
+        facts: [
+          ["Full name", "VIZAR-TOUR Limited Liability Company"],
+          ["Tax ID (STIR)", "312 317 579"],
+          ["Registered on", "30.07.2025"],
+          ["Registered by", "Public Services Centre, Chilonzor district, Tashkent"],
+        ],
+      },
+    },
+    education: {
+      title: "Founder’s education",
+      items: [
+        {
+          title: "Bachelor’s degree — Tourism",
+          place: "Kimyo International University in Tashkent",
+          detail: "Qualification: Tourism Manager · 2025",
+        },
+        {
+          title: "Retraining diploma — Guide",
+          place: "Polaris Guide School (Polaris Magic Travel LLC)",
+          detail: "Guide course for Samarkand, Bukhara and Khorezm, 576 hours · 2025–2026",
+        },
+      ],
+    },
+    view: "View document",
+    contact: {
+      title: "Contact",
+      subtitle: "Have a question or an idea? Give us a call — we’re happy to help.",
+      phone: "Phone",
+      call: "Call",
+      city: "City",
+      cityValue: "Tashkent, Uzbekistan",
+      company: "Company",
+    },
+    note: "VIZAR AI is not an embassy or consulate and does not guarantee a visa. The final decision is always made by the competent government authority.",
+  },
   footer: {
     tagline: "The AI platform for visa preparation.",
     product: "Product",
@@ -1050,6 +1130,9 @@ export const en: SiteContent = {
     faq: "FAQ",
     roadmap: "Roadmap",
     trust: "Trust Center",
+    about: "About us",
+    official: "VIZAR AI is an official project of VIZAR-TOUR LLC",
+    phone: "Phone",
     legal: "Legal notice",
     rights: "All rights reserved.",
     backToTop: "Back to top",

@@ -247,6 +247,8 @@ export function Navbar() {
             ? "how"
             : pathname === "/pricing"
               ? "pricing"
+              : pathname === "/about"
+                ? "about"
               : pathname.startsWith("/knowledge-base")
                 ? "library"
                 : null;
@@ -426,6 +428,14 @@ export function Navbar() {
               {navLink("how", "/how-it-works", site.nav.howItWorks)}
               {menuButton("library", site.nav.library)}
               {navLink("pricing", "/pricing", site.nav.pricing)}
+              <Link
+                href="/about"
+                onMouseEnter={scheduleClose}
+                aria-current={activeKey === "about" ? "page" : undefined}
+                className={cn(itemClass("about"), "hidden xl:flex")}
+              >
+                {site.nav.about}
+              </Link>
             </div>
           </nav>
 
@@ -564,6 +574,7 @@ export function Navbar() {
               { key: "how", href: "/how-it-works", label: site.nav.howItWorks },
               { key: "library", href: "/knowledge-base", label: site.nav.library },
               { key: "pricing", href: "/pricing", label: site.nav.pricing },
+              { key: "about", href: "/about", label: site.nav.about },
               { key: "faq", href: "/faq", label: site.footer.faq },
             ].map((item) => (
               <li key={item.href}>

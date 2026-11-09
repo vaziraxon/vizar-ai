@@ -1,3 +1,4 @@
+import { COMPANY } from "@/lib/site/about";
 import type { Metadata } from "next";
 import { TOOL_PROMOS } from "@/lib/dashboard/tool-promos";
 import { SITE_CONTENT } from "@/lib/i18n/site";
@@ -18,6 +19,7 @@ export const LOCALIZED_PATHS: string[] = [
   "/faq",
   "/roadmap",
   "/trust-center",
+  "/about",
   "/knowledge-base",
   "/destinations",
   ...TOOLS.map((t) => t.href),
@@ -96,6 +98,8 @@ function pageCopy(path: string, lang: LangCode): { title: string; description: s
       return { title: site.footer.roadmap, description: site.roadmapPage.subtitle };
     case "/trust-center":
       return { title: site.trustPage.title, description: site.trustPage.subtitle };
+    case "/about":
+      return { title: site.aboutPage.eyebrow, description: site.aboutPage.subtitle };
     case "/knowledge-base":
       return LIBRARY[lang];
     case "/destinations":
@@ -147,7 +151,14 @@ export function homeJsonLd(lang: LangCode) {
   return {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "Organization", name: "VIZAR AI", url: "https://vizarai.com" },
+      {
+        "@type": "Organization",
+        name: "VIZAR AI",
+        url: "https://vizarai.com",
+        telephone: COMPANY.phone,
+        parentOrganization: { "@type": "Organization", name: "VIZAR-TOUR MCHJ", taxID: COMPANY.stir.replace(/ /g, "") },
+        founder: { "@type": "Person", name: "Zokirova Vaziraxon" },
+      },
       {
         "@type": "WebApplication",
         name: "VIZAR AI",

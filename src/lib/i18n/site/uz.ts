@@ -23,6 +23,7 @@ export const uz: SiteContent = {
     libraryAll: "Kutubxonaga o‘tish",
     libraryNote: "Shaxsiy kabinetda — hozircha bepul.",
     pricing: "Narxlar",
+    about: "Biz haqimizda",
     signIn: "Kirish",
     getStarted: "Boshlash",
     language: "Til",
@@ -1047,6 +1048,88 @@ export const uz: SiteContent = {
       },
     ],
   },
+  aboutPage: {
+    eyebrow: "Biz haqimizda",
+    title: "VIZAR AI — “VIZAR-TOUR” MCHJning rasmiy loyihasi",
+    subtitle: "Turizm sohasidagi bilim va zamonaviy texnologiyani birlashtirib, viza tayyorgarligini tushunarli, tartibli va xotirjam jarayonga aylantiramiz.",
+    founder: {
+      label: "Asoschi",
+      name: "Zokirova Vaziraxon",
+      role: "VIZAR AI va “VIZAR-TOUR” MCHJ asoschisi",
+      bio: [
+        "Vaziraxon turizm sohasini akademik asosda o‘rgangan mutaxassis: Kimyo International University in Tashkent’ni “Turizm” yo‘nalishi bo‘yicha bakalavr darajasi va “Turizm menejeri” malakasi bilan tamomlagan.",
+        "Amaliy tajribasini “Polaris Guide School”dagi gidlarni qayta tayyorlash kursi bilan boyitgan — Samarqand, Buxoro va Xorazm yo‘nalishlari bo‘yicha.",
+        "VIZAR AI g‘oyasi oddiy: har bir sayohatchi hujjat topshirishdan oldin o‘z holatini aniq ko‘rsin va vizaga qadamma-qadam, ishonch bilan tayyorlansin.",
+      ],
+    },
+    values: [
+      {
+        title: "Halollik",
+        text: "Viza berilishini va’da qilmaymiz — aniq ro‘yxat, muddat va maslahat beramiz.",
+      },
+      {
+        title: "Rasmiy asos",
+        text: "Litsenziyaga ega turagentlik va rasmiy manbalarga tayangan ma’lumotlar.",
+      },
+      {
+        title: "Qulaylik",
+        text: "Murakkab jarayon — tushunarli qadamlar, o‘zbek, rus va ingliz tillarida.",
+      },
+    ],
+    company: {
+      title: "Rasmiy hujjatlar",
+      subtitle: "“VIZAR-TOUR” MCHJ davlat ro‘yxatidan o‘tgan va turistik faoliyat uchun litsenziyaga ega.",
+      license: {
+        title: "Turistik faoliyat litsenziyasi",
+        status: "Faol",
+        facts: [
+          ["Litsenziya raqami", "№ 964533"],
+          ["Reestr tartib raqami", "L-41802682"],
+          ["Amal qilish muddati", "14.08.2025 dan — muddatsiz"],
+          ["Vakolatli organ", "Turizm qo‘mitasi Toshkent shahar turizm boshqarmasi"],
+          [
+            "Faoliyat turi",
+            "Turagentlik faoliyati; chiqish turizmi, shu jumladan tibbiy va ta’lim turizmi",
+          ],
+        ],
+      },
+      registration: {
+        title: "Davlat ro‘yxatidan o‘tganlik guvohnomasi",
+        facts: [
+          ["To‘liq nomi", "“VIZAR-TOUR” mas’uliyati cheklangan jamiyati"],
+          ["STIR", "312 317 579"],
+          ["Ro‘yxatdan o‘tgan sana", "30.07.2025"],
+          ["Ro‘yxatga olgan organ", "Toshkent shahri, Chilonzor tumani DXM"],
+        ],
+      },
+    },
+    education: {
+      title: "Asoschining ta’limi",
+      items: [
+        {
+          title: "Bakalavr diplomi — Turizm",
+          place: "Kimyo International University in Tashkent",
+          detail: "Malaka: Turizm menejeri · 2025",
+        },
+        {
+          title: "Qayta tayyorlash diplomi — Gid",
+          place: "“Polaris Guide School” (“Polaris Magic Travel” MCHJ)",
+          detail: "Samarqand, Buxoro va Xorazm bo‘yicha gidlik kursi, 576 soat · 2025–2026",
+        },
+      ],
+    },
+    view: "Hujjatni ko‘rish",
+    contact: {
+      title: "Bog‘lanish",
+      subtitle: "Savol yoki taklif bo‘lsa, qo‘ng‘iroq qiling — mamnuniyat bilan javob beramiz.",
+      phone: "Telefon",
+      call: "Qo‘ng‘iroq qilish",
+      city: "Shahar",
+      cityValue: "Toshkent, O‘zbekiston",
+      company: "Kompaniya",
+    },
+    note: "VIZAR AI elchixona yoki konsullik emas va viza berilishini kafolatlamaydi. Yakuniy qarorni har doim vakolatli davlat organi qabul qiladi.",
+  },
   footer: {
     tagline: "Viza tayyorgarligi uchun AI platforma.",
     product: "Mahsulot",
@@ -1055,6 +1138,9 @@ export const uz: SiteContent = {
     faq: "Savollar",
     roadmap: "Yo‘l xaritasi",
     trust: "Ishonch markazi",
+    about: "Biz haqimizda",
+    official: "VIZAR AI — “VIZAR-TOUR” MCHJning rasmiy loyihasi",
+    phone: "Telefon",
     legal: "Yuridik ogohlantirish",
     rights: "Barcha huquqlar himoyalangan.",
     backToTop: "Yuqoriga",
