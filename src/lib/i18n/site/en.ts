@@ -1052,9 +1052,15 @@ export const en: SiteContent = {
       name: "Vazirakhon Zokirova",
       role: "Founder of VIZAR AI and VIZAR-TOUR LLC",
       bio: [
-        "Vazirakhon is a tourism specialist by training: she graduated from Kimyo International University in Tashkent with a bachelor’s degree in Tourism and the qualification of Tourism Manager.",
-        "She added practical depth with a guide retraining course at Polaris Guide School, covering Samarkand, Bukhara and Khorezm.",
-        "The idea behind VIZAR AI is simple: every traveller should see exactly where they stand before applying, and prepare for the visa step by step, with confidence.",
+        "Vazirakhon has more than 1.5 years of hands-on experience in tourism and visa services. Since 2025 she has run her own travel agency, VIZAR-TOUR: in that time she has sent more than 50 clients abroad and helped more than 20 people get their visas.",
+        "She earned her bachelor’s degree in Tourism at Kimyo International University in Tashkent, studying in an English-taught group.",
+      ],
+      video: "Moments from the VIZAR-TOUR office",
+      stats: [
+        { value: "1.5+", label: "years of hands-on experience" },
+        { value: "50+", label: "clients sent abroad" },
+        { value: "20+", label: "people helped with visas" },
+        { value: "2025", label: "own travel agency since" },
       ],
     },
     values: [
@@ -1071,6 +1077,27 @@ export const en: SiteContent = {
         text: "A complex process in clear steps — in Uzbek, Russian and English.",
       },
     ],
+    experience: {
+      work: {
+        title: "Work experience",
+        items: [
+          { title: "VIZAR-TOUR LLC — founder and director", detail: "Since 2025 · travel agency and visa services" },
+          { title: "Hilton hotel, Tashkent — hostess", detail: "3 months" },
+          { title: "Center for Islamic Civilization — intern guide", detail: "2 months" },
+          { title: "Abu Dhabi and Dubai", detail: "Hands-on look at international tourism services" },
+        ],
+      },
+      learning: {
+        title: "Courses and programmes",
+        items: [
+          { title: "SMM course", detail: "Osnova Platform" },
+          { title: "Python programming course", detail: "MohirDev" },
+          { title: "Mohir AI", detail: "Programme participant" },
+          { title: "Uzbek Voice Wiki", detail: "Project participant" },
+          { title: "Innovative camps", detail: "Programme participant" },
+        ],
+      },
+    },
     company: {
       title: "Official documents",
       subtitle: "VIZAR-TOUR LLC holds a state licence for tourism activity.",

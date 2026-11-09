@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { BadgeCheck, Building2, GraduationCap, HeartHandshake, MapPin, Phone, ScrollText, ShieldCheck, Sparkles } from "lucide-react";
+import { BadgeCheck, BookOpen, Briefcase, Building2, GraduationCap, HeartHandshake, MapPin, Phone, ScrollText, ShieldCheck, Sparkles } from "lucide-react";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { PageHero } from "@/components/site/PageHero";
 import { useSite } from "@/lib/i18n/site";
@@ -50,9 +50,9 @@ export function AboutUsPage() {
       <PageHero emoji="🏢" decor={["🎓", "📜", "🤝"]} eyebrow={copy.eyebrow} title={copy.title} subtitle={copy.subtitle} />
 
       <div className="container-page space-y-14 pb-12 pt-8 md:space-y-16 md:pb-14 md:pt-10 lg:pb-16">
-        {/* Founder */}
-        <section aria-labelledby="about-founder" data-reveal className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-5">
+        {/* Founder — bio, numbers, experience and learning in one place */}
+        <section aria-labelledby="about-founder" data-reveal className="grid items-start gap-8 lg:grid-cols-12 lg:gap-12">
+          <div className="space-y-5 lg:col-span-5">
             <div className="relative mx-auto aspect-[4/5] max-w-sm overflow-hidden rounded-[32px] shadow-float ring-1 ring-surface-border lg:max-w-none">
               <Image
                 src="/about/founder.webp"
@@ -67,6 +67,17 @@ export function AboutUsPage() {
                 <p className="text-caption font-medium text-ink-600">{copy.founder.role}</p>
               </div>
             </div>
+            <figure className="mx-auto max-w-[300px]">
+              <video
+                src="/about/founder-video.mp4#t=0.5"
+                controls
+                playsInline
+                preload="metadata"
+                aria-label={copy.founder.video}
+                className="aspect-[9/16] w-full rounded-[28px] bg-ink-950 object-cover shadow-float ring-1 ring-surface-border"
+              />
+              <figcaption className="mt-2 text-center text-caption font-medium text-ink-500">{copy.founder.video}</figcaption>
+            </figure>
           </div>
 
           <div className="lg:col-span-7">
@@ -76,13 +87,46 @@ export function AboutUsPage() {
             <h2 id="about-founder" className="luxe-firm mt-4 font-luxe text-[clamp(2.2rem,4vw,3.2rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-ink-950">
               {copy.founder.name}
             </h2>
-            <div className="mt-5 space-y-4 text-body-lg text-ink-700">
+            <div className="mt-5 space-y-4 text-body text-ink-700 sm:text-body-lg">
               {copy.founder.bio.map((p) => (
                 <p key={p}>{p}</p>
               ))}
             </div>
 
-            <ul className="mt-8 grid gap-3 sm:grid-cols-3">
+            <dl className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {copy.founder.stats.map((s) => (
+                <div key={s.label} className="flex flex-col-reverse justify-end rounded-[22px] border border-surface-border bg-surface p-4 shadow-card">
+                  <dt className="mt-2 text-caption font-medium text-ink-600">{s.label}</dt>
+                  <dd className="font-display text-[1.9rem] font-extrabold leading-none tracking-[-0.03em] text-brand-700 dark:text-white">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="mt-7 grid gap-4 sm:grid-cols-2">
+              {[
+                { block: copy.experience.work, icon: Briefcase },
+                { block: copy.experience.learning, icon: BookOpen },
+              ].map(({ block, icon: Icon }) => (
+                <div key={block.title} className="rounded-[22px] border border-surface-border bg-surface p-5 shadow-card">
+                  <h3 className="flex items-center gap-2 text-body-sm font-bold text-ink-950">
+                    <Icon size={16} aria-hidden="true" className="text-violet-600 dark:text-violet-400" /> {block.title}
+                  </h3>
+                  <ul className="mt-3 space-y-2.5">
+                    {block.items.map((item) => (
+                      <li key={item.title} className="flex gap-2.5">
+                        <span aria-hidden="true" className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br from-brand-500 to-violet-500" />
+                        <div className="min-w-0">
+                          <p className="text-body-sm font-semibold text-ink-900">{item.title}</p>
+                          <p className="text-caption text-ink-500">{item.detail}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            <ul className="mt-7 grid gap-3 sm:grid-cols-3">
               {copy.values.map((v, i) => {
                 const Icon = VALUE_ICONS[i] ?? ShieldCheck;
                 return (
