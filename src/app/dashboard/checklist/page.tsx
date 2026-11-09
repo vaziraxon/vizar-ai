@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { ArrowRight, Check, Plus, Printer, RotateCcw, Trash2 } from "lucide-react";
+import { ArrowRight, Check, ClipboardCheck, Plus, Printer, RotateCcw, Trash2 } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { Flag } from "@/components/site/Flag";
 import { useL } from "@/components/i18n/L";
@@ -21,10 +21,18 @@ import {
   type ChecklistSelection,
 } from "@/lib/dashboard/checklist-template";
 import { cn } from "@/lib/utils";
+import { answersAfterTick, docCheckKey, type Answer } from "@/lib/document-check/score";
 import { visaFreeStay } from "@/lib/dashboard/assessment-review";
 import { useActiveApplication, useApplicationChecklist } from "@/components/dashboard/ActiveApplication";
 
 const EMPTY: ChecklistSaved = { done: [], custom: [] };
+
+// Answers from the document readiness test that aren't "ready" show next to the item
+const TEST_STATUS: Partial<Record<Answer, { label: string; tone: string }>> = {
+  partial: { label: "Muammoli", tone: "bg-amber-500/10 text-amber-800 dark:text-amber-200" },
+  preparing: { label: "Tayyorlanmoqda", tone: "bg-violet-500/10 text-violet-700 dark:text-violet-200" },
+  missing: { label: "Yetishmayapti", tone: "bg-red-500/10 text-red-700 dark:text-red-200" },
+};
 
 // Printing shows only the checklist sheet, not the dashboard around it.
 const PRINT_CSS = `@media print {
@@ -38,6 +46,8 @@ export default function ChecklistPage() {
   const site = useSite();
   const [selection, setSelection] = useLocalState<ChecklistSelection>(CHECKLIST_SELECTION_KEY, DEFAULT_SELECTION);
   const [saved, setSaved] = useLocalState<ChecklistSaved>(checklistKey(selection.dest, selection.visa), EMPTY);
+  const [testAnswers, setTestAnswers] = useLocalState<Record<string, Answer>>(docCheckKey(selection.dest, selection.visa), {});
+  const testStarted = Object.keys(testAnswers).length > 0;
   const [draft, setDraft] = useState("");
   const [mounted, setMounted] = useState(false);
   const application = useActiveApplication();
@@ -61,10 +71,13 @@ export default function ChecklistPage() {
   const nextItem = groups.flatMap((g) => g.items).find((i) => !done.has(i.id));
 
   function toggle(id: string) {
+    const nowChecked = !saved.done.includes(id);
     setSaved((prev) => ({
       ...prev,
       done: prev.done.includes(id) ? prev.done.filter((x) => x !== id) : [...prev.done, id],
     }));
+    // Keep the readiness test in step: a tick is "ready", unticking clears "ready"
+    setTestAnswers((prev) => answersAfterTick(prev, id, nowChecked));
   }
 
   function addCustom(e: FormEvent) {
@@ -239,14 +252,11 @@ export default function ChecklistPage() {
                             <Trash2 size={15} />
                           </button>
                         ) : (
-                          item.upload &&
-                          !checked && (
-                            <Link
-                              href="/dashboard/documents"
-                              className="relative shrink-0 rounded-pill border border-surface-border px-3 py-1.5 text-caption font-semibold text-ink-700 before:absolute before:-inset-y-2 before:-inset-x-1 before:content-[''] transition-colors hover:border-surface-strong hover:text-ink-900"
-                            >
-                              {l("Yuklash")}
-                            </Link>
+                          !checked &&
+                          TEST_STATUS[testAnswers[item.id] as Answer] && (
+                            <span className={cn("shrink-0 rounded-pill px-2.5 py-1 text-caption font-semibold", TEST_STATUS[testAnswers[item.id] as Answer]?.tone)}>
+                              {l(TEST_STATUS[testAnswers[item.id] as Answer]?.label ?? "")}
+                            </span>
                           )
                         )}
                       </li>
@@ -307,9 +317,19 @@ export default function ChecklistPage() {
               )
             )}
           </div>
-          <Link href="/dashboard/documents" className="btn-primary btn-md w-full">
-            {l("Hujjatlarni yuklash")} <ArrowRight size={16} />
-          </Link>
+          <div className="card rounded-[24px] p-5">
+            <p className="flex items-center gap-2 text-body-sm font-semibold text-ink-950">
+              <ClipboardCheck size={17} aria-hidden="true" className="text-brand-600" /> {l("Hujjat tayyorgarligi testi")}
+            </p>
+            <p className="mt-1.5 text-caption text-ink-500">
+              {testStarted
+                ? l("Test javoblaringiz shu ro'yxatda: tayyorlari belgilangan, qolganlari holati bilan ko'rsatilgan.")
+                : l("Har bir hujjat uchun A–D javob bering — tayyor deganlaringiz shu yerda belgilanadi.")}
+            </p>
+            <Link href="/dashboard/documents/check" className="btn-primary btn-md mt-4 w-full">
+              {testStarted ? l("Testni ochish") : l("Testni boshlash")} <ArrowRight size={16} />
+            </Link>
+          </div>
           <button
             type="button"
             onClick={() => setSaved((prev) => ({ ...prev, done: [] }))}

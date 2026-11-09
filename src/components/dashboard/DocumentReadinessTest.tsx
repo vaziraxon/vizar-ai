@@ -7,9 +7,9 @@ import { Flag } from "@/components/site/Flag";
 import { useFormatDate, useL } from "@/components/i18n/L";
 import { useSite } from "@/lib/i18n/site";
 import { DESTINATIONS, type DestinationSlug } from "@/lib/site/registry";
-import { useLocalState } from "@/lib/dashboard/use-local-state";
-import { VISA_KINDS, buildChecklist, type VisaKind } from "@/lib/dashboard/checklist-template";
-import { ANSWERS, ANSWER_LABELS, scoreAnswers, type Answer } from "@/lib/document-check/score";
+import { readLocal, useLocalState } from "@/lib/dashboard/use-local-state";
+import { CHECKLIST_SELECTION_KEY, VISA_KINDS, buildChecklist, checklistKey, type ChecklistSaved, type VisaKind } from "@/lib/dashboard/checklist-template";
+import { ANSWERS, ANSWER_LABELS, cleanAnswers, docCheckKey, scoreAnswers, syncChecklistDone, type Answer } from "@/lib/document-check/score";
 import { adviseDocumentCheckAction, saveDocumentCheckAction } from "@/lib/actions/document-checks";
 import type { BookRule } from "@/lib/document-check/book";
 import type { DocumentCheckRow } from "@/lib/data/document-checks";
@@ -55,7 +55,7 @@ export function DocumentReadinessTest({ initialDest, initialVisa, applicationId,
   const site = useSite();
   const [dest, setDest] = useState<DestinationSlug>(initialDest);
   const [visa, setVisa] = useState<VisaKind>(initialVisa);
-  const [answers, setAnswers] = useLocalState<Record<string, Answer>>(`vizar-doc-check:${dest}:${visa}`, {});
+  const [answers, setAnswers] = useLocalState<Record<string, Answer>>(docCheckKey(dest, visa), {});
   const [showResult, setShowResult] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saveState, setSaveState] = useState<{ ok: boolean; text: string } | null>(null);
@@ -84,8 +84,21 @@ export function DocumentReadinessTest({ initialDest, initialVisa, applicationId,
     setAdvice(null);
   };
 
+  // The personal checklist follows the finished test: "ready" ticks, other answers untick
+  const syncChecklist = () => {
+    const key = checklistKey(dest, visa);
+    const saved = readLocal<ChecklistSaved>(key, { done: [], custom: [] });
+    try {
+      localStorage.setItem(key, JSON.stringify({ ...saved, done: syncChecklistDone(saved.done, cleanAnswers(items, answers)) }));
+      localStorage.setItem(CHECKLIST_SELECTION_KEY, JSON.stringify({ dest, visa }));
+    } catch {
+      /* storage blocked: the checklist just stays as it was */
+    }
+  };
+
   const finish = async () => {
     setShowResult(true);
+    syncChecklist();
     if (aiEnabled) {
       const { advice: text } = await adviseDocumentCheckAction({ destination: dest, visaKind: visa, answers }).catch(() => ({ advice: null }));
       setAdvice(text);
@@ -258,6 +271,13 @@ export function DocumentReadinessTest({ initialDest, initialVisa, applicationId,
             <p className="mt-3 text-body-sm text-ink-600">
               {l("Bu faqat siz tanlagan javoblar asosidagi dastlabki baho: hujjatlaringiz sifati tekshirilmagan va bu viza berilishi ehtimoli emas.")}{" "}
               {l("Hisob: A — 100%, B — 50%, C — 25%, D — 0%.")}
+            </p>
+            <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl bg-emerald-500/10 px-4 py-3 text-body-sm text-emerald-800 dark:text-emerald-200">
+              <CircleCheck size={16} aria-hidden="true" className="shrink-0" />
+              <span className="min-w-0 flex-1">{l("Shaxsiy checklist yangilandi: \"Bor, tayyor\" deb belgilagan hujjatlaringiz belgilandi.")}</span>
+              <Link href="/dashboard/checklist" className="inline-flex min-h-[44px] items-center gap-1 font-semibold underline-offset-4 hover:underline">
+                {l("Checklistni ochish")} <ArrowRight size={14} aria-hidden="true" />
+              </Link>
             </p>
           </div>
 
