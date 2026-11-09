@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildAiPayload, cleanAnswers, scoreAnswers, WEIGHTS } from "../../src/lib/document-check/score.ts";
+import { answersAfterTick, buildAiPayload, cleanAnswers, scoreAnswers, syncChecklistDone, WEIGHTS } from "../../src/lib/document-check/score.ts";
 
 const items = [
   { id: "passport", title: "Amaldagi pasport" },
@@ -58,4 +58,18 @@ test("the AI payload carries only the allowed fields", () => {
   assert.deepEqual(Object.keys(payload.bookRequirements[0]).sort(), ["text", "topic", "verified"]);
   const text = JSON.stringify(payload);
   assert.doesNotMatch(text, /AA1234567|12345678901234|secret|x\.example/);
+});
+
+test("a finished test ticks ready items in the checklist and unticks the rest", () => {
+  const done = ["passport", "photo", "custom-1"];
+  const answers = { passport: "partial", bank: "ready", insurance: "missing", junk: "nope" };
+  const next = syncChecklistDone(done, answers);
+  assert.deepEqual(new Set(next), new Set(["photo", "custom-1", "bank"]));
+});
+
+test("ticking the checklist mirrors back into the test answers", () => {
+  assert.deepEqual(answersAfterTick({}, "bank", true), { bank: "ready" });
+  assert.deepEqual(answersAfterTick({ bank: "ready", photo: "partial" }, "bank", false), { photo: "partial" });
+  // Unticking leaves a non-ready answer alone
+  assert.deepEqual(answersAfterTick({ photo: "partial" }, "photo", false), { photo: "partial" });
 });

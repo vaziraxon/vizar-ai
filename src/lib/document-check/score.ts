@@ -111,3 +111,26 @@ export function buildAiPayload(input: {
     })),
   };
 }
+
+/**
+ * The personal checklist after a finished test: "ready" ticks an item, any
+ * other answer unticks it; unanswered and custom items keep their state.
+ */
+export function syncChecklistDone(done: string[], answers: Record<string, unknown>): string[] {
+  const answered = Object.entries(answers).filter(([, a]) => isAnswer(a));
+  const keep = done.filter((id) => !answered.some(([k]) => k === id));
+  const ready = answered.filter(([, a]) => a === "ready").map(([id]) => id);
+  return [...new Set([...keep, ...ready])];
+}
+
+/** A checklist tick mirrored into the test: ticked → "ready"; unticking clears a "ready" answer. */
+export function answersAfterTick(answers: Record<string, Answer>, id: string, checked: boolean): Record<string, Answer> {
+  if (checked) return { ...answers, [id]: "ready" };
+  if (answers[id] !== "ready") return answers;
+  const next = { ...answers };
+  delete next[id];
+  return next;
+}
+
+/** Where the test keeps its answers (this browser), shared with the checklist */
+export const docCheckKey = (dest: string, visa: string) => `vizar-doc-check:${dest}:${visa}`;

@@ -11,19 +11,20 @@ import { documentCheckAiEnabled } from "@/lib/document-check/ai";
 import { matchDestinationSlug } from "@/lib/site/destination-match";
 import { visaKindFromType } from "@/lib/dashboard/checklist-template";
 import type { DestinationSlug } from "@/lib/site/registry";
+import { CURRENT_APPLICATION } from "@/data/mockData";
 
 const TITLE = "Hujjat tayyorgarligi testi";
 const SUBTITLE = "Fayl yuklamasdan: har bir hujjatning holatini tanlang va keyingi qadamlarni ko'ring.";
 
 export default async function DocumentCheckPage() {
   if (!isSupabaseConfigured()) {
-    // Demo mode: the test works, saving needs the database
+    // Demo mode: the test works on the sample application, saving needs the database
     return (
       <DashboardShell title={TITLE} subtitle={SUBTITLE}>
         <div className="mb-6">
           <SupabaseSetupNotice compact />
         </div>
-        <DocumentReadinessTest initialDest="schengen" initialVisa="tourist" applicationId={null} latest={null} bookRules={{}} aiEnabled={false} canSave={false} />
+        <DocumentReadinessTest initialDest={matchDestinationSlug(CURRENT_APPLICATION.destination) ?? "schengen"} initialVisa={visaKindFromType(CURRENT_APPLICATION.visaType)} applicationId={null} latest={null} bookRules={{}} aiEnabled={false} canSave={false} />
       </DashboardShell>
     );
   }

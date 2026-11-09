@@ -1086,6 +1086,12 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Xush kelibsiz!": { ru: "Добро пожаловать!", en: "Welcome!" },
   "Tayyorgarlikni shu yerdan davom ettiring.": { ru: "Продолжайте подготовку отсюда.", en: "Pick up your preparation right here." },
 
+  /* Test ↔ checklist */
+  "Shaxsiy checklist yangilandi: \"Bor, tayyor\" deb belgilagan hujjatlaringiz belgilandi.": { ru: "Личный чек-лист обновлён: документы с ответом «Есть, готов» отмечены.", en: "Your checklist is updated: documents you marked \"I have it, ready\" are ticked." },
+  "Test javoblaringiz shu ro'yxatda: tayyorlari belgilangan, qolganlari holati bilan ko'rsatilgan.": { ru: "Ваши ответы теста уже в списке: готовые отмечены, у остальных показан статус.", en: "Your test answers are in this list: ready ones are ticked, the rest show their status." },
+  "Har bir hujjat uchun A–D javob bering — tayyor deganlaringiz shu yerda belgilanadi.": { ru: "Ответьте A–D по каждому документу — готовые отметятся здесь.", en: "Answer A–D for each document — the ones you say are ready get ticked here." },
+  "Testni ochish": { ru: "Открыть тест", en: "Open the test" },
+
   /* Overview 2.0 */
   "Hujjat yuklash vaqtincha yopiq.": { ru: "Загрузка документов временно закрыта.", en: "Document upload is temporarily closed." },
   "Yuklash vaqtincha yopiq": { ru: "Загрузка временно закрыта", en: "Upload temporarily closed" },
