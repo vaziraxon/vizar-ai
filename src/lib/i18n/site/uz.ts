@@ -1078,7 +1078,7 @@ export const uz: SiteContent = {
     ],
     company: {
       title: "Rasmiy hujjatlar",
-      subtitle: "“VIZAR-TOUR” MCHJ davlat ro‘yxatidan o‘tgan va turistik faoliyat uchun litsenziyaga ega.",
+      subtitle: "“VIZAR-TOUR” MCHJ turistik faoliyat uchun davlat litsenziyasiga ega.",
       license: {
         title: "Turistik faoliyat litsenziyasi",
         status: "Faol",
@@ -1091,15 +1091,6 @@ export const uz: SiteContent = {
             "Faoliyat turi",
             "Turagentlik faoliyati; chiqish turizmi, shu jumladan tibbiy va ta’lim turizmi",
           ],
-        ],
-      },
-      registration: {
-        title: "Davlat ro‘yxatidan o‘tganlik guvohnomasi",
-        facts: [
-          ["To‘liq nomi", "“VIZAR-TOUR” mas’uliyati cheklangan jamiyati"],
-          ["STIR", "312 317 579"],
-          ["Ro‘yxatdan o‘tgan sana", "30.07.2025"],
-          ["Ro‘yxatga olgan organ", "Toshkent shahri, Chilonzor tumani DXM"],
         ],
       },
     },

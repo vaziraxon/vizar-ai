@@ -433,7 +433,6 @@ export interface SiteContent {
       title: string;
       subtitle: string;
       license: { title: string; status: string; facts: [string, string][] };
-      registration: { title: string; facts: [string, string][] };
     };
     education: { title: string; items: { title: string; place: string; detail: string }[] };
     view: string;

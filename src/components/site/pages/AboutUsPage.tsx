@@ -43,7 +43,7 @@ function Facts({ facts }: { facts: [string, string][] }) {
 /** /about — the founder, the company behind VIZAR AI and its official documents */
 export function AboutUsPage() {
   const copy = useSite().aboutPage;
-  const { license, registration } = copy.company;
+  const { license } = copy.company;
 
   return (
     <>
@@ -108,30 +108,21 @@ export function AboutUsPage() {
             <p className="mt-3 text-body text-ink-600">{copy.company.subtitle}</p>
           </div>
 
-          <div className="mt-8 grid gap-5 lg:grid-cols-2">
-            {[
-              { doc: license, src: "/about/license.png", icon: ScrollText, status: license.status },
-              { doc: registration, src: "/about/registration.png", icon: Building2, status: null },
-            ].map(({ doc, src, icon: Icon, status }) => (
-              <article key={src} className="flex flex-col gap-5 rounded-[28px] border border-surface-border bg-surface p-5 shadow-card sm:flex-row sm:p-6">
-                <DocThumb src={src} alt={doc.title} label={copy.view} className="aspect-[3/4] w-full shrink-0 sm:w-40" />
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Icon size={18} aria-hidden="true" className="text-violet-600 dark:text-violet-400" />
-                    <h3 className="text-body font-bold text-ink-950">{doc.title}</h3>
-                    {status && (
-                      <span className="rounded-pill bg-emerald-500/10 px-2.5 py-0.5 text-caption font-semibold text-emerald-700 dark:text-emerald-300">
-                        {status}
-                      </span>
-                    )}
-                  </div>
-                  <div className="mt-2">
-                    <Facts facts={doc.facts as [string, string][]} />
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+          <article className="mx-auto mt-8 flex max-w-4xl flex-col gap-6 rounded-[28px] border border-surface-border bg-surface p-5 shadow-card sm:flex-row sm:p-7">
+            <DocThumb src="/about/license.png" alt={license.title} label={copy.view} className="aspect-[3/4] w-full shrink-0 sm:w-56" />
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <ScrollText size={18} aria-hidden="true" className="text-violet-600 dark:text-violet-400" />
+                <h3 className="text-body font-bold text-ink-950">{license.title}</h3>
+                <span className="rounded-pill bg-emerald-500/10 px-2.5 py-0.5 text-caption font-semibold text-emerald-700 dark:text-emerald-300">
+                  {license.status}
+                </span>
+              </div>
+              <div className="mt-2">
+                <Facts facts={license.facts as [string, string][]} />
+              </div>
+            </div>
+          </article>
         </section>
 
         {/* Education */}

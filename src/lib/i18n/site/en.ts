@@ -1073,7 +1073,7 @@ export const en: SiteContent = {
     ],
     company: {
       title: "Official documents",
-      subtitle: "VIZAR-TOUR LLC is state-registered and licensed for tourism activity.",
+      subtitle: "VIZAR-TOUR LLC holds a state licence for tourism activity.",
       license: {
         title: "Tourism activity licence",
         status: "Active",
@@ -1083,15 +1083,6 @@ export const en: SiteContent = {
           ["Valid", "from 14.08.2025 — no expiry"],
           ["Issued by", "Tashkent City Tourism Department, Tourism Committee"],
           ["Activity", "Travel agency; outbound tourism, including medical and educational tourism"],
-        ],
-      },
-      registration: {
-        title: "Certificate of state registration",
-        facts: [
-          ["Full name", "VIZAR-TOUR Limited Liability Company"],
-          ["Tax ID (STIR)", "312 317 579"],
-          ["Registered on", "30.07.2025"],
-          ["Registered by", "Public Services Centre, Chilonzor district, Tashkent"],
         ],
       },
     },
