@@ -81,3 +81,12 @@ export const SECURITY_ITEMS = [
   { id: "law", done: false },
 ] as const;
 export type SecurityItemId = (typeof SECURITY_ITEMS)[number]["id"];
+
+/** The company behind VIZAR AI (public registry data) — shown on /about and in the footer */
+export const COMPANY = {
+  name: "VIZAR-TOUR",
+  stir: "312 317 579",
+  phone: "+998771792575",
+  phoneDisplay: "+998 77 179 25 75",
+  license: "964533",
+} as const;

@@ -21,6 +21,7 @@ export const en: SiteContent = {
     libraryAll: "Open the library",
     libraryNote: "In your account — free for now.",
     pricing: "Pricing",
+    about: "About",
     signIn: "Sign in",
     getStarted: "Get Started",
     language: "Language",
@@ -1042,6 +1043,103 @@ export const en: SiteContent = {
       },
     ],
   },
+  aboutPage: {
+    eyebrow: "About us",
+    title: "VIZAR AI — an official project of VIZAR-TOUR LLC",
+    subtitle: "We bring tourism know-how and modern technology together to make visa preparation clear, organised and calm.",
+    founder: {
+      label: "Founder",
+      name: "Vazirakhon Zokirova",
+      role: "Founder of VIZAR AI and VIZAR-TOUR LLC",
+      bio: [
+        "Vazirakhon has more than 1.5 years of hands-on experience in tourism and visa services. Since 2025 she has run her own travel agency, VIZAR-TOUR: in that time she has sent more than 50 clients abroad and helped more than 20 people get their visas.",
+        "She earned her bachelor’s degree in Tourism at Kimyo International University in Tashkent, studying in an English-taught group.",
+      ],
+      video: "Moments from the VIZAR-TOUR office",
+      stats: [
+        { value: "1.5+", label: "years of hands-on experience" },
+        { value: "50+", label: "clients sent abroad" },
+        { value: "20+", label: "people helped with visas" },
+        { value: "2025", label: "own travel agency since" },
+      ],
+    },
+    values: [
+      {
+        title: "Honesty",
+        text: "We never promise a visa — we give a clear list, timelines and advice.",
+      },
+      {
+        title: "Official footing",
+        text: "A licensed travel agency and information from official sources.",
+      },
+      {
+        title: "Ease",
+        text: "A complex process in clear steps — in Uzbek, Russian and English.",
+      },
+    ],
+    experience: {
+      work: {
+        title: "Work experience",
+        items: [
+          { title: "VIZAR-TOUR LLC — founder and director", detail: "Since 2025 · travel agency and visa services" },
+          { title: "Hilton hotel, Tashkent — hostess", detail: "3 months" },
+          { title: "Center for Islamic Civilization — intern guide", detail: "2 months" },
+          { title: "Abu Dhabi and Dubai", detail: "Hands-on look at international tourism services" },
+        ],
+      },
+      learning: {
+        title: "Courses and programmes",
+        items: [
+          { title: "SMM course", detail: "Osnova Platform" },
+          { title: "Python programming course", detail: "MohirDev" },
+          { title: "Mohir AI", detail: "Programme participant" },
+          { title: "Uzbek Voice Wiki", detail: "Project participant" },
+          { title: "Innovative camps", detail: "Programme participant" },
+        ],
+      },
+    },
+    company: {
+      title: "Official documents",
+      subtitle: "VIZAR-TOUR LLC holds a state licence for tourism activity.",
+      license: {
+        title: "Tourism activity licence",
+        status: "Active",
+        facts: [
+          ["Licence number", "No. 964533"],
+          ["Registry number", "L-41802682"],
+          ["Valid", "from 14.08.2025 — no expiry"],
+          ["Issued by", "Tashkent City Tourism Department, Tourism Committee"],
+          ["Activity", "Travel agency; outbound tourism, including medical and educational tourism"],
+        ],
+      },
+    },
+    education: {
+      title: "Founder’s education",
+      items: [
+        {
+          title: "Bachelor’s degree — Tourism",
+          place: "Kimyo International University in Tashkent",
+          detail: "Qualification: Tourism Manager · 2025",
+        },
+        {
+          title: "Retraining diploma — Guide",
+          place: "Polaris Guide School (Polaris Magic Travel LLC)",
+          detail: "Guide course for Samarkand, Bukhara and Khorezm, 576 hours · 2025–2026",
+        },
+      ],
+    },
+    view: "View document",
+    contact: {
+      title: "Contact",
+      subtitle: "Have a question or an idea? Give us a call — we’re happy to help.",
+      phone: "Phone",
+      call: "Call",
+      city: "City",
+      cityValue: "Tashkent, Uzbekistan",
+      company: "Company",
+    },
+    note: "VIZAR AI is not an embassy or consulate and does not guarantee a visa. The final decision is always made by the competent government authority.",
+  },
   footer: {
     tagline: "The AI platform for visa preparation.",
     product: "Product",
@@ -1050,6 +1148,9 @@ export const en: SiteContent = {
     faq: "FAQ",
     roadmap: "Roadmap",
     trust: "Trust Center",
+    about: "About us",
+    official: "VIZAR AI is an official project of VIZAR-TOUR LLC",
+    phone: "Phone",
     legal: "Legal notice",
     rights: "All rights reserved.",
     backToTop: "Back to top",

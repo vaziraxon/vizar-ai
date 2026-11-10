@@ -23,6 +23,7 @@ export const uz: SiteContent = {
     libraryAll: "Kutubxonaga o‘tish",
     libraryNote: "Shaxsiy kabinetda — hozircha bepul.",
     pricing: "Narxlar",
+    about: "Biz haqimizda",
     signIn: "Kirish",
     getStarted: "Boshlash",
     language: "Til",
@@ -1047,6 +1048,109 @@ export const uz: SiteContent = {
       },
     ],
   },
+  aboutPage: {
+    eyebrow: "Biz haqimizda",
+    title: "VIZAR AI — “VIZAR-TOUR” MCHJning rasmiy loyihasi",
+    subtitle: "Turizm sohasidagi bilim va zamonaviy texnologiyani birlashtirib, viza tayyorgarligini tushunarli, tartibli va xotirjam jarayonga aylantiramiz.",
+    founder: {
+      label: "Asoschi",
+      name: "Zokirova Vaziraxon",
+      role: "VIZAR AI va “VIZAR-TOUR” MCHJ asoschisi",
+      bio: [
+        "Vaziraxon turizm va viza xizmatlari sohasida 1,5 yildan ortiq amaliy tajribaga ega. 2025-yildan buyon o‘zining “VIZAR-TOUR” turistik agentligini boshqaradi: shu davrda 50 dan ortiq mijozni xorijga jo‘natgan va 20 dan ortiq kishiga viza olishda yordam bergan.",
+        "Kimyo International University in Tashkent’da “Turizm” yo‘nalishi bo‘yicha bakalavr darajasini ingliz tilidagi guruhda tamomlagan.",
+      ],
+      video: "VIZAR-TOUR ofisidan lavhalar",
+      stats: [
+        { value: "1,5+", label: "yillik amaliy tajriba" },
+        { value: "50+", label: "mijoz xorijga jo‘natilgan" },
+        { value: "20+", label: "kishiga viza olishda yordam" },
+        { value: "2025", label: "yildan o‘z turagentligi" },
+      ],
+    },
+    values: [
+      {
+        title: "Halollik",
+        text: "Viza berilishini va’da qilmaymiz — aniq ro‘yxat, muddat va maslahat beramiz.",
+      },
+      {
+        title: "Rasmiy asos",
+        text: "Litsenziyaga ega turagentlik va rasmiy manbalarga tayangan ma’lumotlar.",
+      },
+      {
+        title: "Qulaylik",
+        text: "Murakkab jarayon — tushunarli qadamlar, o‘zbek, rus va ingliz tillarida.",
+      },
+    ],
+    experience: {
+      work: {
+        title: "Ish tajribasi",
+        items: [
+          {
+            title: "“VIZAR-TOUR” MCHJ — asoschi va rahbar",
+            detail: "2025-yildan buyon · turagentlik va viza xizmatlari",
+          },
+          { title: "Hilton mehmonxonasi, Toshkent — hostes", detail: "3 oy" },
+          { title: "Islom sivilizatsiyasi markazi — stajyor gid", detail: "2 oy" },
+          { title: "Abu-Dabi va Dubay", detail: "Xalqaro turizm xizmatlari bilan amalda tanishuv" },
+        ],
+      },
+      learning: {
+        title: "Kurslar va dasturlar",
+        items: [
+          { title: "SMM kursi", detail: "Osnova Platform" },
+          { title: "Python dasturlash kursi", detail: "MohirDev" },
+          { title: "Mohir AI", detail: "Dastur ishtirokchisi" },
+          { title: "Uzbek Voice Wiki", detail: "Loyiha ishtirokchisi" },
+          { title: "Innovatsion oromgohlar", detail: "Dastur ishtirokchisi" },
+        ],
+      },
+    },
+    company: {
+      title: "Rasmiy hujjatlar",
+      subtitle: "“VIZAR-TOUR” MCHJ turistik faoliyat uchun davlat litsenziyasiga ega.",
+      license: {
+        title: "Turistik faoliyat litsenziyasi",
+        status: "Faol",
+        facts: [
+          ["Litsenziya raqami", "№ 964533"],
+          ["Reestr tartib raqami", "L-41802682"],
+          ["Amal qilish muddati", "14.08.2025 dan — muddatsiz"],
+          ["Vakolatli organ", "Turizm qo‘mitasi Toshkent shahar turizm boshqarmasi"],
+          [
+            "Faoliyat turi",
+            "Turagentlik faoliyati; chiqish turizmi, shu jumladan tibbiy va ta’lim turizmi",
+          ],
+        ],
+      },
+    },
+    education: {
+      title: "Asoschining ta’limi",
+      items: [
+        {
+          title: "Bakalavr diplomi — Turizm",
+          place: "Kimyo International University in Tashkent",
+          detail: "Malaka: Turizm menejeri · 2025",
+        },
+        {
+          title: "Qayta tayyorlash diplomi — Gid",
+          place: "“Polaris Guide School” (“Polaris Magic Travel” MCHJ)",
+          detail: "Samarqand, Buxoro va Xorazm bo‘yicha gidlik kursi, 576 soat · 2025–2026",
+        },
+      ],
+    },
+    view: "Hujjatni ko‘rish",
+    contact: {
+      title: "Bog‘lanish",
+      subtitle: "Savol yoki taklif bo‘lsa, qo‘ng‘iroq qiling — mamnuniyat bilan javob beramiz.",
+      phone: "Telefon",
+      call: "Qo‘ng‘iroq qilish",
+      city: "Shahar",
+      cityValue: "Toshkent, O‘zbekiston",
+      company: "Kompaniya",
+    },
+    note: "VIZAR AI elchixona yoki konsullik emas va viza berilishini kafolatlamaydi. Yakuniy qarorni har doim vakolatli davlat organi qabul qiladi.",
+  },
   footer: {
     tagline: "Viza tayyorgarligi uchun AI platforma.",
     product: "Mahsulot",
@@ -1055,6 +1159,9 @@ export const uz: SiteContent = {
     faq: "Savollar",
     roadmap: "Yo‘l xaritasi",
     trust: "Ishonch markazi",
+    about: "Biz haqimizda",
+    official: "VIZAR AI — “VIZAR-TOUR” MCHJning rasmiy loyihasi",
+    phone: "Telefon",
     legal: "Yuridik ogohlantirish",
     rights: "Barcha huquqlar himoyalangan.",
     backToTop: "Yuqoriga",

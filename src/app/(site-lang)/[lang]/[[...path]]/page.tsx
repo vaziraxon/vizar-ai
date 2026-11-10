@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { RoadmapPage, TrustCenterPage } from "@/components/site/pages/AboutPages";
+import { AboutUsPage } from "@/components/site/pages/AboutUsPage";
 import { HomePage } from "@/components/site/pages/HomePage";
 import {
   DestinationPage,
@@ -84,6 +85,8 @@ export default async function Page({ params }: Props) {
       return <RoadmapPage />;
     case "/trust-center":
       return <TrustCenterPage />;
+    case "/about":
+      return <AboutUsPage />;
     case "/knowledge-base":
       return <LibraryPromo />;
     case "/destinations":

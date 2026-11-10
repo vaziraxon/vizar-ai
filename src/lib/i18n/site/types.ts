@@ -25,6 +25,7 @@ export interface SiteContent {
     libraryAll: string;
     libraryNote: string;
     pricing: string;
+    about: string;
     signIn: string;
     getStarted: string;
     language: string;
@@ -422,6 +423,26 @@ export interface SiteContent {
     faqTitle: string;
     faq: QA[];
   };
+  aboutPage: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    founder: { label: string; name: string; role: string; bio: string[]; video: string; stats: { value: string; label: string }[] };
+    experience: {
+      work: { title: string; items: { title: string; detail: string }[] };
+      learning: { title: string; items: { title: string; detail: string }[] };
+    };
+    values: { title: string; text: string }[];
+    company: {
+      title: string;
+      subtitle: string;
+      license: { title: string; status: string; facts: [string, string][] };
+    };
+    education: { title: string; items: { title: string; place: string; detail: string }[] };
+    view: string;
+    contact: { title: string; subtitle: string; phone: string; call: string; city: string; cityValue: string; company: string };
+    note: string;
+  };
   footer: {
     tagline: string;
     product: string;
@@ -430,6 +451,9 @@ export interface SiteContent {
     faq: string;
     roadmap: string;
     trust: string;
+    about: string;
+    official: string;
+    phone: string;
     legal: string;
     rights: string;
     backToTop: string;
