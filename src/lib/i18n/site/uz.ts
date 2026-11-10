@@ -1057,14 +1057,14 @@ export const uz: SiteContent = {
       name: "Zokirova Vaziraxon",
       role: "VIZAR AI va “VIZAR-TOUR” MCHJ asoschisi",
       bio: [
-        "Vaziraxon turizm va viza xizmatlari sohasida 1,5 yildan ortiq amaliy tajribaga ega. 2025-yildan buyon o‘zining “VIZAR-TOUR” turistik agentligini boshqaradi: shu davrda 50 dan ortiq mijozni xorijga jo‘natgan va 20 dan ortiq kishiga viza olishda yordam bergan.",
+        "Vaziraxon turizm va viza xizmatlari sohasida 1,5 yildan ortiq amaliy tajribaga ega. 2025-yildan buyon o‘zining “VIZAR-TOUR” turistik agentligini boshqaradi: shu davrda 70 dan ortiq mijozni xorijga jo‘natgan va 25 dan ortiq kishiga viza olishda yordam bergan.",
         "Kimyo International University in Tashkent’da “Turizm” yo‘nalishi bo‘yicha bakalavr darajasini ingliz tilidagi guruhda tamomlagan.",
       ],
       video: "VIZAR-TOUR ofisidan lavhalar",
       stats: [
         { value: "1,5+", label: "yillik amaliy tajriba" },
-        { value: "50+", label: "mijoz xorijga jo‘natilgan" },
-        { value: "20+", label: "kishiga viza olishda yordam" },
+        { value: "70+", label: "mijoz xorijga jo‘natilgan" },
+        { value: "25+", label: "kishiga viza olishda yordam" },
         { value: "2025", label: "yildan o‘z turagentligi" },
       ],
     },
@@ -1082,30 +1082,6 @@ export const uz: SiteContent = {
         text: "Murakkab jarayon — tushunarli qadamlar, o‘zbek, rus va ingliz tillarida.",
       },
     ],
-    experience: {
-      work: {
-        title: "Ish tajribasi",
-        items: [
-          {
-            title: "“VIZAR-TOUR” MCHJ — asoschi va rahbar",
-            detail: "2025-yildan buyon · turagentlik va viza xizmatlari",
-          },
-          { title: "Hilton mehmonxonasi, Toshkent — hostes", detail: "3 oy" },
-          { title: "Islom sivilizatsiyasi markazi — stajyor gid", detail: "2 oy" },
-          { title: "Abu-Dabi va Dubay", detail: "Xalqaro turizm xizmatlari bilan amalda tanishuv" },
-        ],
-      },
-      learning: {
-        title: "Kurslar va dasturlar",
-        items: [
-          { title: "SMM kursi", detail: "Osnova Platform" },
-          { title: "Python dasturlash kursi", detail: "MohirDev" },
-          { title: "Mohir AI", detail: "Dastur ishtirokchisi" },
-          { title: "Uzbek Voice Wiki", detail: "Loyiha ishtirokchisi" },
-          { title: "Innovatsion oromgohlar", detail: "Dastur ishtirokchisi" },
-        ],
-      },
-    },
     company: {
       title: "Rasmiy hujjatlar",
       subtitle: "“VIZAR-TOUR” MCHJ turistik faoliyat uchun davlat litsenziyasiga ega.",
