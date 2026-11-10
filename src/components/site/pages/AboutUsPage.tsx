@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { BadgeCheck, BookOpen, Briefcase, Building2, GraduationCap, HeartHandshake, MapPin, Phone, ScrollText, ShieldCheck, Sparkles } from "lucide-react";
+import { BadgeCheck, Building2, GraduationCap, HeartHandshake, MapPin, Phone, ScrollText, ShieldCheck, Sparkles } from "lucide-react";
 import { FinalCTA } from "@/components/site/FinalCTA";
 import { PageHero } from "@/components/site/PageHero";
 import { useSite } from "@/lib/i18n/site";
@@ -50,9 +50,9 @@ export function AboutUsPage() {
       <PageHero emoji="🏢" decor={["🎓", "📜", "🤝"]} eyebrow={copy.eyebrow} title={copy.title} subtitle={copy.subtitle} />
 
       <div className="container-page space-y-14 pb-12 pt-8 md:space-y-16 md:pb-14 md:pt-10 lg:pb-16">
-        {/* Founder — bio, numbers, experience and learning in one place */}
+        {/* Founder — photo, video, bio and numbers */}
         <section aria-labelledby="about-founder" data-reveal className="grid items-start gap-8 lg:grid-cols-12 lg:gap-12">
-          <div className="space-y-5 lg:col-span-5">
+          <div className="lg:sticky lg:top-28 lg:col-span-5">
             <div className="relative mx-auto aspect-[4/5] max-w-sm overflow-hidden rounded-[32px] shadow-float ring-1 ring-surface-border lg:max-w-none">
               <Image
                 src="/about/founder.webp"
@@ -67,17 +67,6 @@ export function AboutUsPage() {
                 <p className="text-caption font-medium text-ink-600">{copy.founder.role}</p>
               </div>
             </div>
-            <figure className="mx-auto max-w-[300px]">
-              <video
-                src="/about/founder-video.mp4#t=0.5"
-                controls
-                playsInline
-                preload="metadata"
-                aria-label={copy.founder.video}
-                className="aspect-[9/16] w-full rounded-[28px] bg-ink-950 object-cover shadow-float ring-1 ring-surface-border"
-              />
-              <figcaption className="mt-2 text-center text-caption font-medium text-ink-500">{copy.founder.video}</figcaption>
-            </figure>
           </div>
 
           <div className="lg:col-span-7">
@@ -102,44 +91,35 @@ export function AboutUsPage() {
               ))}
             </dl>
 
-            <div className="mt-7 grid gap-4 sm:grid-cols-2">
-              {[
-                { block: copy.experience.work, icon: Briefcase },
-                { block: copy.experience.learning, icon: BookOpen },
-              ].map(({ block, icon: Icon }) => (
-                <div key={block.title} className="rounded-[22px] border border-surface-border bg-surface p-5 shadow-card">
-                  <h3 className="flex items-center gap-2 text-body-sm font-bold text-ink-950">
-                    <Icon size={16} aria-hidden="true" className="text-violet-600 dark:text-violet-400" /> {block.title}
-                  </h3>
-                  <ul className="mt-3 space-y-2.5">
-                    {block.items.map((item) => (
-                      <li key={item.title} className="flex gap-2.5">
-                        <span aria-hidden="true" className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br from-brand-500 to-violet-500" />
-                        <div className="min-w-0">
-                          <p className="text-body-sm font-semibold text-ink-900">{item.title}</p>
-                          <p className="text-caption text-ink-500">{item.detail}</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            <div className="mt-7 grid items-start gap-5 sm:grid-cols-[1fr_220px]">
+              <ul className="grid content-start gap-3">
+                {copy.values.map((v, i) => {
+                  const Icon = VALUE_ICONS[i] ?? ShieldCheck;
+                  return (
+                    <li key={v.title} className="flex gap-3.5 rounded-[22px] border border-surface-border bg-surface p-4 shadow-card">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-violet-600 dark:text-violet-400">
+                        <Icon size={18} aria-hidden="true" />
+                      </span>
+                      <div>
+                        <p className="text-body-sm font-bold text-ink-950">{v.title}</p>
+                        <p className="mt-1 text-caption text-ink-600">{v.text}</p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+              <figure className="mx-auto w-full max-w-[260px] sm:mx-0">
+                <video
+                  src="/about/founder-video.mp4#t=0.5"
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label={copy.founder.video}
+                  className="aspect-[9/16] w-full rounded-[28px] bg-ink-950 object-cover shadow-float ring-1 ring-surface-border"
+                />
+                <figcaption className="mt-2 text-center text-caption font-medium text-ink-500">{copy.founder.video}</figcaption>
+              </figure>
             </div>
-
-            <ul className="mt-7 grid gap-3 sm:grid-cols-3">
-              {copy.values.map((v, i) => {
-                const Icon = VALUE_ICONS[i] ?? ShieldCheck;
-                return (
-                  <li key={v.title} className="rounded-[22px] border border-surface-border bg-surface p-4 shadow-card">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-50 text-violet-600 dark:text-violet-400">
-                      <Icon size={18} aria-hidden="true" />
-                    </span>
-                    <p className="mt-3 text-body-sm font-bold text-ink-950">{v.title}</p>
-                    <p className="mt-1 text-caption text-ink-600">{v.text}</p>
-                  </li>
-                );
-              })}
-            </ul>
           </div>
         </section>
 

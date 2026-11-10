@@ -428,10 +428,6 @@ export interface SiteContent {
     title: string;
     subtitle: string;
     founder: { label: string; name: string; role: string; bio: string[]; video: string; stats: { value: string; label: string }[] };
-    experience: {
-      work: { title: string; items: { title: string; detail: string }[] };
-      learning: { title: string; items: { title: string; detail: string }[] };
-    };
     values: { title: string; text: string }[];
     company: {
       title: string;
