@@ -482,23 +482,23 @@ export const en: SiteContent = {
     plans: {
       standard: {
         name: "Standard",
-        price: "37,000",
+        price: "49,000",
         period: "UZS / 7 days",
-        features: ["The full book — 7 days", "9 chapters, rules by country and official sources", "For a short preparation"],
+        features: ["The full book — 7 days", "4-option document readiness test — unlimited", "Personal checklist, interview practice and readiness score", "AI questions — once AI is connected: 10 a day (not connected yet)"],
         cta: "Start free",
       },
       premium: {
         name: "Premium",
-        price: "127,000",
-        period: "UZS / 1 month",
-        features: ["The full book — 30 days", "9 chapters, rules by country and official sources", "For a month of preparation"],
+        price: "179,000",
+        period: "UZS / 30 days",
+        features: ["The full book — 30 days", "4-option document readiness test — unlimited", "Personal checklist, interview practice and readiness score", "AI questions — once AI is connected: 30 a day (not connected yet)"],
         cta: "Start free",
       },
       pro: {
         name: "Pro",
-        price: "527,000",
+        price: "679,000",
         period: "UZS / 45 days",
-        features: ["The full book — 45 days", "A consultation with a specialist", "9 chapters, rules by country and official sources"],
+        features: ["The full book — 45 days", "1 consultation with a specialist", "4-option test, checklist, interview practice — unlimited", "AI questions — once AI is connected: 60 a day (not connected yet)"],
         cta: "Start free",
       },
       vip: {
