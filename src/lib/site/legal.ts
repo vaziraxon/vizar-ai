@@ -2,7 +2,7 @@ import type { LangCode } from "@/lib/translations";
 
 /**
  * Privacy policy and terms of service, written from how the system actually
- * works (checked 2026-11-12): Supabase (Tokyo) for accounts, data and files,
+ * works (checked 2026-11-11): Supabase (Tokyo) for accounts, data and files,
  * Vercel (functions in Tokyo) for hosting and cookie-less Web Analytics,
  * Google only for "Sign in with Google". No external AI provider is
  * configured, document upload is closed, nothing is sold or used for ads.
@@ -24,7 +24,7 @@ export interface LegalDoc {
   sections: LegalSection[];
 }
 
-export const LEGAL_UPDATED = "2026-11-12";
+export const LEGAL_UPDATED = "2026-11-11";
 const PHONE = "+998 77 179 25 75";
 
 /* -------------------------------------------------------------------------- */
@@ -35,7 +35,7 @@ export const PRIVACY: Record<LangCode, LegalDoc> = {
   uz: {
     title: "Maxfiylik siyosati",
     description: "VIZAR AI qaysi ma’lumotlarni yig‘adi, ularni qayerda saqlaydi, qanday ishlatadi va siz ularni qanday o‘chirishingiz mumkin.",
-    updatedLabel: "Kuchga kirgan sana: 12-noyabr, 2026",
+    updatedLabel: "Kuchga kirgan sana: 11-noyabr, 2026",
     intro:
       "Ushbu siyosat vizarai.com sayti va VIZAR AI platformasi (keyingi o‘rinlarda — «Xizmat») sizning shaxsiy ma’lumotlaringiz bilan qanday ishlashini tushuntiradi. Xizmatdan foydalanib, siz ushbu siyosatga rozilik bildirasiz.",
     sections: [
@@ -56,7 +56,7 @@ export const PRIVACY: Record<LangCode, LegalDoc> = {
             "Hisob ma’lumotlari: email manzil va parol (parol ochiq holda saqlanmaydi — uni autentifikatsiya xizmati shifrlangan ko‘rinishda saqlaydi).",
             "Google orqali kirsangiz: Google bergan ism, email manzil, profil rasmi havolasi va Google hisobining identifikatori.",
             "Profil: ism, familiya, telefon raqami, profil rasmi, tanlangan til — faqat o‘zingiz kiritsangiz.",
-            "Viza tayyorgarligi ma’lumotlari: yo‘nalish va viza turi, safar maqsadi va sanasi, viza tahlilidagi javoblaringiz, hujjat tayyorgarligi testidagi javoblaringiz, suhbat mashqi javoblari va natijalari, tavsiyalar, bildirishnomalar va hisobotlar.",
+            "Viza tayyorgarligi ma’lumotlari: yo‘nalish va viza turi, safar maqsadi va sanasi, viza tahlilidagi javoblaringiz, hujjat tayyorgarligi testidagi javoblaringiz, shaxsiy checklist belgilari va o‘zingiz qo‘shgan bandlar, suhbat mashqi javoblari va natijalari, tavsiyalar, bildirishnomalar va hisobotlar.",
             "Mutaxassis konsultatsiyasi yoki tarif so‘rovi yuborsangiz: so‘rov matni va siz qoldirgan aloqa ma’lumoti.",
             "Sharh yozsangiz: ismingiz, matn, baho va (ixtiyoriy) rasm.",
             "Texnik ma’lumotlar: suiiste’molni oldini olish uchun IP manzil vaqtincha ishlatiladi; sahifalarga tashriflar cookie’siz, umumlashtirilgan statistika sifatida hisoblanadi.",
@@ -118,7 +118,7 @@ export const PRIVACY: Record<LangCode, LegalDoc> = {
         title: "7. Viza ma’lumotlariga ishlov berish",
         body: [
           "Viza tahlili, hujjat tayyorgarligi testi va suhbat mashqi javoblari sizning hisobingizga bog‘lanib saqlanadi va faqat sizga ko‘rinadi (har bir qatorga kirish ma’lumotlar bazasi darajasida cheklangan).",
-          "Ba’zi vositalar ma’lumotni faqat brauzeringizda saqlaydi va serverga yubormaydi: shaxsiy checklist belgilari, test javoblarining joriy holati, til va mavzu tanlovi.",
+          "Shaxsiy checklist belgilari va hujjat tayyorgarligi testi javoblari brauzeringizda saqlanadi, tizimga kirgan bo‘lsangiz esa hisobingizga ham yoziladi — shunda ular boshqa qurilmalarda ham ko‘rinadi. Til va mavzu tanlovi faqat brauzeringizda qoladi.",
           "Natijalar sizning javoblaringiz va ochiq qoidalar asosida avtomatik hisoblanadi. Biz hujjatlaringizning haqiqiyligini tekshirmaymiz va natijalar viza berilishi ehtimolini bildirmaydi.",
         ],
       },
@@ -190,7 +190,7 @@ export const PRIVACY: Record<LangCode, LegalDoc> = {
   ru: {
     title: "Политика конфиденциальности",
     description: "Какие данные собирает VIZAR AI, где их хранит, как использует и как вы можете их удалить.",
-    updatedLabel: "Дата вступления в силу: 12 ноября 2026 г.",
+    updatedLabel: "Дата вступления в силу: 11 ноября 2026 г.",
     intro:
       "Настоящая политика объясняет, как сайт vizarai.com и платформа VIZAR AI (далее — «Сервис») обращаются с вашими персональными данными. Пользуясь Сервисом, вы соглашаетесь с этой политикой.",
     sections: [
@@ -211,7 +211,7 @@ export const PRIVACY: Record<LangCode, LegalDoc> = {
             "Данные аккаунта: email и пароль (пароль не хранится в открытом виде — служба аутентификации хранит его в зашифрованном виде).",
             "При входе через Google: имя, email, ссылка на фото профиля и идентификатор аккаунта Google, которые передаёт Google.",
             "Профиль: имя, фамилия, телефон, фото профиля, выбранный язык — только если вы их указали.",
-            "Данные подготовки к визе: направление и тип визы, цель и дата поездки, ваши ответы в анализе визы и в тесте готовности документов, ответы и результаты тренировки интервью, рекомендации, уведомления и отчёты.",
+            "Данные подготовки к визе: направление и тип визы, цель и дата поездки, ваши ответы в анализе визы и в тесте готовности документов, отметки личного чек-листа и добавленные вами пункты, ответы и результаты тренировки интервью, рекомендации, уведомления и отчёты.",
             "Если вы отправили запрос на консультацию или тариф: текст запроса и оставленные контактные данные.",
             "Если вы написали отзыв: имя, текст, оценка и (по желанию) фото.",
             "Технические данные: IP-адрес временно используется для защиты от злоупотреблений; посещения страниц считаются без cookie, в виде обобщённой статистики.",
@@ -273,7 +273,7 @@ export const PRIVACY: Record<LangCode, LegalDoc> = {
         title: "7. Обработка визовых данных",
         body: [
           "Ответы в анализе визы, тесте готовности документов и тренировке интервью хранятся в привязке к вашему аккаунту и видны только вам (доступ к каждой строке ограничен на уровне базы данных).",
-          "Некоторые инструменты хранят данные только в вашем браузере и не отправляют их на сервер: отметки личного чек-листа, текущее состояние ответов теста, выбор языка и темы.",
+          "Отметки личного чек-листа и ответы теста готовности документов хранятся в браузере, а если вы вошли в аккаунт — ещё и в аккаунте, чтобы они были видны на других устройствах. Выбор языка и темы остаётся только в браузере.",
           "Результаты рассчитываются автоматически на основе ваших ответов и открытых правил. Мы не проверяем подлинность ваших документов, и результаты не означают вероятность получения визы.",
         ],
       },
@@ -343,7 +343,7 @@ export const PRIVACY: Record<LangCode, LegalDoc> = {
   en: {
     title: "Privacy Policy",
     description: "What VIZAR AI collects, where it is stored, how it is used and how you can delete it.",
-    updatedLabel: "Effective date: 12 November 2026",
+    updatedLabel: "Effective date: 11 November 2026",
     intro:
       "This policy explains how the vizarai.com website and the VIZAR AI platform (the “Service”) handle your personal data. By using the Service, you agree to this policy.",
     sections: [
@@ -364,7 +364,7 @@ export const PRIVACY: Record<LangCode, LegalDoc> = {
             "Account data: email address and password (the password is never stored in plain text — the authentication service stores it in encrypted form).",
             "If you sign in with Google: the name, email address, profile picture link and Google account identifier that Google provides.",
             "Profile: first name, last name, phone number, profile photo and chosen language — only if you enter them.",
-            "Visa preparation data: destination and visa type, purpose and date of travel, your answers in the visa assessment and the document readiness test, interview practice answers and results, recommendations, notifications and reports.",
+            "Visa preparation data: destination and visa type, purpose and date of travel, your answers in the visa assessment and the document readiness test, your personal checklist ticks and the items you added, interview practice answers and results, recommendations, notifications and reports.",
             "If you send a consultation or plan request: the request text and the contact details you leave.",
             "If you write a review: your name, text, rating and (optionally) a photo.",
             "Technical data: your IP address is used briefly to prevent abuse; page visits are counted without cookies, as aggregated statistics.",
@@ -426,7 +426,7 @@ export const PRIVACY: Record<LangCode, LegalDoc> = {
         title: "7. How visa-related data is handled",
         body: [
           "Your answers in the visa assessment, document readiness test and interview practice are stored with your account and visible only to you (access to every row is restricted at the database level).",
-          "Some tools keep data only in your browser and never send it to the server: your personal checklist ticks, the current state of your test answers, and your language and theme choices.",
+          "Your personal checklist ticks and document readiness test answers are kept in your browser and, when you are signed in, saved to your account too, so they appear on your other devices. Your language and theme choices stay in your browser only.",
           "Results are calculated automatically from your answers and published rules. We do not verify the authenticity of your documents, and results do not represent the chance of getting a visa.",
         ],
       },
@@ -502,7 +502,7 @@ export const TERMS: Record<LangCode, LegalDoc> = {
   uz: {
     title: "Foydalanish shartlari",
     description: "VIZAR AI xizmatidan foydalanish qoidalari: xizmat nima qiladi va nima qilmaydi, hisob, mazmun va javobgarlik.",
-    updatedLabel: "Kuchga kirgan sana: 12-noyabr, 2026",
+    updatedLabel: "Kuchga kirgan sana: 11-noyabr, 2026",
     intro:
       "Ushbu shartlar vizarai.com sayti va VIZAR AI platformasidan (keyingi o‘rinlarda — «Xizmat») foydalanish qoidalarini belgilaydi. Ro‘yxatdan o‘tish yoki Xizmatdan foydalanish orqali siz ushbu shartlarni va Maxfiylik siyosatini qabul qilasiz.",
     sections: [
@@ -625,7 +625,7 @@ export const TERMS: Record<LangCode, LegalDoc> = {
   ru: {
     title: "Условия использования",
     description: "Правила использования VIZAR AI: что сервис делает и чего не делает, аккаунт, контент и ответственность.",
-    updatedLabel: "Дата вступления в силу: 12 ноября 2026 г.",
+    updatedLabel: "Дата вступления в силу: 11 ноября 2026 г.",
     intro:
       "Настоящие условия определяют правила использования сайта vizarai.com и платформы VIZAR AI (далее — «Сервис»). Регистрируясь или пользуясь Сервисом, вы принимаете эти условия и Политику конфиденциальности.",
     sections: [
@@ -748,7 +748,7 @@ export const TERMS: Record<LangCode, LegalDoc> = {
   en: {
     title: "Terms of Service",
     description: "The rules for using VIZAR AI: what the service does and does not do, accounts, content and liability.",
-    updatedLabel: "Effective date: 12 November 2026",
+    updatedLabel: "Effective date: 11 November 2026",
     intro:
       "These terms set out the rules for using the vizarai.com website and the VIZAR AI platform (the “Service”). By signing up for or using the Service, you accept these terms and the Privacy Policy.",
     sections: [

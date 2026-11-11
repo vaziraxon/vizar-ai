@@ -11,6 +11,7 @@ import { readLocal, useLocalState } from "@/lib/dashboard/use-local-state";
 import { CHECKLIST_SELECTION_KEY, VISA_KINDS, buildChecklist, checklistKey, type ChecklistSaved, type VisaKind } from "@/lib/dashboard/checklist-template";
 import { ANSWERS, ANSWER_LABELS, cleanAnswers, docCheckKey, scoreAnswers, syncChecklistDone, type Answer } from "@/lib/document-check/score";
 import { adviseDocumentCheckAction, saveDocumentCheckAction } from "@/lib/actions/document-checks";
+import { markPrepChanged, pullPrepState } from "@/lib/dashboard/prep-sync";
 import type { BookRule } from "@/lib/document-check/book";
 import type { DocumentCheckRow } from "@/lib/data/document-checks";
 import { cn } from "@/lib/utils";
@@ -71,14 +72,27 @@ export function DocumentReadinessTest({ initialDest, initialVisa, applicationId,
     setAdvice(null);
   }, [dest, visa]);
 
+  // Signed in: take the account's answers when they are newer (e.g. from another device)
+  useEffect(() => {
+    let alive = true;
+    void pullPrepState(dest, visa).then((fresh) => {
+      if (alive && fresh) setAnswers(fresh.answers);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [dest, visa, setAnswers]);
+
   const choose = (id: string, a: Answer) => {
     setAnswers((prev) => ({ ...prev, [id]: a }));
+    markPrepChanged(dest, visa);
     setShowResult(false);
     setSaveState(null);
   };
 
   const restart = () => {
     setAnswers({});
+    markPrepChanged(dest, visa);
     setShowResult(false);
     setSaveState(null);
     setAdvice(null);
@@ -99,6 +113,7 @@ export function DocumentReadinessTest({ initialDest, initialVisa, applicationId,
   const finish = async () => {
     setShowResult(true);
     syncChecklist();
+    markPrepChanged(dest, visa);
     if (aiEnabled) {
       const { advice: text } = await adviseDocumentCheckAction({ destination: dest, visaKind: visa, answers }).catch(() => ({ advice: null }));
       setAdvice(text);
