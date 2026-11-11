@@ -82,7 +82,7 @@ export function AboutUsPage() {
               ))}
             </div>
 
-            <dl className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <dl data-reveal-stagger className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {copy.founder.stats.map((s) => (
                 <div key={s.label} className="flex flex-col-reverse justify-end rounded-[22px] border border-surface-border bg-surface p-4 shadow-card">
                   <dt className="mt-2 text-caption font-medium text-ink-600">{s.label}</dt>
@@ -92,7 +92,7 @@ export function AboutUsPage() {
             </dl>
 
             <div className="mt-7 grid items-start gap-5 sm:grid-cols-[1fr_220px]">
-              <ul className="grid content-start gap-3">
+              <ul data-reveal-stagger className="grid content-start gap-3">
                 {copy.values.map((v, i) => {
                   const Icon = VALUE_ICONS[i] ?? ShieldCheck;
                   return (

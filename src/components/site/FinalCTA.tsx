@@ -57,21 +57,25 @@ export function FinalCTA({
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-body-lg text-ink-700">{subtitle ?? cta.subtitle}</p>
             <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+              <span data-magnetic className="sm:w-auto">
               <Link
                 href="/register"
-                className="btn-charcoal btn-sheen group h-14 justify-between gap-4 pl-7 pr-2 text-body hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-16px_rgba(113,56,236,0.6)] sm:justify-center"
+                className="btn-charcoal btn-sheen group h-14 w-full justify-between gap-4 pl-7 pr-2 text-body hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-16px_rgba(113,56,236,0.6)] sm:justify-center"
               >
                 {cta.primary}
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-300 text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] dark:bg-night dark:text-gold-300">
                   <ArrowUpRight size={18} strokeWidth={2.4} className="transition-transform duration-200 group-hover:rotate-45" />
                 </span>
               </Link>
+              </span>
+              <span data-magnetic className="sm:w-auto">
               <Link
                 href={secondaryHref}
-                className="btn h-14 border border-white/80 bg-surface/60 px-7 text-body text-ink-900 backdrop-blur hover:bg-surface dark:border-white/10"
+                className="btn h-14 w-full border border-white/80 bg-surface/60 px-7 text-body text-ink-900 backdrop-blur hover:bg-surface dark:border-white/10"
               >
                 {secondaryLabel ?? cta.secondary}
               </Link>
+              </span>
             </div>
           </div>
         </div>

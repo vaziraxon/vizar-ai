@@ -22,7 +22,7 @@ export function RoadmapPage() {
       <PageHero emoji="🗺️" decor={["✅", "🚧", "🚀"]} eyebrow={copy.eyebrow} title={copy.title} subtitle={copy.subtitle} />
 
       <div className="container-page pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
-        <div className="grid gap-5 lg:grid-cols-3">
+        <div data-reveal-stagger className="grid gap-5 lg:grid-cols-3">
           {ROADMAP_STAGES.map((stage) => {
             const style = STAGE_STYLE[stage];
             return (
@@ -64,7 +64,7 @@ export function TrustCenterPage() {
       <PageHero emoji="🛡️" decor={["🔒", "🗂️", "📜"]} eyebrow={copy.eyebrow} title={copy.title} subtitle={copy.subtitle} />
 
       <div className="container-page space-y-5 pb-12 pt-8 md:pb-14 md:pt-10 lg:pb-16">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div data-reveal-stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {TRUST_PRINCIPLES.map((p) => (
             <div key={p.id} className="rounded-[24px] border border-surface-border bg-surface p-6 shadow-card sm:last:col-span-2 lg:last:col-span-3">
               <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-50 text-violet-600 dark:text-violet-400">

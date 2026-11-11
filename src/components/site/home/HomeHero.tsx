@@ -206,6 +206,7 @@ export function HomeHero() {
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <div className="animate-rise" style={delay(550)}>
+              <span data-magnetic className="w-full sm:w-auto">
               <Link
                 href="/register"
                 className="btn btn-charcoal btn-sheen group h-14 w-full justify-between pl-7 pr-2 text-body hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-16px_rgba(113,56,236,0.6)] sm:w-auto sm:justify-center sm:gap-4"
@@ -215,8 +216,10 @@ export function HomeHero() {
                   <ArrowUpRight size={18} strokeWidth={2.4} className="transition-transform duration-200 group-hover:rotate-45" />
                 </span>
               </Link>
+              </span>
             </div>
             <div className="animate-rise" style={delay(620)}>
+              <span data-magnetic className="w-full sm:w-auto">
               <Link
                 href="/how-it-works"
                 className="btn btn-sheen h-14 w-full gap-3 border border-white/80 bg-surface/60 pl-2 pr-7 text-body text-ink-900 shadow-xs backdrop-blur hover:-translate-y-0.5 hover:bg-surface hover:shadow-card-hover dark:border-white/10 sm:w-auto"
@@ -226,13 +229,17 @@ export function HomeHero() {
                 </span>
                 {hero.ctaSecondary}
               </Link>
+              </span>
             </div>
           </div>
         </div>
 
         {/* Bleeds into the page margin only where the viewport has one to spare */}
         <div className="animate-rise lg:col-span-5 lg:-mr-2 xl:-mr-10 2xl:-mr-24" style={delay(300)}>
-          <HeroGlobe />
+          {/* Drifts a little slower than the page for depth */}
+          <div data-parallax="0.08">
+            <HeroGlobe />
+          </div>
         </div>
       </div>
     </section>

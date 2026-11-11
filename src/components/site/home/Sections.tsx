@@ -25,10 +25,12 @@ export function DestinationsSection() {
           title={d.title}
           subtitle={d.subtitle}
           action={
-            <Link href="/destinations" className={VIOLET_PILL}>
-              {d.all}
-              <PillArrow />
-            </Link>
+            <span data-magnetic>
+              <Link href="/destinations" className={VIOLET_PILL}>
+                {d.all}
+                <PillArrow />
+              </Link>
+            </span>
           }
         />
 
@@ -66,10 +68,12 @@ export function FaqSection() {
           <Accordion items={site.faq.items.slice(0, 4)} defaultOpen={null} />
         </div>
         <div className="mt-8 text-center">
-          <Link href="/faq" className={VIOLET_PILL}>
-            {site.home.more.faq}
-            <PillArrow />
-          </Link>
+          <span data-magnetic>
+            <Link href="/faq" className={VIOLET_PILL}>
+              {site.home.more.faq}
+              <PillArrow />
+            </Link>
+          </span>
         </div>
       </div>
     </section>
