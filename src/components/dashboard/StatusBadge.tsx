@@ -8,10 +8,10 @@ const STATUS_STYLES: Record<string, string> = {
   Tasdiqlandi: "bg-success/10 text-green-800 dark:text-green-300",
   "Kamchilik bor": "bg-red-500/10 text-red-700 dark:text-red-300",
   "Yangilash kerak": "bg-warning/10 text-warning",
-  Yuklanmagan: "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/50",
+  Yuklanmagan: "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/65",
   Yuklandi: "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
   // Applications
-  Qoralama: "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/50",
+  Qoralama: "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/65",
   Yangi: "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
   "Tahlil yakunlandi": "bg-brand-50 text-brand-700 dark:bg-brand-600/40 dark:text-brand-300",
   Tayyor: "bg-success/10 text-green-800 dark:text-green-300",
@@ -20,12 +20,12 @@ const STATUS_STYLES: Record<string, string> = {
   // Tasks
   Bajarildi: "bg-success/10 text-green-800 dark:text-green-300",
   Jarayonda: "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
-  Boshlanmagan: "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/50",
+  Boshlanmagan: "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/65",
   Muhim: "bg-red-500/10 text-red-700 dark:text-red-300",
   // Consultation requests
   Kutilmoqda: "bg-brand-50 text-brand-600 dark:bg-brand-600/40 dark:text-brand-300",
   "Bog'lanildi": "bg-success/10 text-green-800 dark:text-green-300",
-  "Bekor qilindi": "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/50",
+  "Bekor qilindi": "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/65",
   // Subscription requests
   Faollashtirildi: "bg-success/10 text-green-800 dark:text-green-300",
   "Rad etildi": "bg-red-500/10 text-red-700 dark:text-red-300",

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ArrowLeft, LockKeyhole } from "lucide-react";
 import { Logo, LogoMark } from "@/components/ui/Logo";
 import { LanguageSelector } from "@/components/ui/LanguageSelector";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { useSite } from "@/lib/i18n/site";
 import { useLanguage } from "@/lib/language-context";
 import { EmojiSticker } from "@/components/site/primitives";
 import { HeroSky } from "@/components/site/home/HeroSky";
@@ -24,6 +26,7 @@ export function AuthCard({
   children: React.ReactNode;
 }) {
   const { t } = useLanguage();
+  const site = useSite();
 
   return (
     <div className="landing-lime dashboard-lime auth-landing lime-wash grain relative flex min-h-screen flex-col overflow-hidden">
@@ -39,14 +42,15 @@ export function AuthCard({
         <Link href="/" aria-label={t("nav_home_aria")} className="rounded-lg">
           <Logo />
         </Link>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           <Link
             href="/"
-            className="hidden h-9 items-center gap-1.5 rounded-pill px-3 text-body-sm font-medium text-ink-600 transition-colors hover:bg-surface/70 hover:text-ink-900 sm:inline-flex dark:text-white/60 dark:hover:bg-white/10 dark:hover:text-white"
+            className="hidden h-9 items-center gap-1.5 rounded-pill px-3 text-body-sm font-medium text-ink-600 transition-colors hover:bg-surface/70 hover:text-ink-900 sm:inline-flex dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white"
           >
             <ArrowLeft size={15} />
             {t("au_back_home")}
           </Link>
+          <ThemeToggle variant="pill" className="h-11 w-11" labels={{ toDark: site.nav.themeToDark, toLight: site.nav.themeToLight }} />
           <LanguageSelector variant="pill" />
         </div>
       </header>
@@ -56,11 +60,11 @@ export function AuthCard({
           <div className="rounded-[32px] border border-white/80 bg-surface p-7 shadow-float sm:p-10 dark:border-white/10 dark:bg-navy-900">
             <LogoMark className="h-10 w-10 rounded-xl [&_svg]:h-6 [&_svg]:w-6" />
             <h1 className="luxe-firm mt-6 font-luxe text-[clamp(2rem,6vw,2.6rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-ink-950 dark:text-white">{title}</h1>
-            <p className="mt-2 text-body text-ink-600 dark:text-white/60">{subtitle}</p>
+            <p className="mt-2 text-body text-ink-600 dark:text-white/70">{subtitle}</p>
             <div className="mt-8">{children}</div>
           </div>
 
-          <p className="mt-6 flex items-center justify-center gap-2 text-center text-caption font-medium text-ink-600 dark:text-white/50">
+          <p className="mt-6 flex items-center justify-center gap-2 text-center text-caption font-medium text-ink-600 dark:text-white/65">
             <LockKeyhole size={13} className="shrink-0 text-ink-500" />
             {t("au_panel_disclaimer")}
           </p>

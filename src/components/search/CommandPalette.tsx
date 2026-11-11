@@ -160,7 +160,7 @@ export function CommandPalette() {
               className="w-full max-w-xl overflow-hidden rounded-2xl border border-surface-border bg-white shadow-float dark:border-white/10 dark:bg-navy-900"
             >
               <div className="flex items-center gap-3 border-b border-surface-border px-4 py-3 dark:border-white/10">
-                <Search size={18} className="text-ink-400 dark:text-white/40" />
+                <Search size={18} className="text-ink-400 dark:text-white/60" />
                 <input
                   ref={inputRef}
                   value={query}
@@ -173,20 +173,20 @@ export function CommandPalette() {
                   aria-label={l("Qidirish yoki buyruq yozing")}
                   className="w-full bg-transparent text-body-sm text-ink-900 outline-none placeholder:text-ink-400 dark:text-white dark:placeholder:text-white/30"
                 />
-                <kbd className="hidden rounded-md border border-surface-border px-1.5 py-0.5 text-caption text-ink-400 dark:border-white/10 dark:text-white/40 sm:block">
+                <kbd className="hidden rounded-md border border-surface-border px-1.5 py-0.5 text-caption text-ink-400 dark:border-white/10 dark:text-white/60 sm:block">
                   Esc
                 </kbd>
               </div>
 
               <div className="max-h-80 overflow-y-auto p-2">
                 {flatList.length === 0 && (
-                  <p className="px-3 py-6 text-center text-body-sm text-ink-400 dark:text-white/40">
+                  <p className="px-3 py-6 text-center text-body-sm text-ink-400 dark:text-white/60">
                     {l("Hech narsa topilmadi.")}
                   </p>
                 )}
 
                 {searchResults.length > 0 && (
-                  <p className="px-3 pb-1 pt-2 text-caption font-semibold uppercase text-ink-400 dark:text-white/40">
+                  <p className="px-3 pb-1 pt-2 text-caption font-semibold uppercase text-ink-400 dark:text-white/60">
                     {l("Natijalar")}
                   </p>
                 )}
@@ -205,13 +205,13 @@ export function CommandPalette() {
                       }`}
                     >
                       <span>{l(r.label)}</span>
-                      <span className="text-caption text-ink-400 dark:text-white/40">{l(r.group)}</span>
+                      <span className="text-caption text-ink-400 dark:text-white/60">{l(r.group)}</span>
                     </button>
                   );
                 })}
 
                 {filteredCommands.length > 0 && (
-                  <p className="px-3 pb-1 pt-3 text-caption font-semibold uppercase text-ink-400 dark:text-white/40">
+                  <p className="px-3 pb-1 pt-3 text-caption font-semibold uppercase text-ink-400 dark:text-white/60">
                     {l("Buyruqlar")}
                   </p>
                 )}
@@ -236,7 +236,7 @@ export function CommandPalette() {
                 })}
               </div>
 
-              <div className="flex items-center justify-end gap-1.5 border-t border-surface-border px-4 py-2 text-caption text-ink-400 dark:border-white/10 dark:text-white/40">
+              <div className="flex items-center justify-end gap-1.5 border-t border-surface-border px-4 py-2 text-caption text-ink-400 dark:border-white/10 dark:text-white/60">
                 <CornerDownLeft size={12} /> tanlash
               </div>
             </motion.div>

@@ -45,7 +45,7 @@ export function SuccessToast({
             type="button"
             onClick={onClose}
             aria-label={l("Yopish")}
-            className="text-ink-400 hover:text-ink-700 dark:text-white/40 dark:hover:text-white"
+            className="text-ink-400 hover:text-ink-700 dark:text-white/60 dark:hover:text-white"
           >
             <X size={15} />
           </button>

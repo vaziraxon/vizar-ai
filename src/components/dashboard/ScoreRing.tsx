@@ -45,7 +45,7 @@ export function ScoreRing({ score, size = 120, strokeWidth = 10, label, empty = 
       </svg>
       <div className="absolute flex flex-col items-center">
         <span className="font-display text-2xl font-bold tracking-tight text-ink-900 dark:text-white">{empty ? "—" : score}</span>
-        {label && !empty && <span className="text-caption text-ink-500 dark:text-white/50">{label}</span>}
+        {label && !empty && <span className="text-caption text-ink-500 dark:text-white/65">{label}</span>}
       </div>
     </div>
   );

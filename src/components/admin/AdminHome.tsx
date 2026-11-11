@@ -127,7 +127,7 @@ export function AdminHome({ state }: { state: AdminStatsState }) {
         <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
           <div className="mx-auto max-w-6xl">
             <h1 className="font-display text-display-sm text-ink-900 dark:text-white">Admin panel</h1>
-            <p className="mb-6 mt-1 text-body-sm text-ink-600 dark:text-white/60">Saytning hozirgi holati — bazadagi haqiqiy sonlar.</p>
+            <p className="mb-6 mt-1 text-body-sm text-ink-600 dark:text-white/70">Saytning hozirgi holati — bazadagi haqiqiy sonlar.</p>
 
             {!state.ok ? (
               <p className="mb-6 rounded-2xl border border-amber-200 bg-amber-50/70 px-4 py-3 text-body-sm text-ink-800 dark:border-amber-400/20 dark:bg-amber-400/10">
@@ -159,7 +159,7 @@ export function AdminHome({ state }: { state: AdminStatsState }) {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block font-semibold text-ink-950 dark:text-white">{sec.title}</span>
-                    {sec.note ? <span className="block text-body-sm text-ink-600 dark:text-white/60">{sec.note}</span> : null}
+                    {sec.note ? <span className="block text-body-sm text-ink-600 dark:text-white/70">{sec.note}</span> : null}
                   </span>
                   <ArrowRight size={18} className="shrink-0 text-ink-300 transition-transform group-hover:translate-x-0.5" />
                 </Link>

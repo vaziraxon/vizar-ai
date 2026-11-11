@@ -121,7 +121,7 @@ function NavLinks({
             aria-expanded={open}
             aria-controls={listId}
             disabled={holdsActive}
-            className="group/head flex w-full items-center justify-between rounded-lg px-3 pb-2 pt-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-500 transition-colors hover:text-ink-900 disabled:cursor-default disabled:hover:text-ink-500 dark:text-white/60 dark:hover:text-white"
+            className="group/head flex w-full items-center justify-between rounded-lg px-3 pb-2 pt-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-500 transition-colors hover:text-ink-900 disabled:cursor-default disabled:hover:text-ink-500 dark:text-white/70 dark:hover:text-white"
           >
             {t(group.titleKey)}
             {!holdsActive && (
@@ -145,7 +145,7 @@ function NavLinks({
                       "group relative flex h-10 items-center gap-3 rounded-pill px-3.5 text-body-sm font-medium transition-colors duration-150",
                       active
                         ? "bg-gold-300 font-semibold text-night shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_8px_20px_-10px_rgba(180,130,20,0.7)]"
-                        : "text-ink-600 hover:bg-surface-tint hover:text-ink-900 dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white"
+                        : "text-ink-600 hover:bg-surface-tint hover:text-ink-900 dark:text-white/70 dark:hover:bg-white/5 dark:hover:text-white"
                     )}
                   >
                     <item.icon
@@ -153,7 +153,7 @@ function NavLinks({
                       strokeWidth={1.9}
                       className={cn(
                         "shrink-0 transition-colors",
-                        active ? "text-night/80" : "text-ink-400 group-hover:text-ink-700 dark:text-white/40"
+                        active ? "text-night/80" : "text-ink-400 group-hover:text-ink-700 dark:text-white/60"
                       )}
                     />
                     <span className="truncate">{label(item)}</span>
@@ -170,7 +170,7 @@ function NavLinks({
         <Link
           href="/"
           onClick={onNavigate}
-          className="flex h-10 items-center gap-3 rounded-pill px-3.5 text-body-sm font-medium text-ink-600 transition-colors hover:bg-surface-tint hover:text-ink-900 dark:text-white/60 dark:hover:bg-white/5"
+          className="flex h-10 items-center gap-3 rounded-pill px-3.5 text-body-sm font-medium text-ink-600 transition-colors hover:bg-surface-tint hover:text-ink-900 dark:text-white/70 dark:hover:bg-white/5"
         >
           <ArrowUpLeft size={18} strokeWidth={1.9} className="text-ink-400" />
           {t("app_back_to_site")}
@@ -179,7 +179,7 @@ function NavLinks({
           <button
             type="submit"
             onClick={onNavigate}
-            className="flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-body-sm font-medium text-ink-600 transition-colors hover:bg-surface-tint hover:text-ink-900 dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white"
+            className="flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-body-sm font-medium text-ink-600 transition-colors hover:bg-surface-tint hover:text-ink-900 dark:text-white/70 dark:hover:bg-white/5 dark:hover:text-white"
           >
             <logoutItem.icon size={18} strokeWidth={1.9} className="text-ink-400" />
             {t("logout")}

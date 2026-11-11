@@ -38,13 +38,13 @@ export function TrendChartCard({
             <XAxis
               dataKey="label"
               tick={{ fontSize: 11, fill: "currentColor" }}
-              className="text-ink-400 dark:text-white/40"
+              className="text-ink-400 dark:text-white/60"
               axisLine={false}
               tickLine={false}
             />
             <YAxis
               tick={{ fontSize: 11, fill: "currentColor" }}
-              className="text-ink-400 dark:text-white/40"
+              className="text-ink-400 dark:text-white/60"
               axisLine={false}
               tickLine={false}
               width={32}

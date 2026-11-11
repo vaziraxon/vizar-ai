@@ -175,7 +175,7 @@ export function ProfileForm({
             onChange={(e) => setPhone(e.target.value)}
           />
         </div>
-        <p className="mt-2 text-caption text-ink-500 dark:text-white/60">
+        <p className="mt-2 text-caption text-ink-500 dark:text-white/70">
           {l("Email manzilni o'zgartirish hozircha qo'llab-quvvatlanmaydi.")}
         </p>
       </div>

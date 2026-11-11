@@ -31,7 +31,7 @@ export function Stepper({ steps, currentStep }: StepperProps) {
                       "bg-gradient-to-br from-brand-500 to-violet-600 text-white shadow-button",
                     !isDone &&
                       !isActive &&
-                      "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/60",
+                      "bg-surface-muted text-ink-600 dark:bg-white/10 dark:text-white/70",
                   )}
                 >
                   {isDone ? <Check size={16} /> : i + 1}
@@ -42,7 +42,7 @@ export function Stepper({ steps, currentStep }: StepperProps) {
                     "sr-only text-caption font-medium sm:not-sr-only sm:block",
                     isActive
                       ? "text-ink-900 dark:text-white"
-                      : "text-ink-500 dark:text-white/60",
+                      : "text-ink-500 dark:text-white/70",
                   )}
                 >
                   <L>{label}</L>
@@ -64,7 +64,7 @@ export function Stepper({ steps, currentStep }: StepperProps) {
       </ol>
       <p
         aria-hidden="true"
-        className="mt-3 text-center text-caption font-medium text-ink-600 sm:hidden dark:text-white/60"
+        className="mt-3 text-center text-caption font-medium text-ink-600 sm:hidden dark:text-white/70"
       >
         {currentStep + 1}/{steps.length} · {l(steps[currentStep] ?? "")}
       </p>

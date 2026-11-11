@@ -131,11 +131,11 @@ export function NotificationsList({ notifications }: { notifications: Notificati
                   {!n.is_read && <span className="h-2 w-2 shrink-0 rounded-full bg-brand-500" />}
                 </div>
                 {n.message && (
-                  <p className="mt-0.5 text-body-sm text-ink-600 dark:text-white/60">
+                  <p className="mt-0.5 text-body-sm text-ink-600 dark:text-white/70">
                     {l(n.message)}
                   </p>
                 )}
-                <p className="mt-1 text-caption text-ink-400 dark:text-white/40">
+                <p className="mt-1 text-caption text-ink-400 dark:text-white/60">
                   {timeAgo(n.created_at, l)}
                 </p>
               </div>

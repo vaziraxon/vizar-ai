@@ -70,7 +70,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
 
           <div className="w-full space-y-3 border-t border-surface-border pt-4 text-left dark:border-white/10">
             <div>
-              <label className="mb-1 block text-caption font-semibold uppercase text-ink-400 dark:text-white/40">
+              <label className="mb-1 block text-caption font-semibold uppercase text-ink-400 dark:text-white/60">
                 Holatni o&apos;zgartirish
               </label>
               <select
@@ -89,7 +89,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
               </select>
             </div>
             <div>
-              <label className="mb-1 block text-caption font-semibold uppercase text-ink-400 dark:text-white/40">
+              <label className="mb-1 block text-caption font-semibold uppercase text-ink-400 dark:text-white/60">
                 Mas&apos;ul mutaxassis
               </label>
               <select
@@ -134,9 +134,9 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
                 <FileWarning size={16} className="text-red-500" /> Xavf omillari
               </p>
               {client.riskFactors.length === 0 ? (
-                <p className="text-body-sm text-ink-400 dark:text-white/40">Aniqlangan xavf yo&apos;q.</p>
+                <p className="text-body-sm text-ink-400 dark:text-white/60">Aniqlangan xavf yo&apos;q.</p>
               ) : (
-                <ul className="space-y-2 text-body-sm text-ink-600 dark:text-white/60">
+                <ul className="space-y-2 text-body-sm text-ink-600 dark:text-white/70">
                   {client.riskFactors.map((r) => (
                     <li key={r} className="flex items-start gap-2">
                       <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-500" />
@@ -154,7 +154,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
               <p className="font-display text-2xl font-bold text-ink-900 dark:text-white">
                 {client.interviewScore}/100
               </p>
-              <p className="text-caption text-ink-400 dark:text-white/40">
+              <p className="text-caption text-ink-400 dark:text-white/60">
                 Oxirgi suhbat mashqi natijasi
               </p>
             </div>
@@ -178,7 +178,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
             <p className="mb-3 flex items-center gap-2 text-body-sm font-semibold text-ink-900 dark:text-white">
               <ListChecks size={16} className="text-success" /> Tavsiyalar
             </p>
-            <ul className="space-y-2 text-body-sm text-ink-600 dark:text-white/60">
+            <ul className="space-y-2 text-body-sm text-ink-600 dark:text-white/70">
               {client.recommendations.map((r) => (
                 <li key={r} className="flex items-start gap-2">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-success" />
@@ -197,7 +197,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
                 <li key={t.label + t.date} className="relative text-body-sm">
                   <span className="absolute -left-[21px] top-1.5 h-2 w-2 rounded-full bg-brand-500" />
                   <span className="font-medium text-ink-900 dark:text-white">{t.label}</span>
-                  <span className="ml-2 text-caption text-ink-400 dark:text-white/40">{t.date}</span>
+                  <span className="ml-2 text-caption text-ink-400 dark:text-white/60">{t.date}</span>
                 </li>
               ))}
             </ul>
@@ -227,13 +227,13 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
               {notes.map((n) => (
                 <li key={n.id} className="rounded-lg bg-surface-tint p-3 text-body-sm dark:bg-white/5">
                   <p className="text-ink-700 dark:text-white/70">{n.text}</p>
-                  <p className="mt-1 text-caption text-ink-400 dark:text-white/40">
+                  <p className="mt-1 text-caption text-ink-400 dark:text-white/60">
                     {n.author} · {n.date}
                   </p>
                 </li>
               ))}
               {notes.length === 0 && (
-                <p className="text-body-sm text-ink-400 dark:text-white/40">Hali izoh yo&apos;q.</p>
+                <p className="text-body-sm text-ink-400 dark:text-white/60">Hali izoh yo&apos;q.</p>
               )}
             </ul>
           </div>

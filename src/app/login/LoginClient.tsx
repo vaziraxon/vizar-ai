@@ -141,7 +141,7 @@ export default function LoginClient({ configured }: { configured: boolean }) {
           {!loading && <ArrowRight size={17} />}
         </Button>
 
-        <p className="pt-2 text-center text-body-sm text-ink-600 dark:text-white/60">
+        <p className="pt-2 text-center text-body-sm text-ink-600 dark:text-white/70">
           {t("au_no_account")}{" "}
           <Link
             href="/register"

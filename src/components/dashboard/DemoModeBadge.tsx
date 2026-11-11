@@ -22,7 +22,7 @@ export function DemoModeBadge() {
       </button>
 
       <Modal open={open} onClose={() => setOpen(false)} title={l("Demo rejimi haqida")}>
-        <ul className="space-y-3 text-body-sm text-ink-600 dark:text-white/60">
+        <ul className="space-y-3 text-body-sm text-ink-600 dark:text-white/70">
           <li className="flex items-start gap-2">
             <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink-400" />
             {l("Barcha ma'lumotlar o'ylab topilgan (fiktiv) — haqiqiy foydalanuvchi ma'lumotlari emas.")}
