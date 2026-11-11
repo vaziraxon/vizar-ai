@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, BookOpen, Crown, FileText, FolderOpen, Menu, MessageSquareQuote, UserCog, UserPlus, Users, X } from "lucide-react";
+import { Sparkles, ArrowRight, BookOpen, Crown, FileText, FolderOpen, Menu, MessageSquareQuote, UserCog, UserPlus, Users, X } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { ADMIN_NAV } from "@/data/mockData";
@@ -40,6 +40,7 @@ export function AdminHome({ state }: { state: AdminStatsState }) {
     { href: "/admin/users", icon: Users, title: "Foydalanuvchilar", note: s ? `${n(s.users)} ta, oxirgi 7 kunda +${n(s.users_7d)}` : "Kim ro‘yxatdan o‘tgan va qay darajada ishlayapti" },
     { href: "/admin/consultations", icon: UserCog, title: "Konsultatsiya so‘rovlari", note: s ? `${n(s.consultations_open)} ta javob kutmoqda` : "" },
     { href: "/admin/subscriptions", icon: Crown, title: "Obuna so‘rovlari", note: s ? `${n(s.subscription_requests_pending)} ta kutilmoqda` : "" },
+    { href: "/admin/ai", icon: Sparkles, title: "AI beta (25 kishi)", note: "Claude va ovozli suhbat: ro‘yxat, byudjet, xarajat" },
     {
       href: "/admin/testimonials",
       icon: MessageSquareQuote,
