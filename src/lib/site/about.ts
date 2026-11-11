@@ -38,7 +38,7 @@ export const ROADMAP = [
   { id: "site", stage: "completed", icon: Globe2 },
   { id: "dashboard", stage: "completed", icon: LayoutDashboard },
   { id: "readiness", stage: "completed", icon: Gauge },
-  { id: "documents", stage: "completed", icon: FolderOpen },
+  { id: "documents", stage: "in_progress", icon: FolderOpen },
   { id: "checklist", stage: "completed", icon: ListChecks },
   { id: "interview", stage: "completed", icon: MessagesSquare },
   { id: "tracker", stage: "completed", icon: Route },

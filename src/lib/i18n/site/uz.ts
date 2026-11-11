@@ -69,7 +69,7 @@ export const uz: SiteContent = {
       ],
       cta: "Ballni ko‘rish",
       steps: [
-        { title: "Tayyorlanishni boshlang", desc: "Viza tahlilini to‘ldiring va hujjatlarni yuklang." },
+        { title: "Tayyorlanishni boshlang", desc: "Viza tahlilini to‘ldiring va hujjatlaringiz holatini belgilang." },
         { title: "Ballni ko‘ring", desc: "Bajarganlaringiz asosida 0–100 oralig‘idagi ball hisoblanadi." },
         { title: "Qadamlarni bajaring", desc: "Har bir qadam qancha ball qo‘shishini ko‘rib, navbatdagisini tanlang." },
       ],
@@ -78,17 +78,17 @@ export const uz: SiteContent = {
       name: "Hujjatlar ombori",
       menu: "Hujjatlaringiz bir joyda",
       tagline: "Hujjatlar",
-      desc: "Hujjatlaringizni bir joyda saqlang va har birini talab bilan solishtiring.",
+      desc: "Hujjat yuklash hozircha sinov bosqichida va xavfsizlik uchun vaqtincha yopiq. Hozir hujjatlaringiz tayyorligini fayl yuklamasdan, 4 variantli test bilan baholaysiz.",
       benefits: [
-        "Yopiq omborda, faqat sizga ko‘rinadi",
-        "Har bir hujjat uchun nimani tekshirish kerakligi",
-        "Qaysi hujjat yetishmayotgani bir qarashda",
+        "Hozircha fayl yuklanmaydi — shaxsiy ma’lumotlaringiz xavfsizligi uchun",
+        "Har bir hujjat holatini A–D javob bilan belgilaysiz",
+        "Natija shaxsiy checklistingizga tushadi",
       ],
-      cta: "Hujjatlarni yuklash",
+      cta: "Hujjat tayyorgarligi testi",
       steps: [
-        { title: "Hujjatni yuklang", desc: "PDF yoki rasm — fayllar yopiq omborda saqlanadi." },
-        { title: "Talab bilan solishtiring", desc: "Har bir hujjat yonida nimani tekshirish kerakligi yozilgan." },
-        { title: "Yetishmayotganini to‘ldiring", desc: "Qaysi hujjatlar hali yuklanmaganini ko‘ring." },
+        { title: "Yuklash hozircha yopiq", desc: "AI hujjat tekshiruvi sinov bosqichida: haqiqiy fayllar O‘zbekistondagi himoyalangan server tayyor bo‘lgunicha qabul qilinmaydi." },
+        { title: "Testdan o‘ting", desc: "Har bir hujjat uchun tanlang: tayyor, muammoli, tayyorlanmoqda yoki hali yo‘q." },
+        { title: "Keyingi qadamni ko‘ring", desc: "Tayyorlik foizi va birinchi navbatdagi ishlar; tayyorlari checklistda belgilanadi." },
       ],
     },
     checklist: {
@@ -301,7 +301,7 @@ export const uz: SiteContent = {
         nextLabel: "Keyingi qadam",
         nextText: "Safar marshrutini qo‘shing",
         nextHint: "Tayyorgarlik bahosiga eng katta ta’sir qiladigan qadam",
-        aiNote: "Bank ko‘chirmasida hisob egasining to‘liq ismi ko‘rinmayapti.",
+        aiNote: "Tekshiring: bank ko‘chirmasida hisob egasining to‘liq ismi ko‘rinishi kerak.",
         roadmap: [
           { title: "Profil va maqsad", when: "Bajarildi", state: "done" },
           { title: "Hujjatlarni yig‘ish", when: "Bajarildi", state: "done" },
@@ -373,7 +373,7 @@ export const uz: SiteContent = {
       subtitle: "Quyidagi ko‘rinishlar mahsulot interfeysiga asoslangan namunalar.",
       tabs: [
         { id: "readiness", title: "Qayerda turganingizni bir raqamda ko‘ring", desc: "Bajarganlaringizdan yig‘iladigan 0–100 ball va har bir qismda nima qolgani." },
-        { id: "documents", title: "Hujjatlardagi kamchiliklar — oldindan", desc: "Yetishmayotgan maydonlar, muddatlar va nomuvofiqliklar bitta ro‘yxatda." },
+        { id: "documents", title: "Hujjatlar tayyorligi — fayl yuklamasdan", desc: "Har bir hujjat holatini testda belgilaysiz; fayl yuklash hozircha sinov bosqichida va yopiq." },
         { id: "checklist", title: "Faqat sizga kerakli hujjatlar", desc: "Yo‘nalish va viza turiga mos ro‘yxat — tayyorlarini belgilab borasiz." },
         { id: "roadmap", title: "Bosqichma-bosqich reja", desc: "Profil, hujjatlar, baho, suhbat va topshirish — har birining holati aniq." },
         { id: "interview", title: "Suhbatga tayyor holda boring", desc: "Ko‘p so‘raladigan savollar bilan mashq va javoblaringiz bo‘yicha maslahatlar." },
@@ -386,7 +386,7 @@ export const uz: SiteContent = {
       subtitle: "Ariza kuzatuvi har bir bosqichni ko‘rsatadi, bildirishnomalar esa muddat va o‘zgarishlarni o‘tkazib yubormaslikka yordam beradi.",
       alerts: [
         { title: "Pasport amal qilish muddatini tekshiring", time: "Bugun", tone: "warn" },
-        { title: "Bank ko‘chirmasi yuklandi", time: "Kecha", tone: "ok" },
+        { title: "Bank ko‘chirmasi tayyor deb belgilandi", time: "Kecha", tone: "ok" },
         { title: "Konsultatsiya vaqti tasdiqlandi", time: "2 kun oldin", tone: "info" },
       ],
     },
@@ -416,7 +416,7 @@ export const uz: SiteContent = {
       },
       {
         title: "Tayyorgarligingiz hisoblanadi",
-        desc: "Yuklagan hujjatlar, checklist, suhbat mashqi va tahlil asosida tayyorgarlik bali hisoblanadi.",
+        desc: "Hujjatlar holati, checklist, suhbat mashqi va tahlil asosida tayyorgarlik bali hisoblanadi.",
         points: ["0–100 oralig‘idagi ball","Har bir qismda nima qolgani","Hujjatlar holati bir qarashda"],
       },
       {
@@ -539,15 +539,15 @@ export const uz: SiteContent = {
       },
       {
         q: "Tayyorgarlik bahosi qanday hisoblanadi?",
-        a: "Ball siz bajargan ishlardan yig‘iladi: yuklangan hujjatlar, checklist, suhbat mashqi va viza tahlili. U viza berilish ehtimoli emas, balki tayyorgarlikda nima qolganini ko‘rsatadi.",
+        a: "Ball siz bajargan ishlardan yig‘iladi: hujjatlar holati, checklist, suhbat mashqi va viza tahlili. U viza berilish ehtimoli emas, balki tayyorgarlikda nima qolganini ko‘rsatadi.",
       },
       {
         q: "Qaysi vositalar hozir ishlaydi?",
-        a: "Viza tayyorgarlik bali, hujjatlarni yuklash (beta), shaxsiy checklist, suhbat mashqi (52 davlat bo‘yicha 7 800 savol), ariza kuzatuvi, rad javobi tahlili va mutaxassisga so‘rov (beta) ishlaydi. Shaxsiy kabinetda viza fotosurati, viza xatlari, ariza muddati va Shengen 90/180 hisob-kitobi ham bor.",
+        a: "Viza tayyorgarlik bali, hujjat tayyorgarligi testi, shaxsiy checklist, suhbat mashqi (52 davlat bo‘yicha 7 800 savol), ariza kuzatuvi, rad javobi tahlili va mutaxassisga so‘rov (beta) ishlaydi. Shaxsiy kabinetda viza fotosurati, viza xatlari, ariza muddati va Shengen 90/180 hisob-kitobi ham bor. Hujjat fayllarini yuklash hozircha sinov bosqichida va yopiq.",
       },
       {
         q: "Hujjatlarim xavfsizmi?",
-        a: "Hujjatlar yopiq omborda saqlanadi va faqat sizning hisobingiz orqali ochiladi. Boshqa foydalanuvchilar ularni ko‘ra olmaydi.",
+        a: "Hozircha hujjat fayllari umuman qabul qilinmaydi: AI hujjat tekshiruvi sinov bosqichida va shaxsiy ma’lumotlaringiz xavfsizligi uchun vaqtincha yopiq. Xizmat O‘zbekistondagi himoyalangan serverda ishga tushiriladi. Ilgari yuklangan fayllar yopiq omborda turadi va faqat sizning hisobingiz orqali ochiladi.",
       },
       {
         q: "Platformadan foydalanish pullikmi?",
@@ -576,8 +576,8 @@ export const uz: SiteContent = {
       nextText: "Bank ko‘chirmasini so‘nggi oylar bilan yangilang",
     },
     documents: {
-      dropTitle: "Hujjatni shu yerga tashlang",
-      dropHint: "PDF, JPG yoki PNG",
+      dropTitle: "Hujjat yuklash — sinov bosqichida",
+      dropHint: "Xavfsizlik uchun vaqtincha yopiq",
       files: [
         { name: "Pasport", state: "ready" },
         { name: "Bank ko‘chirmasi", state: "review" },
@@ -585,7 +585,7 @@ export const uz: SiteContent = {
         { name: "Mehmonxona broni", state: "missing" },
       ],
       noteTitle: "Izoh",
-      note: "Bank ko‘chirmasida hisob egasining to‘liq ismi ko‘rinmayapti.",
+      note: "Tekshiring: bank ko‘chirmasida hisob egasining to‘liq ismi ko‘rinishi kerak.",
     },
     checklist: {
       title: "Shengen · Turistik",
@@ -936,7 +936,7 @@ export const uz: SiteContent = {
       site: { title: "Uch tilli sayt", desc: "O‘zbek, rus va ingliz tillarida, har biri o‘z manzili bilan." },
       dashboard: { title: "Shaxsiy kabinet", desc: "Barcha vositalar va arizangiz holati bir joyda." },
       readiness: { title: "Viza tayyorgarlik bali", desc: "Javoblaringiz, hujjatlar va checklist asosida ochiq qoidalar bilan hisoblanadi." },
-      documents: { title: "Hujjatlar ombori", desc: "Hujjatlarni yopiq omborga yuklash va har biri uchun nimani tekshirish kerakligi." },
+      documents: { title: "Hujjatlar ombori", desc: "Sinov bosqichida: fayl yuklash O‘zbekistondagi himoyalangan server tayyor bo‘lgunicha yopiq. Hozir 4 variantli hujjat tayyorgarligi testi ishlaydi." },
       checklist: { title: "Shaxsiy checklist", desc: "Davlat va viza turiga mos ro‘yxat, chop etiladigan varaq bilan." },
       interview: { title: "Suhbat mashqi", desc: "Davlatlar va viza turlari bo‘yicha savollar bazasi bilan mashq." },
       tracker: { title: "Ariza kuzatuvi", desc: "Ariza bosqichlarini bir joyda belgilab borish." },
@@ -964,7 +964,7 @@ export const uz: SiteContent = {
     principles: {
       privacy: {
         title: "Ma’lumotlar maxfiyligi",
-        desc: "Ma’lumotlar Supabase bulut bazasida saqlanadi. Qatorlar darajasidagi qoidalar har bir foydalanuvchiga faqat o‘z ma’lumotlarini ko‘rsatadi. Hujjatlar yopiq omborda, har kim faqat o‘z papkasiga kira oladi. Profil surati esa havolasi bor kishiga ko‘rinadi.",
+        desc: "Ma’lumotlar Supabase bulut bazasida saqlanadi. Qatorlar darajasidagi qoidalar har bir foydalanuvchiga faqat o‘z ma’lumotlarini ko‘rsatadi. Hujjat yuklash hozircha yopiq; ilgari yuklangan fayllar yopiq omborda, har kim faqat o‘z papkasiga kira oladi. Profil surati esa havolasi bor kishiga ko‘rinadi.",
       },
       encryption: {
         title: "Shifrlash",
@@ -980,7 +980,7 @@ export const uz: SiteContent = {
       },
       documents: {
         title: "Hujjatlar bilan ehtiyotkorlik",
-        desc: "Faqat tayyorgarlik uchun kerakli nusxalarni yuklang. Hujjatlaringiz boshqa foydalanuvchilarga ko‘rinmaydi. VIZAR elchixonaga ariza topshirmaydi.",
+        desc: "Hujjat yuklash xavfsizlik tekshiruvlari yakunlanguncha yopiq — AI hujjat tekshiruvi sinov bosqichida. Hujjatlaringiz boshqa foydalanuvchilarga ko‘rinmaydi. VIZAR elchixonaga ariza topshirmaydi.",
       },
       ai: {
         title: "AI haqida halollik",

@@ -1,6 +1,7 @@
 "use client";
 
 import { LocalLink as Link } from "@/components/site/LocalLink";
+import { DocumentUploadNotice } from "@/components/documents/DocumentUploadNotice";
 import { ArrowUpRight, ChevronRight, Lock, UserPlus } from "lucide-react";
 import { CheckLine, EmojiTile, Eyebrow, GoldUnderline, PillArrow, StatusPill, VIOLET_PILL } from "@/components/site/primitives";
 import { HeroSky } from "@/components/site/home/HeroSky";
@@ -56,6 +57,9 @@ export function ToolPage({ id }: { id: ToolId }) {
                 </CheckLine>
               ))}
             </ul>
+
+            {/* Uploads are closed while AI document checking is in its test phase */}
+            {id === "documents" && <DocumentUploadNotice className="mt-8" />}
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               {/* Into the tool's dashboard section; signed out, the middleware asks to log in first */}

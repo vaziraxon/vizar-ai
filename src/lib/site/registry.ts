@@ -45,7 +45,7 @@ export interface ToolMeta {
 
 export const TOOLS: ToolMeta[] = [
   { id: "readiness", href: "/visa-readiness", appHref: "/dashboard/readiness", icon: Gauge, emoji: "🎯", status: "available" },
-  { id: "documents", href: "/document-checker", appHref: "/dashboard/documents", icon: ScanSearch, emoji: "📄", status: "beta" },
+  { id: "documents", href: "/document-checker", appHref: "/dashboard/documents/check", icon: ScanSearch, emoji: "📄", status: "beta" },
   { id: "checklist", href: "/checklist", appHref: "/dashboard/checklist", icon: ListChecks, emoji: "✅", status: "available" },
   { id: "interview", href: "/interview", appHref: "/dashboard/interview", icon: MessagesSquare, emoji: "🎤", status: "available" },
   { id: "tracker", href: "/tracker", appHref: "/dashboard/tracker", icon: Route, emoji: "📍", status: "available" },
