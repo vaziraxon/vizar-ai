@@ -4,8 +4,9 @@ import type { LangCode } from "@/lib/translations";
  * Privacy policy and terms of service, written from how the system actually
  * works (checked 2026-11-11): Supabase (Tokyo) for accounts, data and files,
  * Vercel (functions in Tokyo) for hosting and cookie-less Web Analytics,
- * Google only for "Sign in with Google". No external AI provider is
- * configured, document upload is closed, nothing is sold or used for ads.
+ * Google only for "Sign in with Google". Anthropic and OpenAI only for the
+ * invited AI beta (at most 25 users; supabase/ai_beta.sql) — no audio or
+ * transcript is stored. Document upload is closed, nothing is sold or used for ads.
  * Change these texts together with the system, never ahead of it.
  */
 
@@ -95,9 +96,12 @@ export const PRIVACY: Record<LangCode, LegalDoc> = {
             "Supabase — hisoblar va autentifikatsiya, ma’lumotlar bazasi va fayl ombori. Ma’lumotlar Yaponiyadagi (Tokio, ap-northeast-1) serverlarda saqlanadi va diskda shifrlangan.",
             "Vercel — saytni joylashtirish va server funksiyalari (Tokio mintaqasi), shuningdek cookie’siz, umumlashtirilgan tashriflar statistikasi (Vercel Web Analytics).",
             "Google — faqat «Google orqali kirish» uchun.",
+            "Anthropic (AQSH) — faqat AI beta ishtirokchilari uchun: Claude yozma maslahatchisi va ovozli suhbat bahosi.",
+            "OpenAI (AQSH) — faqat AI beta ishtirokchilari uchun: jonli ovozli suhbat mashqi.",
           ],
           "Shu sababli ma’lumotlaringiz O‘zbekistondan tashqarida — Yaponiyada saqlanadi. Hujjat tekshiruvini kelajakda O‘zbekistondagi serverga o‘tkazish rejalashtirilgan; bu amalga oshsa, siyosat yangilanadi.",
-          "Hozirda shaxsiy ma’lumotlaringiz hech qanday tashqi sun’iy intellekt (AI) xizmatiga yuborilmaydi. Bu o‘zgarsa, siyosatni oldindan yangilaymiz.",
+          "AI beta (ko‘pi bilan 25 ta taklif qilingan foydalanuvchi): yozma savollaringiz, hujjat tayyorgarligi testidagi javoblaringiz va kitobdan tegishli parchalar javob tayyorlash uchun Anthropic’ga (AQSH) yuboriladi. Ovozli suhbatda ovozingiz jonli ravishda OpenAI’ga (AQSH) uzatiladi; biz ovozni yozib olmaymiz. Suhbat matni yakuniy baho uchun bir marta Anthropic’ga yuboriladi va bizda saqlanmaydi — faqat suhbat vaqti, sozlamalari, xarajati va bahosi saqlanadi. Bu provayderlar so‘rovlarni o‘z siyosatlariga ko‘ra suiiste’molni kuzatish uchun cheklangan muddat saqlashi mumkin. Suhbatda pasport raqami, JShShIR yoki bank ma’lumotlarini aytmang.",
+          "Beta’da ishtirok etmaydigan foydalanuvchilarning shaxsiy ma’lumotlari hech qanday tashqi sun’iy intellekt (AI) xizmatiga yuborilmaydi.",
         ],
       },
       {
@@ -250,9 +254,12 @@ export const PRIVACY: Record<LangCode, LegalDoc> = {
             "Supabase — аккаунты и аутентификация, база данных и файловое хранилище. Данные хранятся на серверах в Японии (Токио, ap-northeast-1) и зашифрованы на диске.",
             "Vercel — размещение сайта и серверные функции (регион Токио), а также обобщённая статистика посещений без cookie (Vercel Web Analytics).",
             "Google — только для «Войти через Google».",
+            "Anthropic (США) — только для участников AI-беты: письменный ИИ-консультант Claude и оценка голосового собеседования.",
+            "OpenAI (США) — только для участников AI-беты: живая голосовая тренировка собеседования.",
           ],
           "Поэтому ваши данные хранятся за пределами Узбекистана — в Японии. В будущем планируется перенести проверку документов на сервер в Узбекистане; когда это произойдёт, политика будет обновлена.",
-          "Сейчас ваши персональные данные не передаются ни в какие внешние сервисы искусственного интеллекта (AI). Если это изменится, мы заранее обновим политику.",
+          "AI-бета (не более 25 приглашённых пользователей): ваши письменные вопросы, ответы в тесте готовности документов и подходящие фрагменты книги передаются в Anthropic (США) для подготовки ответа. В голосовом собеседовании ваш голос в реальном времени передаётся в OpenAI (США); мы не записываем голос. Текст разговора один раз передаётся в Anthropic для итоговой оценки и у нас не хранится — сохраняются только время, настройки, стоимость и оценка разговора. Эти провайдеры могут хранить запросы ограниченное время для контроля злоупотреблений согласно своим политикам. Не называйте в разговоре номер паспорта, ПИНФЛ или банковские данные.",
+          "Персональные данные пользователей, не участвующих в бете, не передаются ни в какие внешние сервисы искусственного интеллекта (AI).",
         ],
       },
       {
@@ -403,9 +410,12 @@ export const PRIVACY: Record<LangCode, LegalDoc> = {
             "Supabase — accounts and authentication, database and file storage. Data is stored on servers in Japan (Tokyo, ap-northeast-1) and encrypted at rest.",
             "Vercel — website hosting and server functions (Tokyo region), plus cookie-less aggregated visit statistics (Vercel Web Analytics).",
             "Google — only for “Sign in with Google”.",
+            "Anthropic (USA) — AI beta participants only: the Claude written adviser and the voice interview evaluation.",
+            "OpenAI (USA) — AI beta participants only: the live voice interview practice.",
           ],
           "Your data is therefore stored outside Uzbekistan, in Japan. We plan to move document checking to a server in Uzbekistan in the future; when that happens, this policy will be updated.",
-          "Your personal data is currently not sent to any external artificial intelligence (AI) service. If that changes, we will update this policy in advance.",
+          "AI beta (at most 25 invited users): your written questions, your answers in the document readiness test and the relevant book passages are sent to Anthropic (USA) to prepare an answer. In the voice interview your voice is streamed live to OpenAI (USA); we do not record it. The conversation text is sent once to Anthropic for the final evaluation and is not stored by us — only the session time, settings, cost and evaluation are kept. These providers may keep requests for a limited time for abuse monitoring under their own policies. Do not say your passport number, PINFL or bank details in the interview.",
+          "Personal data of users who are not in the beta is not sent to any external artificial intelligence (AI) service.",
         ],
       },
       {

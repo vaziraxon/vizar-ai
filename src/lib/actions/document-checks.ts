@@ -9,6 +9,7 @@ import { DESTINATIONS, type DestinationSlug } from "@/lib/site/registry";
 import { getAuthedContext } from "@/lib/data/_shared";
 import { rateLimit } from "@/lib/rate-limit";
 import { loadBookRules } from "@/lib/document-check/book";
+import { getRequestLanguage } from "@/lib/i18n/request-language";
 
 export async function saveDocumentCheckAction(input: {
   destination: DestinationSlug;
@@ -25,7 +26,8 @@ export async function saveDocumentCheckAction(input: {
  * Optional AI advice for a finished test (null while AI is off — the page
  * then shows only the rule-based result). The payload is rebuilt here from
  * the document list and the visa book on the server; the browser sends nothing
- * but the destination, visa type and answers. Signed-in users only, 10 requests per hour.
+ * but the destination, visa type and answers. Signed-in AI beta users only,
+ * 10 requests per hour and within their 20 Claude requests a day.
  */
 export async function adviseDocumentCheckAction(input: {
   destination: DestinationSlug;
@@ -50,5 +52,5 @@ export async function adviseDocumentCheckAction(input: {
     answers: input.answers,
     bookRules: rules.map((r) => ({ topic: r.topic, text: r.text, verified: r.verified })),
   });
-  return { advice: await adviseWithAi(payload) };
+  return { advice: await adviseWithAi(payload, ctx.userId, getRequestLanguage()) };
 }

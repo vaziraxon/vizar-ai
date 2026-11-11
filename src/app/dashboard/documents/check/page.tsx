@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getRequestLanguage } from "@/lib/i18n/request-language";
 import { BOOK_COUNTRY, loadBookRules } from "@/lib/document-check/book";
 import { documentCheckAiEnabled } from "@/lib/document-check/ai";
+import { signedInUserInBeta } from "@/lib/ai/beta";
 import { matchDestinationSlug } from "@/lib/site/destination-match";
 import { visaKindFromType } from "@/lib/dashboard/checklist-template";
 import type { DestinationSlug } from "@/lib/site/registry";
@@ -44,6 +45,10 @@ export default async function DocumentCheckPage() {
     dests.forEach((d, i) => (bookRules[d] = loaded[i]));
   }
 
+  // Claude advice: only for AI beta users (and only where a key is set)
+  const userId = supabase ? (await supabase.auth.getUser()).data.user?.id : null;
+  const aiEnabled = documentCheckAiEnabled() && (await signedInUserInBeta(userId));
+
   return (
     <DashboardShell title={TITLE} subtitle={SUBTITLE}>
       <DocumentReadinessTest
@@ -52,7 +57,7 @@ export default async function DocumentCheckPage() {
         applicationId={application?.id ?? null}
         latest={latestResult.ok ? latestResult.data : null}
         bookRules={bookRules}
-        aiEnabled={documentCheckAiEnabled()}
+        aiEnabled={aiEnabled}
         canSave
       />
     </DashboardShell>
