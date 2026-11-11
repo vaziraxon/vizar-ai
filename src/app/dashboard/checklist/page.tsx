@@ -22,6 +22,7 @@ import {
 } from "@/lib/dashboard/checklist-template";
 import { cn } from "@/lib/utils";
 import { answersAfterTick, docCheckKey, type Answer } from "@/lib/document-check/score";
+import { markPrepChanged, pullPrepState } from "@/lib/dashboard/prep-sync";
 import { visaFreeStay } from "@/lib/dashboard/assessment-review";
 import { useActiveApplication, useApplicationChecklist } from "@/components/dashboard/ActiveApplication";
 
@@ -63,6 +64,19 @@ export default function ChecklistPage() {
     if (appDest && appVisa) setSelection({ dest: appDest, visa: appVisa });
   }, [appDest, appVisa, setSelection]);
 
+  // Signed in: take the account's copy when it is newer (e.g. changed on another device)
+  useEffect(() => {
+    let alive = true;
+    void pullPrepState(selection.dest, selection.visa).then((fresh) => {
+      if (!alive || !fresh) return;
+      setSaved(fresh.checklist);
+      setTestAnswers(fresh.answers);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [selection.dest, selection.visa, setSaved, setTestAnswers]);
+
   const groups = useMemo(() => buildChecklist(selection.dest, selection.visa, saved.custom), [selection, saved.custom]);
   const visaFree = visaFreeStay(selection.dest, selection.visa);
   const allIds = groups.flatMap((g) => g.items.map((i) => i.id));
@@ -78,6 +92,7 @@ export default function ChecklistPage() {
     }));
     // Keep the readiness test in step: a tick is "ready", unticking clears "ready"
     setTestAnswers((prev) => answersAfterTick(prev, id, nowChecked));
+    markPrepChanged(selection.dest, selection.visa);
   }
 
   function addCustom(e: FormEvent) {
@@ -86,11 +101,13 @@ export default function ChecklistPage() {
     if (!title) return;
     const item: ChecklistItem = { id: `custom-${Date.now()}`, title, emoji: "📎", custom: true };
     setSaved((prev) => ({ ...prev, custom: [...prev.custom, item] }));
+    markPrepChanged(selection.dest, selection.visa);
     setDraft("");
   }
 
   function removeCustom(id: string) {
     setSaved((prev) => ({ done: prev.done.filter((x) => x !== id), custom: prev.custom.filter((i) => i.id !== id) }));
+    markPrepChanged(selection.dest, selection.visa);
   }
 
   return (
@@ -332,7 +349,10 @@ export default function ChecklistPage() {
           </div>
           <button
             type="button"
-            onClick={() => setSaved((prev) => ({ ...prev, done: [] }))}
+            onClick={() => {
+              setSaved((prev) => ({ ...prev, done: [] }));
+              markPrepChanged(selection.dest, selection.visa);
+            }}
             className="btn-ghost btn-md w-full"
           >
             <RotateCcw size={15} /> {l("Belgilarni tozalash")}
