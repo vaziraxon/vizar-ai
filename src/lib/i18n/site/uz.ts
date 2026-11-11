@@ -1124,6 +1124,8 @@ export const uz: SiteContent = {
     roadmap: "Yo‘l xaritasi",
     trust: "Ishonch markazi",
     about: "Biz haqimizda",
+    privacy: "Maxfiylik siyosati",
+    terms: "Foydalanish shartlari",
     official: "VIZAR AI — “VIZAR-TOUR” MCHJning rasmiy loyihasi",
     phone: "Telefon",
     legal: "Yuridik ogohlantirish",

@@ -1119,6 +1119,8 @@ export const ru: SiteContent = {
     roadmap: "Дорожная карта",
     trust: "Центр доверия",
     about: "О нас",
+    privacy: "Политика конфиденциальности",
+    terms: "Условия использования",
     official: "VIZAR AI — официальный проект ООО «VIZAR-TOUR»",
     phone: "Телефон",
     legal: "Правовая информация",

@@ -1116,6 +1116,8 @@ export const en: SiteContent = {
     roadmap: "Roadmap",
     trust: "Trust Center",
     about: "About us",
+    privacy: "Privacy Policy",
+    terms: "Terms of Service",
     official: "VIZAR AI is an official project of VIZAR-TOUR LLC",
     phone: "Phone",
     legal: "Legal notice",

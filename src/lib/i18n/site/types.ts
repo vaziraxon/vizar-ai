@@ -436,6 +436,8 @@ export interface SiteContent {
     roadmap: string;
     trust: string;
     about: string;
+    privacy: string;
+    terms: string;
     official: string;
     phone: string;
     legal: string;
