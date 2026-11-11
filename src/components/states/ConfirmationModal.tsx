@@ -27,7 +27,7 @@ export function ConfirmationModal({
   const l = useL();
   return (
     <Modal open={open} onClose={onClose} title={title}>
-      <p className="text-body-sm text-ink-600 dark:text-white/60">
+      <p className="text-body-sm text-ink-600 dark:text-white/70">
         {l(description)}
       </p>
       <div className="mt-5 flex justify-end gap-2">

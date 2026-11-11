@@ -10,7 +10,7 @@ export function StatCard({ icon: Icon, label, value }: StatCardProps) {
   return (
     <div className="card-muted flex items-center justify-between gap-4 p-5 dark:border-white/10 dark:bg-navy-800">
       <div className="min-w-0">
-        <p className="truncate text-body-sm font-medium text-ink-500 dark:text-white/50">{label}</p>
+        <p className="truncate text-body-sm font-medium text-ink-500 dark:text-white/65">{label}</p>
         <p className="mt-1.5 font-display text-[28px] font-bold leading-none tracking-[-0.03em] text-ink-900 dark:text-white">
           {value}
         </p>

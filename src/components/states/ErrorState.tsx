@@ -27,7 +27,7 @@ export function ErrorState({
         <AlertOctagon size={22} />
       </span>
       <p className="text-body font-semibold text-ink-900 dark:text-white"><L>{title}</L></p>
-      <p className="max-w-sm text-body-sm text-ink-600 dark:text-white/60">
+      <p className="max-w-sm text-body-sm text-ink-600 dark:text-white/70">
         <L>{description}</L>
       </p>
       <button

@@ -29,7 +29,7 @@ export function FunnelChartCard({
                 <span className="font-medium text-ink-700 dark:text-white/70">
                   {step.label}
                 </span>
-                <span className="text-ink-400 dark:text-white/40">
+                <span className="text-ink-400 dark:text-white/60">
                   {formatNumber(step.value)}
                   {i > 0 && (
                     <span className="ml-1.5 text-red-500">-{dropOff}%</span>

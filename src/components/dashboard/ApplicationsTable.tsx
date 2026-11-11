@@ -54,7 +54,7 @@ export function ApplicationsTable({ applications }: { applications: VisaApplicat
       {/* Desktop table */}
       <div className="hidden overflow-x-auto rounded-2xl border border-surface-border dark:border-white/10 lg:block">
         <table className="w-full min-w-[600px] text-left text-body-sm">
-          <thead className="bg-surface-tint text-caption font-semibold uppercase tracking-wide text-ink-400 dark:bg-white/5 dark:text-white/40">
+          <thead className="bg-surface-tint text-caption font-semibold uppercase tracking-wide text-ink-400 dark:bg-white/5 dark:text-white/60">
             <tr>
               <th className="px-5 py-3">{l("Davlat")}</th>
               <th className="px-5 py-3">{l("Viza turi")}</th>
@@ -69,8 +69,8 @@ export function ApplicationsTable({ applications }: { applications: VisaApplicat
                 <td className="px-5 py-3.5 font-medium text-ink-900 dark:text-white">
                   {l(app.destination_country)}
                 </td>
-                <td className="px-5 py-3.5 text-ink-600 dark:text-white/60">{l(app.visa_type)}</td>
-                <td className="px-5 py-3.5 text-ink-600 dark:text-white/60">
+                <td className="px-5 py-3.5 text-ink-600 dark:text-white/70">{l(app.visa_type)}</td>
+                <td className="px-5 py-3.5 text-ink-600 dark:text-white/70">
                   {fmt(app.created_at)}
                 </td>
                 <td className="px-5 py-3.5">
@@ -111,7 +111,7 @@ export function ApplicationsTable({ applications }: { applications: VisaApplicat
                 <p className="font-semibold text-ink-900 dark:text-white">
                   {l(app.destination_country)}
                 </p>
-                <p className="text-body-sm text-ink-600 dark:text-white/60">{l(app.visa_type)}</p>
+                <p className="text-body-sm text-ink-600 dark:text-white/70">{l(app.visa_type)}</p>
               </div>
               {app.status === "draft" && (
                 <button
@@ -124,7 +124,7 @@ export function ApplicationsTable({ applications }: { applications: VisaApplicat
                 </button>
               )}
             </div>
-            <p className="mt-2 text-caption text-ink-400 dark:text-white/40">
+            <p className="mt-2 text-caption text-ink-400 dark:text-white/60">
               {fmt(app.created_at)}
             </p>
             <div className="mt-3">

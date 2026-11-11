@@ -68,7 +68,7 @@ function NotFoundPage() {
           404
         </p>
         <h1 className="mt-2 font-display text-display-md text-ink-900 dark:text-white">{copy.title}</h1>
-        <p className="mt-3 max-w-md text-body-lg text-ink-600 dark:text-white/60">{copy.text}</p>
+        <p className="mt-3 max-w-md text-body-lg text-ink-600 dark:text-white/70">{copy.text}</p>
         <ButtonLink href={home} size="lg" variant="dark" className="mt-8">
           <ArrowLeft size={17} />
           {copy.home}

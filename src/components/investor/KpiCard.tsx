@@ -17,7 +17,7 @@ export function KpiCard({ icon: Icon, label, value, change }: KpiCardData) {
       <p className="mt-3 font-display text-xl font-bold text-ink-900 dark:text-white">
         {value}
       </p>
-      <p className="text-caption text-ink-400 dark:text-white/50">{label}</p>
+      <p className="text-caption text-ink-400 dark:text-white/65">{label}</p>
     </div>
   );
 }

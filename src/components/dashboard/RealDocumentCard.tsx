@@ -153,7 +153,7 @@ export function RealDocumentCard({
 
       {doc && phase === "idle" ? (
         <div className="flex items-center justify-between rounded-lg bg-surface-tint px-3 py-2 dark:bg-white/5">
-          <span className="truncate text-caption text-ink-600 dark:text-white/60">
+          <span className="truncate text-caption text-ink-600 dark:text-white/70">
             {doc.original_filename}
           </span>
           <div className="flex shrink-0 items-center gap-2">
@@ -209,7 +209,7 @@ export function RealDocumentCard({
           {phase === "idle" && (
             <>
               <UploadCloud size={22} className="text-brand-500" />
-              <p className="text-caption text-ink-500 dark:text-white/50">
+              <p className="text-caption text-ink-500 dark:text-white/65">
                 {l("Faylni shu yerga tashlang yoki bosing (PDF, JPG, PNG — 6 MB gacha)")}
               </p>
             </>
@@ -217,7 +217,7 @@ export function RealDocumentCard({
 
           {phase === "uploading" && (
             <div className="w-full space-y-2">
-              <p className="text-caption text-ink-500 dark:text-white/50">
+              <p className="text-caption text-ink-500 dark:text-white/65">
                 {l("Yuklanmoqda...")} {progress}%
               </p>
               <div className="h-1.5 w-full overflow-hidden rounded-pill bg-surface-muted dark:bg-white/10">

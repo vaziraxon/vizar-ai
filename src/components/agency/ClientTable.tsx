@@ -9,7 +9,7 @@ export function ClientTable({ clients }: { clients: AgencyClient[] }) {
       {/* Desktop table */}
       <div className="hidden overflow-x-auto rounded-2xl border border-surface-border dark:border-white/10 lg:block">
         <table className="w-full min-w-[720px] text-left text-body-sm">
-          <thead className="bg-surface-tint text-caption font-semibold uppercase tracking-wide text-ink-400 dark:bg-white/5 dark:text-white/40">
+          <thead className="bg-surface-tint text-caption font-semibold uppercase tracking-wide text-ink-400 dark:bg-white/5 dark:text-white/60">
             <tr>
               <th className="px-5 py-3">Mijoz</th>
               <th className="px-5 py-3">Davlat</th>
@@ -30,21 +30,21 @@ export function ClientTable({ clients }: { clients: AgencyClient[] }) {
                   </span>
                   {client.name}
                 </td>
-                <td className="px-5 py-3.5 text-ink-600 dark:text-white/60">
+                <td className="px-5 py-3.5 text-ink-600 dark:text-white/70">
                   <span className="mr-1.5">{client.flag}</span>
                   {client.country}
                 </td>
-                <td className="px-5 py-3.5 text-ink-600 dark:text-white/60">{client.visaType}</td>
+                <td className="px-5 py-3.5 text-ink-600 dark:text-white/70">{client.visaType}</td>
                 <td className="px-5 py-3.5 font-semibold text-ink-900 dark:text-white">
                   {client.readinessScore}/100
                 </td>
                 <td className="px-5 py-3.5">
                   <StatusBadge status={client.status} />
                 </td>
-                <td className="px-5 py-3.5 text-ink-600 dark:text-white/60">
+                <td className="px-5 py-3.5 text-ink-600 dark:text-white/70">
                   {client.assignedSpecialist}
                 </td>
-                <td className="px-5 py-3.5 text-ink-400 dark:text-white/40">{client.lastUpdate}</td>
+                <td className="px-5 py-3.5 text-ink-400 dark:text-white/60">{client.lastUpdate}</td>
                 <td className="px-5 py-3.5 text-right">
                   <Link
                     href={`/agency/clients/${client.id}`}
@@ -69,7 +69,7 @@ export function ClientTable({ clients }: { clients: AgencyClient[] }) {
               </span>
               <div>
                 <p className="font-semibold text-ink-900 dark:text-white">{client.name}</p>
-                <p className="text-caption text-ink-400 dark:text-white/40">
+                <p className="text-caption text-ink-400 dark:text-white/60">
                   {client.flag} {client.country} · {client.visaType}
                 </p>
               </div>
@@ -80,7 +80,7 @@ export function ClientTable({ clients }: { clients: AgencyClient[] }) {
               </span>
               <StatusBadge status={client.status} />
             </div>
-            <p className="mt-2 text-caption text-ink-400 dark:text-white/40">
+            <p className="mt-2 text-caption text-ink-400 dark:text-white/60">
               {client.assignedSpecialist} · {client.lastUpdate}
             </p>
             <Link

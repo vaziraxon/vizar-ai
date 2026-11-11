@@ -100,7 +100,7 @@ export function OnboardingWizard() {
                   type="button"
                   onClick={skip}
                   aria-label={l("O'tkazib yuborish")}
-                  className="text-ink-400 hover:text-ink-700 dark:text-white/40 dark:hover:text-white"
+                  className="text-ink-400 hover:text-ink-700 dark:text-white/60 dark:hover:text-white"
                 >
                   <X size={18} />
                 </button>
@@ -120,7 +120,7 @@ export function OnboardingWizard() {
                   <h2 id="onboarding-title" className="mt-4 font-display text-display-sm text-ink-900 dark:text-white">
                     {l(current.title)}
                   </h2>
-                  <p className="mt-1 text-body-sm text-ink-600 dark:text-white/60">
+                  <p className="mt-1 text-body-sm text-ink-600 dark:text-white/70">
                     {l(current.description)}
                   </p>
 
@@ -194,7 +194,7 @@ export function OnboardingWizard() {
                     )}
 
                     {(current.id === "welcome" || current.id === "start") && (
-                      <div className="rounded-xl bg-surface-tint p-4 text-body-sm text-ink-600 dark:bg-white/5 dark:text-white/60">
+                      <div className="rounded-xl bg-surface-tint p-4 text-body-sm text-ink-600 dark:bg-white/5 dark:text-white/70">
                         {current.id === "welcome"
                           ? l("Bir necha bosqichda profilingizni sozlaymiz — bu atigi 1 daqiqa vaqt oladi.")
                           : l("Barchasi tayyor! Endi birinchi viza tahlilingizni boshlashingiz mumkin.")}

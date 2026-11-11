@@ -33,7 +33,7 @@ export function MobileTabBar({ onMenu }: { onMenu: () => void }) {
               key={tab.href}
               href={tab.href}
               aria-current={active ? "page" : undefined}
-              className={cn(item, active ? "text-ink-900 dark:text-white" : "text-ink-500 dark:text-white/50")}
+              className={cn(item, active ? "text-ink-900 dark:text-white" : "text-ink-500 dark:text-white/65")}
             >
               <span
                 className={cn(
@@ -47,7 +47,7 @@ export function MobileTabBar({ onMenu }: { onMenu: () => void }) {
             </Link>
           );
         })}
-        <button type="button" onClick={onMenu} className={cn(item, "text-ink-500 dark:text-white/50")}>
+        <button type="button" onClick={onMenu} className={cn(item, "text-ink-500 dark:text-white/65")}>
           <span className="flex h-8 w-12 items-center justify-center rounded-pill">
             <Menu size={19} strokeWidth={1.9} />
           </span>

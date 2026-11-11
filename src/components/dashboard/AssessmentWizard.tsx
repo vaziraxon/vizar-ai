@@ -394,7 +394,7 @@ export function AssessmentWizard({
 
           {step === 4 && (
             <div className="space-y-3">
-              <p className="text-body-sm text-ink-600 dark:text-white/60">
+              <p className="text-body-sm text-ink-600 dark:text-white/70">
                 {l("Har bir hujjat holatini belgilang — bu yakuniy tahlil sifatiga ta'sir qiladi.")}
               </p>
               {DOC_LABELS.map((doc, i) => (
@@ -459,7 +459,7 @@ export function AssessmentWizard({
         )}
       </div>
 
-      <p className="mt-4 text-center text-caption text-ink-500 dark:text-white/60">
+      <p className="mt-4 text-center text-caption text-ink-500 dark:text-white/70">
         {l("Natija javoblaringizdan qoidalar asosida tuziladi, AI emas. Viza tasdiqlanishini kafolatlamaydi.")}
       </p>
     </div>

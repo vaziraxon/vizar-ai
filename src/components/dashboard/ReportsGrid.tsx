@@ -68,7 +68,7 @@ export function ReportsGrid({ reports }: { reports: ReportRow[] }) {
                   {l(report.title || TYPE_LABEL[report.report_type ?? ""] || "Hisobot")}
                 </p>
               </div>
-              <p className="text-caption text-ink-400 dark:text-white/40">
+              <p className="text-caption text-ink-400 dark:text-white/60">
                 {fmt(report.created_at)}
               </p>
               <button

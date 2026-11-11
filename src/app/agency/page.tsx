@@ -53,7 +53,7 @@ export default function AgencyPage() {
             {priorityCases.map((c) => (
               <li key={c.id} className="text-body-sm">
                 <p className="font-medium text-ink-900 dark:text-white">{c.name}</p>
-                <p className="text-caption text-ink-400 dark:text-white/40">
+                <p className="text-caption text-ink-400 dark:text-white/60">
                   {c.riskFactors[0] ?? "Konsultatsiya kerak"}
                 </p>
               </li>

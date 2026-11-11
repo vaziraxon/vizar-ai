@@ -48,7 +48,7 @@ export default function WhiteLabelPage() {
               ) : (
                 <UploadCloud size={22} className="text-brand-500" />
               )}
-              <span className="text-caption text-ink-400 dark:text-white/40">
+              <span className="text-caption text-ink-400 dark:text-white/60">
                 Logotipni yuklash uchun bosing
               </span>
             </div>
@@ -77,7 +77,7 @@ export default function WhiteLabelPage() {
                   onChange={(e) => setPrimaryColor(e.target.value)}
                   className="h-10 w-12 cursor-pointer rounded-lg border border-surface-border dark:border-white/10"
                 />
-                <span className="text-caption text-ink-400 dark:text-white/40">{primaryColor}</span>
+                <span className="text-caption text-ink-400 dark:text-white/60">{primaryColor}</span>
               </div>
             </div>
             <div>
@@ -91,7 +91,7 @@ export default function WhiteLabelPage() {
                   onChange={(e) => setAccentColor(e.target.value)}
                   className="h-10 w-12 cursor-pointer rounded-lg border border-surface-border dark:border-white/10"
                 />
-                <span className="text-caption text-ink-400 dark:text-white/40">{accentColor}</span>
+                <span className="text-caption text-ink-400 dark:text-white/60">{accentColor}</span>
               </div>
             </div>
           </div>
@@ -105,7 +105,7 @@ export default function WhiteLabelPage() {
               onChange={(e) => setDomain(e.target.value)}
               className="w-full rounded-lg border border-surface-border bg-white px-4 py-2.5 text-body-sm text-ink-900 outline-none focus:border-brand-400 dark:border-white/10 dark:bg-navy-900 dark:text-white"
             />
-            <p className="mt-1 text-caption text-ink-400 dark:text-white/40">
+            <p className="mt-1 text-caption text-ink-400 dark:text-white/60">
               Haqiqiy domen sozlamalari amalga oshirilmaydi — bu faqat namuna.
             </p>
           </div>
@@ -143,14 +143,14 @@ export default function WhiteLabelPage() {
             <span className="font-display text-body font-semibold text-white">{brandName}</span>
           </div>
           <div className="space-y-4 p-6">
-            <p className="text-caption font-semibold uppercase text-ink-400 dark:text-white/40">
+            <p className="text-caption font-semibold uppercase text-ink-400 dark:text-white/60">
               Mijoz portali ko&apos;rinishi
             </p>
             <div className="rounded-xl border border-surface-border p-4 dark:border-white/10">
               <p className="text-body-sm font-semibold text-ink-900 dark:text-white">
                 Xush kelibsiz, Aziz!
               </p>
-              <p className="mt-1 text-caption text-ink-400 dark:text-white/40">
+              <p className="mt-1 text-caption text-ink-400 dark:text-white/60">
                 Visa Readiness Score: 78/100
               </p>
               <div className="mt-3 h-2 w-full overflow-hidden rounded-pill bg-surface-muted dark:bg-white/10">
@@ -167,7 +167,7 @@ export default function WhiteLabelPage() {
             >
               Tahlilni davom ettirish
             </button>
-            <p className="text-caption text-ink-400 dark:text-white/40">
+            <p className="text-caption text-ink-400 dark:text-white/60">
               {domain} · {senderName} nomidan yuboriladi
             </p>
           </div>
