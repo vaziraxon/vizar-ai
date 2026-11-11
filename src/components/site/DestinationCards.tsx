@@ -48,7 +48,7 @@ export function DestinationCard({
     <li data-reveal style={{ ["--reveal-delay" as string]: `${(index % 4) * 50}ms` }}>
       <Link
         href={href}
-        className={cn("group block rounded-[24px] p-1.5", GOLD_FOIL)}
+        className={cn("group block rounded-[24px] p-1.5 transition-transform duration-500 ease-premium hover:-translate-y-1.5 motion-reduce:transition-none", GOLD_FOIL)}
       >
         <span className="relative block aspect-[5/6] overflow-hidden rounded-[19px] bg-surface-muted ring-1 ring-black/5">
           <Image
@@ -58,7 +58,7 @@ export function DestinationCard({
             sizes="(min-width: 1024px) 260px, 50vw"
             className="object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.06]"
           />
-          <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-night-950/60 via-night-950/5 to-transparent" />
+          <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-night-950/60 via-night-950/5 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
           {/* A light sweep crosses the photo on hover */}
           <span
             aria-hidden="true"
@@ -69,10 +69,10 @@ export function DestinationCard({
           </span>
           {badge}
           {/* Frosted caption plate (the arrow shows from sm up, so phones keep room for the name) */}
-          <span className="absolute inset-x-2 bottom-2 flex items-center justify-between gap-2 rounded-[14px] bg-white/[0.14] px-3 py-2 ring-1 ring-inset ring-white/25 backdrop-blur-md sm:inset-x-2.5 sm:bottom-2.5 sm:px-3.5 sm:py-2.5">
+          <span className="absolute inset-x-2 bottom-2 flex items-center justify-between gap-2 rounded-[14px] bg-white/[0.14] px-3 py-2 ring-1 ring-inset ring-white/25 backdrop-blur-md transition-transform duration-500 ease-premium group-hover:-translate-y-1 motion-reduce:transition-none sm:inset-x-2.5 sm:bottom-2.5 sm:px-3.5 sm:py-2.5">
             <span className="min-w-0">
               <span className="block break-words font-luxe text-[16px] font-semibold leading-tight text-white sm:text-[21px]">{name}</span>
-              <span className="mt-0.5 block truncate text-[12px] font-semibold uppercase tracking-[0.14em] text-white/80">{region}</span>
+              <span className="mt-0.5 block truncate text-[12px] font-semibold uppercase tracking-[0.14em] text-white/80 transition-[letter-spacing] duration-500 ease-premium group-hover:tracking-[0.2em]">{region}</span>
             </span>
             <span className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-lemon-300 text-night shadow-[0_6px_14px_-6px_rgba(222,186,10,0.9)] transition-transform duration-300 ease-premium group-hover:-rotate-45 sm:flex">
               <ArrowRight size={15} strokeWidth={2.4} />

@@ -28,7 +28,7 @@ export function SiteFooter() {
         <p className="mx-auto max-w-3xl mt-2 text-caption leading-relaxed text-ink-500">{site.footer.disclaimer}</p>
         <p className="mt-3 flex flex-wrap justify-center gap-x-5 gap-y-0 text-caption font-medium sm:gap-y-1.5">
           {links.map((link) => (
-            <Link key={link.href} href={link.href} className="inline-flex min-h-[44px] items-center rounded px-1 text-ink-700 underline-offset-4 hover:text-ink-950 hover:underline sm:min-h-0 sm:px-0">
+            <Link key={link.href} href={link.href} className="link-draw inline-flex min-h-[44px] items-center rounded px-1 text-ink-700 transition-colors hover:text-ink-950 sm:min-h-0 sm:px-0">
               {link.label}
             </Link>
           ))}

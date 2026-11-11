@@ -92,7 +92,7 @@ type ToolEntry = ReturnType<typeof useToolEntries>[number];
 
 function ToolEntryList({ entries, className }: { entries: ToolEntry[]; className?: string }) {
   return (
-    <ul className={cn("grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-4", className)}>
+    <ul data-reveal-stagger className={cn("grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-4", className)}>
       {entries.map((t) => (
         <li key={t.href}>
           <Link

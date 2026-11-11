@@ -443,6 +443,7 @@ export function Navbar() {
           <div className="hidden items-center gap-2 lg:flex">
             <ThemeToggle variant="pill" labels={{ toDark: site.nav.themeToDark, toLight: site.nav.themeToLight }} />
             <LanguageSelector variant="pill" />
+            <span data-magnetic>
             <Link
               href="/login"
               className="group flex h-12 items-center gap-2.5 whitespace-nowrap rounded-pill bg-gradient-to-r from-[#7138EC] to-violet-600 px-6 text-body-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_12px_28px_-12px_rgba(113,56,236,0.8)] transition-[transform,box-shadow] duration-200 hover:-translate-y-px hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_16px_32px_-12px_rgba(113,56,236,0.9)]"
@@ -450,6 +451,7 @@ export function Navbar() {
               {site.nav.signIn}
               <ArrowRight size={17} strokeWidth={2.2} className="transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
+            </span>
           </div>
 
           {/* Mobile: theme + menu */}
@@ -576,8 +578,16 @@ export function Navbar() {
               { key: "pricing", href: "/pricing", label: site.nav.pricing },
               { key: "about", href: "/about", label: site.nav.about },
               { key: "faq", href: "/faq", label: site.footer.faq },
-            ].map((item) => (
-              <li key={item.href}>
+            ].map((item, i) => (
+              <li
+                key={item.href}
+                // The menu items slide in one after another as the sheet opens
+                className={cn(
+                  "transition-[opacity,transform] duration-500 ease-premium motion-reduce:transition-none",
+                  mobileOpen ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+                )}
+                style={{ transitionDelay: mobileOpen ? `${60 + i * 45}ms` : "0ms" }}
+              >
                 <Link
                   href={item.href}
                   tabIndex={mobileTab}

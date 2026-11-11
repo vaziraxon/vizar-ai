@@ -9,7 +9,7 @@ import { Starfield } from "@/components/site/home/Starfield";
  */
 export function HeroSky({ glowRef, calm }: { glowRef?: Ref<HTMLSpanElement>; calm?: boolean }) {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+    <div aria-hidden="true" data-parallax="0.12" className="pointer-events-none absolute inset-0">
       <span className="absolute -left-32 top-24 h-[420px] w-[420px] animate-drift rounded-full bg-[#b3a4fc]/55 blur-[100px] dark:bg-violet-600/25 motion-reduce:animate-none" />
       <span className="absolute -right-24 -top-10 h-[480px] w-[480px] animate-drift rounded-full bg-[#bcd2f8]/60 blur-[110px] dark:bg-brand-600/20 [animation-delay:-6s] motion-reduce:animate-none" />
       <span className="absolute bottom-0 left-1/3 h-[340px] w-[560px] animate-drift rounded-full bg-[#e4f59a]/60 blur-[100px] dark:bg-citron-300/[0.06] [animation-delay:-12s] motion-reduce:animate-none" />

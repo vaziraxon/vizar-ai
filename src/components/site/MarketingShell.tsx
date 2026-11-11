@@ -3,6 +3,7 @@ import { LandingFonts } from "@/components/site/LandingFonts";
 import { Navbar } from "@/components/site/Navbar";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { RevealObserver } from "@/components/site/RevealObserver";
+import { MotionObserver } from "@/components/site/MotionObserver";
 import { SkipLink } from "@/components/site/SkipLink";
 import { SpotlightObserver } from "@/components/site/SpotlightObserver";
 import { AmbientSky } from "@/components/site/home/AmbientSky";
@@ -21,6 +22,7 @@ export function MarketingShell({ children }: { children: ReactNode }) {
       </main>
       <SiteFooter />
       <RevealObserver />
+      <MotionObserver />
       <SpotlightObserver />
     </div>
   );
