@@ -56,9 +56,11 @@ export function Starfield({ className, calm = false, ambient = false }: { classN
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const phone = window.matchMedia("(max-width: 767px)").matches;
     const sprites = COLORS.map(makeSprite);
-    const count = ambient ? (phone ? 70 : 150) : phone ? 240 : 480;
+    // Same density on a full hero and on a short header card (about one star per 2,300px²)
+    const area = canvas.clientWidth * canvas.clientHeight;
+    const count = ambient ? (phone ? 110 : 230) : Math.round(Math.min(phone ? 240 : 480, Math.max(40, area / 2300)));
     // Pause between meteor showers, in ms
-    const [gapMin, gapMax] = ambient ? [2600, 6200] : [700, 2000];
+    const [gapMin, gapMax] = ambient ? [1600, 4000] : [700, 2000];
     const stars: Star[] = Array.from({ length: count }, () => {
       const r = 0.5 + Math.random() ** 2.4 * 1.9;
       return {
@@ -66,7 +68,7 @@ export function Starfield({ className, calm = false, ambient = false }: { classN
         y: Math.random(),
         r,
         color: pickColor(),
-        alpha: (0.45 + Math.random() * 0.5) * (ambient ? 0.8 : 1),
+        alpha: 0.45 + Math.random() * 0.5,
         phase: Math.random() * Math.PI * 2,
         speed: 0.5 + Math.random() * 1.6,
         depth: 0.25 + Math.random() * 0.75,

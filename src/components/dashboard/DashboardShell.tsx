@@ -33,6 +33,7 @@ import {
 } from "lucide-react";
 import { LandingFonts } from "@/components/site/LandingFonts";
 import { AmbientSky } from "@/components/site/home/AmbientSky";
+import { Starfield } from "@/components/site/home/Starfield";
 import { useL } from "@/components/i18n/L";
 import type { SidebarNavItem } from "@/types";
 
@@ -113,6 +114,8 @@ export function DashboardShell({
             {/* Page header — the landing wash with the page mascot or a photo. The
                 photo fades in from its left edge, so it meets the wash without a seam. */}
             <div className="lime-wash grain relative mb-6 overflow-hidden rounded-[28px] border border-white shadow-xs dark:border-white/10">
+              {/* The landing sky: twinkling stars, glints and meteors behind the title */}
+              <Starfield />
               {heroImage ? (
                 <div
                   aria-hidden="true"
