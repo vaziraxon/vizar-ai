@@ -1092,6 +1092,16 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Har bir hujjat uchun A–D javob bering — tayyor deganlaringiz shu yerda belgilanadi.": { ru: "Ответьте A–D по каждому документу — готовые отметятся здесь.", en: "Answer A–D for each document — the ones you say are ready get ticked here." },
   "Testni ochish": { ru: "Открыть тест", en: "Open the test" },
 
+  /* New password (Sozlamalar) */
+  "Yangi parol o'rnatish": { ru: "Установить новый пароль", en: "Set a new password" },
+  "Parolingizni almashtiring. Google orqali kirgan bo'lsangiz, bu yerda parol qo'shib, email bilan ham kira olasiz.": { ru: "Смените пароль. Если вы входили через Google, здесь можно добавить пароль и входить также по email.", en: "Change your password. If you signed in with Google, add a password here to sign in with email too." },
+  "Tiklash havolasi qabul qilindi. Endi yangi parolingizni kiriting.": { ru: "Ссылка для восстановления принята. Теперь введите новый пароль.", en: "Your reset link worked. Now enter your new password." },
+  "Yangi parol": { ru: "Новый пароль", en: "New password" },
+  "Yangi parolni takrorlang": { ru: "Повторите новый пароль", en: "Repeat the new password" },
+  "Parolni saqlash": { ru: "Сохранить пароль", en: "Save password" },
+  "Yangi parol saqlandi. Keyingi safar shu parol bilan kiring.": { ru: "Новый пароль сохранён. В следующий раз входите с ним.", en: "New password saved. Use it next time you sign in." },
+  "Parolni saqlab bo'lmadi.": { ru: "Не удалось сохранить пароль.", en: "Couldn't save the password." },
+
   /* Overview 2.0 */
   "Hujjat yuklash vaqtincha yopiq.": { ru: "Загрузка документов временно закрыта.", en: "Document upload is temporarily closed." },
   "Yuklash vaqtincha yopiq": { ru: "Загрузка временно закрыта", en: "Upload temporarily closed" },
