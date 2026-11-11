@@ -4,8 +4,8 @@ import { Starfield } from "@/components/site/home/Starfield";
 /**
  * The landing sky, for a section with `lime-wash grain relative overflow-hidden`:
  * violet, periwinkle and lime aurora blobs drifting slowly, the star field with
- * its meteors and planes, and a fade into the canvas at the bottom. Pass
- * `glowRef` to add the soft glow that follows the pointer; `calm` thins the planes.
+ * its meteors, and a fade into the canvas at the bottom. Pass
+ * `glowRef` to add the soft glow that follows the pointer.
  */
 export function HeroSky({ glowRef, calm }: { glowRef?: Ref<HTMLSpanElement>; calm?: boolean }) {
   return (

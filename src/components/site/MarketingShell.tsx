@@ -5,12 +5,14 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { RevealObserver } from "@/components/site/RevealObserver";
 import { SkipLink } from "@/components/site/SkipLink";
 import { SpotlightObserver } from "@/components/site/SpotlightObserver";
+import { AmbientSky } from "@/components/site/home/AmbientSky";
 
 /** Public-site chrome: floating pill navbar, page content, footer, all in the landing palette and fonts. */
 export function MarketingShell({ children }: { children: ReactNode }) {
   return (
-    <div className="landing-lime landing-site relative min-h-screen bg-surface-canvas">
+    <div className="landing-lime landing-site relative isolate min-h-screen bg-surface-canvas">
       <LandingFonts />
+      <AmbientSky />
       <SkipLink />
       <Navbar />
       {/* Pulls content up under the floating navbar so hero washes start at the top */}
