@@ -9,7 +9,9 @@ import {
   loginSchema,
   registerSchema,
   forgotPasswordSchema,
+  newPasswordSchema,
 } from "@/lib/validation/schemas";
+import { resolveSiteUrl } from "@/lib/site-url";
 
 const RATE_LIMIT_MESSAGE =
   "Juda ko'p urinish amalga oshirildi. Iltimos, birozdan so'ng qayta urinib ko'ring.";
@@ -72,12 +74,11 @@ function logAuthError(action: string, error: unknown) {
 }
 
 function getPublicSiteUrl(): string {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? "http://localhost:3000";
-
-  if (!siteUrl || siteUrl === "http://localhost:3000") {
-    console.warn("[auth] NEXT_PUBLIC_SITE_URL is not configured for production; using localhost fallback.");
+  // NEXT_PUBLIC_SITE_URL, else Vercel's production domain / preview URL (see lib/site-url)
+  const siteUrl = resolveSiteUrl(process.env);
+  if (siteUrl === "http://localhost:3000" && process.env.VERCEL_ENV) {
+    console.warn("[auth] No public site URL on Vercel; auth email links fall back to localhost.");
   }
-
   return siteUrl;
 }
 
@@ -271,7 +272,8 @@ export async function requestPasswordResetAction(
   // SUPABASE_SETUP.md, step 10.
   const siteUrl = getPublicSiteUrl();
   const { error } = await supabase.auth.resetPasswordForEmail(parsed.data.email, {
-    redirectTo: `${siteUrl}/auth/callback?next=/settings`,
+    // Lands signed in on the new-password form in Sozlamalar
+    redirectTo: `${siteUrl}/auth/callback?next=${encodeURIComponent("/settings?reset=1")}`,
   });
 
   // Always return ok:true regardless of whether the email exists, to
@@ -285,6 +287,45 @@ export async function requestPasswordResetAction(
         status: error.status,
       }),
     };
+  }
+  return { ok: true };
+}
+
+/**
+ * Sets a new password for the signed-in user: after a reset link, or to add
+ * a password to an account created with Google.
+ */
+export async function updatePasswordAction(formData: FormData): Promise<AuthActionResult> {
+  if (!isSupabaseConfigured()) {
+    return { ok: false, error: "Supabase sozlanmagan." };
+  }
+
+  const parsed = newPasswordSchema.safeParse({
+    password: formData.get("password"),
+    confirmPassword: formData.get("confirmPassword"),
+  });
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? "Ma'lumotlar noto'g'ri." };
+  }
+
+  const supabase = createClient();
+  if (!supabase) return { ok: false, error: "Supabase sozlanmagan." };
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false, error: "Avval tizimga kiring." };
+
+  const limit = await rateLimit(`password_update:${user.id}`, 5, 15 * 60 * 1000);
+  if (!limit.allowed) return { ok: false, error: RATE_LIMIT_MESSAGE };
+
+  const { error } = await supabase.auth.updateUser({ password: parsed.data.password });
+  if (error) {
+    logAuthError("password_update", error);
+    if ((error.code ?? "") === "same_password") {
+      return { ok: false, error: "Yangi parol avvalgisidan farq qilishi kerak." };
+    }
+    return { ok: false, error: friendlyAuthError(error.message, { code: error.code, status: error.status }) };
   }
   return { ok: true };
 }

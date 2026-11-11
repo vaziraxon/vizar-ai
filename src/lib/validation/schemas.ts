@@ -133,3 +133,13 @@ export const registerSchema = z
 export const forgotPasswordSchema = z.object({
   email: emailSchema,
 });
+
+export const newPasswordSchema = z
+  .object({
+    password: z.string().min(6, "Parol kamida 6 belgidan iborat bo'lishi kerak.").max(72, "Parol juda uzun."),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Parollar mos kelmadi.",
+    path: ["confirmPassword"],
+  });

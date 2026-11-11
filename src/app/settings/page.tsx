@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { Trash2, Moon, Sun, PlayCircle, LogOut, ShieldAlert, Loader2 } from "lucide-react";
+import { Trash2, Moon, Sun, PlayCircle, LogOut, ShieldAlert, Loader2, KeyRound } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { LanguageSelector } from "@/components/ui/LanguageSelector";
 import { Modal } from "@/components/modals/Modal";
 import { TextField } from "@/components/forms/TextField";
 import { InlineAlert } from "@/components/states/InlineAlert";
 import { useTheme } from "@/lib/theme-context";
-import { logoutAction } from "@/lib/actions/auth";
+import { logoutAction, updatePasswordAction } from "@/lib/actions/auth";
 import { deleteMyAccountAction } from "@/lib/actions/account";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { useL } from "@/components/i18n/L";
@@ -25,6 +25,39 @@ export default function SettingsPage() {
   const [deleteError, setDeleteError] = useState("");
   const router = useRouter();
   const configured = isSupabaseConfigured();
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [savingPassword, setSavingPassword] = useState(false);
+  const [passwordResult, setPasswordResult] = useState<{ ok: boolean; text: string } | null>(null);
+  const [fromReset, setFromReset] = useState(false);
+  const passwordInput = useRef<HTMLInputElement>(null);
+
+  // Arriving from a password-reset email (?reset=1): open on the new-password form
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("reset") !== "1") return;
+    setFromReset(true);
+    document.getElementById("password")?.scrollIntoView({ block: "center" });
+    passwordInput.current?.focus();
+  }, []);
+
+  async function handlePassword(e: FormEvent) {
+    e.preventDefault();
+    setPasswordResult(null);
+    setSavingPassword(true);
+    const form = new FormData();
+    form.set("password", password);
+    form.set("confirmPassword", confirmPassword);
+    const result = await updatePasswordAction(form);
+    setSavingPassword(false);
+    if (result.ok) {
+      setPassword("");
+      setConfirmPassword("");
+      setFromReset(false);
+      setPasswordResult({ ok: true, text: l("Yangi parol saqlandi. Keyingi safar shu parol bilan kiring.") });
+    } else {
+      setPasswordResult({ ok: false, text: result.error ?? l("Parolni saqlab bo'lmadi.") });
+    }
+  }
 
   async function handleDelete(e: FormEvent) {
     e.preventDefault();
@@ -92,19 +125,56 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        <div className="card rounded-[24px] p-6">
-          <p className={`mb-3 ${sectionTitle}`}>
-            {l("Parolni o'zgartirish")}
+        <div id="password" className="card scroll-mt-28 rounded-[24px] p-6">
+          <p className={`mb-1 ${sectionTitle}`}>
+            <KeyRound size={16} className="text-brand-600" /> {l("Yangi parol o'rnatish")}
           </p>
           <p className="mb-4 text-body-sm text-ink-600">
-            {l("Xavfsizlik uchun parolni o'zgartirish email orqali tasdiqlash havolasi bilan amalga oshiriladi.")}
+            {l("Parolingizni almashtiring. Google orqali kirgan bo'lsangiz, bu yerda parol qo'shib, email bilan ham kira olasiz.")}
           </p>
-          <a
-            href="/forgot-password"
-            className="inline-flex items-center gap-1.5 rounded-pill border border-surface-border px-4 py-2 text-body-sm font-semibold text-ink-700 hover:bg-surface-muted dark:border-white/10 dark:text-white/70 dark:hover:bg-white/5"
-          >
-            {l("Parolni tiklash havolasini olish")}
-          </a>
+          {fromReset && (
+            <div className="mb-4">
+              <InlineAlert variant="info">{l("Tiklash havolasi qabul qilindi. Endi yangi parolingizni kiriting.")}</InlineAlert>
+            </div>
+          )}
+          <form onSubmit={handlePassword} noValidate className="grid gap-4 sm:grid-cols-2">
+            <TextField
+              ref={passwordInput}
+              id="new-password"
+              label={l("Yangi parol")}
+              type="password"
+              autoComplete="new-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={!configured || savingPassword}
+            />
+            <TextField
+              id="confirm-new-password"
+              label={l("Yangi parolni takrorlang")}
+              type="password"
+              autoComplete="new-password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              disabled={!configured || savingPassword}
+            />
+            {passwordResult && (
+              <div className="sm:col-span-2" role={passwordResult.ok ? "status" : "alert"}>
+                <InlineAlert variant={passwordResult.ok ? "success" : "danger"}>{passwordResult.text}</InlineAlert>
+              </div>
+            )}
+            <div className="flex flex-wrap items-center gap-3 sm:col-span-2">
+              <button
+                type="submit"
+                disabled={!configured || savingPassword || !password}
+                className="btn-primary btn-md disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {savingPassword ? <Loader2 size={15} className="animate-spin" /> : <KeyRound size={15} />} {l("Parolni saqlash")}
+              </button>
+              <a href="/forgot-password" className="text-body-sm font-medium text-ink-600 underline-offset-4 hover:text-ink-900 hover:underline">
+                {l("Parolni tiklash havolasini olish")}
+              </a>
+            </div>
+          </form>
         </div>
 
         <div className="card rounded-[24px] p-6">
