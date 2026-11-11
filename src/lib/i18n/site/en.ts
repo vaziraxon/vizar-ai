@@ -491,14 +491,14 @@ export const en: SiteContent = {
         name: "Premium",
         price: "179,000",
         period: "UZS / 30 days",
-        features: ["The full book — 30 days", "4-option document readiness test — unlimited", "Personal checklist, interview practice and readiness score", "AI questions — once AI is connected: 30 a day (not connected yet)"],
+        features: ["The full book — 30 days", "4-option document readiness test — unlimited", "Personal checklist, interview practice and readiness score", "AI questions — once AI is connected: 10 a day (not connected yet)"],
         cta: "Start free",
       },
       pro: {
         name: "Pro",
         price: "679,000",
         period: "UZS / 45 days",
-        features: ["The full book — 45 days", "1 consultation with a specialist", "4-option test, checklist, interview practice — unlimited", "AI questions — once AI is connected: 60 a day (not connected yet)"],
+        features: ["The full book — 45 days", "1 consultation with a specialist", "4-option test, checklist, interview practice — unlimited", "AI questions — once AI is connected: 10 a day (not connected yet)"],
         cta: "Start free",
       },
       vip: {

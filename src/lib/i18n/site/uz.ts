@@ -496,14 +496,14 @@ export const uz: SiteContent = {
         name: "Premium",
         price: "179 000",
         period: "so‘m / 30 kun",
-        features: ["Kitobning to‘liq matni — 30 kun", "4 variantli hujjat tayyorgarligi testi — cheklovsiz", "Shaxsiy checklist, suhbat mashqi va tayyorgarlik bali", "AI savollar — AI ulangach: kuniga 30 ta (hozir ulanmagan)"],
+        features: ["Kitobning to‘liq matni — 30 kun", "4 variantli hujjat tayyorgarligi testi — cheklovsiz", "Shaxsiy checklist, suhbat mashqi va tayyorgarlik bali", "AI savollar — AI ulangach: kuniga 10 ta (hozir ulanmagan)"],
         cta: "Bepul boshlash",
       },
       pro: {
         name: "Pro",
         price: "679 000",
         period: "so‘m / 45 kun",
-        features: ["Kitobning to‘liq matni — 45 kun", "Mutaxassis bilan 1 ta konsultatsiya", "4 variantli test, checklist, suhbat mashqi — cheklovsiz", "AI savollar — AI ulangach: kuniga 60 ta (hozir ulanmagan)"],
+        features: ["Kitobning to‘liq matni — 45 kun", "Mutaxassis bilan 1 ta konsultatsiya", "4 variantli test, checklist, suhbat mashqi — cheklovsiz", "AI savollar — AI ulangach: kuniga 10 ta (hozir ulanmagan)"],
         cta: "Bepul boshlash",
       },
       vip: {
