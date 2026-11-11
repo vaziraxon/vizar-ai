@@ -390,18 +390,6 @@ export const uz: SiteContent = {
         { title: "Konsultatsiya vaqti tasdiqlandi", time: "2 kun oldin", tone: "info" },
       ],
     },
-    readinessTest: {
-      eyebrow: "Yangi",
-      title: "Hujjatlaringiz qanchalik tayyor? 2 daqiqada bilib oling",
-      subtitle: "Yo‘nalish va viza turini tanlang, keyin har bir hujjat uchun 4 variantdan birini belgilang. Natijada tayyorlik foizi va birinchi navbatda nima qilish kerakligi chiqadi.",
-      points: ["Fayl yuklanmaydi — faqat javoblaringiz", "Yo‘nalish va viza turiga mos hujjatlar ro‘yxati", "Natijani saqlab, keyin qayta topshirish mumkin"],
-      cta: "Testni boshlash",
-      note: "Natija siz bergan javoblarga asoslanadi: hujjatlar tekshirilmaydi va bu viza berilishi ehtimoli emas.",
-      doc: "Pasport",
-      options: ["Bor, tayyor", "Bor, lekin to‘liq emas", "Hozir tayyorlanmoqda", "Hali yo‘q"],
-      result: "Hujjatlar tayyorgarligi",
-      resultNote: "Siz bergan javoblarga ko‘ra",
-    },
     more: { faq: "Barcha savollar" },
     destinations: {
       eyebrow: "Yo‘nalishlar",
