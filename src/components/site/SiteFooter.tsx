@@ -14,6 +14,8 @@ export function SiteFooter() {
     { href: "/roadmap", label: site.footer.roadmap },
     { href: "/trust-center", label: site.footer.trust },
     { href: "/trust-center#legal-disclaimer", label: site.footer.legal },
+    { href: "/privacy-policy", label: site.footer.privacy },
+    { href: "/terms-of-service", label: site.footer.terms },
   ];
 
   return (

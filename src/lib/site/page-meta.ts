@@ -1,4 +1,5 @@
 import { COMPANY } from "@/lib/site/about";
+import { PRIVACY, TERMS } from "@/lib/site/legal";
 import type { Metadata } from "next";
 import { TOOL_PROMOS } from "@/lib/dashboard/tool-promos";
 import { SITE_CONTENT } from "@/lib/i18n/site";
@@ -20,6 +21,8 @@ export const LOCALIZED_PATHS: string[] = [
   "/roadmap",
   "/trust-center",
   "/about",
+  "/privacy-policy",
+  "/terms-of-service",
   "/knowledge-base",
   "/destinations",
   ...TOOLS.map((t) => t.href),
@@ -100,6 +103,10 @@ function pageCopy(path: string, lang: LangCode): { title: string; description: s
       return { title: site.trustPage.title, description: site.trustPage.subtitle };
     case "/about":
       return { title: site.aboutPage.eyebrow, description: site.aboutPage.subtitle };
+    case "/privacy-policy":
+      return { title: PRIVACY[lang].title, description: PRIVACY[lang].description };
+    case "/terms-of-service":
+      return { title: TERMS[lang].title, description: TERMS[lang].description };
     case "/knowledge-base":
       return LIBRARY[lang];
     case "/destinations":

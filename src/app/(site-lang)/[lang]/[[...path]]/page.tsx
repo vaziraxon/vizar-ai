@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { RoadmapPage, TrustCenterPage } from "@/components/site/pages/AboutPages";
 import { AboutUsPage } from "@/components/site/pages/AboutUsPage";
+import { LegalPage } from "@/components/site/pages/LegalPage";
 import { HomePage } from "@/components/site/pages/HomePage";
 import {
   DestinationPage,
@@ -87,6 +88,10 @@ export default async function Page({ params }: Props) {
       return <TrustCenterPage />;
     case "/about":
       return <AboutUsPage />;
+    case "/privacy-policy":
+      return <LegalPage kind="privacy" />;
+    case "/terms-of-service":
+      return <LegalPage kind="terms" />;
     case "/knowledge-base":
       return <LibraryPromo />;
     case "/destinations":
