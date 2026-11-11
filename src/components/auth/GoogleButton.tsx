@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { getSupabaseEnv } from "@/lib/supabase/config";
 import { useLanguage } from "@/lib/language-context";
 import { cn } from "@/lib/utils";
+import { safeNextPath } from "@/lib/auth/safe-next";
 
 type ProviderState = "checking" | "enabled" | "disabled";
 
@@ -71,7 +72,7 @@ export function GoogleButton({ next = "/dashboard", configured }: { next?: strin
     const supabase = createClient();
     if (!supabase) return;
     setLoading(true);
-    const safeNext = next.startsWith("/") ? next : "/dashboard";
+    const safeNext = safeNextPath(next);
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {

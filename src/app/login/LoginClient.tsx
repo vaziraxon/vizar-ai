@@ -11,6 +11,7 @@ import { InlineAlert } from "@/components/states/InlineAlert";
 import { loginAction } from "@/lib/actions/auth";
 import { GoogleButton } from "@/components/auth/GoogleButton";
 import { useLanguage } from "@/lib/language-context";
+import { safeNextPath } from "@/lib/auth/safe-next";
 
 export default function LoginClient({ configured }: { configured: boolean }) {
   const { t } = useLanguage();
@@ -24,10 +25,9 @@ export default function LoginClient({ configured }: { configured: boolean }) {
   const [loading, setLoading] = useState(false);
   const callbackFailed = searchParams.get("error") === "auth_callback_failed";
 
-  // Only ever follow a same-origin relative path from `next` — never
-  // an absolute URL, to avoid an open-redirect via query params.
-  const rawNext = searchParams.get("next");
-  const nextPath = rawNext && rawNext.startsWith("/") ? rawNext : "/dashboard";
+  // Only ever follow a path on this site from `next` (no "//host" tricks),
+  // so the sign-in page can't be used as an open redirect.
+  const nextPath = safeNextPath(searchParams.get("next"));
 
   function validate() {
     const next: typeof errors = {};

@@ -20,7 +20,7 @@ const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""} https://vercel.live`,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: blob: ${supabaseOrigin} https://vercel.live https://vercel.com`,
+  `img-src 'self' data: blob: ${supabaseOrigin} https://lh3.googleusercontent.com https://vercel.live https://vercel.com`,
   "font-src 'self' data:",
   `connect-src 'self' ${supabaseOrigin} ${supabaseSocket} https://vercel.live`,
   "worker-src 'self' blob:",
@@ -38,13 +38,17 @@ const contentSecurityPolicy = [
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    remotePatterns: supabaseHost
-      ? [
-          { protocol: "https", hostname: supabaseHost, pathname: "/storage/v1/object/public/testimonials/**" },
-          // Profile photos (supabase/avatars.sql)
-          { protocol: "https", hostname: supabaseHost, pathname: "/storage/v1/object/public/avatars/**" },
-        ]
-      : [],
+    remotePatterns: [
+      ...(supabaseHost
+        ? [
+            { protocol: "https", hostname: supabaseHost, pathname: "/storage/v1/object/public/testimonials/**" },
+            // Profile photos (supabase/avatars.sql)
+            { protocol: "https", hostname: supabaseHost, pathname: "/storage/v1/object/public/avatars/**" },
+          ]
+        : []),
+      // Profile photos of Google sign-ups
+      { protocol: "https", hostname: "lh3.googleusercontent.com" },
+    ],
   },
   experimental: {
     // Room for the two review photos (≤ 1.5 MB each) the testimonials admin
