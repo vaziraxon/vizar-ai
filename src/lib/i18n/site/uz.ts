@@ -547,7 +547,7 @@ export const uz: SiteContent = {
       },
       {
         q: "Hujjatlarim xavfsizmi?",
-        a: "Hozircha hujjat fayllari umuman qabul qilinmaydi: AI hujjat tekshiruvi sinov bosqichida va shaxsiy ma’lumotlaringiz xavfsizligi uchun vaqtincha yopiq. Xizmat O‘zbekistondagi himoyalangan serverda ishga tushiriladi. Ilgari yuklangan fayllar yopiq omborda turadi va faqat sizning hisobingiz orqali ochiladi.",
+        a: "Hozircha hujjat fayllari umuman qabul qilinmaydi: AI hujjat tekshiruvi sinov bosqichida va shaxsiy ma’lumotlaringiz xavfsizligi uchun vaqtincha yopiq. Xizmat O‘zbekistondagi himoyalangan serverda ishga tushiriladi. Hozircha omborda birorta hujjat fayli yo‘q; yuklash qayta ochilganda fayllar yopiq omborda saqlanadi va faqat sizning hisobingiz orqali ochiladi.",
       },
       {
         q: "Platformadan foydalanish pullikmi?",
@@ -964,7 +964,7 @@ export const uz: SiteContent = {
     principles: {
       privacy: {
         title: "Ma’lumotlar maxfiyligi",
-        desc: "Ma’lumotlar Supabase bulut bazasida saqlanadi. Qatorlar darajasidagi qoidalar har bir foydalanuvchiga faqat o‘z ma’lumotlarini ko‘rsatadi. Hujjat yuklash hozircha yopiq; ilgari yuklangan fayllar yopiq omborda, har kim faqat o‘z papkasiga kira oladi. Profil surati esa havolasi bor kishiga ko‘rinadi.",
+        desc: "Ma’lumotlar Supabase bulut bazasida saqlanadi. Qatorlar darajasidagi qoidalar har bir foydalanuvchiga faqat o‘z ma’lumotlarini ko‘rsatadi. Hujjat yuklash hozircha yopiq; yuklash qayta ochilganda fayllar yopiq omborda saqlanadi, har kim faqat o‘z papkasiga kira oladi. Profil surati esa havolasi bor kishiga ko‘rinadi.",
       },
       encryption: {
         title: "Shifrlash",

@@ -87,3 +87,25 @@ test("readinessLevel boundaries", () => {
   assert.equal(readinessLevel(60), "Yaxshi ketyapsiz");
   assert.equal(readinessLevel(90), "Deyarli tayyor");
 });
+
+test("uploads closed: the documents part comes from the readiness test, not from uploads", () => {
+  const closed = { ...nothing, uploadsOpen: false, docsUploaded: 7 };
+  // No test yet: uploads are ignored and nothing is earned
+  const none = computeReadiness({ ...closed, docTest: { points: 0, answered: 0, total: 10 } });
+  assert.equal(none.score, 0);
+  const docs = none.parts.find((p) => p.key === "documents");
+  assert.equal(docs.href, "/dashboard/documents/check");
+  assert.equal(docs.action, "Hujjat tayyorgarligi testini to'ldiring");
+  // Half the weighted points: 20 of the 40
+  const half = computeReadiness({ ...closed, docTest: { points: 5, answered: 10, total: 10 } });
+  assert.equal(half.parts.find((p) => p.key === "documents").points, 20);
+  assert.equal(half.score, 20);
+  // Everything ready: the full 40
+  assert.equal(computeReadiness({ ...closed, docTest: { points: 10, answered: 10, total: 10 } }).score, 40);
+});
+
+test("uploads open: the test is ignored and uploads count as before", () => {
+  const open = computeReadiness({ ...nothing, uploadsOpen: true, docsUploaded: 7, docTest: { points: 0, answered: 0, total: 10 } });
+  assert.equal(open.score, 40);
+  assert.equal(open.parts.find((p) => p.key === "documents").href, "/dashboard/documents");
+});
