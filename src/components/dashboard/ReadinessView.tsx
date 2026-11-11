@@ -17,7 +17,11 @@ const Emoji = ({ e }: { e: string }) => (
 
 export function ReadinessView({ facts, missingDocs }: { facts: ServerReadinessFacts; missingDocs: string[] }) {
   const l = useL();
-  const { score, parts, steps } = useReadiness(facts);
+  const { score, parts, steps, notReady, testAnswered } = useReadiness(facts);
+  // Uploads closed: the list comes from the readiness test answers
+  const byTest = facts.uploadsOpen === false;
+  const docList = byTest ? notReady : missingDocs;
+  const showList = byTest ? testAnswered > 0 && docList.length > 0 : docList.length > 0;
 
   return (
     <>
@@ -62,7 +66,7 @@ export function ReadinessView({ facts, missingDocs }: { facts: ServerReadinessFa
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
-        <div className={cn("card rounded-[24px] p-6", missingDocs.length === 0 && "lg:col-span-2")}>
+        <div className={cn("card rounded-[24px] p-6", !showList && "lg:col-span-2")}>
           <p className={cardTitle}>
             {l("Keyingi qadamlar")}
           </p>
@@ -95,13 +99,14 @@ export function ReadinessView({ facts, missingDocs }: { facts: ServerReadinessFa
           )}
         </div>
 
-        {missingDocs.length > 0 && (
+        {showList && (
           <div className="card rounded-[24px] p-6">
             <p className={cardTitle}>
-              {l("Yetishmayotgan hujjatlar")}
+              {l(byTest ? "Hali tayyor bo'lmagan hujjatlar" : "Yetishmayotgan hujjatlar")}
             </p>
+            {byTest && <p className="-mt-2 mb-3 text-caption text-ink-500">{l("Hujjat tayyorgarligi testidagi javoblaringiz bo'yicha")}</p>}
             <ul className="space-y-2.5">
-              {missingDocs.map((doc) => (
+              {docList.map((doc) => (
                 <li key={doc} className="flex items-start gap-2 text-body-sm text-ink-700 dark:text-white/70">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-warning" />
                   {l(doc)}
@@ -116,7 +121,7 @@ export function ReadinessView({ facts, missingDocs }: { facts: ServerReadinessFa
         <ShieldAlert size={19} className="mt-0.5 shrink-0 text-amber-600" />
         <div className="space-y-1 text-body-sm text-amber-900 dark:text-amber-200">
           <p>{l("Ball faqat nimalarni bajarganingizni sanaydi: hujjat mazmunini tekshirmaydi va viza qarorini oldindan aytmaydi. Viza tasdiqlanishini kafolatlamaydi.")}</p>
-          <p>{l("Checklist va mashq natijalari shu brauzerda saqlanadi, boshqa qurilmada ko'rinmaydi.")}</p>
+          <p>{l("Checklist va test javoblari tizimga kirganingizda hisobingizga saqlanadi; suhbat mashqi natijalari shu brauzerda qoladi.")}</p>
         </div>
       </div>
     </>

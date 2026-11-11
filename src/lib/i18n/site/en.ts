@@ -542,7 +542,7 @@ export const en: SiteContent = {
       },
       {
         q: "Are my documents safe?",
-        a: "For now no document files are accepted at all: AI document checking is in a test phase and closed to keep your data safe. It will run on a secure server in Uzbekistan. Files uploaded earlier stay in private storage and open only through your account.",
+        a: "For now no document files are accepted at all: AI document checking is in a test phase and closed to keep your data safe. It will run on a secure server in Uzbekistan. No document files are stored right now; once upload reopens, files are kept in private storage and open only through your account.",
       },
       {
         q: "Is the platform paid?",
@@ -959,7 +959,7 @@ export const en: SiteContent = {
     principles: {
       privacy: {
         title: "Data privacy",
-        desc: "Data is stored in a Supabase cloud database. Row-level rules show each user only their own data. Document upload is closed for now; files uploaded earlier sit in private storage, where everyone can reach only their own folder. A profile photo can be seen by anyone with its link.",
+        desc: "Data is stored in a Supabase cloud database. Row-level rules show each user only their own data. Document upload is closed for now; once upload reopens, files are kept in private storage, where everyone can reach only their own folder. A profile photo can be seen by anyone with its link.",
       },
       encryption: {
         title: "Encryption",

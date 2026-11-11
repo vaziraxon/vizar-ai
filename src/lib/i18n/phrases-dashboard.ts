@@ -1102,14 +1102,24 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Yangi parol saqlandi. Keyingi safar shu parol bilan kiring.": { ru: "Новый пароль сохранён. В следующий раз входите с ним.", en: "New password saved. Use it next time you sign in." },
   "Parolni saqlab bo'lmadi.": { ru: "Не удалось сохранить пароль.", en: "Couldn't save the password." },
 
+  /* Readiness score while uploads are closed */
+  "Hujjat tayyorgarligi testi, checklist, suhbat mashqi va viza tahlili asosida hisoblanadi.": { ru: "Считается по тесту готовности документов, чек-листу, тренировке интервью и анализу визы.", en: "Calculated from the document readiness test, checklist, interview practice and visa assessment." },
+  "Hujjat tayyorgarligi testini to'ldiring": { ru: "Пройдите тест готовности документов", en: "Complete the document readiness test" },
+  "Test: {done}/{total} ta hujjat baholangan, tayyorlik {percent}%": { ru: "Тест: оценено документов {done} из {total}, готовность {percent}%", en: "Test: {done} of {total} documents rated, {percent}% ready" },
+  "Hujjat tayyorgarligi testi hali to'ldirilmagan": { ru: "Тест готовности документов ещё не пройден", en: "The document readiness test isn't done yet" },
+  "Hali tayyor bo'lmagan hujjatlar": { ru: "Документы, которые ещё не готовы", en: "Documents not ready yet" },
+  "Hujjat tayyorgarligi testidagi javoblaringiz bo'yicha": { ru: "По вашим ответам в тесте готовности документов", en: "Based on your answers in the document readiness test" },
+  "Checklist va test javoblari tizimga kirganingizda hisobingizga saqlanadi; suhbat mashqi natijalari shu brauzerda qoladi.": { ru: "Чек-лист и ответы теста сохраняются в аккаунте, когда вы вошли; результаты тренировки интервью остаются в этом браузере.", en: "Your checklist and test answers are saved to your account when you're signed in; interview practice results stay in this browser." },
+  "Ma'lumotlaringiz xavfsizligi biz uchun birinchi o'rinda.": { ru: "Безопасность ваших данных для нас на первом месте.", en: "The security of your data comes first for us." },
+  "Hujjatlarni avtomatik tekshirish tizimini O'zbekiston hududidagi himoyalangan serverga joylashtirishga tayyorlamoqdamiz.": { ru: "Мы готовим размещение системы автоматической проверки документов на защищённом сервере на территории Узбекистана.", en: "We are preparing to host the automatic document checking system on a protected server in Uzbekistan." },
+  "Xavfsizlik tekshiruvlari yakunlangunga qadar haqiqiy hujjatlarni yuklash vaqtincha yopiq.": { ru: "До завершения проверок безопасности загрузка настоящих документов временно закрыта.", en: "Until the security checks are complete, uploading real documents is temporarily closed." },
+  "Hozircha 4 variantli hujjat tayyorgarligi testidan foydalaning — u fayl yuklamasdan ishlaydi.": { ru: "Пока пользуйтесь тестом готовности документов с 4 вариантами ответа — он работает без загрузки файлов.", en: "For now, use the 4-option document readiness test — it works without uploading any file." },
+
   /* Overview 2.0 */
   "Hujjat yuklash vaqtincha yopiq.": { ru: "Загрузка документов временно закрыта.", en: "Document upload is temporarily closed." },
   "Yuklash vaqtincha yopiq": { ru: "Загрузка временно закрыта", en: "Upload temporarily closed" },
   "Sinov bosqichida": { ru: "Тестовый этап", en: "Testing phase" },
   "AI hujjat tekshiruvi — sinov bosqichida": { ru: "AI-проверка документов — тестовый этап", en: "AI document check — testing phase" },
-  "Hujjatlaringiz xavfsizligi biz uchun birinchi o'rinda.": { ru: "Безопасность ваших документов для нас на первом месте.", en: "The security of your documents comes first for us." },
-  "VIZAR AI hujjat tekshirish xizmatini O'zbekiston hududidagi himoyalangan serverda ishga tushirishga tayyorlamoqda.": { ru: "VIZAR AI готовит запуск сервиса проверки документов на защищённом сервере в Узбекистане.", en: "VIZAR AI is preparing to run the document-check service on a protected server in Uzbekistan." },
-  "Shaxsiy ma'lumotlaringizni himoya qilish maqsadida ushbu funksiya xavfsizlik tekshiruvlari yakunlangunga qadar vaqtincha yopiq. Tez orada xizmatdan foydalanishingiz mumkin bo'ladi.": { ru: "Чтобы защитить ваши личные данные, эта функция временно закрыта до завершения проверок безопасности. Скоро вы сможете ею пользоваться.", en: "To protect your personal data, this feature is temporarily closed until the security checks are complete. You'll be able to use it soon." },
   "Hali mashq qilmadingiz. Birinchi mashqdan keyin natijalaringiz shu yerda ko'rinadi.": { ru: "Вы ещё не тренировались. После первой тренировки здесь появятся ваши результаты.", en: "You haven't practised yet. Your results will appear here after your first session." },
   "\"{name}\" faylini o'chirmoqchimisiz? Bu amalni qaytarib bo'lmaydi.": { ru: "Удалить файл «{name}»? Это действие нельзя отменить.", en: "Delete \"{name}\"? This can't be undone." },
   "So'rovni bekor qilish": { ru: "Отменить запрос", en: "Cancel request" },

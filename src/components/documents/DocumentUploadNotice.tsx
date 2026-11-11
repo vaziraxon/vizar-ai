@@ -27,11 +27,12 @@ export function DocumentUploadNotice({ className }: { className?: string }) {
           <L>AI hujjat tekshiruvi — sinov bosqichida</L>
         </h2>
         <p className="mt-2 text-body-sm text-ink-700">
-          <L>{"Hujjatlaringiz xavfsizligi biz uchun birinchi o'rinda."}</L>{" "}
-          <L>{"VIZAR AI hujjat tekshirish xizmatini O'zbekiston hududidagi himoyalangan serverda ishga tushirishga tayyorlamoqda."}</L>
+          <L>{"Ma'lumotlaringiz xavfsizligi biz uchun birinchi o'rinda."}</L>{" "}
+          <L>{"Hujjatlarni avtomatik tekshirish tizimini O'zbekiston hududidagi himoyalangan serverga joylashtirishga tayyorlamoqdamiz."}</L>{" "}
+          <L>{"Xavfsizlik tekshiruvlari yakunlangunga qadar haqiqiy hujjatlarni yuklash vaqtincha yopiq."}</L>
         </p>
         <p className="mt-2 text-body-sm text-ink-700">
-          <L>{"Shaxsiy ma'lumotlaringizni himoya qilish maqsadida ushbu funksiya xavfsizlik tekshiruvlari yakunlangunga qadar vaqtincha yopiq. Tez orada xizmatdan foydalanishingiz mumkin bo'ladi."}</L>
+          <L>{"Hozircha 4 variantli hujjat tayyorgarligi testidan foydalaning — u fayl yuklamasdan ishlaydi."}</L>
         </p>
       </div>
     </section>

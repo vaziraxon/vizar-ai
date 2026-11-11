@@ -11,6 +11,16 @@ export interface ServerReadinessFacts {
   assessmentDone: boolean;
   docsUploaded: number;
   docsTotal: number;
+  /** False while real document uploads are closed: the readiness test counts instead */
+  uploadsOpen?: boolean;
+}
+
+/** The 4-option document readiness test, used for the documents part while uploads are closed */
+export interface DocTestFacts {
+  /** Sum of the answer weights (ready 1, partial 0.5, preparing 0.25, missing 0) */
+  points: number;
+  answered: number;
+  total: number;
 }
 
 export interface ReadinessFacts extends ServerReadinessFacts {
@@ -18,6 +28,7 @@ export interface ReadinessFacts extends ServerReadinessFacts {
   checklistTotal: number;
   /** Practice scores out of 100, newest first */
   interviewScores: number[];
+  docTest?: DocTestFacts;
 }
 
 export interface ReadinessPart {
@@ -53,8 +64,11 @@ function part(fields: Omit<ReadinessPart, "points" | "percent" | "gain">, value:
 export function computeReadiness(facts: ReadinessFacts) {
   const sessions = facts.interviewScores.slice(0, INTERVIEW_SESSIONS);
   const practised = sessions.reduce((sum, score) => sum + score, 0);
+  // Uploads closed: the documents part comes from the user's own test answers
+  const byTest = facts.uploadsOpen === false && facts.docTest !== undefined;
+  const test = facts.docTest ?? { points: 0, answered: 0, total: 0 };
   const values = {
-    documents: share(facts.docsUploaded, facts.docsTotal),
+    documents: byTest ? share(test.points, test.total) : share(facts.docsUploaded, facts.docsTotal),
     checklist: share(facts.checklistDone, facts.checklistTotal),
     interview: share(practised, INTERVIEW_SESSIONS * INTERVIEW_TARGET),
     assessment: facts.assessmentDone ? 1 : 0,
@@ -65,10 +79,20 @@ export function computeReadiness(facts: ReadinessFacts) {
       {
         key: "documents",
         label: "Hujjatlar",
-        action: "Hujjatlarni yuklang",
-        detail: { text: "{done}/{total} ta hujjat yuklangan", vars: { done: Math.min(facts.docsUploaded, facts.docsTotal), total: facts.docsTotal } },
+        ...(byTest
+          ? {
+              action: "Hujjat tayyorgarligi testini to'ldiring",
+              detail: test.answered
+                ? { text: "Test: {done}/{total} ta hujjat baholangan, tayyorlik {percent}%", vars: { done: test.answered, total: test.total, percent: Math.round(share(test.points, test.total) * 100) } }
+                : { text: "Hujjat tayyorgarligi testi hali to'ldirilmagan" },
+              href: "/dashboard/documents/check",
+            }
+          : {
+              action: "Hujjatlarni yuklang",
+              detail: { text: "{done}/{total} ta hujjat yuklangan", vars: { done: Math.min(facts.docsUploaded, facts.docsTotal), total: facts.docsTotal } },
+              href: "/dashboard/documents",
+            }),
         emoji: "📄",
-        href: "/dashboard/documents",
         weight: 40,
       },
       values.documents

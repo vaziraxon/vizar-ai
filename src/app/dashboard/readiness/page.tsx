@@ -5,11 +5,12 @@ import { REQUIRED_DOCUMENT_TITLES } from "@/data/mockData";
 import { getLatestApplication } from "@/lib/data/applications";
 import { getAssessmentForApplication, isAssessmentComplete } from "@/lib/data/assessments";
 import { listDocumentsForApplication } from "@/lib/data/documents";
+import { documentUploadsEnabled } from "@/lib/document-upload";
 import { filledSlots } from "@/lib/dashboard/readiness";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 
 const TITLE = "Viza tayyorgarlik bali";
-const SUBTITLE = "Yuklagan hujjatlaringiz, checklist va mashqlaringiz asosida hisoblanadi.";
+const SUBTITLE = "Hujjat tayyorgarligi testi, checklist, suhbat mashqi va viza tahlili asosida hisoblanadi.";
 
 export default async function ReadinessScorePage() {
   let hasApplication = false;
@@ -55,6 +56,7 @@ export default async function ReadinessScorePage() {
           assessmentDone,
           docsUploaded: filled.length,
           docsTotal: REQUIRED_DOCUMENT_TITLES.length,
+          uploadsOpen: documentUploadsEnabled(),
         }}
         missingDocs={REQUIRED_DOCUMENT_TITLES.filter((title) => !filled.includes(title))}
       />
