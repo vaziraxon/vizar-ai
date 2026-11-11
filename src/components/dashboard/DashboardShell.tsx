@@ -32,6 +32,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { LandingFonts } from "@/components/site/LandingFonts";
+import { AmbientSky } from "@/components/site/home/AmbientSky";
 import { useL } from "@/components/i18n/L";
 import type { SidebarNavItem } from "@/types";
 
@@ -95,9 +96,10 @@ export function DashboardShell({
   const subtitleText = typeof subtitle === "string" ? l(subtitle) : subtitle;
 
   return (
-    <div className="landing-lime dashboard-lime flex min-h-screen bg-surface-canvas dark:bg-navy-950">
+    <div className="landing-lime dashboard-lime isolate flex min-h-screen bg-surface-canvas dark:bg-navy-950">
       {/* Same palette and serif as the public site (see .landing-lime and .dashboard-lime) */}
       <LandingFonts />
+      <AmbientSky />
       <Sidebar mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} navItems={navItems} />
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar onMenuClick={() => setMobileOpen(true)} />
