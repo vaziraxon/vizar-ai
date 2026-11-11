@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { safeNextPath } from "@/lib/auth/safe-next";
 
 /**
  * Handles redirects from Supabase Auth emails (signup confirmation,
@@ -11,10 +12,9 @@ export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
 
-  // Only ever redirect to a same-origin, relative path we generated —
-  // never trust an absolute URL passed in `next`.
-  const rawNext = searchParams.get("next") ?? "/dashboard";
-  const next = rawNext.startsWith("/") ? rawNext : "/dashboard";
+  // Only ever redirect to a path on this site — never another origin,
+  // including the protocol-relative "//host" and "/\host" forms.
+  const next = safeNextPath(searchParams.get("next"));
 
   if (code) {
     const supabase = createClient();
