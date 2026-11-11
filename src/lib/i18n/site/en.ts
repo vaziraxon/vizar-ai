@@ -67,7 +67,7 @@ export const en: SiteContent = {
       ],
       cta: "See your score",
       steps: [
-        { title: "Start preparing", desc: "Complete the visa assessment and upload your documents." },
+        { title: "Start preparing", desc: "Complete the visa assessment and mark where your documents stand." },
         { title: "See your score", desc: "What you've done gives a score from 0 to 100." },
         { title: "Work through the steps", desc: "See how many points each step adds and pick the next one." },
       ],
@@ -76,17 +76,17 @@ export const en: SiteContent = {
       name: "Document Hub",
       menu: "Your documents in one place",
       tagline: "Documents",
-      desc: "Keep your documents in one place and check each against the requirement.",
+      desc: "Document upload is in a test phase and closed for now, for security. For now you check your documents' readiness without uploading anything, with a 4-option test.",
       benefits: [
-        "Private storage, visible only to you",
-        "What to check in each document",
-        "Which documents are still missing, at a glance",
+        "No files are uploaded for now — to keep your data safe",
+        "Mark each document's status with an A–D answer",
+        "The result goes into your personal checklist",
       ],
-      cta: "Upload documents",
+      cta: "Document readiness test",
       steps: [
-        { title: "Upload a document", desc: "PDF or image — files are kept in private storage." },
-        { title: "Check against the requirement", desc: "Each document shows what to check in it." },
-        { title: "Fill the gaps", desc: "See which documents haven't been uploaded yet." },
+        { title: "Upload is closed for now", desc: "AI document checking is in a test phase: real files aren't accepted until a secure server in Uzbekistan is ready." },
+        { title: "Take the test", desc: "For each document, choose: ready, has a problem, in progress or not yet." },
+        { title: "See your next step", desc: "A readiness percentage and what to do first; ready items are ticked in your checklist." },
       ],
     },
     checklist: {
@@ -296,7 +296,7 @@ export const en: SiteContent = {
         nextLabel: "Next step",
         nextText: "Add your travel itinerary",
         nextHint: "The step with the biggest effect on your readiness",
-        aiNote: "The account holder's full name isn't visible on the bank statement.",
+        aiNote: "Check: the bank statement should show the account holder's full name.",
         roadmap: [
           { title: "Profile & purpose", when: "Done", state: "done" },
           { title: "Collect documents", when: "Done", state: "done" },
@@ -368,7 +368,7 @@ export const en: SiteContent = {
       subtitle: "The screens below are examples based on the product interface.",
       tabs: [
         { id: "readiness", title: "See where you stand in one number", desc: "A 0–100 score built from what you've done, and what's left in each part." },
-        { id: "documents", title: "Catch document gaps early", desc: "Missing fields, expiry dates and inconsistencies in one list." },
+        { id: "documents", title: "Document readiness — no uploads", desc: "Mark each document's status in a test; file upload is in a test phase and closed for now." },
         { id: "checklist", title: "Only the documents you need", desc: "A list for your destination and visa type — tick items off as you go." },
         { id: "roadmap", title: "A step-by-step plan", desc: "Profile, documents, score, interview and submission — each stage's status is clear." },
         { id: "interview", title: "Walk into your interview prepared", desc: "Practise common questions and get tips on your answers." },
@@ -381,7 +381,7 @@ export const en: SiteContent = {
       subtitle: "Visa Status Tracker shows every stage, and Alerts help you never miss a deadline or change.",
       alerts: [
         { title: "Check your passport's validity date", time: "Today", tone: "warn" },
-        { title: "Bank statement uploaded", time: "Yesterday", tone: "ok" },
+        { title: "Bank statement marked ready", time: "Yesterday", tone: "ok" },
         { title: "Consultation time confirmed", time: "2 days ago", tone: "info" },
       ],
     },
@@ -411,7 +411,7 @@ export const en: SiteContent = {
       },
       {
         title: "Your readiness is worked out",
-        desc: "A readiness score is worked out from your uploaded documents, checklist, practice and assessment.",
+        desc: "A readiness score is worked out from your documents' status, checklist, practice and assessment.",
         points: ["A score from 0 to 100","What's left in each part","Document status at a glance"],
       },
       {
@@ -534,15 +534,15 @@ export const en: SiteContent = {
       },
       {
         q: "How is the readiness score calculated?",
-        a: "The score comes from what you've done: uploaded documents, the checklist, interview practice and the visa assessment. It isn't a probability of approval; it shows what's left to prepare.",
+        a: "The score comes from what you've done: your documents' status, the checklist, interview practice and the visa assessment. It isn't a probability of approval; it shows what's left to prepare.",
       },
       {
         q: "Which tools work today?",
-        a: "The readiness score, document upload (beta), personal checklist, interview practice (7,800 questions for 52 countries), application tracker, refusal analysis and specialist requests (beta) all work. Your account also has the visa photo, visa letters, application timing and the Schengen 90/180 calculator.",
+        a: "The readiness score, the document readiness test, personal checklist, interview practice (7,800 questions for 52 countries), application tracker, refusal analysis and specialist requests (beta) all work. Your account also has the visa photo, visa letters, application timing and the Schengen 90/180 calculator. Uploading document files is in a test phase and closed for now.",
       },
       {
         q: "Are my documents safe?",
-        a: "Documents are kept in private storage and can only be opened through your account. Other users can't see them.",
+        a: "For now no document files are accepted at all: AI document checking is in a test phase and closed to keep your data safe. It will run on a secure server in Uzbekistan. Files uploaded earlier stay in private storage and open only through your account.",
       },
       {
         q: "Is the platform paid?",
@@ -571,8 +571,8 @@ export const en: SiteContent = {
       nextText: "Update your bank statement with recent months",
     },
     documents: {
-      dropTitle: "Drop a document here",
-      dropHint: "PDF, JPG or PNG",
+      dropTitle: "Document upload — test phase",
+      dropHint: "Closed for now, for security",
       files: [
         { name: "Passport", state: "ready" },
         { name: "Bank statement", state: "review" },
@@ -580,7 +580,7 @@ export const en: SiteContent = {
         { name: "Hotel booking", state: "missing" },
       ],
       noteTitle: "Note",
-      note: "The account holder's full name isn't visible on the bank statement.",
+      note: "Check: the bank statement should show the account holder's full name.",
     },
     checklist: {
       title: "Schengen · Tourist",
@@ -931,7 +931,7 @@ export const en: SiteContent = {
       site: { title: "Site in three languages", desc: "Uzbek, Russian and English, each at its own address." },
       dashboard: { title: "Personal dashboard", desc: "All the tools and your application status in one place." },
       readiness: { title: "Visa readiness score", desc: "Worked out with open rules from your answers, documents and checklist." },
-      documents: { title: "Document hub", desc: "Upload documents to private storage and see what to check in each." },
+      documents: { title: "Document hub", desc: "Test phase: file upload stays closed until a secure server in Uzbekistan is ready. The 4-option document readiness test works today." },
       checklist: { title: "Personal checklist", desc: "A list for your country and visa type, with a printable sheet." },
       interview: { title: "Interview practice", desc: "Practise with a question bank for different countries and visa types." },
       tracker: { title: "Application tracker", desc: "Mark your application's stages in one place." },
@@ -959,7 +959,7 @@ export const en: SiteContent = {
     principles: {
       privacy: {
         title: "Data privacy",
-        desc: "Data is stored in a Supabase cloud database. Row-level rules show each user only their own data. Documents sit in private storage, where everyone can reach only their own folder. A profile photo can be seen by anyone with its link.",
+        desc: "Data is stored in a Supabase cloud database. Row-level rules show each user only their own data. Document upload is closed for now; files uploaded earlier sit in private storage, where everyone can reach only their own folder. A profile photo can be seen by anyone with its link.",
       },
       encryption: {
         title: "Encryption",
@@ -975,7 +975,7 @@ export const en: SiteContent = {
       },
       documents: {
         title: "Care with documents",
-        desc: "Upload only the copies you need to prepare. Other users can't see your documents. VIZAR does not submit applications to embassies.",
+        desc: "Document upload stays closed until security checks are done — AI document checking is in a test phase. Other users can't see your documents. VIZAR does not submit applications to embassies.",
       },
       ai: {
         title: "Honest about AI",
