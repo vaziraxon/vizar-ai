@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { SubscriptionPageClient } from "@/components/dashboard/SubscriptionPageClient";
+import { OnlinePaymentPanel } from "@/components/dashboard/OnlinePaymentPanel";
+import { availableProviders, paymentsConfig } from "@/lib/payments/config";
 import { ErrorState } from "@/components/states/ErrorState";
 import { isSubscriptionPlan } from "@/lib/dashboard/subscription-plans";
 import { getMyActiveSubscription, listMySubscriptionRequests } from "@/lib/data/subscriptions";
@@ -12,10 +14,11 @@ const SUBTITLE = "Kitobning to'liq matniga obuna: tarifni tanlang — jamoamiz s
 
 // /dashboard/subscription, or /dashboard/subscription/premium with that plan picked
 // (a path, not ?plan=, so it survives the sign-in redirect)
-export default async function SubscriptionPage({ params }: { params: { plan?: string[] } }) {
+export default async function SubscriptionPage({ params, searchParams }: { params: { plan?: string[] }; searchParams: { paid?: string } }) {
   const picked = params.plan?.[0];
   if (params.plan && (params.plan.length > 1 || !isSubscriptionPlan(picked))) notFound();
 
+  const providers = availableProviders(paymentsConfig());
   let active: MySubscription | null = null;
   let requests: SubscriptionRequestRow[] = [];
 
@@ -35,7 +38,9 @@ export default async function SubscriptionPage({ params }: { params: { plan?: st
 
   return (
     <DashboardShell title={TITLE} subtitle={SUBTITLE}>
-      <SubscriptionPageClient initialPlan={isSubscriptionPlan(picked) ? picked : undefined} active={active} requests={requests} />
+      {/* Online payment: only while PAYMENTS_ENABLED and a provider is set up (docs/payments-setup.md) */}
+      {providers.length > 0 && <OnlinePaymentPanel providers={providers} initialPlan={picked} returned={searchParams.paid === "1"} />}
+      <SubscriptionPageClient initialPlan={isSubscriptionPlan(picked) ? picked : undefined} active={active} requests={requests} onlinePayment={providers.length > 0} />
     </DashboardShell>
   );
 }
