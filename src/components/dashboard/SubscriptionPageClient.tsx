@@ -22,8 +22,11 @@ export function SubscriptionPageClient({
   initialPlan,
   active,
   requests,
+  onlinePayment = false,
 }: {
   initialPlan?: SubscriptionPlanId;
+  /** Payme / Click is on: the online payment panel above replaces the "not connected" note */
+  onlinePayment?: boolean;
   active: MySubscription | null;
   requests: SubscriptionRequestRow[];
 }) {
@@ -205,7 +208,7 @@ export function SubscriptionPageClient({
             <li>2. {l("Jamoamiz bog'lanib, to'lov usulini aytadi.")}</li>
             <li>3. {l("To'lovdan so'ng obuna yoqiladi va kitob muddat tugaguncha ochiq bo'ladi.")}</li>
           </ol>
-          <p className="mt-4 text-caption text-ink-500">{l("Onlayn to'lov hozircha ulanmagan.")}</p>
+          {!onlinePayment && <p className="mt-4 text-caption text-ink-500">{l("Onlayn to'lov hozircha ulanmagan.")}</p>}
         </div>
       </div>
 

@@ -1115,6 +1115,16 @@ export const DASHBOARD_PHRASES: PhraseTable = {
   "Xavfsizlik tekshiruvlari yakunlangunga qadar haqiqiy hujjatlarni yuklash vaqtincha yopiq.": { ru: "До завершения проверок безопасности загрузка настоящих документов временно закрыта.", en: "Until the security checks are complete, uploading real documents is temporarily closed." },
   "Hozircha 4 variantli hujjat tayyorgarligi testidan foydalaning — u fayl yuklamasdan ishlaydi.": { ru: "Пока пользуйтесь тестом готовности документов с 4 вариантами ответа — он работает без загрузки файлов.", en: "For now, use the 4-option document readiness test — it works without uploading any file." },
 
+  /* Online payment (Payme / Click), shown only when enabled */
+  "Onlayn to‘lov": { ru: "Онлайн-оплата", en: "Online payment" },
+  "Tarifni tanlang va to‘lang — obuna to‘lov tasdiqlangan zahoti ochiladi.": { ru: "Выберите тариф и оплатите — подписка откроется сразу после подтверждения оплаты.", en: "Choose a plan and pay — the subscription opens as soon as the payment is confirmed." },
+  "To‘lov tekshirilmoqda. To‘lov tizimi tasdiqlashi bilan obuna avtomatik ochiladi — sahifani bir daqiqadan keyin yangilang.": { ru: "Оплата проверяется. Подписка откроется автоматически после подтверждения платёжной системой — обновите страницу через минуту.", en: "Your payment is being checked. The subscription opens automatically once the payment system confirms it — refresh the page in a minute." },
+  "{provider} orqali to‘lash": { ru: "Оплатить через {provider}", en: "Pay with {provider}" },
+  "Karta ma’lumotlari to‘lov tizimi sahifasida kiritiladi — VIZAR AI ularni ko‘rmaydi va saqlamaydi. Obuna viza berilishini kafolatlamaydi.": { ru: "Данные карты вводятся на странице платёжной системы — VIZAR AI их не видит и не хранит. Подписка не гарантирует выдачу визы.", en: "Card details are entered on the payment system's page — VIZAR AI never sees or stores them. A subscription doesn't guarantee a visa." },
+  "Onlayn to‘lov hozircha ulanmagan.": { ru: "Онлайн-оплата пока не подключена.", en: "Online payment isn't connected yet." },
+  "To‘lovni boshlab bo‘lmadi. Birozdan keyin qayta urinib ko‘ring.": { ru: "Не удалось начать оплату. Попробуйте чуть позже.", en: "Couldn't start the payment. Please try again shortly." },
+  "Juda ko‘p urinish. Birozdan keyin qayta urinib ko‘ring.": { ru: "Слишком много попыток. Попробуйте чуть позже.", en: "Too many attempts. Please try again shortly." },
+
   /* Overview 2.0 */
   "Hujjat yuklash vaqtincha yopiq.": { ru: "Загрузка документов временно закрыта.", en: "Document upload is temporarily closed." },
   "Yuklash vaqtincha yopiq": { ru: "Загрузка временно закрыта", en: "Upload temporarily closed" },
