@@ -2,7 +2,9 @@ import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { rateLimit } from "@/lib/rate-limit";
-import { AI_NOTICES, resolveAiMode } from "@/lib/ai/mode";
+import { AI_NOTICES, ANSWER_MODEL, resolveAiMode } from "@/lib/ai/mode";
+import { CLAUDE_DENIED_NOTICE, cancelClaude, finishClaude, reserveClaude } from "@/lib/ai/beta";
+import { claudeCost } from "@/lib/ai/pricing";
 import { searchKnowledge } from "@/lib/knowledge/search";
 import { assembleAnswer, buildContext, createAnswerStream } from "@/lib/knowledge/answer";
 import { buildReferences, mockAnswer, previewAnswer, retrievalAnswer } from "@/lib/knowledge/offline";
@@ -23,8 +25,11 @@ const pause = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
  * Signed-in users only, 20 questions per 10 minutes.
  *
  * The answer generator follows resolveAiMode() (src/lib/ai/mode.ts):
- *   live — Claude; if the API fails (no credit, bad key, outage) the
- *          user still gets the book passages instead of an error
+ *   live — Claude, for AI beta users only (src/lib/ai/beta.ts: invited,
+ *          20 requests a day, monthly budget); everyone else, and a beta
+ *          user past a limit, gets the book passages with a notice. If the
+ *          API fails (no credit, bad key, outage) the user still gets the
+ *          book passages instead of an error
  *   mock — development-only canned answer, streamed like the real one
  *   off  — book passages and official sources only; no paid call is made
  *
@@ -86,14 +91,28 @@ export async function POST(request: Request) {
           return;
         }
 
+        const ticket = await reserveClaude(user.id, "kb_answer", ANSWER_MODEL);
+        if (!ticket.ok) {
+          send({ type: "references", references: buildReferences(result) });
+          send({ type: "final", mode: "retrieval", notice: CLAUDE_DENIED_NOTICE[ticket.reason], ...retrievalAnswer(result) });
+          return;
+        }
+
         const { references, blocks } = buildContext(result);
         send({ type: "references", references });
         try {
           const answer = createAnswerStream(new Anthropic(), question, blocks);
           answer.on("text", (text) => send({ type: "delta", text }));
           const message = await answer.finalMessage();
+          await finishClaude(ticket, {
+            model: message.model,
+            inputTokens: message.usage.input_tokens,
+            outputTokens: message.usage.output_tokens,
+            costUsd: claudeCost(message.model, message.usage),
+          });
           send({ type: "final", mode: "ai", ...assembleAnswer(message, references) });
         } catch (error) {
+          await cancelClaude(ticket);
           // No credit, revoked key, rate limit or outage: degrade to the free answer.
           if (error instanceof Anthropic.APIError) {
             console.error("[kb-ask] Anthropic API error", error.status, error.message);

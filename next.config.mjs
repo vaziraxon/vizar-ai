@@ -61,14 +61,15 @@ const nextConfig = {
       { source: "/fonts/:file*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
       // Basic hardening for every page: no MIME sniffing, no framing by other
       // sites (clickjacking), no full URLs leaked to other sites, and no
-      // camera/microphone/location access (no feature uses them).
+      // camera/location access. The microphone is allowed for this site only
+      // (the AI beta voice interview asks for it); never for embedded frames.
       {
         source: "/:path*",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(self), geolocation=()" },
           { key: "Content-Security-Policy-Report-Only", value: contentSecurityPolicy },
           { key: "Reporting-Endpoints", value: 'csp="/api/csp-report"' },
         ],
